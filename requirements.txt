@@ -1,0 +1,11 @@
+pandas
+tqdm
+albumentations
+monai
+nltk
+torch
+
+torchvision
+transformers
+openpyxl
+segmentation-models-pytorch
