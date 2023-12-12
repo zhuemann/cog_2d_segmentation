@@ -123,8 +123,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     #ngram_synonom = pd.read_excel(ngram_synonom_path, engine='openpyxl')
 
 
-    #bert_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
-    bert_path = os.path.join(dir_base, 'Zach_Analysis/models/roberta_pretrained_v3')
+    bert_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
+    #bert_path = os.path.join(dir_base, 'Zach_Analysis/models/roberta_pretrained_v3')
     tokenizer = AutoTokenizer.from_pretrained(bert_path)
     language_model = RobertaModel.from_pretrained(bert_path, output_hidden_states=True)
     #language_model = None
@@ -226,7 +226,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     if using_t5:
         albu_augs = albu.Compose([
             #albu.RandomCrop(height = 256, width=256, always_apply=True),    #take out later
-            albu.OneOf([
+            """albu.OneOf([
                 albu.RandomContrast(),
                 albu.RandomGamma(),
                 albu.RandomBrightness(),
@@ -237,6 +237,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 albu.ElasticTransform(alpha=120, sigma=120 * 0.05, alpha_affine=120 * 0.03)
             ], p=.3),
             albu.ShiftScaleRotate()
+            """
         ])
 
 
@@ -442,9 +443,9 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         training_dice = []
         gc.collect()
         torch.cuda.empty_cache()
-        if epoch > 300:
-            for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
-                param.requires_grad = True
+        #if epoch > 300:
+        #    for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
+        #        param.requires_grad = True
 
         loss_list = []
         #print(scheduler.get_lr())
