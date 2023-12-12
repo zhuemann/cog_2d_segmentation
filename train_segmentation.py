@@ -491,8 +491,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
                 #outputs = model_obj(images)
                 #outputs = test_obj(images, ids, mask)  # for lavt
-                outputs = test_obj(images, ids, mask, token_type_ids)
-                #outputs = test_obj(images)
+                #outputs = test_obj(images, ids, mask, token_type_ids)
+                outputs = test_obj(images)
 
                 outputs = output_resize(torch.squeeze(outputs, dim=1))
                 #outputs = torch.squeeze(outputs)
