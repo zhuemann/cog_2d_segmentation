@@ -4,10 +4,7 @@ import torch.nn.functional as F
 
 from torch import Tensor
 from typing import Tuple
-
-from .LanguageCrossAttention import LangCrossAtt
-
-from visualization_attention import visualization_attention
+#from visualization_attention import visualization_attention
 
 
 class Attention_ConTEXTual_Vis_Seg_Model(torch.nn.Module):
@@ -28,7 +25,6 @@ class Attention_ConTEXTual_Vis_Seg_Model(torch.nn.Module):
 
         self.up1 = Up(1024, bilinear)
         self.attention1 = Attention_block(512, 512, 256)
-        self.lang_attn = LangCrossAtt(emb_dim=1024)
         self.up_conv1 = DoubleConv(1024, 512)
 
         self.up2 = Up(512, bilinear)
@@ -44,15 +40,6 @@ class Attention_ConTEXTual_Vis_Seg_Model(torch.nn.Module):
         self.up_conv4 = DoubleConv(128, 64)
 
         self.outc = OutConv(64, n_classes)
-
-        self.lang_proj1 = nn.Linear(1024, 512)
-        self.lang_attn1 = LangCrossAtt(emb_dim=512)
-        self.lang_proj2 = nn.Linear(1024, 256)
-        self.lang_attn2 = LangCrossAtt(emb_dim=256)
-        self.lang_proj3 = nn.Linear(1024, 128)
-        self.lang_attn3 = LangCrossAtt(emb_dim=128)
-        self.lang_proj4 = nn.Linear(1024, 64)
-        self.lang_attn4 = LangCrossAtt(emb_dim=64)
 
     def forward(self, img, ids, mask, token_type_ids):
         # print(f"size img: {img.size()}")
