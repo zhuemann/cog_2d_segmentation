@@ -26,6 +26,7 @@ import segmentation_models_pytorch as smp
 from models.ConTextual_seg_lang_model import Attention_ConTEXTual_Lang_Seg_Model
 from utility import mask2rle
 
+import torch.nn.functional as F
 
 
 #from PIL import Image
@@ -44,6 +45,29 @@ from utility import dice_coeff
 import ssl
 import nltk
 ssl.SSLContext.verify_mode = ssl.VerifyMode.CERT_OPTIONAL
+
+
+# PyTorch
+class DiceBCELoss(nn.Module):
+    def __init__(self, weight=None, size_average=True):
+        super(DiceBCELoss, self).__init__()
+
+    def forward(self, inputs, targets, smooth=1):
+        # comment out if your model contains a sigmoid or equivalent activation layer
+        inputs = F.sigmoid(inputs)
+
+        # flatten label and prediction tensors
+        inputs = inputs.view(-1)
+        targets = targets.view(-1)
+
+        intersection = (inputs * targets).sum()
+        dice_loss = 1 - (2. * intersection + smooth) / (inputs.sum() + targets.sum() + smooth)
+        BCE = F.binary_cross_entropy(inputs, targets, reduction='mean')
+        Dice_BCE = BCE + dice_loss
+
+        return Dice_BCE
+
+
 
 
 def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/home/zmh001/r-fcb-isilon/research/Bradshaw/", n_classes = 2):
@@ -377,8 +401,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     print(f"Total Parameters: {total_params}")
 
     #print("need to unfreeze lang params")
-    for param in language_model.parameters():
-        param.requires_grad = False
+    #for param in language_model.parameters():
+    #    param.requires_grad = False
 
     num_unfrozen_layers = 2  # Replace N with the number of layers you want to unfreeze
     #for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
@@ -388,7 +412,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
     test_obj.to(device)
 
-    criterion = nn.BCEWithLogitsLoss()
+    #criterion = nn.BCEWithLogitsLoss()
+    criterion = DiceBCELoss()
 
     # defines which optimizer is being used
     optimizer = torch.optim.AdamW(params=test_obj.parameters(), lr=LR)
