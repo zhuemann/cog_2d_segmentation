@@ -15,7 +15,7 @@ import numpy as np
 import gc
 import albumentations as albu
 
-#import monai
+import monai
 from timm.models.swin_transformer import SwinTransformer
 #from models.swin_model import SwinModel
 #from transformers import SwinConfig, SwinModel
@@ -342,14 +342,14 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     #test_obj = SwinModel(backbone=model)
 
     #test_obj = monai.networks.nets.SwinUNETR(img_size=(1024, 1024), in_channels= 3, out_channels = 1, depths=(2, 2, 2, 2), num_heads=(3, 6, 12, 24), feature_size=24, norm_name='instance', drop_rate=0.1, attn_drop_rate=0.0, dropout_path_rate=0.0, normalize=True, use_checkpoint=False, spatial_dims=2, downsample='merging', use_v2=False)
-    #test_obj = monai.networks.nets.DynUNet(spatial_dims=2, in_channels=3, out_channels=1, kernel_size = (3,3,3,3,3), strides=(2,2,2,2,2), upsample_kernel_size = (2, 2, 2, 2), filters=None, dropout=0.1, norm_name=('INSTANCE', {'affine': True}), act_name=('leakyrelu', {'inplace': True, 'negative_slope': 0.01}), deep_supervision=False, deep_supr_num=1, res_block=False, trans_bias=False)
+    test_obj = monai.networks.nets.DynUNet(spatial_dims=2, in_channels=3, out_channels=1, kernel_size = (3,3,3,3,3), strides=(2,2,2,2,2), upsample_kernel_size = (2, 2, 2, 2), filters=None, dropout=0.1, norm_name=('INSTANCE', {'affine': True}), act_name=('leakyrelu', {'inplace': True, 'negative_slope': 0.01}), deep_supervision=False, deep_supr_num=1, res_block=False, trans_bias=False)
     #test_obj = monai.networks.nets.BasicUNet(spatial_dims=3, in_channels=1, out_channels=2, features=(32, 32, 64, 128, 256, 32), act=('LeakyReLU', {'inplace': True, 'negative_slope': 0.1}), norm=('instance', {'affine': True}), bias=True, dropout=0.0, upsample='deconv')
 
     #weight = torch.load("/UserData/Zach_Analysis/models/swin/model_swinvit.pt")
     #test_obj.load_from(weights=weight)
     #print("Using pretrained self-supervied Swin UNETR backbone weights !")
     # was this one before coming back 3/20
-    test_obj = Attention_ConTEXTual_Lang_Seg_Model(lang_model=language_model, n_channels=3, n_classes=1, bilinear=False)
+    #test_obj = Attention_ConTEXTual_Lang_Seg_Model(lang_model=language_model, n_channels=3, n_classes=1, bilinear=False)
 
     #test_obj = Attention_ConTEXTual_Vis_Seg_Model(n_channels=3, n_classes=1, bilinear=False)
     #test_obj = smp.Unet(encoder_name="resnet50", encoder_weights=None, in_channels=3, classes=1)
