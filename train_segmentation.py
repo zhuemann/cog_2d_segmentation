@@ -404,7 +404,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     #for param in language_model.parameters():
     #    param.requires_grad = False
 
-    num_unfrozen_layers = 2  # Replace N with the number of layers you want to unfreeze
+    num_unfrozen_layers = 1  # Replace N with the number of layers you want to unfreeze
     #for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
     #    param.requires_grad = True
 
@@ -442,9 +442,9 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         training_dice = []
         gc.collect()
         torch.cuda.empty_cache()
-        #if epoch > 0:
-        #    for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
-        #        param.requires_grad = True
+        if epoch > 300:
+            for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
+                param.requires_grad = True
 
         loss_list = []
         #print(scheduler.get_lr())
