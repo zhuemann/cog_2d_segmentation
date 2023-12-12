@@ -15,7 +15,7 @@ import numpy as np
 import gc
 import albumentations as albu
 
-import monai
+#import monai
 from timm.models.swin_transformer import SwinTransformer
 #from models.swin_model import SwinModel
 #from transformers import SwinConfig, SwinModel
