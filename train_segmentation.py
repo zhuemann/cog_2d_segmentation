@@ -99,8 +99,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     #ngram_synonom = pd.read_excel(ngram_synonom_path, engine='openpyxl')
 
 
-    #bert_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
-    bert_path = os.path.join(dir_base, 'Zach_Analysis/models/roberta_pretrained_v3')
+    bert_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
+    #bert_path = os.path.join(dir_base, 'Zach_Analysis/models/roberta_pretrained_v3')
     tokenizer = AutoTokenizer.from_pretrained(bert_path)
     language_model = RobertaModel.from_pretrained(bert_path, output_hidden_states=True)
     #language_model = None
@@ -377,8 +377,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     print(f"Total Parameters: {total_params}")
 
     #print("need to unfreeze lang params")
-    #for param in language_model.parameters():
-    #    param.requires_grad = False
+    for param in language_model.parameters():
+        param.requires_grad = False
 
     num_unfrozen_layers = 2  # Replace N with the number of layers you want to unfreeze
     #for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
