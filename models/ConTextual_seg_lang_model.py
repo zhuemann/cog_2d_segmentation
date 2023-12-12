@@ -47,7 +47,7 @@ class Attention_ConTEXTual_Lang_Seg_Model(torch.nn.Module):
 
         self.outc = OutConv(64, n_classes)
 
-        lang_dimension = 1024
+        lang_dimension = 768
         self.lang_proj1 = nn.Linear(lang_dimension, 512)
         self.lang_attn1 = LangCrossAtt(emb_dim=512)
         self.lang_proj2 = nn.Linear(lang_dimension, 256)
