@@ -33,7 +33,7 @@ class TextImageDataset(Dataset):
         self.df_data = dataframe.values
         self.transforms = transforms
         self.mode = mode
-        self.data_path = os.path.join(dir_base, "Zach_Analysis\\cog_data_splits\\mips\\")
+        self.data_path = os.path.join(dir_base, "Zach_Analysis/cog_data_splits/mips/")
         self.dir_base = dir_base
         self.resize = resize
         self.norm = norm
