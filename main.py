@@ -22,12 +22,12 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 8, "dir_base": directory_base, "epochs": 100, "n_classes": 2, "LR": 1e-3,
+    config = {"seed": 1, "batch_size": 8, "dir_base": directory_base, "epochs": 1000, "n_classes": 2, "LR": 1e-3,
               "IMG_SIZE": (128,256), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/",
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": ""}
 
 
-    seeds = [98, 117, 295, 456, 915]
+    seeds = [98]
     # seeds = [98, 117, 295, 456]
     # seeds = [915]
     # seeds = [456]
