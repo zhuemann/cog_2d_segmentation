@@ -26,7 +26,7 @@ if __name__ == '__main__':
               "IMG_SIZE": (128,256), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/",
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": ""}
 
-
+    print("here")
     seeds = [98]
     # seeds = [98, 117, 295, 456]
     # seeds = [915]
