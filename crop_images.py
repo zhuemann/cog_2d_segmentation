@@ -142,7 +142,7 @@ def crop_images_to_mips():
     for file in files:
         print(i)
 
-        pet_path = os.path.join(image_path, file[:-7], "_0000.nii.gz")
+        pet_path = os.path.join(image_path, str(file[:-7]) + "_0000.nii.gz")
         pet_img = nib.load(pet_path)
         pet_img = resample_nifti_image(pet_img)
 
