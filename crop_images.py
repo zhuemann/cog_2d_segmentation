@@ -159,7 +159,7 @@ def crop_images_to_mips():
         #    print(initial_sum)
         #    print(cropped_sum)
         #    print(file)
-        mip_sagittal = np.max(volume_data, axis=0)
+        mip_sagittal = np.max(volume_data, axis=0) # sagittal
         save_2d_image_lossless(mip_sagittal, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/sagittal/label/" + file_name + "_label_sagittal.png") # sagittal
 
         mip_coronal = np.max(volume_data, axis=1) # coronial
