@@ -116,10 +116,11 @@ def save_2d_image_lossless(image, file_name):
 
 def crop_images_to_mips():
 
-    path = "/UserData/Xin/Monai_Auto3dSeg/COG_lymph_seg/Auto3dseg/data/COG/labelsTr"
+    image_path = "/UserData/Xin/Monai_Auto3dSeg/COG_lymph_seg/Auto3dseg/data/COG/imagesTr"
+    label_path = "/UserData/Xin/Monai_Auto3dSeg/COG_lymph_seg/Auto3dseg/data/COG/labelsTr"
     files = []
     try:
-        files = os.listdir(path)
+        files = os.listdir(label_path)
     except FileNotFoundError:
         print("folder not found")
     # print(files)
@@ -140,9 +141,13 @@ def crop_images_to_mips():
     i = 0
     for file in files:
         print(i)
-        # if i == 3:
-        #    break
-        file_path = os.path.join(path, file)
+
+        pet_path = os.path.join(image_path, file[:-7], "_0000.nii.gz")
+        pet_img = nib.load(pet_path)
+        pet_img = resample_nifti_image(pet_img)
+
+
+        file_path = os.path.join(label_path, file)
         img = nib.load(file_path)
         resampled_img = resample_nifti_image(img)
         file_name = file[:-7]
@@ -153,12 +158,15 @@ def crop_images_to_mips():
 
         center = center_of_furthest_pixels(volume_data)
         cropped_img = center_crop_and_pad_nifti_image(img, target_shape=(128, 128, 256), center_point=center)
+        cropped_pet = center_crop_and_pad_nifti_image(pet_img, target_shape=(128, 128, 256), center_point=center)
         #cropped_sum = np.sum(cropped_img.get_fdata())
         volume_data = cropped_img.get_fdata()
+        pet_volume = cropped_pet.get_fdata()
         #if initial_sum != cropped_sum:
         #    print(initial_sum)
         #    print(cropped_sum)
         #    print(file)
+        #save off label mips
         mip_sagittal = np.max(volume_data, axis=0) # sagittal
         save_2d_image_lossless(mip_sagittal, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/sagittal/label/" + file_name + "_label_sagittal.png") # sagittal
 
@@ -167,4 +175,18 @@ def crop_images_to_mips():
 
         mip_axial = np.max(volume_data, axis=2) # axial
         save_2d_image_lossless(mip_axial, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/axial/label/" + file_name +  "_label_axial.png") #
+
+        # save off pet mips
+        mip_sagittal_pet = np.max(pet_volume, axis=0)  # sagittal
+        save_2d_image_lossless(mip_sagittal_pet, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/sagittal/image/" + file_name + "_pet_sagittal.png")  # sagittal
+
+        mip_coronal_pet = np.max(pet_volume, axis=1)  # coronial
+        save_2d_image_lossless(mip_coronal_pet, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/coronal/image/" + file_name + "_pet_coronal.png")  #
+
+        mip_axial_pet = np.max(pet_volume, axis=2)  # axial
+        save_2d_image_lossless(mip_axial_pet, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/axial/image/" + file_name + "_pet_axial.png")  #
+
+
+
+
         i += 1
