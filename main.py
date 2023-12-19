@@ -10,12 +10,14 @@ import argparse
 
 
 from train_segmentation import train_image_text_segmentation
-
+from crop_images import crop_images_to_mips
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
+    crop_images_to_mips()
+    print(fail)
     local = False
     if local:
         directory_base = "Z:/"
