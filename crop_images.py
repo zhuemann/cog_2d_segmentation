@@ -117,6 +117,7 @@ def save_2d_image_lossless(image, file_name):
 def crop_images_to_mips():
 
     path = "Z:/Xin/Monai_Auto3dSeg/COG_lymph_seg/Auto3dseg/data/COG/labelsTr"
+    files = []
     try:
         files = os.listdir(path)
     except FileNotFoundError:
