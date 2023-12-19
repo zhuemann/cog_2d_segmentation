@@ -149,16 +149,16 @@ def crop_images_to_mips():
         volume_data = resampled_img.get_fdata()
         #volume_data = img.get_fdata()
 
-        initial_sum = np.sum(volume_data)
+        #initial_sum = np.sum(volume_data)
 
         center = center_of_furthest_pixels(volume_data)
         cropped_img = center_crop_and_pad_nifti_image(img, target_shape=(128, 128, 256), center_point=center)
-        cropped_sum = np.sum(cropped_img.get_fdata())
-
-        if initial_sum != cropped_sum:
-            print(initial_sum)
-            print(cropped_sum)
-            print(file)
+        #cropped_sum = np.sum(cropped_img.get_fdata())
+        volume_data = cropped_img.get_fdata()
+        #if initial_sum != cropped_sum:
+        #    print(initial_sum)
+        #    print(cropped_sum)
+        #    print(file)
         mip_sagittal = np.max(volume_data, axis=0)
         save_2d_image_lossless(mip_sagittal, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/sagittal/label/" + file_name + "_label_sagittal.png") # sagittal
 
