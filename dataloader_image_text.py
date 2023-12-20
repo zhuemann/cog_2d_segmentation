@@ -95,9 +95,11 @@ class TextImageDataset(Dataset):
         try:
             #DCM_Img = pdcm.read_file(img_path)
             #img_raw = DCM_Img.pixel_array
-            img_raw[img_raw > 10] = 10
-            img_norm = img_raw * (255 / np.amax(img_raw))  # puts the highest value at 255
-            img = np.uint8(img_norm)
+            #img_raw[img_raw > 10] = 10
+            #img_norm = img_raw * (255 / np.amax(img_raw))  # puts the highest value at 255
+            #img = np.uint8(img_norm)
+
+            img = img_raw
 
         except:
             print("can't open image")
