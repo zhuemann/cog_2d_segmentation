@@ -186,7 +186,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     test_df.to_excel(test_dataframe_location, index=True)
     """
     data_base_path = os.path.join(dir_base, "Zach_Analysis/cog_data_splits/mip_dataframe/")
-    train_df = pd.read_excel(data_base_path + "baseline_training_validation_frame_coronal.xlsx", index_col="image")
+    train_df = pd.read_excel(data_base_path + "baseline_training_validation_cropped_sagittal.xlsx", index_col="image")
     # Splits the data into 80% train and 20% valid and test sets
     train_df, test_valid_df = model_selection.train_test_split(
         train_df, train_size=.85, random_state=seed, shuffle=True  # stratify=df.label.values
