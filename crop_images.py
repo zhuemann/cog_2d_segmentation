@@ -40,6 +40,7 @@ def center_crop_and_pad_nifti_image(nifti_image, target_shape=(128, 128, 256), c
 
     # Pad the image
     cropped_padded_img = np.pad(cropped_img, pad_width, mode='constant', constant_values=0)
+    print(f"inside crop sum: {np.sum(cropped_padded_img)}")
 
     # Create a new NIfTI image
     new_img = nib.Nifti1Image(cropped_padded_img, nifti_image.affine, header=nifti_image.header)
