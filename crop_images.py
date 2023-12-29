@@ -149,7 +149,7 @@ def crop_images_to_mips():
 
         file_path = os.path.join(label_path, file)
         img = nib.load(file_path)
-        print(f"untouched labeled sum: {np.sum(img)}")
+        print(f"untouched labeled sum: {np.sum(img.get_fdata())}")
 
         resampled_img = resample_nifti_image(img)
         file_name = file[:-7]
