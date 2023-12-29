@@ -167,7 +167,9 @@ def crop_images_to_mips():
         #print(f"after cropping sum: {np.sum(cropped_img)}")
         print(f"full 3d label before round sum: {np.sum(cropped_label)}")
 
-        cropped_label[cropped_label > .5] = 1
+        cropped_label[cropped_label >= .5] = 1
+        cropped_label[cropped_label < .5] = 0
+
 
 
         #cropped_pet = center_crop_and_pad_nifti_image(pet_img, target_shape=(128, 128, 256), center_point=center)
