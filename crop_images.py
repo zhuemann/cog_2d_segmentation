@@ -155,27 +155,31 @@ def crop_images_to_mips():
 
         resampled_label = resample_nifti_image(label)
         file_name = file[:-7]
-        volume_data = resampled_label.get_fdata()
-        print(f"resampled labeled sum: {np.sum(volume_data)}")
+        volume_data_label = resampled_label.get_fdata()
+        print(f"resampled labeled sum: {np.sum(volume_data_label)}")
 
         #volume_data = img.get_fdata()
 
         #initial_sum = np.sum(volume_data)
 
-        center = center_of_furthest_pixels(volume_data)
+        center = center_of_furthest_pixels(volume_data_label)
         cropped_label = center_crop_and_pad_nifti_image(resampled_label, target_shape=(128, 128, 256), center_point=center)
         #print(f"after cropping sum: {np.sum(cropped_img)}")
+        print(f"full 3d label before round sum: {np.sum(cropped_label)}")
+
+        cropped_label[cropped_label > .5] = 1
+
 
         #cropped_pet = center_crop_and_pad_nifti_image(pet_img, target_shape=(128, 128, 256), center_point=center)
 
         #volume_data = cropped_img.get_fdata()
         #pet_volume = cropped_pet.get_fdata()
-        print(f"full 3d label sum: {np.sum(cropped_label)}")
+        print(f"full 3d label after round sum: {np.sum(cropped_label)}")
 
         label_data = cropped_label
         #pet_volume = cropped_pet
         print(type(label_data))
-        print(f"max value in label: {np.max(volume_data)}")
+        print(f"max value in label: {np.max(cropped_label)}")
         #if initial_sum != cropped_sum:
         #    print(initial_sum)
         #    print(cropped_sum)
