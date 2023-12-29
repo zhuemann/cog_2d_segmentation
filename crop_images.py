@@ -170,7 +170,7 @@ def crop_images_to_mips():
 
         #volume_data = cropped_img.get_fdata()
         #pet_volume = cropped_pet.get_fdata()
-        print(f"full 3d label sum: {np.sum(volume_data)}")
+        print(f"full 3d label sum: {np.sum(cropped_img)}")
 
         volume_data = cropped_img
         pet_volume = cropped_pet
