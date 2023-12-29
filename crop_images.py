@@ -9,7 +9,7 @@ from PIL import Image
 def center_crop_and_pad_nifti_image(nifti_image, target_shape=(128, 128, 256), center_point=None):
     # Load the image data
     img_data = nifti_image.get_fdata()
-
+    print(f"sum early on in cropped function: {np.sum(img_data)}")
     # Use the provided center point or calculate the center of the image
     if center_point is None:
         center_point = tuple(s // 2 for s in img_data.shape)
@@ -166,7 +166,7 @@ def crop_images_to_mips():
         cropped_img = center_crop_and_pad_nifti_image(img, target_shape=(128, 128, 256), center_point=center)
         #print(f"after cropping sum: {np.sum(cropped_img)}")
 
-        cropped_pet = center_crop_and_pad_nifti_image(pet_img, target_shape=(128, 128, 256), center_point=center)
+        #cropped_pet = center_crop_and_pad_nifti_image(pet_img, target_shape=(128, 128, 256), center_point=center)
 
         #volume_data = cropped_img.get_fdata()
         #pet_volume = cropped_pet.get_fdata()
