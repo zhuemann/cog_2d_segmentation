@@ -162,7 +162,7 @@ def crop_images_to_mips():
 
         center = center_of_furthest_pixels(volume_data)
         cropped_img = center_crop_and_pad_nifti_image(img, target_shape=(128, 128, 256), center_point=center)
-        print(f"after cropping sum: {np.sum(cropped_img)}")
+        #print(f"after cropping sum: {np.sum(cropped_img)}")
 
         cropped_pet = center_crop_and_pad_nifti_image(pet_img, target_shape=(128, 128, 256), center_point=center)
         #cropped_sum = np.sum(cropped_img.get_fdata())
