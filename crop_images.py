@@ -9,7 +9,6 @@ from PIL import Image
 def center_crop_and_pad_nifti_image(nifti_image, target_shape=(128, 128, 256), center_point=None):
     # Load the image data
     img_data = nifti_image.get_fdata()
-    print(f"sum early on in cropped function: {np.sum(img_data)}")
     # Use the provided center point or calculate the center of the image
     if center_point is None:
         center_point = tuple(s // 2 for s in img_data.shape)
@@ -40,7 +39,6 @@ def center_crop_and_pad_nifti_image(nifti_image, target_shape=(128, 128, 256), c
 
     # Pad the image
     cropped_padded_img = np.pad(cropped_img, pad_width, mode='constant', constant_values=0)
-    print(f"inside crop sum: {np.sum(cropped_padded_img)}")
 
     return cropped_padded_img
     # Create a new NIfTI image
@@ -144,58 +142,43 @@ def crop_images_to_mips():
     for file in files:
         print(i)
 
-        pet_path = os.path.join(image_path, str(file[:-7]) + "_0000.nii.gz")
-        pet_img = nib.load(pet_path)
-        pet_img = resample_nifti_image(pet_img)
+        #pet_path = os.path.join(image_path, str(file[:-7]) + "_0000.nii.gz")
+        #pet_img = nib.load(pet_path)
+        #pet_img = resample_nifti_image(pet_img)
 
 
         file_path = os.path.join(label_path, file)
         label = nib.load(file_path)
-        print(f"untouched labeled sum: {np.sum(label.get_fdata())}")
-
+        #print(f"untouched labeled sum: {np.sum(label.get_fdata())}")
         resampled_label = resample_nifti_image(label)
         file_name = file[:-7]
         volume_data_label = resampled_label.get_fdata()
-        print(f"resampled labeled sum: {np.sum(volume_data_label)}")
-
-        #volume_data = img.get_fdata()
-
-        #initial_sum = np.sum(volume_data)
+        #print(f"resampled labeled sum: {np.sum(volume_data_label)}")
 
         center = center_of_furthest_pixels(volume_data_label)
         cropped_label = center_crop_and_pad_nifti_image(resampled_label, target_shape=(128, 128, 256), center_point=center)
-        #print(f"after cropping sum: {np.sum(cropped_img)}")
-        print(f"full 3d label before round sum: {np.sum(cropped_label)}")
 
+        # Rounding the labels to 0 or 1 after resampling and cropping
         cropped_label[cropped_label >= .5] = 1
         cropped_label[cropped_label < .5] = 0
-
-
 
         #cropped_pet = center_crop_and_pad_nifti_image(pet_img, target_shape=(128, 128, 256), center_point=center)
 
         #volume_data = cropped_img.get_fdata()
         #pet_volume = cropped_pet.get_fdata()
-        print(f"full 3d label after round sum: {np.sum(cropped_label)}")
 
         label_data = cropped_label
         #pet_volume = cropped_pet
-        print(type(label_data))
-        print(f"max value in label: {np.max(cropped_label)}")
-        #if initial_sum != cropped_sum:
-        #    print(initial_sum)
-        #    print(cropped_sum)
-        #    print(file)
+
         #save off label mips
         mip_sagittal_label = np.max(label_data, axis=0) # sagittal
-        print(f"saved sum: {np.sum(mip_sagittal_label)}")
-        #save_2d_image_lossless(mip_sagittal_label, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/sagittal/label/" + file_name + "_label_sagittal.png") # sagittal
+        save_2d_image_lossless(mip_sagittal_label, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/sagittal/label/" + file_name + "_label_sagittal.png") # sagittal
 
-        mip_coronal = np.max(label_data, axis=1) # coronial
-        #save_2d_image_lossless(mip_coronal_label, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/coronal/label" + file_name + "_label_coronal.png") #
+        mip_coronal_label = np.max(label_data, axis=1) # coronial
+        save_2d_image_lossless(mip_coronal_label, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/coronal/label" + file_name + "_label_coronal.png") #
 
-        mip_axial = np.max(label_data, axis=2) # axial
-        #save_2d_image_lossless(mip_axial_label, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/axial/label/" + file_name +  "_label_axial.png") #
+        mip_axial_label = np.max(label_data, axis=2) # axial
+        save_2d_image_lossless(mip_axial_label, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/axial/label/" + file_name +  "_label_axial.png") #
 
         # save off pet mips
         #mip_sagittal_pet = np.max(pet_volume, axis=0)  # sagittal
