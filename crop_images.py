@@ -174,6 +174,8 @@ def crop_images_to_mips():
 
         volume_data = cropped_img
         pet_volume = cropped_pet
+        print(type(volume_data))
+        print(f"max value in label: {np.max(volume_data)}")
         #if initial_sum != cropped_sum:
         #    print(initial_sum)
         #    print(cropped_sum)
