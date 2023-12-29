@@ -244,7 +244,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
 
     # emprically the good augmentations, taken from kaggle winner
-    vision_only = False
+    vision_only = True
     if vision_only:
         albu_augs = albu.Compose([
             #albu.HorizontalFlip(p=.5),
