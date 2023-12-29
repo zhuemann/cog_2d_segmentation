@@ -190,7 +190,4 @@ def crop_images_to_mips():
         #mip_axial_pet = np.max(pet_volume, axis=2)  # axial
         #save_2d_image_lossless(mip_axial_pet, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/axial/image/" + file_name + "_pet_axial.png")  #
 
-
-
-
         i += 1
