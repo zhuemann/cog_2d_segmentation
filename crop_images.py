@@ -173,7 +173,7 @@ def crop_images_to_mips():
         print(f"full 3d label sum: {np.sum(cropped_img)}")
 
         volume_data = cropped_img
-        pet_volume = cropped_pet
+        #pet_volume = cropped_pet
         print(type(volume_data))
         print(f"max value in label: {np.max(volume_data)}")
         #if initial_sum != cropped_sum:
@@ -192,13 +192,13 @@ def crop_images_to_mips():
         #save_2d_image_lossless(mip_axial, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/axial/label/" + file_name +  "_label_axial.png") #
 
         # save off pet mips
-        mip_sagittal_pet = np.max(pet_volume, axis=0)  # sagittal
+        #mip_sagittal_pet = np.max(pet_volume, axis=0)  # sagittal
         #save_2d_image_lossless(mip_sagittal_pet, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/sagittal/image/" + file_name + "_pet_sagittal.png")  # sagittal
 
-        mip_coronal_pet = np.max(pet_volume, axis=1)  # coronial
+        #mip_coronal_pet = np.max(pet_volume, axis=1)  # coronial
         #save_2d_image_lossless(mip_coronal_pet, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/coronal/image/" + file_name + "_pet_coronal.png")  #
 
-        mip_axial_pet = np.max(pet_volume, axis=2)  # axial
+        #mip_axial_pet = np.max(pet_volume, axis=2)  # axial
         #save_2d_image_lossless(mip_axial_pet, "/UserData/Zach_Analysis/cog_data_splits/mips/cropped_mips/axial/image/" + file_name + "_pet_axial.png")  #
 
 
