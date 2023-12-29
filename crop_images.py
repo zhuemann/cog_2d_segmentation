@@ -149,10 +149,12 @@ def crop_images_to_mips():
 
         file_path = os.path.join(label_path, file)
         img = nib.load(file_path)
+        print(f"untouched labeled sum: {np.sum(img)}")
+
         resampled_img = resample_nifti_image(img)
         file_name = file[:-7]
         volume_data = resampled_img.get_fdata()
-        print(f"untouched labeled sum: {np.sum(volume_data)}")
+        print(f"resampled labeled sum: {np.sum(volume_data)}")
 
         #volume_data = img.get_fdata()
 
@@ -160,9 +162,13 @@ def crop_images_to_mips():
 
         center = center_of_furthest_pixels(volume_data)
         cropped_img = center_crop_and_pad_nifti_image(img, target_shape=(128, 128, 256), center_point=center)
+        print(f"after cropping sum: {np.sum(cropped_img)}")
+
         cropped_pet = center_crop_and_pad_nifti_image(pet_img, target_shape=(128, 128, 256), center_point=center)
         #cropped_sum = np.sum(cropped_img.get_fdata())
         volume_data = cropped_img.get_fdata()
+        print(f"full 3d label sum: {np.sum(volume_data)}")
+
         pet_volume = cropped_pet.get_fdata()
         #if initial_sum != cropped_sum:
         #    print(initial_sum)
