@@ -249,11 +249,11 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         albu_augs = albu.Compose([
             #albu.HorizontalFlip(p=.5),
             #albu.CLAHE(),
-            albu.OneOf([
-                albu.RandomContrast(),
-                albu.RandomGamma(),
-                albu.RandomBrightness(),
-            ], p=.3),
+            #albu.OneOf([
+            #    albu.RandomContrast(),
+            #    albu.RandomGamma(),
+            #    albu.RandomBrightness(),
+            #], p=.3),
             albu.OneOf([
                 albu.ElasticTransform(alpha=120, sigma=120 * 0.05, alpha_affine=120 * 0.03),
                 albu.GridDistortion(),
