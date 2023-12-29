@@ -42,10 +42,11 @@ def center_crop_and_pad_nifti_image(nifti_image, target_shape=(128, 128, 256), c
     cropped_padded_img = np.pad(cropped_img, pad_width, mode='constant', constant_values=0)
     print(f"inside crop sum: {np.sum(cropped_padded_img)}")
 
+    return cropped_padded_img
     # Create a new NIfTI image
-    new_img = nib.Nifti1Image(cropped_padded_img, nifti_image.affine, header=nifti_image.header)
+    #new_img = nib.Nifti1Image(cropped_padded_img, nifti_image.affine, header=nifti_image.header)
 
-    return new_img
+    #return new_img
 
 
 def center_of_furthest_pixels(volume):
@@ -166,11 +167,13 @@ def crop_images_to_mips():
         #print(f"after cropping sum: {np.sum(cropped_img)}")
 
         cropped_pet = center_crop_and_pad_nifti_image(pet_img, target_shape=(128, 128, 256), center_point=center)
-        #cropped_sum = np.sum(cropped_img.get_fdata())
-        volume_data = cropped_img.get_fdata()
+
+        #volume_data = cropped_img.get_fdata()
+        #pet_volume = cropped_pet.get_fdata()
         print(f"full 3d label sum: {np.sum(volume_data)}")
 
-        pet_volume = cropped_pet.get_fdata()
+        volume_data = cropped_img
+        pet_volume = cropped_pet
         #if initial_sum != cropped_sum:
         #    print(initial_sum)
         #    print(cropped_sum)
