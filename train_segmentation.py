@@ -279,7 +279,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             #transforms.Resize((IMG_SIZE, IMG_SIZE)),
             transforms.Resize(IMG_SIZE),
             #transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225), max_pixel_value=255.0),
-            albu.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225), max_pixel_value=255.0),
+            albu.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
 
             transforms.PILToTensor(),
             #transforms.ToTensor(), #test was pilToTesnor
