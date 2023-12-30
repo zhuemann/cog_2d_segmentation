@@ -260,7 +260,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 albu.OpticalDistortion(distort_limit=2, shift_limit=0.5),
             ], p=.3),
             albu.ShiftScaleRotate(),
-            #albu.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225), max_pixel_value=255.0)
+            albu.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225), max_pixel_value=255.0)
     ])
     #albu_augs = albu.Compose([])
     # used for empty augmentation tests
