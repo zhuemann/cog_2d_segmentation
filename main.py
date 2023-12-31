@@ -16,7 +16,7 @@ from crop_images import crop_images_to_mips
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-    crop_images_to_mips()
+    #crop_images_to_mips()
     #print(fail)
     local = False
     if local:
