@@ -406,12 +406,12 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     print(f"Total Parameters: {total_params}")
 
     #print("need to unfreeze lang params")
-    #for param in language_model.parameters():
-    #    param.requires_grad = False
+    for param in language_model.parameters():
+        param.requires_grad = False
 
     num_unfrozen_layers = 1  # Replace N with the number of layers you want to unfreeze
-    for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
-        param.requires_grad = True
+    #for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
+    #    param.requires_grad = True
 
     #test_obj = Attention_ConTEXTual_Seg_Model(lang_model=language_model, n_channels=3, n_classes=1, bilinear=False)
 
@@ -447,9 +447,9 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         training_dice = []
         gc.collect()
         torch.cuda.empty_cache()
-        #if epoch > 300:
-        #    for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
-        #        param.requires_grad = True
+        if epoch > 400:
+            for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
+                param.requires_grad = True
 
         loss_list = []
         #print(scheduler.get_lr())
