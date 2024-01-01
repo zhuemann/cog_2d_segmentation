@@ -453,6 +453,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
         loss_list = []
         #print(scheduler.get_lr())
+        prediction_sum = 0
 
         for _, data in tqdm(enumerate(training_loader, 0)):
 
@@ -476,6 +477,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             #outputs = torch.squeeze(outputs)
             #print(outputs.size())
             #targets = output_resize(targets)
+            prediction_sum += torch.sum(outputs)
             optimizer.zero_grad()
 
             loss = criterion(outputs, targets)
@@ -505,6 +507,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
         avg_training_dice = np.average(training_dice)
         print(f"Epoch {str(epoch)}, Average Training Dice Score = {avg_training_dice}")
+        print(f"prediction sum: {prediction_sum}")
 
         # each epoch, look at validation data
         with torch.no_grad():
