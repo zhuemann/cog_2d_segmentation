@@ -507,7 +507,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
         avg_training_dice = np.average(training_dice)
         print(f"Epoch {str(epoch)}, Average Training Dice Score = {avg_training_dice}")
-        print(f"prediction sum: {prediction_sum}")
+        print(f"training prediction sum: {prediction_sum}")
 
         # each epoch, look at validation data
         with torch.no_grad():
@@ -516,6 +516,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             test_obj.eval()
             valid_dice = []
             gc.collect()
+            prediction_sum = 0
             for _, data in tqdm(enumerate(valid_loader, 0)):
                 ids = data['ids'].to(device, dtype=torch.long)
                 mask = data['mask'].to(device, dtype=torch.long)
@@ -536,6 +537,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
                 sigmoid = torch.sigmoid(outputs)
                 outputs = torch.round(sigmoid)
+                prediction_sum += torch.sum(outputs)
 
                 # calculates the dice coefficent for each image and adds it to the list
                 for i in range(0, outputs.shape[0]):
@@ -548,6 +550,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             #scheduler.step()
             avg_valid_dice = np.average(valid_dice)
             print(f"Epoch {str(epoch)}, Average Valid Dice Score = {avg_valid_dice}")
+            print(f"validation prediction sum: {prediction_sum}")
+
             valid_log.append(avg_valid_dice)
 
             if avg_valid_dice >= best_acc:
