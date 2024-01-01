@@ -477,7 +477,6 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             #outputs = torch.squeeze(outputs)
             #print(outputs.size())
             #targets = output_resize(targets)
-            prediction_sum += torch.sum(outputs)
             optimizer.zero_grad()
 
             loss = criterion(outputs, targets)
@@ -494,6 +493,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
             sigmoid = torch.sigmoid(outputs)
             outputs = torch.round(sigmoid)
+            prediction_sum += torch.sum(outputs)
 
             # calculates the dice coefficent for each image and adds it to the list
             for i in range(0, outputs.shape[0]):
