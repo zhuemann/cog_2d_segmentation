@@ -591,6 +591,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     with torch.no_grad():
         test_dice = []
         gc.collect()
+        prediction_sum = 0
         for _, data in tqdm(enumerate(test_loader, 0)):
             ids = data['ids'].to(device, dtype=torch.long)
             mask = data['mask'].to(device, dtype=torch.long)
@@ -612,6 +613,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
             sigmoid = torch.sigmoid(outputs)
             outputs = torch.round(sigmoid)
+            prediction_sum += torch.sum(outputs)
             row_ids.extend(data['row_ids'])
 
             for i in range(0, outputs.shape[0]):
@@ -634,6 +636,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
         avg_test_dice = np.average(test_dice)
         print(f"Epoch {str(epoch)}, Average Test Dice Score = {avg_test_dice}")
+        print(f"testing prediction sum: {prediction_sum}")
 
         #print(f"target: {target_rle_list}")
         #print(f"pred rle: {pred_rle_list}")
