@@ -24,7 +24,7 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 8, "dir_base": directory_base, "epochs": 1000, "n_classes": 2, "LR": 1e-3,
+    config = {"seed": 1, "batch_size": 8, "dir_base": directory_base, "epochs": 2000, "n_classes": 2, "LR": 1e-3,
               "IMG_SIZE": (128,256), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/",
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": ""}
 
@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     for seed in seeds:
 
-        folder_name = "cropped_mips/interim_VL_late_unfrozen400ep_lang_long/seed" + str(seed) + "/"
+        folder_name = "cropped_mips/interim_VL_late_unfrozen400ep_lang_long_v1/seed" + str(seed) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
 
         save_location = os.path.join(directory_base, save_string)
