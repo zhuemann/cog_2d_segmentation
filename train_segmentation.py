@@ -447,7 +447,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         training_dice = []
         gc.collect()
         torch.cuda.empty_cache()
-        if epoch > 600:
+        if epoch > 1000:
             for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
                 param.requires_grad = True
 
