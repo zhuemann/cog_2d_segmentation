@@ -75,7 +75,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     # model specific global variables
     IMG_SIZE = config["IMG_SIZE"] #256 #1024 #512 #384
     #BATCH_SIZE = batch_size
-    LR = 30e-5  #1e-4 #5e-5 #5e-5 was lr for contextualnet runs #8e-5  # 1e-4 was for efficient #1e-06 #2e-6 1e-6 for transformer 1e-4 for efficientnet
+    LR = 5e-5 #30e-5  #1e-4 #5e-5 #5e-5 was lr for contextualnet runs #8e-5  # 1e-4 was for efficient #1e-06 #2e-6 1e-6 for transformer 1e-4 for efficientnet
     #LR = 5e-4
     N_EPOCHS = epoch
     N_CLASS = n_classes
@@ -447,7 +447,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         training_dice = []
         gc.collect()
         torch.cuda.empty_cache()
-        if epoch > 400:
+        if epoch > 600:
             for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
                 param.requires_grad = True
 
