@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     for seed in seeds:
 
-        folder_name = "cropped_mips/interim_VL_late_unfrozen400ep_lang_long_v2/seed" + str(seed) + "/"
+        folder_name = "cropped_mips/interim_VL_late_unfrozen400ep_lang_long_v3/seed" + str(seed) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
 
         save_location = os.path.join(directory_base, save_string)
