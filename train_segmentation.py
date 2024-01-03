@@ -234,8 +234,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             #    albu.RandomBrightness(),
             #           ], p=.3),
             albu.OneOf([
-                #albu.GridDistortion(),
-                albu.OpticalDistortion(distort_limit=2, shift_limit=0.5),
+                albu.GridDistortion(),
+                #albu.OpticalDistortion(distort_limit=2, shift_limit=0.5),
                 #albu.ElasticTransform(alpha=120, sigma=120 * 0.05, alpha_affine=120 * 0.03)
             ], p=.3),
             #albu.ShiftScaleRotate()
