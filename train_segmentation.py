@@ -230,8 +230,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
             albu.OneOf([
                 #albu.RandomContrast(),
-                albu.RandomGamma(),
-                #albu.RandomBrightness(),
+                #albu.RandomGamma(),
+                albu.RandomBrightness(),
                        ], p=.3),
             #albu.OneOf([
                 #albu.GridDistortion(),
