@@ -229,15 +229,15 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             #albu.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225), max_pixel_value=255.0)
 
             albu.OneOf([
-                #albu.RandomContrast(),
-                #albu.RandomGamma(),
-                albu.RandomBrightness(),
+                albu.RandomContrast(),
+                albu.RandomGamma(),
+                #albu.RandomBrightness(),
                        ], p=.3),
-            #albu.OneOf([
+            albu.OneOf([
                 #albu.GridDistortion(),
-                #albu.OpticalDistortion(distort_limit=2, shift_limit=0.5),
-                #albu.ElasticTransform(alpha=120, sigma=120 * 0.05, alpha_affine=120 * 0.03)
-            #], p=.3),
+                albu.OpticalDistortion(distort_limit=2, shift_limit=0.5),
+                albu.ElasticTransform(alpha=120, sigma=120 * 0.05, alpha_affine=120 * 0.03)
+            ], p=.3),
             #albu.ShiftScaleRotate()
 
         ])
