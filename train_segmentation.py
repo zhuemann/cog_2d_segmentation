@@ -186,7 +186,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     test_df.to_excel(test_dataframe_location, index=True)
     """
     data_base_path = os.path.join(dir_base, "Zach_Analysis/cog_data_splits/mip_dataframe/")
-    train_df = pd.read_excel(data_base_path + "interim_training_validation_cropped_coronal.xlsx", index_col="image")
+    train_df = pd.read_excel(data_base_path + "baseline_training_validation_cropped_coronal.xlsx", index_col="image")
     # Splits the data into 80% train and 20% valid and test sets
     train_df, test_valid_df = model_selection.train_test_split(
         train_df, train_size=.85, random_state=seed, shuffle=True  # stratify=df.label.values
@@ -249,11 +249,11 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         albu_augs = albu.Compose([
             #albu.HorizontalFlip(p=.5),
             #albu.CLAHE(),
-            #albu.OneOf([
-            #    albu.RandomContrast(),
-            #    albu.RandomGamma(),
-            #    albu.RandomBrightness(),
-            #], p=.3),
+            albu.OneOf([
+                albu.RandomContrast(),
+                albu.RandomGamma(),
+                albu.RandomBrightness(),
+            ], p=.3),
             albu.OneOf([
                 albu.ElasticTransform(alpha=120, sigma=120 * 0.05, alpha_affine=120 * 0.03),
                 albu.GridDistortion(),
@@ -372,14 +372,14 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     #test_obj = SwinModel(backbone=model)
 
     #test_obj = monai.networks.nets.SwinUNETR(img_size=(1024, 1024), in_channels= 3, out_channels = 1, depths=(2, 2, 2, 2), num_heads=(3, 6, 12, 24), feature_size=24, norm_name='instance', drop_rate=0.1, attn_drop_rate=0.0, dropout_path_rate=0.0, normalize=True, use_checkpoint=False, spatial_dims=2, downsample='merging', use_v2=False)
-    #test_obj = monai.networks.nets.DynUNet(spatial_dims=2, in_channels=3, out_channels=1, kernel_size = (3,3,3,3,3), strides=(2,2,2,2,2), upsample_kernel_size = (2, 2, 2, 2), filters=None, dropout=0.1, norm_name=('INSTANCE', {'affine': True}), act_name=('leakyrelu', {'inplace': True, 'negative_slope': 0.01}), deep_supervision=False, deep_supr_num=1, res_block=False, trans_bias=False)
+    test_obj = monai.networks.nets.DynUNet(spatial_dims=2, in_channels=3, out_channels=1, kernel_size = (3,3,3,3,3), strides=(2,2,2,2,2), upsample_kernel_size = (2, 2, 2, 2), filters=None, dropout=0.1, norm_name=('INSTANCE', {'affine': True}), act_name=('leakyrelu', {'inplace': True, 'negative_slope': 0.01}), deep_supervision=False, deep_supr_num=1, res_block=False, trans_bias=False)
     #test_obj = monai.networks.nets.BasicUNet(spatial_dims=3, in_channels=1, out_channels=2, features=(32, 32, 64, 128, 256, 32), act=('LeakyReLU', {'inplace': True, 'negative_slope': 0.1}), norm=('instance', {'affine': True}), bias=True, dropout=0.0, upsample='deconv')
 
     #weight = torch.load("/UserData/Zach_Analysis/models/swin/model_swinvit.pt")
     #test_obj.load_from(weights=weight)
     #print("Using pretrained self-supervied Swin UNETR backbone weights !")
     # was this one before coming back 3/20
-    test_obj = Attention_ConTEXTual_Lang_Seg_Model(lang_model=language_model, n_channels=3, n_classes=1, bilinear=False)
+    #test_obj = Attention_ConTEXTual_Lang_Seg_Model(lang_model=language_model, n_channels=3, n_classes=1, bilinear=False)
 
     #test_obj = Attention_ConTEXTual_Vis_Seg_Model(n_channels=3, n_classes=1, bilinear=False)
     #test_obj = smp.Unet(encoder_name="resnet50", encoder_weights=None, in_channels=3, classes=1)
