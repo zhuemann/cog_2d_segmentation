@@ -6,6 +6,7 @@ import pandas as pd
 import ast
 import nibabel as nib
 from nilearn.image import resample_img
+import re
 
 def resample_nii(file_path, new_voxel_size): #, output_path):
     """
