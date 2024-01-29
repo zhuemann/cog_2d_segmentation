@@ -54,7 +54,7 @@ def make_clavicular_mips():
 
 
     # files_skip = ["850410", "851194", "851301", "851942", "852438"]
-    files_skip = ["850410", "851194", "851942", "853667", "850151"]
+    files_skip = ["850410", "851194", "851942", "853667", "850151", "854918"]
     for index, row in df.iterrows():
         print(f"index: {index}")
         # if row["file"].contains["850410"] or row["file"]: # == "COG_AHO33_850410_baseline.nii.gz" or row["file"] == "COG_AHO33_851194_baseline.nii.gz":
@@ -68,8 +68,8 @@ def make_clavicular_mips():
 
         if skip_flag:
             continue
-        # if index < 10:
-        #   continue
+        if index < 17:
+           continue
         # f index == 20:
         #   break
         # gets the file path to be loaded in
