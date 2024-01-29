@@ -50,7 +50,7 @@ def make_clavicular_mips():
 
     file_location = "/UserData/Zach_Analysis/cog_sub_region_text/clavicula_locations.xlsx"
     df = pd.read_excel(file_location)
-    imageTr_path = "\UserData\Xin\Monai_Auto3dSeg\COG_lymph_seg\Auto3dseg\data\COG\imagesTr"
+    imageTr_path = "/UserData/Xin/Monai_Auto3dSeg/COG_lymph_seg/Auto3dseg/data/COG/imagesTr"
 
 
     # files_skip = ["850410", "851194", "851301", "851942", "852438"]
