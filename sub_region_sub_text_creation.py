@@ -69,7 +69,8 @@ def make_clavicular_mips():
 
 
     # files_skip = ["850410", "851194", "851301", "851942", "852438"]
-    files_skip = ["850410", "851194", "851942", "853667", "850151", "854918", "863930", "869757", "869859", "870197", "864338"]
+    # files_skip = ["850410", "851194", "851942", "853667", "850151", "854918", "863930", "869757", "869859", "870197", "864338"]
+    files_skip = []
     for index, row in df.iterrows():
         print(f"index: {index}")
         # if row["file"].contains["850410"] or row["file"]: # == "COG_AHO33_850410_baseline.nii.gz" or row["file"] == "COG_AHO33_851194_baseline.nii.gz":
