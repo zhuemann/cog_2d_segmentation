@@ -69,7 +69,7 @@ def make_clavicular_mips():
 
 
     # files_skip = ["850410", "851194", "851301", "851942", "852438"]
-    files_skip = ["850410", "851194", "851942", "853667", "850151", "854918", "863930", "869757", "869859", "870197"]
+    files_skip = ["850410", "851194", "851942", "853667", "850151", "854918", "863930", "869757", "869859", "870197", "864338"]
     for index, row in df.iterrows():
         print(f"index: {index}")
         # if row["file"].contains["850410"] or row["file"]: # == "COG_AHO33_850410_baseline.nii.gz" or row["file"] == "COG_AHO33_851194_baseline.nii.gz":
@@ -96,6 +96,7 @@ def make_clavicular_mips():
             img = resample_nii(file_path, (3, 3, 3))
         except FileNotFoundError:
             print(f"cannot file file: {file_path}")
+            continue
         # img = nib.load(file_path)
         volume_data = img.get_fdata()
         mip_2d_axis1 = np.max(volume_data, axis=1)
