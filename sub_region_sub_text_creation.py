@@ -83,7 +83,7 @@ def make_clavicular_mips():
 
         if skip_flag:
             continue
-        if index < 25:
+        if index < 78:
            continue
         # f index == 20:
         #   break
