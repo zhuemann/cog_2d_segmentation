@@ -31,7 +31,7 @@ def resample_nii(file_path, new_voxel_size): #, output_path):
     resampled_img = resample_img(nii_image, target_affine=new_affine, interpolation='nearest')
 
     return resampled_img
-
+"""
 def convert_to_list(series_element):
     # Strip leading/trailing spaces and brackets
     formatted_str = series_element.strip('[] ')
@@ -41,6 +41,20 @@ def convert_to_list(series_element):
 
     # Replace two commas in a row with a single comma
     formatted_str = formatted_str.replace(',,', ',')
+
+    # Convert to a list using ast.literal_eval
+    return ast.literal_eval('[' + formatted_str + ']')
+"""
+
+def convert_to_list(series_element):
+    # Strip leading/trailing spaces and brackets
+    formatted_str = series_element.strip('[] ')
+
+    # Replace spaces with commas
+    formatted_str = formatted_str.replace(' ', ',')
+
+    # Use regular expression to replace multiple commas with a single comma
+    formatted_str = re.sub(r',+', ',', formatted_str)
 
     # Convert to a list using ast.literal_eval
     return ast.literal_eval('[' + formatted_str + ']')
