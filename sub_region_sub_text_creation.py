@@ -84,8 +84,8 @@ def make_clavicular_mips():
 
         if skip_flag:
             continue
-        if index < 78:
-           continue
+        #if index < 78:
+        #   continue
         # f index == 20:
         #   break
         # gets the file path to be loaded in
