@@ -126,7 +126,7 @@ def make_clavicular_mips():
         plt.title("2D Image Display")
 
         # plt.plot([left_clavicula[0], right_clavicula[0]], [left_clavicula[1], right_clavicula[1]], color='red')  # Change color as needed
-        plt.plot([left_point[2], right_point[2]], [left_point[1], right_point[1]], color='red')
+        plt.plot([left_point[2], left_point[0]], [right_point[2], right_point[0]], color='red')
 
         plt.savefig("/UserData/Zach_Analysis/cog_sub_region_text/clavicula_line_plots_v2/plot_"+ str(row['file']) + ".png")
         #plt.show()
