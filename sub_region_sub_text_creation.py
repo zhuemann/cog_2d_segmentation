@@ -69,8 +69,8 @@ def make_clavicular_mips():
 
 
     # files_skip = ["850410", "851194", "851301", "851942", "852438"]
-    # files_skip = ["850410", "851194", "851942", "853667", "850151", "854918", "863930", "869757", "869859", "870197", "864338"]
-    files_skip = []
+    files_skip = ["863930", "869757", "869859", "870197"]
+    #files_skip = []863930_
     for index, row in df.iterrows():
         print(f"index: {index}")
         # if row["file"].contains["850410"] or row["file"]: # == "COG_AHO33_850410_baseline.nii.gz" or row["file"] == "COG_AHO33_851194_baseline.nii.gz":
@@ -126,8 +126,8 @@ def make_clavicular_mips():
         plt.title("2D Image Display")
 
         # plt.plot([left_clavicula[0], right_clavicula[0]], [left_clavicula[1], right_clavicula[1]], color='red')  # Change color as needed
-        plt.plot([left_point[2], right_point[2]], [left_point[0], right_point[0]], color='red')
+        plt.plot([left_point[2], right_point[2]], [left_point[1], right_point[1]], color='red')
 
-        plt.savefig("/UserData/Zach_Analysis/cog_sub_region_text/clavicula_line_plots/plot_"+ str(row['file']) + ".png")
+        plt.savefig("/UserData/Zach_Analysis/cog_sub_region_text/clavicula_line_plots_v2/plot_"+ str(row['file']) + ".png")
         #plt.show()
         plt.clf()
