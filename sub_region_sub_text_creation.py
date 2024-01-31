@@ -70,6 +70,7 @@ def make_clavicular_mips():
 
     # files_skip = ["850410", "851194", "851301", "851942", "852438"]
     files_skip = ["863930", "869757", "869859", "870197"]
+    files_skip = []
     #files_skip = []863930_
     for index, row in df.iterrows():
         print(f"index: {index}")
@@ -79,7 +80,7 @@ def make_clavicular_mips():
         for string in files_skip:
             # print(string in row["file"])
             # print(row["file"])
-            if string in row["file"]:
+            if string in row["FileName"]:
                 skip_flag = True
 
         if skip_flag:
@@ -89,7 +90,7 @@ def make_clavicular_mips():
         # f index == 20:
         #   break
         # gets the file path to be loaded in
-        image_path = row["file"][:25] + "_0000" + row["file"][25:]
+        image_path = row["FileName"][:25] + "_0000" + row["FileName"][25:]
         file_path = os.path.join(imageTr_path, image_path)
         print(file_path)
         # loads in the data in file_path and projects it down to a 2d coronal mip
@@ -130,6 +131,6 @@ def make_clavicular_mips():
         # plt.plot([left_clavicula[0], right_clavicula[0]], [left_clavicula[1], right_clavicula[1]], color='red')  # Change color as needed
         plt.plot([left_point[2], right_point[2]], [left_point[0], right_point[0]], color='red')
 
-        plt.savefig("/UserData/Zach_Analysis/cog_sub_region_text/clavicula_line_plots_v2/plot_"+ str(row['file']) + ".png")
+        plt.savefig("/UserData/Zach_Analysis/cog_sub_region_text/clavicula_line_plots_v3/plot_"+ str(row['file']) + ".png")
         #plt.show()
         plt.clf()
