@@ -63,7 +63,7 @@ def convert_to_list(series_element):
 def make_clavicular_mips():
 
 
-    file_location = "/UserData/Zach_Analysis/cog_sub_region_text/clavicula_locations.xlsx"
+    file_location = "/UserData/Zach_Analysis/cog_sub_region_text/clavicula_locations_v2.xlsx"
     df = pd.read_excel(file_location)
     imageTr_path = "/UserData/Xin/Monai_Auto3dSeg/COG_lymph_seg/Auto3dseg/data/COG/imagesTr"
 
@@ -102,10 +102,11 @@ def make_clavicular_mips():
         volume_data = img.get_fdata()
         mip_2d_axis1 = np.max(volume_data, axis=1)
 
-        mask_coordinates = df[df['file'] == row["file"]]
-        left_clavicula = mask_coordinates["left clavicula"]
-        right_clavicula = mask_coordinates["right clavicula"]
-
+        mask_coordinates = df[df['FileName'] == row["FileName"]]
+        #left_clavicula = mask_coordinates["left clavicula"]
+        #right_clavicula = mask_coordinates["right clavicula"]
+        left_clavicula = [mask_coordinates["x1"], mask_coordinates["y1"], mask_coordinates["z1"]]
+        right_clavicula = [mask_coordinates["x2"], mask_coordinates["y2"], mask_coordinates["z2"]]
         # print(type(left_clavicula.iloc[0]))
         # print(left_clavicula)
         # print(right_clavicula)
@@ -114,9 +115,10 @@ def make_clavicular_mips():
         # print(right_clavicula.iloc[0][1])
 
         # Convert the string representations of the lists back to actual lists
-        left_point = convert_to_list(left_clavicula.iloc[0])
-        right_point = convert_to_list(right_clavicula.iloc[0])
-
+        #left_point = convert_to_list(left_clavicula.iloc[0])
+        #right_point = convert_to_list(right_clavicula.iloc[0])
+        left_point = left_clavicula
+        right_point = right_clavicula
         print(type(left_point))
         print(left_point)
         print(right_point)
