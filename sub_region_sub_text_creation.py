@@ -131,6 +131,6 @@ def make_clavicular_mips():
         # plt.plot([left_clavicula[0], right_clavicula[0]], [left_clavicula[1], right_clavicula[1]], color='red')  # Change color as needed
         plt.plot([left_point[2], right_point[2]], [left_point[0], right_point[0]], color='red')
 
-        plt.savefig("/UserData/Zach_Analysis/cog_sub_region_text/clavicula_line_plots_v3/plot_"+ str(row['file']) + ".png")
+        plt.savefig("/UserData/Zach_Analysis/cog_sub_region_text/clavicula_line_plots_v3/plot_"+ str(row['FileName']) + ".png")
         #plt.show()
         plt.clf()
