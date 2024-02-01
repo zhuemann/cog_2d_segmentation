@@ -221,7 +221,7 @@ def make_connected_component_labels():
         save_location = "/UserData/Zach_Analysis/cog_data_splits/mips/head_and_neck_mips/labelsTr/" + image_path +"_head_neck_label" + ".png"
 
         # Convert the image to PIL Image format and ensure it's in 'L' mode for grayscale
-        pil_image = Image.fromarray(filtered_array) #.convert('L')
+        pil_image = Image.fromarray(mip_2d_axis1) #.convert('L')
 
         # Save the image in a lossless format (PNG)
         pil_image.save(save_location, format='PNG')
