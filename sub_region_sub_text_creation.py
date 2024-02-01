@@ -218,7 +218,7 @@ def make_connected_component_labels():
 
         mip_2d_axis1 = np.max(filtered_array, axis=1)
 
-        save_location = "/UserData/Zach_Analysis/cog_data_splits/mips/head_and_neck_mips/labelsTr/" + image_path + ".png"
+        save_location = "/UserData/Zach_Analysis/cog_data_splits/mips/head_and_neck_mips/labelsTr/" + image_path +"_head_neck_label" + ".png"
 
         # Convert the image to PIL Image format and ensure it's in 'L' mode for grayscale
         pil_image = Image.fromarray(filtered_array).convert('L')
