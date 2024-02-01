@@ -212,6 +212,8 @@ def make_connected_component_labels():
         labels_out = cc3d.connected_components(img)
 
         min_z = math.floor(np.min((row["z1"], row["z2"])))
+        if "869757" in row["FileName"]:
+            min_z = 260
         lesion_labels = get_pixels_right_of_plane(labels_out, min_z)
 
         filtered_array = filter_pixels(labels_out, lesion_labels)
