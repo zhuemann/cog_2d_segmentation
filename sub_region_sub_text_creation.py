@@ -174,7 +174,7 @@ def filter_pixels(array, valid_values):
     return filtered_array
 def make_connected_component_labels():
 
-    file_location = "/UserData/Zach_Analysis/cog_sub_region_text/clavicula_locations_v3.xlsx"
+    file_location = "/UserData/Zach_Analysis/cog_sub_region_text/clavicula_locations_v2.xlsx"
     df = pd.read_excel(file_location)
     imageTr_path = "/UserData/Xin/Monai_Auto3dSeg/COG_lymph_seg/Auto3dseg/data/COG/labelsTr"
 
