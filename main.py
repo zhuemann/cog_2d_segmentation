@@ -11,13 +11,14 @@ import argparse
 
 from train_segmentation import train_image_text_segmentation
 from crop_images import crop_images_to_mips
-from sub_region_sub_text_creation import make_clavicular_mips
+from sub_region_sub_text_creation import make_clavicular_mips, make_connected_component_labels
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-    make_clavicular_mips()
+    make_connected_component_labels()
+    #make_clavicular_mips()
     print(fail)
 
     #crop_images_to_mips()
