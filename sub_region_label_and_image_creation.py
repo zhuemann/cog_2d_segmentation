@@ -74,7 +74,7 @@ def make_mips_from_3d_data():
         nifti_img_2d = nib.Nifti1Image(image_2d[np.newaxis, :, :], affine_2d)
 
         # Save the 2D NIfTI image
-        output_filename_2d = "/UserData/Zach_Analysis/cog_data_splits/mips/head_and_neck_mips/imageTr/" + row["FileName"][:25] + "_baseline" + "_0001" +"_coronal"+ row["FileName"][25:]
+        output_filename_2d = "/UserData/Zach_Analysis/cog_data_splits/mips/reprocessed_mips_and_labels/imagesTr/" + row["FileName"][:25] + "_baseline" + "_0001" +"_coronal"+ row["FileName"][25:]
         nib.save(nifti_img_2d, output_filename_2d)
 
     # load in the 3d image and resize it to 3x3x3mm then do the projection down to 2d
