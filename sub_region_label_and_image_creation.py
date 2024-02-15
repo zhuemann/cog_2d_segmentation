@@ -77,6 +77,7 @@ def make_mips_from_3d_data():
         output_filename_2d = "/UserData/Zach_Analysis/cog_data_splits/mips/reprocessed_mips_and_labels/imagesTr/" + row["FileName"][:25] + "_baseline" + "_0001" +"_coronal"+ row["FileName"][25:]
         nib.save(nifti_img_2d, output_filename_2d)
 
+
     # load in the 3d image and resize it to 3x3x3mm then do the projection down to 2d
 
     # do the cropping to 11 suv but rescale them back to 1024 after the cropping. # also look into the bit type of the nii file
