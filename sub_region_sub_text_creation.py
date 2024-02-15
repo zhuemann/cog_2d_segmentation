@@ -230,3 +230,4 @@ def make_connected_component_labels():
 
         # Save the image in a lossless format (PNG)
         pil_image.save(save_location, format='PNG')
+
