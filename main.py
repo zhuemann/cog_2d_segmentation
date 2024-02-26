@@ -14,12 +14,13 @@ from crop_images import crop_images_to_mips
 from sub_region_sub_text_creation import make_clavicular_mips, make_connected_component_labels
 from running_mixstral import run_mixstal
 from sub_region_label_and_image_creation import make_mips_from_3d_data
-
+from converting_dicom_to_nifti_suv import test
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     #make_connected_component_labels_for_all_subregions()
-    make_mips_from_3d_data()
+    #make_mips_from_3d_data()
+    test()
     #run_mixstal()
     #make_connected_component_labels()
     #make_clavicular_mips()
