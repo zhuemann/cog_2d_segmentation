@@ -358,7 +358,7 @@ def test():
 
         test_directory = os.path.join(test_directory, folder_name)
         test = os.listdir(test_directory)
-
+        print(test)
         if any("12__wb_3d_mac" in element.lower() for element in test):
             top_dicom_folder = os.path.join(test_directory, "12__WB_3D_MAC")
             print(f"top: {top_dicom_folder}")
