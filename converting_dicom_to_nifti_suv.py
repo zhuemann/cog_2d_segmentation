@@ -366,7 +366,8 @@ def test():
             found_pet_images += 1
             continue
         if any("wb_ac_3d" in element.lower() for element in test):
-            top_dicom_folder = os.path.join(test_directory, "12_WB_AC_3D")
+            indices_of_pet = [index for index, element in enumerate(test) if "wb_ac_3d" in element.lower()]
+            top_dicom_folder = os.path.join(test_directory, test[indices_of_pet])
             convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             found_pet_images += 1
             continue
