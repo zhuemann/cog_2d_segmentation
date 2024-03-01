@@ -208,8 +208,6 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
                                           os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
                                           reorient_nifti=False)
     elif dicom_modality == 'PT':
-        print(f"top folder: {top_dicom_folder}")
-        print(f"save folder: {os.path.join(subject_save_folder, scan_save_name)}")
         dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
                                           os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
                                           reorient_nifti=False)
@@ -318,13 +316,14 @@ def test():
          'PETLYMPH_3730', 'PETLYMPH_4451', 'PETLYMPH_2954', 'PETLYMPH_4050', 'PETLYMPH_2468', 'PETLYMPH_0130',
          'PETLYMPH_2907', 'PETLYMPH_2498', 'PETLYMPH_2697', 'PETLYMPH_4392', 'PETLYMPH_3232', 'PETLYMPH_2432',
          'PETLYMPH_2852', 'PETLYMPH_4065'])
+    time_data_skip = set["petlymph_2565"]
     weird_path_names = []
     for file in files_in_directory:
         print(index)
         index += 1
         if index < 4:
             continue
-        if file in skip_files or file in no_pt_files:
+        if file in skip_files or file in no_pt_files or file in time_data_skip:
             continue
         test_directory = os.path.join(dir_path, file)
         modality = os.listdir(test_directory)
