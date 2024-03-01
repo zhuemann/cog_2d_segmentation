@@ -295,6 +295,80 @@ def convert_rtstruct_to_nifti(annotator_dicom_folder: str, top_nifti_folder: str
 
 
 def test():
-    top_dicom_folder = "/UserData/1043/PETLYMPH_3004/PT/20150125/BODY/1203__PET_CORONAL/"
+
+
+
+    #top_dicom_folder = "/UserData/1043/PETLYMPH_3004/PT/20150125/BODY/1203__PET_CORONAL/"
     top_nifti_folder = "/UserData/Zach_Analysis/suv_nifti_test/"
-    convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+    #convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+
+    dir_path = "/UserData/1043/"
+    files_in_directory = os.listdir(dir_path)
+    no_pt_files_list = []
+    index = 0
+    found_pet_images = 0
+    multi_length = 0
+    skip_files = set(
+        ["PETLYMPH_4491", "PETLYMPH_4490", "PETLYMPH_4262", "PETLYMPH_0261", "PETLYMPH_0903", "PETLYMPH_3588",
+         "PETLYMPH_0902"])
+    no_pt_files = set(
+        ['PETLYMPH_2965', 'PETLYMPH_2729', 'PETLYMPH_2831', 'PETLYMPH_4357', 'PETLYMPH_3233', 'PETLYMPH_2685',
+         'PETLYMPH_3014', 'PETLYMPH_2795', 'PETLYMPH_3876', 'PETLYMPH_2883', 'PETLYMPH_3914', 'PETLYMPH_2628',
+         'PETLYMPH_3804', 'PETLYMPH_3936', 'PETLYMPH_0222', 'PETLYMPH_4222', 'PETLYMPH_2776', 'PETLYMPH_2694',
+         'PETLYMPH_3730', 'PETLYMPH_4451', 'PETLYMPH_2954', 'PETLYMPH_4050', 'PETLYMPH_2468', 'PETLYMPH_0130',
+         'PETLYMPH_2907', 'PETLYMPH_2498', 'PETLYMPH_2697', 'PETLYMPH_4392', 'PETLYMPH_3232', 'PETLYMPH_2432',
+         'PETLYMPH_2852', 'PETLYMPH_4065'])
+    weird_path_names = []
+    for file in files_in_directory:
+        print(index)
+        index += 1
+        if file in skip_files or file in no_pt_files:
+            continue
+        test_directory = os.path.join(dir_path, file)
+        modality = os.listdir(test_directory)
+
+        if "PT" in modality:
+            test_directory = os.path.join(dir_path, file, "PT")
+        else:
+            print(f"file: {file} does not have Pet scan")
+            continue
+
+        ref_num = os.listdir(test_directory)
+        if len(ref_num) == 0:
+            print(f"something funny: {file}")
+            no_pt_files_list.append(file)
+            continue
+        # print(ref_num)
+        test_directory = os.path.join(test_directory, ref_num[0])
+        # print(test_directory)
+        type_exam = os.listdir(test_directory)
+        # print(modality)
+        # print(test)
+
+        if 'PET_CT_SKULL_BASE_TO_THIGH' in type_exam:
+            folder_name = 'PET_CT_SKULL_BASE_TO_THIGH'
+        elif len(type_exam) > 1:
+            weird_path_names.append(file)
+            multi_length += 1
+            continue
+        else:
+            folder_name = type_exam[0]
+
+        test_directory = os.path.join(test_directory, folder_name)
+        test = os.listdir(test_directory)
+
+        if any("12__wb_3d_mac" in element.lower() for element in test):
+            top_dicom_folder = os.path.join(test_directory, "12__WB_3D_MAC")
+            convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            found_pet_images += 1
+            continue
+        if any("wb_ac_3d" in element.lower() for element in test):
+            top_dicom_folder = os.path.join(test_directory, "WB_AC_3D")
+            convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            found_pet_images += 1
+            continue
+        if any("12__WB_MAC" == element for element in test):
+            top_dicom_folder = os.path.join(test_directory, "12__WB_MAC")
+            convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            found_pet_images += 1
+            continue
