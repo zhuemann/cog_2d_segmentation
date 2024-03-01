@@ -321,7 +321,7 @@ def test():
     for file in files_in_directory:
         print(index)
         index += 1
-        if index < 4:
+        if index < 10:
             continue
         if file in skip_files or file in no_pt_files or file in time_data_skip:
             continue
