@@ -322,6 +322,8 @@ def test():
     for file in files_in_directory:
         print(index)
         index += 1
+        if index < 4:
+            continue
         if file in skip_files or file in no_pt_files:
             continue
         test_directory = os.path.join(dir_path, file)
@@ -363,7 +365,7 @@ def test():
             found_pet_images += 1
             continue
         if any("wb_ac_3d" in element.lower() for element in test):
-            top_dicom_folder = os.path.join(test_directory, "WB_AC_3D")
+            top_dicom_folder = os.path.join(test_directory, "12_WB_AC_3D")
             convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             found_pet_images += 1
             continue
