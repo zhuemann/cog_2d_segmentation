@@ -316,8 +316,9 @@ def test():
          'PETLYMPH_3730', 'PETLYMPH_4451', 'PETLYMPH_2954', 'PETLYMPH_4050', 'PETLYMPH_2468', 'PETLYMPH_0130',
          'PETLYMPH_2907', 'PETLYMPH_2498', 'PETLYMPH_2697', 'PETLYMPH_4392', 'PETLYMPH_3232', 'PETLYMPH_2432',
          'PETLYMPH_2852', 'PETLYMPH_4065'])
-    time_data_skip = set(["PETLYMPH_2565"])
+    time_data_skip = set(["PETLYMPH_2565", "PETLYMPH_2529"])
     weird_path_names = []
+    time_errors = []
     for file in files_in_directory:
         print(index)
         index += 1
@@ -361,18 +362,31 @@ def test():
         if any("12__wb_3d_mac" in element.lower() for element in test):
             top_dicom_folder = os.path.join(test_directory, "12__WB_3D_MAC")
             print(f"top: {top_dicom_folder}")
-            convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            try:
+                convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            except ValueError:
+                time_errors.append(file)
+                continue
+
             found_pet_images += 1
             continue
         if any("wb_ac_3d" in element.lower() for element in test):
             indices_of_pet = [index for index, element in enumerate(test) if "wb_ac_3d" in element.lower()]
             top_dicom_folder = os.path.join(test_directory, test[indices_of_pet[0]])
             print(f"top: {top_dicom_folder}")
-            convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            try:
+                convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            except ValueError:
+                time_errors.append(file)
+                continue
             found_pet_images += 1
             continue
         if any("12__WB_MAC" == element for element in test):
             top_dicom_folder = os.path.join(test_directory, "12__WB_MAC")
-            convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            try:
+                convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            except ValueError:
+                time_errors.append(file)
+                continue
             found_pet_images += 1
             continue
