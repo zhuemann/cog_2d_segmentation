@@ -316,7 +316,7 @@ def test():
          'PETLYMPH_3730', 'PETLYMPH_4451', 'PETLYMPH_2954', 'PETLYMPH_4050', 'PETLYMPH_2468', 'PETLYMPH_0130',
          'PETLYMPH_2907', 'PETLYMPH_2498', 'PETLYMPH_2697', 'PETLYMPH_4392', 'PETLYMPH_3232', 'PETLYMPH_2432',
          'PETLYMPH_2852', 'PETLYMPH_4065'])
-    time_data_skip = set(["petlymph_2565"])
+    time_data_skip = set(["PETLYMPH_2565"])
     weird_path_names = []
     for file in files_in_directory:
         print(index)
