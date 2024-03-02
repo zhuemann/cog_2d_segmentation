@@ -317,13 +317,13 @@ def test():
          'PETLYMPH_2907', 'PETLYMPH_2498', 'PETLYMPH_2697', 'PETLYMPH_4392', 'PETLYMPH_3232', 'PETLYMPH_2432',
          'PETLYMPH_2852', 'PETLYMPH_4065'])
     time_data_skip = set(["PETLYMPH_2565", "PETLYMPH_2529"])
-    dicom_error = set(["PETLYMPH_1259", "PETLYMPH_3042"])
+    dicom_error = set(["PETLYMPH_1259", "PETLYMPH_3042", "PETLYMPH_1258"])
     weird_path_names = []
     time_errors = []
     for file in files_in_directory:
         print(index)
         index += 1
-        if index < 1439:
+        if index < 2065:
             continue
         if file in skip_files or file in no_pt_files or file in time_data_skip or file in dicom_error:
             continue
