@@ -323,7 +323,7 @@ def test():
     for file in files_in_directory:
         print(index)
         index += 1
-        if index < 2065:
+        if index < 2100:
             continue
         if file in skip_files or file in no_pt_files or file in time_data_skip or file in dicom_error:
             continue
