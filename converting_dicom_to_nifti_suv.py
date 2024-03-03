@@ -442,11 +442,11 @@ def test():
     below_suv_threshold = 0
     for index, row in uw_100.iterrows():
         accession_num = row["Accession Number"]
-        print(index)
+        print(f"index: {index} mathces_found: {found_noted_lesion}")
         # if index < 28:
         #    continue
-        if index > 10:
-            break
+        #if index > 10:
+        #    break
         rows_with_value = patient_decoding[patient_decoding['Accession Number'] == accession_num]
         # print(len(rows_with_value))
         if len(rows_with_value) == 2:
