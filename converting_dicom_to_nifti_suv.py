@@ -6,6 +6,7 @@ import nibabel as nib
 from datetime import datetime
 import numpy as np
 import glob
+import pandas as pd
 
 import os
 
@@ -292,7 +293,7 @@ def convert_rtstruct_to_nifti(annotator_dicom_folder: str, top_nifti_folder: str
                             rtstruct_nifti_save_path))
 
 
-def test():
+def create_suv_nifti():
 
 
 
@@ -391,3 +392,126 @@ def test():
                 continue
             found_pet_images += 1
             continue
+
+
+def get_max_pixel_of_segmented_regions(labeled_regions, img):
+    x, y, z = labeled_regions.shape
+    max_suv_dic = {}  # max suv, min slice, max slice
+    for k in range(0, z):
+        for i in range(0, x):
+            for j in range(0, y):
+                if labeled_regions[i][j][k] != False:
+                    # print(f"coodinates_i: {i} coordinate_j: {j} coordinate_k: {k} labeled_region: {labeled_regions[i][j][k]}")
+                    # print(labeled_regions[i][j][k])
+                    label_val = labeled_regions[i][j][k]
+                    if label_val in max_suv_dic:
+                        if img[i][j][k] > max_suv_dic[label_val][0]:
+                            max_dic_val = img[i][j][k]
+                            pixel = (i, j, k)
+                        else:
+                            max_dic_val = max_suv_dic[label_val][0]
+                            pixel = max_suv_dic[label_val][3]
+                        # max_dic_val = max(max_suv_dic[label_val][0], img[i][j][k])
+                        min_slice = min(max_suv_dic[label_val][1], k)
+                        max_slice = max(max_suv_dic[label_val][1], k)
+                        max_suv_dic[label_val] = (max_dic_val, min_slice, max_slice, pixel)
+                    else:
+                        max_suv_dic[label_val] = (img[i][j][k], k, k, (i, j, k))
+
+    return max_suv_dic
+
+
+def test():
+
+    # check how many sentences have a pet scan with them
+    uw_100 = "/UserData/Zach_Analysis/suv_slice_text/extracted_data_lymphoma_only.xlsx"
+    uw_100 = pd.read_excel(uw_100)
+
+    patient_decoding = "/UserData/Zach_Analysis/patient_decoding.xlsx"
+    patient_decoding = pd.read_excel(patient_decoding)
+    valid_pet_scans = set(os.listdir("/UserData/Zach_Analysis/suv_nifti_test/"))
+
+    count = 0
+    two_rows = 0
+    found_noted_lesion = 0
+    found_pet_scan = 0
+    sentences_not_evalued_missing_pet = 0
+    no_suv_file_but_does_have_mac = 0
+    found_pixels_df = []
+    below_suv_threshold = 0
+    for index, row in uw_100.iterrows():
+        accession_num = row["Accession Number"]
+        print(index)
+        # if index < 28:
+        #    continue
+        if index > 10:
+            break
+        rows_with_value = patient_decoding[patient_decoding['Accession Number'] == accession_num]
+        # print(len(rows_with_value))
+        if len(rows_with_value) == 2:
+            two_rows += 1
+            continue
+        # if len(rows_with_value) < 2:
+        #    continue
+        if patient_decoding['Accession Number'].isin([accession_num]).any():
+            pet_id = rows_with_value.iloc[0].iloc[1]
+
+        check_id = str(pet_id).lower() + "_" + str(pet_id).lower()
+        if check_id in valid_pet_scans:
+            found_pet_scan += 1
+
+            # gets the suv image as a numpy array
+            file_path = "/UserData/Zach_Analysis/suv_nifti_test/" + check_id + "/"
+            files = os.listdir(file_path)
+            index_of_suv = [index for index, s in enumerate(files) if "suv" in s.lower()]
+            if len(index_of_suv) == 0:
+                no_suv_file_but_does_have_mac += 1
+                continue
+            file_name = files[index_of_suv[0]]
+            suv_image_path = file_path + file_name
+            # print(suv_image_path)
+            nii_image = nib.load(suv_image_path)
+            img = nii_image.get_fdata()
+
+            suv_ref = row["SUV"]
+            if suv_ref < 2.5:
+                below_suv_threshold += 1
+                continue
+            slice_ref = row["Slice"]
+            threshold_value = suv_ref * .8
+            segmented_regions = img > threshold_value
+            labels_out = cc3d.connected_components(segmented_regions, connectivity=26)
+
+            max_suv_dic = get_max_pixel_of_segmented_regions(labels_out, img)
+
+            slice_tolerance = 1
+            suv_tolerance = 0.2
+            for key, value in max_suv_dic.items():
+                suv_max, slice_min, slice_max, pixel = value
+                # inverts teh slice indexing to match physican convention
+                slice_min = img.shape[2] - slice_min
+                slice_max = img.shape[2] - slice_max
+                # check if our noted slice from the physican is between the max and min slices extracted
+                if (slice_min - slice_tolerance) <= slice_ref and (slice_max + slice_tolerance) >= slice_ref:
+                    # check if our suv_max from segmentation is within the suv tolerance noted
+                    if abs(suv_max - suv_ref) <= suv_tolerance:
+                        found_noted_lesion += 1
+                        print(row)
+                        pixel_i, pixel_j, pixel_k = pixel
+                        row_list = row.tolist()
+                        row_list.extend([pixel_i, pixel_j, pixel_k])
+                        found_pixels_df.append(row_list)
+
+        else:
+            sentences_not_evalued_missing_pet += 1
+
+    new_columns = list(uw_100.columns) + ['i', 'j', 'k']
+    new_df = pd.DataFrame(found_pixels_df, columns=new_columns)
+    new_df.to_excel('found_pixel_setnence_suv.xlsx', index=False)
+
+    print(f"below suv 2.5: {below_suv_threshold}")
+    print(f"colision of accesion number: {two_rows}")
+    print(f"found pet scans: {found_pet_scan}")
+    print(f"lesions succesfully located: {found_noted_lesion}")
+    print(f"not evaluaged sentences missing pet: {sentences_not_evalued_missing_pet}")
+    print(f"no suv but does have pet: {no_suv_file_but_does_have_mac}")
