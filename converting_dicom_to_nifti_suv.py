@@ -492,6 +492,8 @@ def test():
                 # inverts teh slice indexing to match physican convention
                 #slice_min = img.shape[2] - slice_min
                 #slice_max = img.shape[2] - slice_max
+                slice_min = slice_min/2 + 45
+                slice_max = slice_max/2 + 45
                 # check if our noted slice from the physican is between the max and min slices extracted
                 if (slice_min - slice_tolerance) <= slice_ref and (slice_max + slice_tolerance) >= slice_ref:
                     # check if our suv_max from segmentation is within the suv tolerance noted
