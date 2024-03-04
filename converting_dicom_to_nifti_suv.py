@@ -490,8 +490,8 @@ def test():
             for key, value in max_suv_dic.items():
                 suv_max, slice_min, slice_max, pixel = value
                 # inverts teh slice indexing to match physican convention
-                slice_min = img.shape[2] - slice_min
-                slice_max = img.shape[2] - slice_max
+                #slice_min = img.shape[2] - slice_min
+                #slice_max = img.shape[2] - slice_max
                 # check if our noted slice from the physican is between the max and min slices extracted
                 if (slice_min - slice_tolerance) <= slice_ref and (slice_max + slice_tolerance) >= slice_ref:
                     # check if our suv_max from segmentation is within the suv tolerance noted
@@ -508,7 +508,7 @@ def test():
 
     new_columns = list(uw_100.columns) + ['i', 'j', 'k']
     new_df = pd.DataFrame(found_pixels_df, columns=new_columns)
-    new_df.to_excel('found_pixel_setnence_suv.xlsx', index=False)
+    new_df.to_excel('found_pixel_setnence_suv_with_inverted_slice_counting_for_error_estimation.xlsx', index=False)
 
     print(f"below suv 2.5: {below_suv_threshold}")
     print(f"colision of accesion number: {two_rows}")
