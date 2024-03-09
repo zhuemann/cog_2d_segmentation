@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
         #folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
         #save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
-        folder_name = "test_v1"
+        folder_name = "nnunet_vision_only_v2"
         save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing/" + folder_name
         save_location = os.path.join(directory_base, save_string)
         # save_location = ""
