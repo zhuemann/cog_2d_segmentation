@@ -43,7 +43,7 @@ class TextImageDataset(Dataset):
         return len(self.text)
 
     def __getitem__(self, index):
-        print(f"indexing variable: {index}")
+        #print(f"indexing variable: {index}")
         # text extraction
         #global img, image
         text = str(self.text[index])
