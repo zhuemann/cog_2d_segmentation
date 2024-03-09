@@ -1,6 +1,6 @@
 import os
 import pydicom
-import dicom2nifti
+#import dicom2nifti
 from platipy.dicom.io import rtstruct_to_nifti
 import nibabel as nib
 from datetime import datetime
