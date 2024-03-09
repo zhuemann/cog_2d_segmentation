@@ -35,7 +35,8 @@ import torch.nn.functional as F
 #from sklearn import metrics
 #from sklearn.metrics import accuracy_score, hamming_loss
 from models.ConTextual_seg_vis_model import Attention_ConTEXTual_Vis_Seg_Model
-from dataloader_image_text import TextImageDataset
+#from dataloader_image_text import TextImageDataset
+from dataloader_visual_grounding import TextImageDataset
 #from vit_base import ViTBase16
 #from utility import compute_metrics
 from utility import dice_coeff
@@ -195,7 +196,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     valid_df = test_valid_df
     test_df = test_valid_df
     """
-    data_base_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data")
+    data_base_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/")
     train_df = pd.read_excel(data_base_path + "petlymph_visual_grounding_df.xlsx", index_col="image")
     # Splits the data into 80% train and 20% valid and test sets
     train_df, test_valid_df = model_selection.train_test_split(
