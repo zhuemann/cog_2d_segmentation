@@ -1,14 +1,10 @@
 import numpy as np
 import os
-import matplotlib.pyplot as plt
 import pandas
 import regex as re
 import sys
 import pandas as pd
 import os
-import pydicom
-import dicom2nifti
-from platipy.dicom.io import rtstruct_to_nifti
 import nibabel as nib
 from datetime import datetime
 import numpy as np
