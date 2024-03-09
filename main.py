@@ -22,12 +22,12 @@ from create_sentence_mips_and_labels import create_mips
 if __name__ == '__main__':
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
-    create_mips()
+    #create_mips()
     #test()
     #run_mixstal()
     #make_connected_component_labels()
     #make_clavicular_mips()
-    print(fail)
+    #print(fail)
 
     #crop_images_to_mips()
     #print(fail)
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 8, "dir_base": directory_base, "epochs": 2000, "n_classes": 2, "LR": 1e-3,
+    config = {"seed": 1, "batch_size": 8, "dir_base": directory_base, "epochs": 1000, "n_classes": 2, "LR": 1e-3,
               "IMG_SIZE": (128,256), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/",
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": ""}
 
@@ -53,9 +53,10 @@ if __name__ == '__main__':
 
     for seed in seeds:
 
-        folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
-
+        #folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
+        #save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
+        folder_name = "test_v1"
+        save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing/" + folder_name
         save_location = os.path.join(directory_base, save_string)
         # save_location = ""
 
@@ -68,6 +69,6 @@ if __name__ == '__main__':
         df = pd.DataFrame(valid_log)
         df["test_accuracy"] = acc
 
-        filepath = os.path.join(config["save_location"], "valid_150ep_seed" + str(seed) + '.xlsx')
+        filepath = os.path.join(config["save_location"], "valid_1000ep_seed" + str(seed) + '.xlsx')
         df.to_excel(filepath, index=False)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
