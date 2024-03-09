@@ -23,7 +23,7 @@ class TextImageDataset(Dataset):
                  ngram_synonom = [], norm = None):  # data_path = os.path.join(dir_base,'Lymphoma_UW_Retrospective/Data/mips/')
         self.tokenizer = tokenizer
         self.data = dataframe
-        self.text = dataframe.report
+        self.text = dataframe.sentence
         self.targets = self.data.label
         self.row_ids = self.data.index
         self.max_len = max_len
@@ -33,7 +33,8 @@ class TextImageDataset(Dataset):
         self.df_data = dataframe.values
         self.transforms = transforms
         self.mode = mode
-        self.data_path = os.path.join(dir_base, "Zach_Analysis/cog_data_splits/mips/")
+        self.data_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/images_coronal_mip/")
+        self.label_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/labels_coronal_mip/")
         self.dir_base = dir_base
         self.resize = resize
         self.norm = norm
@@ -84,7 +85,7 @@ class TextImageDataset(Dataset):
         # if exists(os.path.join(self.data_path, 'Group_4_5_curated', img_name)):
         #    data_dir = "Group_4_5_curated"
         data_dir = "dataset/"
-        img_path = os.path.join(self.data_path, img_name)
+        img_path = os.path.join(self.data_path, img_name) + ".png"
         # print(img_path)
         with Image.open(img_path) as img:
             img_raw = np.array(img)
@@ -107,8 +108,8 @@ class TextImageDataset(Dataset):
 
         #print(self.targets[index])
         #print(f"target: {self.targets[index]}")
-        label_name = str(self.targets[index])
-        label_path = os.path.join(self.data_path, label_name)
+        label_name = str(self.targets[index]) + ".png"
+        label_path = os.path.join(self.label_path, label_name)
         #print(label_path)
         with Image.open(label_path) as label_load:
             label = np.array(label_load)
