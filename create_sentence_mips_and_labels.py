@@ -46,18 +46,18 @@ def normalize_mip(mip):
     return normalized_uint8
 
 def create_mips():
-    df_path = "Z:/Zach_Analysis/suv_slice_text/found_pixel_setnence_suv.xlsx"
+    df_path = "/UserData/Zach_Analysis/suv_slice_text/found_pixel_setnence_suv.xlsx"
     df = pd.read_excel(df_path)
 
-    df_decode_path = "Z:/Zach_Analysis/patient_decoding.xlsx"
+    df_decode_path = "/UserData/Zach_Analysis/patient_decoding.xlsx"
     df_petlymph = pandas.read_excel(df_decode_path)
 
     found = 0
     missing_conversion = 0
     data_df = []
 
-    image_path_base = "Z:/Zach_Analysis/suv_nifti/"
-    label_path_base = "Z:/Zach_Analysis/petlymph_image_data/labels/"
+    image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
+    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels/"
 
     for index, row in df.iterrows():
 
@@ -104,8 +104,8 @@ def create_mips():
         # plt.show()
 
         # print(img.shape)
-        filename_img = "Z:/Zach_Analysis/petlymph_image_data/images_coronal_mip/" + str(petlymph) + ".png"
-        filename_label = "Z:/Zach_Analysis/petlymph_image_data/labels_coronal_mip/" + str(petlymph) + "_label.png"
+        filename_img = "/UserData/Zach_Analysis/petlymph_image_data/images_coronal_mip/" + str(petlymph) + ".png"
+        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip/" + str(petlymph) + "_label.png"
         # save_as_dicom(mip_coronal, filename)
         save_2d_image_lossless(mip_coronal, filename_img)
         save_2d_image_lossless(label_coronal, filename_label)
