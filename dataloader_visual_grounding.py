@@ -47,6 +47,7 @@ class TextImageDataset(Dataset):
         # text extraction
         #global img, image
         text = str(self.text[index])
+        text = ""
         text = " ".join(text.split())
 
         text = text.replace("[ALPHANUMERICID]", "")
