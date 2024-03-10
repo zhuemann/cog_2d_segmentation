@@ -42,8 +42,8 @@ if __name__ == '__main__':
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": ""}
 
     print("here")
-    seeds = [98]
-    # seeds = [98, 117, 295, 456]
+    #seeds = [98]
+    seeds = [98, 117, 295, 456, 915]
     # seeds = [915]
     # seeds = [456]
     # seeds = [1289, 1734]
@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
         #folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
         #save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
-        folder_name = "/contextual_net_lower_lr_no_numbers_v6/"
+        folder_name = "/contextual_net_lower_lr_no_numbers_v7/"
         save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing/" + folder_name
         save_location = os.path.join(directory_base, save_string)
         # save_location = ""
