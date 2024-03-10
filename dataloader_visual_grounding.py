@@ -9,6 +9,7 @@ from nltk import word_tokenize, sent_tokenize
 import nltk
 import random
 import pandas as pd
+import re
 
 #import matplotlib as plt
 
@@ -47,7 +48,7 @@ class TextImageDataset(Dataset):
         # text extraction
         #global img, image
         text = str(self.text[index])
-        text = ""
+        text = re.sub(r'\d+', '', text)
         text = " ".join(text.split())
 
         text = text.replace("[ALPHANUMERICID]", "")
