@@ -441,7 +441,6 @@ def test():
     found_pixels_df = []
     below_suv_threshold = 0
     for index, row in uw_100.iterrows():
-        accession_num = row["Accession Number"]
         print(f"index: {index} mathces_found: {found_noted_lesion}")
         # if index < 28:
         #    continue
