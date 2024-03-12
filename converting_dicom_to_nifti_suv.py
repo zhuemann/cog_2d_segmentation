@@ -425,12 +425,12 @@ def get_max_pixel_of_segmented_regions(labeled_regions, img):
 def test():
 
     # check how many sentences have a pet scan with them
-    uw_100 = "/UserData/Zach_Analysis/suv_slice_text/extracted_data_lymphoma_only.xlsx"
+    uw_100 = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain/concensus_slice_suv_anonymized_2.xlsx"
     uw_100 = pd.read_excel(uw_100)
 
     patient_decoding = "/UserData/Zach_Analysis/patient_decoding.xlsx"
     patient_decoding = pd.read_excel(patient_decoding)
-    valid_pet_scans = set(os.listdir("/UserData/Zach_Analysis/suv_nifti_test/"))
+    valid_pet_scans = set(os.listdir("/UserData/Zach_Analysis/suv_nifti/"))
 
     count = 0
     two_rows = 0
@@ -447,22 +447,22 @@ def test():
         #    continue
         #if index > 10:
         #    break
+        """ Don't need any of this I have the real pet id now
+        accession_num = row["Accession Number"]
         rows_with_value = patient_decoding[patient_decoding['Accession Number'] == accession_num]
-        # print(len(rows_with_value))
         if len(rows_with_value) == 2:
             two_rows += 1
             continue
-        # if len(rows_with_value) < 2:
-        #    continue
         if patient_decoding['Accession Number'].isin([accession_num]).any():
             pet_id = rows_with_value.iloc[0].iloc[1]
-
+        """
+        pet_id = row["Petlymph"]
         check_id = str(pet_id).lower() + "_" + str(pet_id).lower()
         if check_id in valid_pet_scans:
             found_pet_scan += 1
 
             # gets the suv image as a numpy array
-            file_path = "/UserData/Zach_Analysis/suv_nifti_test/" + check_id + "/"
+            file_path = "/UserData/Zach_Analysis/suv_nifti/" + check_id + "/"
             files = os.listdir(file_path)
             index_of_suv = [index for index, s in enumerate(files) if "suv" in s.lower()]
             if len(index_of_suv) == 0:
@@ -490,10 +490,10 @@ def test():
             for key, value in max_suv_dic.items():
                 suv_max, slice_min, slice_max, pixel = value
                 # inverts teh slice indexing to match physican convention
-                #slice_min = img.shape[2] - slice_min
-                #slice_max = img.shape[2] - slice_max
-                slice_min = slice_min/2 + 45
-                slice_max = slice_max/2 + 45
+                slice_min = img.shape[2] - slice_min
+                slice_max = img.shape[2] - slice_max
+                #slice_min = slice_min/2 + 45
+                #slice_max = slice_max/2 + 45
                 # check if our noted slice from the physican is between the max and min slices extracted
                 if (slice_min - slice_tolerance) <= slice_ref and (slice_max + slice_tolerance) >= slice_ref:
                     # check if our suv_max from segmentation is within the suv tolerance noted
@@ -510,7 +510,7 @@ def test():
 
     new_columns = list(uw_100.columns) + ['i', 'j', 'k']
     new_df = pd.DataFrame(found_pixels_df, columns=new_columns)
-    new_df.to_excel('found_pixel_setnence_suv_with_inverted_slice_counting_for_error_estimation.xlsx', index=False)
+    new_df.to_excel('found_pixels_in_sentence_uw_anonymized.xlsx', index=False)
 
     print(f"below suv 2.5: {below_suv_threshold}")
     print(f"colision of accesion number: {two_rows}")
