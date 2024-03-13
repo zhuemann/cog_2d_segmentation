@@ -25,7 +25,7 @@ class TextImageDataset(Dataset):
         self.tokenizer = tokenizer
         self.data = dataframe
         self.text = dataframe.sentence
-        self.targets = self.data.label
+        self.targets = self.data.Label_Name
         self.row_ids = self.data.index
         self.max_len = max_len
         self.img_size = img_size
