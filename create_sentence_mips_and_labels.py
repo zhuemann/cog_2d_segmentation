@@ -73,7 +73,7 @@ def create_mips():
             found += 1
         """
         petlymph = row["Petlymph"]
-        if petlymph == "PETLYMPH_3501" or petlymph == "PETLYMPH_2650":
+        if petlymph == "PETLYMPH_3501" or petlymph == "PETLYMPH_2650" or petlymph == "PETLYMPH_3100":
             continue
         # gets the location of the suv converted image if it exists
         folder_name = str(petlymph) + "_" + str(petlymph)
