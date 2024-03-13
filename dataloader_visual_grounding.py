@@ -113,7 +113,7 @@ class TextImageDataset(Dataset):
 
         #print(self.targets[index])
         #print(f"target: {self.targets[index]}")
-        label_name = str(self.Label_Name[index]) + ".png"
+        label_name = str(self.targets[index]) + ".png"
         label_path = os.path.join(self.label_path, label_name)
         #print(label_path)
         with Image.open(label_path) as label_load:
