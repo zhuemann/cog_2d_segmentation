@@ -61,7 +61,8 @@ def create_mips():
         #    break
         # get the petlymph number if availible
         print(f"index: {index}")
-
+        if index < 580:
+            continue
         """
         petlymph = df_petlymph[df_petlymph["Accession Number"] == row["Accession Number"]]
         if len(petlymph) == 0:
@@ -72,7 +73,7 @@ def create_mips():
             found += 1
         """
         petlymph = row["Petlymph"]
-        if petlymph == "PETLYMPH_3501":
+        if petlymph == "PETLYMPH_3501" or petlymph == "PETLYMPH_2650":
             continue
         # gets the location of the suv converted image if it exists
         folder_name = str(petlymph) + "_" + str(petlymph)
