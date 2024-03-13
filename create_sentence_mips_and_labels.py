@@ -42,7 +42,7 @@ def normalize_mip(mip):
     return normalized_uint8
 
 def create_mips():
-    df_path = "/UserData/Zach_Analysis/suv_slice_text/found_pixel_setnence_suv.xlsx"
+    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain/unique_labels_uw_lymphoma_anon_4.xlsx"
     df = pd.read_excel(df_path)
 
     df_decode_path = "/UserData/Zach_Analysis/patient_decoding.xlsx"
@@ -70,6 +70,7 @@ def create_mips():
             petlymph = petlymph["Patient ID"].iloc[0]
             found += 1
 
+        petlymph = row["Petlymph"]
         # gets the location of the suv converted image if it exists
         folder_name = str(petlymph) + "_" + str(petlymph)
         image_path = os.path.join(image_path_base, folder_name)
@@ -81,15 +82,15 @@ def create_mips():
         label_path = os.path.join(label_path_base, petlymph + "_label.nii.gz")
 
         # loads in the image as a numpy array
-        nii_image = nib.load(image_path)
-        img = nii_image.get_fdata()
+        #nii_image = nib.load(image_path)
+        #img = nii_image.get_fdata()
 
         # loads in the label as a numpy array
         nii_label = nib.load(label_path)
         label = nii_label.get_fdata()
 
-        mip_coronal = np.max(img, axis=1)
-        mip_coronal = normalize_mip(mip_coronal)
+        #mip_coronal = np.max(img, axis=1)
+        #mip_coronal = normalize_mip(mip_coronal)
 
         label_coronal = np.max(label, axis=1)
 
@@ -98,12 +99,12 @@ def create_mips():
         # plt.colorbar()  # Optional, adds a colorbar to show the mapping of values to colors
         # plt.title('2D Maximum Projection')
         # plt.show()
-
+        label_name = row["Label_Name"]
         # print(img.shape)
-        filename_img = "/UserData/Zach_Analysis/petlymph_image_data/images_coronal_mip/" + str(petlymph) + ".png"
-        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip/" + str(petlymph) + "_label.png"
+        #filename_img = "/UserData/Zach_Analysis/petlymph_image_data/images_coronal_mip/" + str(petlymph) + ".png"
+        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip_v2/" + str(label_name) + ".png"
         # save_as_dicom(mip_coronal, filename)
-        save_2d_image_lossless(mip_coronal, filename_img)
+        #save_2d_image_lossless(mip_coronal, filename_img)
         save_2d_image_lossless(label_coronal, filename_label)
 
     print(missing_conversion)

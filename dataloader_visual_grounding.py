@@ -35,7 +35,8 @@ class TextImageDataset(Dataset):
         self.transforms = transforms
         self.mode = mode
         self.data_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/images_coronal_mip/")
-        self.label_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/labels_coronal_mip/")
+        #self.label_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/labels_coronal_mip/")
+        self.label_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/labelsv2/")
         self.dir_base = dir_base
         self.resize = resize
         self.norm = norm
@@ -112,7 +113,7 @@ class TextImageDataset(Dataset):
 
         #print(self.targets[index])
         #print(f"target: {self.targets[index]}")
-        label_name = str(self.targets[index]) + ".png"
+        label_name = str(self.Label_Name[index]) + ".png"
         label_path = os.path.join(self.label_path, label_name)
         #print(label_path)
         with Image.open(label_path) as label_load:

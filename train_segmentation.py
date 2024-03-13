@@ -197,9 +197,9 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     test_df = test_valid_df
     """
     data_base_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/")
-    train_df = pd.read_excel(data_base_path + "petlymph_visual_grounding_df_drop_non_anatomical_sents_no_dups.xlsx")
+    train_df = pd.read_excel(data_base_path + "unique_labels_uw_lymphoma_anon_4.xlsx")
 
-    train_df.set_index("petlymph", inplace=True)
+    train_df.set_index("Petlymph", inplace=True)
 
     # Splits the data into 80% train and 20% valid and test sets
     train_df, test_valid_df = model_selection.train_test_split(

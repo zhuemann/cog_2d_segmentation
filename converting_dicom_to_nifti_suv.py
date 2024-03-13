@@ -440,6 +440,8 @@ def test():
     no_suv_file_but_does_have_mac = 0
     found_pixels_df = []
     below_suv_threshold = 0
+    outside_slice_tol = 0
+    outside_suv_tol = 0
     for index, row in uw_100.iterrows():
         print(f"index: {index} mathces_found: {found_noted_lesion}")
         # if index < 28:
