@@ -61,8 +61,8 @@ def create_mips():
         #    break
         # get the petlymph number if availible
         print(f"index: {index}")
-        if index < 580:
-            continue
+        #if index < 580:
+        #    continue
         """
         petlymph = df_petlymph[df_petlymph["Accession Number"] == row["Accession Number"]]
         if len(petlymph) == 0:
