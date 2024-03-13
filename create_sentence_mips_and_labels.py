@@ -72,6 +72,8 @@ def create_mips():
             found += 1
         """
         petlymph = row["Petlymph"]
+        if petlymph == "PETLYMPH_3501":
+            continue
         # gets the location of the suv converted image if it exists
         folder_name = str(petlymph) + "_" + str(petlymph)
         image_path = os.path.join(image_path_base, folder_name)
