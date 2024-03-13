@@ -53,7 +53,7 @@ def create_mips():
     data_df = []
 
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
-    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels/"
+    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labelsv2/"
 
     for index, row in df.iterrows():
 
@@ -73,8 +73,8 @@ def create_mips():
             found += 1
         """
         petlymph = row["Petlymph"]
-        if petlymph == "PETLYMPH_3501" or petlymph == "PETLYMPH_2650" or petlymph == "PETLYMPH_3100":
-            continue
+        #if petlymph == "PETLYMPH_3501" or petlymph == "PETLYMPH_2650" or petlymph == "PETLYMPH_3100":
+        #    continue
         # gets the location of the suv converted image if it exists
         folder_name = str(petlymph) + "_" + str(petlymph)
         image_path = os.path.join(image_path_base, folder_name)
