@@ -62,6 +62,7 @@ def create_mips():
         # get the petlymph number if availible
         print(f"index: {index}")
 
+        """
         petlymph = df_petlymph[df_petlymph["Accession Number"] == row["Accession Number"]]
         if len(petlymph) == 0:
             missing_conversion += 1
@@ -69,7 +70,7 @@ def create_mips():
         else:
             petlymph = petlymph["Patient ID"].iloc[0]
             found += 1
-
+        """
         petlymph = row["Petlymph"]
         # gets the location of the suv converted image if it exists
         folder_name = str(petlymph) + "_" + str(petlymph)
