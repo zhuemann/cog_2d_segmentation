@@ -83,7 +83,8 @@ def create_mips():
         image_path = os.path.join(image_path, file_names[index_of_suv[0]])
 
         # gets location of label nifti
-        label_path = os.path.join(label_path_base, petlymph + "_label.nii.gz")
+        label_name = row["Label_Name"]
+        label_path = os.path.join(label_path_base, label_name + ".nii.gz")
 
         # loads in the image as a numpy array
         #nii_image = nib.load(image_path)
