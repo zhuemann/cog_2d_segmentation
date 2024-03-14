@@ -66,9 +66,10 @@ if __name__ == '__main__':
         # make_images_on_dgx(config)
         # print(fail)
 
-        acc, valid_log = train_image_text_segmentation(config)
+        acc, valid_log, max_predictions = train_image_text_segmentation(config)
         df = pd.DataFrame(valid_log)
         df["test_accuracy"] = acc
+        df["correct_max_predictions"] = max_predictions
 
         filepath = os.path.join(config["save_location"], "valid_1000ep_seed" + str(seed) + '.xlsx')
         df.to_excel(filepath, index=False)

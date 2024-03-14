@@ -14,7 +14,7 @@ from collections import OrderedDict
 import numpy as np
 import gc
 import albumentations as albu
-
+from utility import get_max_pixel_value
 import monai
 from timm.models.swin_transformer import SwinTransformer
 #from models.swin_model import SwinModel
@@ -560,26 +560,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 outputs = torch.round(sigmoid)
                 prediction_sum += torch.sum(outputs)
 
-                mask_outputs = outputs.unsqueeze(1)
-                mask_targets = targets.unsqueeze(1)
-                #print(f"images shape: {images.shape}")
-                #print(f"output shape: {mask_outputs.shape}")
-                #print(f"target shape: {mask_targets.shape}")
-                segmented_pixels = images*mask_outputs # apply mask to original image to get segmented pixels
-                target_pixels = images*mask_targets    # apply target to original image
-
-                #print(target_pixels.shape)
-                max_target, _ = torch.max(target_pixels, dim=2)
-                max_target, _ = torch.max(max_target, dim = 2)
-                max_target, _ = torch.max(max_target, dim=1)
-                #print(max_target.shape)
-                #print(max_target)
-                max_output, _ = torch.max(segmented_pixels, dim=2)
-                max_output, _ = torch.max(max_output, dim=2)
-                max_output, _ = torch.max(max_output, dim=1)
-                #print(max_output)
-                print(f"max_output shape {max_output.shape}")
-                print(f"max_target shape {max_target.shape}")
+                max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
 
                 # calculates the dice coefficent for each image and adds it to the list
                 for i in range(0, outputs.shape[0]):
@@ -588,14 +569,14 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                     if torch.max(outputs[i]) == 0 and torch.max(targets[i]) == 0:
                         dice = 1
                     valid_dice.append(dice)
-                    if max_output[i] == max_target[i]:
+                    if max_outputs[i] == max_targets[i]:
                         correct_max_predictions += 1
 
             #scheduler.step()
             avg_valid_dice = np.average(valid_dice)
             print(f"Epoch {str(epoch)}, Average Valid Dice Score = {avg_valid_dice}")
             print(f"validation prediction sum: {prediction_sum}")
-            print(f"correct_max_predictions: {correct_max_predictions}")
+            print(f"valid correct_max_predictions: {correct_max_predictions}")
             valid_log.append(avg_valid_dice)
 
             if avg_valid_dice >= best_acc:
@@ -636,6 +617,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         test_dice = []
         gc.collect()
         prediction_sum = 0
+        correct_max_predictions = 0
         for _, data in tqdm(enumerate(test_loader, 0)):
             ids = data['ids'].to(device, dtype=torch.long)
             mask = data['mask'].to(device, dtype=torch.long)
@@ -660,6 +642,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             prediction_sum += torch.sum(outputs)
             row_ids.extend(data['row_ids'])
 
+            max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
+
             for i in range(0, outputs.shape[0]):
                 output_item = outputs[i].cpu().data.numpy()
                 target_item = targets[i].cpu().data.numpy()
@@ -677,10 +661,13 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 target_rle_list.append(target_rle)
                 ids_list.append(ids_example)
                 dice_list.append(dice)
+                if max_outputs[i] == max_targets[i]:
+                    correct_max_predictions += 1
 
         avg_test_dice = np.average(test_dice)
         print(f"Epoch {str(epoch)}, Average Test Dice Score = {avg_test_dice}")
         print(f"testing prediction sum: {prediction_sum}")
+        print(f"test correct_max_predictions: {correct_max_predictions}")
 
         #print(f"target: {target_rle_list}")
         #print(f"pred rle: {pred_rle_list}")
@@ -697,7 +684,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         filepath = os.path.join(config["save_location"], "prediction_dataframe" + str(seed) + '.xlsx')
         test_df_data.to_excel(filepath, index=False)
 
-        return avg_test_dice, valid_log
+        return avg_test_dice, valid_log, correct_max_predictions
 
 
 

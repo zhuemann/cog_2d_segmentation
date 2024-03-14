@@ -1,5 +1,5 @@
 import numpy as np
-
+import torch
 def rle_decode(mask_rle, shape):
     '''
     mask_rle: run-length as string formated (start length)
@@ -62,3 +62,20 @@ def dice_coeff(pred, target):
     intersection = (m1 * m2).sum()
 
     return (2. * intersection + smooth) / (m1.sum() + m2.sum() + smooth)
+
+def get_max_pixel_value(images, targets, outputs):
+    mask_outputs = outputs.unsqueeze(1)
+    mask_targets = targets.unsqueeze(1)
+
+    segmented_pixels = images * mask_outputs  # apply mask to original image to get segmented pixels
+    target_pixels = images * mask_targets  # apply target to original image
+
+    max_target, _ = torch.max(target_pixels, dim=2)
+    max_target, _ = torch.max(max_target, dim=2)
+    max_target, _ = torch.max(max_target, dim=1)
+
+    max_output, _ = torch.max(segmented_pixels, dim=2)
+    max_output, _ = torch.max(max_output, dim=2)
+    max_output, _ = torch.max(max_output, dim=1)
+
+    return max_target, max_output
