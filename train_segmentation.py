@@ -578,6 +578,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 max_output, _ = torch.max(segmented_pixels, dim=2)
                 max_output, _ = torch.max(segmented_pixels, dim=1)
                 #print(max_output)
+                print(f"max_output shape {max_output.shape}")
+                print(f"max_target shape {max_target.shape}")
 
                 # calculates the dice coefficent for each image and adds it to the list
                 for i in range(0, outputs.shape[0]):
