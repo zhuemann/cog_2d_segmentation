@@ -458,6 +458,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     best_acc = 0
     del train_df
     valid_log = []
+    correct_suv_log = []
     avg_loss_list = []
     for epoch in range(1, N_EPOCHS + 1):
         #vision_model.train()
@@ -578,6 +579,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             print(f"validation prediction sum: {prediction_sum}")
             print(f"valid correct_max_predictions: {correct_max_predictions}")
             valid_log.append(avg_valid_dice)
+            correct_suv_log.append(correct_max_predictions)
 
             if avg_valid_dice >= best_acc:
                 best_acc = avg_valid_dice
@@ -684,7 +686,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         filepath = os.path.join(config["save_location"], "prediction_dataframe" + str(seed) + '.xlsx')
         test_df_data.to_excel(filepath, index=False)
 
-        return avg_test_dice, valid_log, correct_max_predictions
+        return avg_test_dice, valid_log, correct_suv_log, correct_max_predictions
 
 
 
