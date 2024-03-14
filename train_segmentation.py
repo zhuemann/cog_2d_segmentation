@@ -537,6 +537,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             valid_dice = []
             gc.collect()
             prediction_sum = 0
+            correct_max_predictions = 0
             for _, data in tqdm(enumerate(valid_loader, 0)):
                 ids = data['ids'].to(device, dtype=torch.long)
                 mask = data['mask'].to(device, dtype=torch.long)
@@ -585,12 +586,14 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                     if torch.max(outputs[i]) == 0 and torch.max(targets[i]) == 0:
                         dice = 1
                     valid_dice.append(dice)
+                    if max_output[i] == max_target[i]:
+                        correct_max_predictions += 1
 
             #scheduler.step()
             avg_valid_dice = np.average(valid_dice)
             print(f"Epoch {str(epoch)}, Average Valid Dice Score = {avg_valid_dice}")
             print(f"validation prediction sum: {prediction_sum}")
-
+            print(f"correct_max_predictions: {correct_max_predictions}")
             valid_log.append(avg_valid_dice)
 
             if avg_valid_dice >= best_acc:
