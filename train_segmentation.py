@@ -559,6 +559,9 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 outputs = torch.round(sigmoid)
                 prediction_sum += torch.sum(outputs)
 
+                print(f"images shape: {images.shape}")
+                print(f"output shape: {outputs.shape}")
+                print(f"target shape: {targets.shape}")
                 segmented_pixels = images*outputs # apply mask to original image to get segmented pixels
                 target_pixels = images*targets    # apply target to original image
 
