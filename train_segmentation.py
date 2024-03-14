@@ -559,6 +559,15 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 outputs = torch.round(sigmoid)
                 prediction_sum += torch.sum(outputs)
 
+                segmented_pixels = images*outputs # apply mask to original image to get segmented pixels
+                target_pixels = images*targets    # apply target to original image
+
+                print(target_pixels.shape)
+                max_target, _ = torch.max(target_pixels, dim=2)
+                max_target, _ = torch.max(max_target, dim = 1)
+                max_target, _ = torch.max(max_target, dim = 1)
+                print(max_target)
+
                 # calculates the dice coefficent for each image and adds it to the list
                 for i in range(0, outputs.shape[0]):
                     dice = dice_coeff(outputs[i], targets[i])
