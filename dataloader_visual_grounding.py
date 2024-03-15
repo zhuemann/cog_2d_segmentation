@@ -49,7 +49,7 @@ class TextImageDataset(Dataset):
         # text extraction
         #global img, image
         text = str(self.text[index])
-        text = re.sub(r'\d+', '', text) # remove numbers
+        text = re.sub(r'\d+', '', text) # remove numbers Need more sophistcated way of doing this level 3 is stripped
         #text = ""                        # remove all text
         text = " ".join(text.split())
 
