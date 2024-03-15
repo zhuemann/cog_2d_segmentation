@@ -37,19 +37,19 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 10, "dir_base": directory_base, "epochs": 1000, "n_classes": 2, "LR": 1e-3,
+    config = {"seed": 1, "batch_size": 20, "dir_base": directory_base, "epochs": 2000, "n_classes": 2, "LR": 1e-3,
               "IMG_SIZE": (128,256), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/",
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": ""}
 
     print("here")
     #seeds = [98]
-    #seeds = [98, 117, 295, 456, 915]
+    seeds = [98, 117, 295, 456, 915]
     # seeds = [915]
 
     # seeds = [456]
     # seeds = [1289, 1734]
     # seeds = [456]
-    seeds = [295, 456, 915]
+    # seeds = [295, 456, 915]
 
     accuracy_list = []
 
@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
         #folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
         #save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
-        folder_name = "/contextual_net_lang_lower_lr_long_v3/seed" + str(seed) + "/"
+        folder_name = "/contextual_net_lang_lower_lr_long_2000ep_v4/seed" + str(seed) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing" + folder_name
         save_location = os.path.join(directory_base, save_string)
         # save_location = ""
