@@ -574,7 +574,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                     if torch.max(outputs[i]) == 0 and torch.max(targets[i]) == 0:
                         dice = 1
                     valid_dice.append(dice)
-                    if max_outputs[i] == max_targets[i]:
+                    if max_outputs[i] == max_targets[i] and max_outputs[i] != 0:
                         correct_max_predictions += 1
 
             #scheduler.step()
@@ -667,7 +667,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 target_rle_list.append(target_rle)
                 ids_list.append(ids_example)
                 dice_list.append(dice)
-                if max_outputs[i] == max_targets[i]:
+                if max_outputs[i] == max_targets[i] and max_outputs[i] != 0:
                     correct_max_predictions += 1
 
         avg_test_dice = np.average(test_dice)
