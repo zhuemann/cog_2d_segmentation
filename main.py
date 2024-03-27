@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
     print("here")
     #seeds = [98]
-    seeds = [98, 117, 295, 456, 915]
+    seeds = [117, 295, 456, 915]
     # seeds = [915]
 
     # seeds = [456]
