@@ -599,7 +599,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 #                         'Zach_Analysis/models/candid_finetuned_segmentation/weak_supervision_models/imagenet_labeling_functions/segmentation_candid' + str(
                 #                             seed))
                 # torch.save(model_obj.state_dict(), '/home/zmh001/r-fcb-isilon/research/Bradshaw/Zach_Analysis/models/vit/best_multimodal_modal')
-                #torch.save(test_obj.state_dict(), save_path)
+                torch.save(test_obj.state_dict(), save_path)
 
     #test_obj.eval()
     row_ids = []
