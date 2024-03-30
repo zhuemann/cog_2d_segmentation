@@ -76,7 +76,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     # model specific global variables
     IMG_SIZE = config["IMG_SIZE"] #256 #1024 #512 #384
     #BATCH_SIZE = batch_size
-    LR = 5e-5 #5e-5 #30e-5  #1e-4 #5e-5 #5e-5 was lr for contextualnet runs #8e-5  # 1e-4 was for efficient #1e-06 #2e-6 1e-6 for transformer 1e-4 for efficientnet
+    LR = 3e-5 #5e-5 #30e-5  #1e-4 #5e-5 #5e-5 was lr for contextualnet runs #8e-5  # 1e-4 was for efficient #1e-06 #2e-6 1e-6 for transformer 1e-4 for efficientnet
     #LR = 5e-4
     N_EPOCHS = epoch
     N_CLASS = n_classes
@@ -619,6 +619,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     target_rle_list = []
     ids_list = []
     dice_list = []
+    text_list = []
+    label_path_list = []
     with torch.no_grad():
         test_dice = []
         gc.collect()
@@ -632,6 +634,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             targets = torch.squeeze(targets)
             images = data['images'].to(device, dtype=torch.float)
             row_ids = data['row_ids']
+            sentences = data["sentence"]
+            label_names = data["Label_Name"]
             #outputs = model_obj(images)
             #outputs = test_obj(images, ids, mask) #for lavt
             outputs = test_obj(images, ids, mask, token_type_ids) #for contextual net
@@ -654,7 +658,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 output_item = outputs[i].cpu().data.numpy()
                 target_item = targets[i].cpu().data.numpy()
                 pred_rle = mask2rle(output_item)
-                target_rle= mask2rle(target_item)
+                target_rle = mask2rle(target_item)
                 ids_example = row_ids[i]
 
                 dice = dice_coeff(outputs[i], targets[i])
@@ -667,6 +671,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 target_rle_list.append(target_rle)
                 ids_list.append(ids_example)
                 dice_list.append(dice)
+                text_list.append(sentences[i])
+                label_path_list.append(label_names[i])
                 if max_outputs[i] == max_targets[i] and max_outputs[i] != 0:
                     correct_max_predictions += 1
 
@@ -686,6 +692,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         test_df_data["dice"] = pd.Series(dice_list)
         test_df_data["target"] = pd.Series(target_rle_list)
         test_df_data["prediction"] = pd.Series(pred_rle_list)
+        test_df_data["label_names"] = pd.Series(label_path_list)
+        test_df_data["sentence"] = pd.Series(text_list)
 
         filepath = os.path.join(config["save_location"], "prediction_dataframe" + str(seed) + '.xlsx')
         test_df_data.to_excel(filepath, index=False)
