@@ -206,7 +206,8 @@ class TextImageDataset(Dataset):
             'targets': segmentation_mask,
             'row_ids': self.row_ids[index],
             'images': image,
-            'sentence:': text
+            'sentence:': text,
+            'Label_Name': label_name
         }
 
 
