@@ -634,6 +634,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             targets = torch.squeeze(targets)
             images = data['images'].to(device, dtype=torch.float)
             row_ids = data['row_ids']
+            print(data)
             sentences = data["sentence"]
             label_names = data["Label_Name"]
             #outputs = model_obj(images)
