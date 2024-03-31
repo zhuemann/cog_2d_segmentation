@@ -205,7 +205,8 @@ class TextImageDataset(Dataset):
             # 'targets': torch.tensor(self.targets[index], dtype=torch.float),
             'targets': segmentation_mask,
             'row_ids': self.row_ids[index],
-            'images': image
+            'images': image,
+            'sentences:': text
         }
 
 
