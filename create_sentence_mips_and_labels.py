@@ -42,7 +42,7 @@ def normalize_mip(mip):
     return normalized_uint8
 
 def create_mips():
-    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain/unique_labels_uw_lymphoma_anon_4.xlsx"
+    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain/unique_labels_uw_lymphoma_anon_4_renumbered.xlsx"
     df = pd.read_excel(df_path)
 
     df_decode_path = "/UserData/Zach_Analysis/patient_decoding.xlsx"
@@ -107,7 +107,7 @@ def create_mips():
         label_name = row["Label_Name"]
         # print(img.shape)
         #filename_img = "/UserData/Zach_Analysis/petlymph_image_data/images_coronal_mip/" + str(petlymph) + ".png"
-        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip_v2/" + str(label_name) + ".png"
+        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip_v3/" + str(label_name) + ".png"
         # save_as_dicom(mip_coronal, filename)
         #save_2d_image_lossless(mip_coronal, filename_img)
         save_2d_image_lossless(label_coronal, filename_label)

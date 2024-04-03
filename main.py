@@ -22,12 +22,12 @@ from create_sentence_mips_and_labels import create_mips
 if __name__ == '__main__':
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
-    #create_mips()
+    create_mips()
     #test()
     #run_mixstal()
     #make_connected_component_labels()
     #make_clavicular_mips()
-    #print(fail)
+    print(fail)
 
     #crop_images_to_mips()
     #print(fail)
