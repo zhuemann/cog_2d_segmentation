@@ -197,7 +197,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     test_df = test_valid_df
     """
     data_base_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/")
-    train_df = pd.read_excel(data_base_path + "unique_labels_uw_lymphoma_anon_4.xlsx")
+    train_df = pd.read_excel(data_base_path + "unique_labels_uw_lymphoma_anon_4_renumbered.xlsx")
 
     train_df.set_index("Petlymph", inplace=True)
 
