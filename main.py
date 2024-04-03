@@ -22,13 +22,13 @@ from create_sentence_mips_and_labels import create_mips
 if __name__ == '__main__':
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
-    create_mips()
+    #create_mips()
     #test()
 
     #run_mixstal()
     #make_connected_component_labels()
     #make_clavicular_mips()
-    print(fail)
+    #print(fail)
 
     #crop_images_to_mips()
     #print(fail)
@@ -58,7 +58,7 @@ if __name__ == '__main__':
 
         #folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
         #save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
-        folder_name = "/contextual_net_with_rotate_higher_lr_2000ep_v11/seed" + str(seed) + "/"
+        folder_name = "/contextual_net_with_rotate_higher_lr_2000ep_better_labels_v12/seed" + str(seed) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing" + folder_name
         save_location = os.path.join(directory_base, save_string)
         # save_location = ""
