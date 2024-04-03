@@ -24,6 +24,7 @@ if __name__ == '__main__':
     #make_mips_from_3d_data()
     create_mips()
     #test()
+
     #run_mixstal()
     #make_connected_component_labels()
     #make_clavicular_mips()
