@@ -104,9 +104,9 @@ def get_max_pixel_step3():
                 continue
             slice_ref = row["Slice"]
             proposed_threshold = get_threshold(suv_ref)
-            print(f"proposed_threshold: {proposed_threshold}")
+            #print(f"proposed_threshold: {proposed_threshold}")
             threshold_value = suv_ref * .8
-            print(f"current threshold: {threshold_value}")
+            #print(f"current threshold: {threshold_value}")
             # segmented_regions = img > threshold_value
             segmented_regions = img > proposed_threshold
             labels_out = cc3d.connected_components(segmented_regions, connectivity=6)
@@ -116,15 +116,16 @@ def get_max_pixel_step3():
             slice_tolerance = 3
             suv_tolerance = 0.2
             for key, value in max_suv_dic.items():
-                # if it is under 2.5 we don't want it
-                if suv_max < 2.5:
-                    continue
                 suv_max, slice_min, slice_max, pixel = value
                 # inverts teh slice indexing to match physican convention
                 if suv_max < 2.5:
                     continue
                 slice_min = img.shape[2] - slice_min
                 slice_max = img.shape[2] - slice_max
+
+                # if it is under 2.5 we don't want it
+                if suv_max < 2.5:
+                    continue
 
                 # check if our noted slice from the physican is between the max and min slices extracted with tolerance
                 if slice_overlap_ref(slice_ref, slice_min, slice_max, slice_tolerance):
