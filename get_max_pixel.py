@@ -109,11 +109,12 @@ def get_max_pixel_step3():
             #print(f"current threshold: {threshold_value}")
             # segmented_regions = img > threshold_value
             segmented_regions = img > proposed_threshold
-            labels_out = cc3d.connected_components(segmented_regions, connectivity=26)
+            labels_out = cc3d.connected_components(segmented_regions, connectivity=6)
 
             max_suv_dic = get_max_pixel_of_segmented_regions_v2(labels_out, img)
 
-            slice_tolerance = 3
+            #slice_tolerance = 3
+            slice_tolerance = suv_ref
             #suv_tolerance = 0.2
             suv_tolerance = suv_ref*0.05
             for key, value in max_suv_dic.items():
@@ -146,7 +147,7 @@ def get_max_pixel_step3():
 
     new_columns = list(uw_100.columns) + ['i', 'j', 'k']
     new_df = pd.DataFrame(found_pixels_df, columns=new_columns)
-    new_df.to_excel('/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/found_pixels_in_sentence_uw_anonymized_3_v2.xlsx', index=False)
+    new_df.to_excel('/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/found_pixels_in_sentence_uw_anonymized_3_v3.xlsx', index=False)
     print(new_df)
     print(len(new_df))
     print(f"below suv 2.5: {below_suv_threshold}")
