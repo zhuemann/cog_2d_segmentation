@@ -109,7 +109,7 @@ def get_max_pixel_step3():
             #print(f"current threshold: {threshold_value}")
             # segmented_regions = img > threshold_value
             segmented_regions = img > proposed_threshold
-            labels_out = cc3d.connected_components(segmented_regions, connectivity=18)
+            labels_out = cc3d.connected_components(segmented_regions, connectivity=26)
 
             max_suv_dic = get_max_pixel_of_segmented_regions_v2(labels_out, img)
 
