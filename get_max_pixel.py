@@ -61,9 +61,10 @@ def get_max_pixel_step3():
     no_suv_file_but_does_have_mac = 0
     found_pixels_df = []
     below_suv_threshold = 0
+    dups_found = 0
 
     for index, row in uw_100.iterrows():
-        print(f"index: {index} mathces_found: {found_noted_lesion}")
+        print(f"index: {index} mathces_found: {found_noted_lesion} duplicates: {dups_found}")
         # if index < 3645:
         #    continue
         # if index > 10:
@@ -117,6 +118,7 @@ def get_max_pixel_step3():
             slice_tolerance = suv_ref
             #suv_tolerance = 0.2
             suv_tolerance = suv_ref*0.05
+            found_items = 0
             for key, value in max_suv_dic.items():
                 suv_max, slice_min, slice_max, pixel = value
                 # inverts teh slice indexing to match physican convention
@@ -141,6 +143,9 @@ def get_max_pixel_step3():
                         row_list = row.tolist()
                         row_list.extend([pixel_i, pixel_j, pixel_k])
                         found_pixels_df.append(row_list)
+                        found_items += 1
+            if found_items > 1:
+                dups_found += found_items
 
         else:
             sentences_not_evalued_missing_pet += 1
