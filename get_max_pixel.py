@@ -114,17 +114,16 @@ def get_max_pixel_step3():
             max_suv_dic = get_max_pixel_of_segmented_regions_v2(labels_out, img)
 
             slice_tolerance = 3
-            suv_tolerance = 0.2
+            #suv_tolerance = 0.2
+            suv_tolerance = suv_ref*0.05
             for key, value in max_suv_dic.items():
                 suv_max, slice_min, slice_max, pixel = value
                 # inverts teh slice indexing to match physican convention
-                if suv_max < 2.5:
-                    continue
                 slice_min = img.shape[2] - slice_min
                 slice_max = img.shape[2] - slice_max
 
-                # if it is under 2.5 we don't want it
-                if suv_max < 2.5:
+                # if it is under 2.3 we don't want it
+                if suv_max < 2.3:
                     continue
 
                 # check if our noted slice from the physican is between the max and min slices extracted with tolerance
@@ -147,7 +146,7 @@ def get_max_pixel_step3():
 
     new_columns = list(uw_100.columns) + ['i', 'j', 'k']
     new_df = pd.DataFrame(found_pixels_df, columns=new_columns)
-    new_df.to_excel('/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/found_pixels_in_sentence_uw_anonymized_3.xlsx', index=False)
+    new_df.to_excel('/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/found_pixels_in_sentence_uw_anonymized_3_v2.xlsx', index=False)
     print(new_df)
     print(len(new_df))
     print(f"below suv 2.5: {below_suv_threshold}")
