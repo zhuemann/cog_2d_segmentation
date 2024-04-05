@@ -23,8 +23,8 @@ if __name__ == '__main__':
     #make_mips_from_3d_data()
     #create_mips()
     #test()
-    get_max_pixel_step3()
-    print(fail)
+    #get_max_pixel_step3()
+    #print(fail)
     #run_mixstal()
     #make_connected_component_labels()
     #make_clavicular_mips()
@@ -58,7 +58,7 @@ if __name__ == '__main__':
 
         #folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
         #save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
-        folder_name = "/contextual_net_normal_lr_2000ep_better_labels_v13/seed" + str(seed) + "/"
+        folder_name = "/contextual_net_normal_lr_2000ep_better_labels_all_augmentations_v14/seed" + str(seed) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing" + folder_name
         save_location = os.path.join(directory_base, save_string)
         # save_location = ""
