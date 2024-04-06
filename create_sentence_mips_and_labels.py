@@ -42,7 +42,8 @@ def normalize_mip(mip):
     return normalized_uint8
 
 def create_mips():
-    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain/unique_labels_uw_lymphoma_anon_4_renumbered.xlsx"
+    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/unique_labels_uw_lymphoma_anon_4_renumbered.xlsx"
+    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/unique_labels_uw_lymphoma_anon_4_renumbered_v3.xlsx"
     df = pd.read_excel(df_path)
 
     df_decode_path = "/UserData/Zach_Analysis/patient_decoding.xlsx"
