@@ -54,6 +54,7 @@ def create_mips():
 
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
     label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labelsv2/"
+    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels_v3_nifti/"
 
     for index, row in df.iterrows():
 
@@ -107,7 +108,7 @@ def create_mips():
         label_name = row["Label_Name"]
         # print(img.shape)
         #filename_img = "/UserData/Zach_Analysis/petlymph_image_data/images_coronal_mip/" + str(petlymph) + ".png"
-        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip_v3/" + str(label_name) + ".png"
+        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip_v4/" + str(label_name) + ".png"
         # save_as_dicom(mip_coronal, filename)
         #save_2d_image_lossless(mip_coronal, filename_img)
         save_2d_image_lossless(label_coronal, filename_label)
