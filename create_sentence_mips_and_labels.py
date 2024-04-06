@@ -45,6 +45,8 @@ def create_mips():
     df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/unique_labels_uw_lymphoma_anon_4_renumbered.xlsx"
     df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/unique_labels_uw_lymphoma_anon_4_renumbered_v3.xlsx"
     df = pd.read_excel(df_path)
+    print(len(df))
+    print(df)
 
     df_decode_path = "/UserData/Zach_Analysis/patient_decoding.xlsx"
     df_petlymph = pandas.read_excel(df_decode_path)
