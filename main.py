@@ -20,11 +20,11 @@ from create_sentence_mips_and_labels import create_mips
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     #make_connected_component_labels_for_all_subregions()
-    #make_mips_from_3d_data()
+    make_mips_from_3d_data()
     #create_mips()
     #test()
     #get_max_pixel_step3()
-    #print(fail)
+    print(fail)
     #run_mixstal()
     #make_connected_component_labels()
     #make_clavicular_mips()
