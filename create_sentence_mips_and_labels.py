@@ -91,17 +91,17 @@ def create_mips():
         label_path = os.path.join(label_path_base, label_name + ".nii.gz")
 
         # loads in the image as a numpy array
-        #nii_image = nib.load(image_path)
-        #img = nii_image.get_fdata()
+        nii_image = nib.load(image_path)
+        img = nii_image.get_fdata()
 
         # loads in the label as a numpy array
         nii_label = nib.load(label_path)
         label = nii_label.get_fdata()
 
-        #mip_coronal = np.max(img, axis=1)
-        #mip_coronal = normalize_mip(mip_coronal)
+        mip_coronal = np.max(img, axis=1)
+        mip_coronal = normalize_mip(mip_coronal)
 
-        label_coronal = np.max(label, axis=1)
+        #label_coronal = np.max(label, axis=1)
 
         # plt.imshow(mip_coronal, cmap='gray')  # Use an appropriate colormap
         # plt.imshow(label_coronal, cmap="jet", alpha=.2)
@@ -110,11 +110,11 @@ def create_mips():
         # plt.show()
         label_name = row["Label_Name"]
         # print(img.shape)
-        #filename_img = "/UserData/Zach_Analysis/petlymph_image_data/images_coronal_mip/" + str(petlymph) + ".png"
-        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip_v4/" + str(label_name) + ".png"
+        filename_img = "/UserData/Zach_Analysis/petlymph_image_data/images_coronal_mip_v4/" + str(petlymph) + ".png"
+        #ilename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip_v4/" + str(label_name) + ".png"
         # save_as_dicom(mip_coronal, filename)
-        #save_2d_image_lossless(mip_coronal, filename_img)
-        save_2d_image_lossless(label_coronal, filename_label)
+        save_2d_image_lossless(mip_coronal, filename_img)
+        #save_2d_image_lossless(label_coronal, filename_label)
 
     print(missing_conversion)
     print(found)
