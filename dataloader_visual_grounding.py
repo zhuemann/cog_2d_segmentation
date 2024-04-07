@@ -34,7 +34,7 @@ class TextImageDataset(Dataset):
         self.df_data = dataframe.values
         self.transforms = transforms
         self.mode = mode
-        self.data_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/images_coronal_mip/")
+        self.data_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/images_coronal_mip_v4/")
         #self.label_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/labels_coronal_mip/")
         self.label_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/labels_coronal_mip_v4/")
         self.dir_base = dir_base
