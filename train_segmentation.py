@@ -197,7 +197,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     test_df = test_valid_df
     """
     data_base_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/")
-    train_df = pd.read_excel(data_base_path + "unique_labels_uw_lymphoma_anon_4_renumbered.xlsx")
+    train_df = pd.read_excel(data_base_path + "unique_labels_uw_lymphoma_anon_4_renumbered_v3.xlsx")
 
     train_df.set_index("Petlymph", inplace=True)
 
@@ -250,12 +250,12 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             #albu.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225), max_pixel_value=255.0)
 
             albu.OneOf([
-                albu.RandomContrast(),
+                # albu.RandomContrast(),
                 albu.RandomGamma(),
                 albu.RandomBrightness(),
                        ], p=.3),
             albu.OneOf([
-                albu.GridDistortion(),
+                # albu.GridDistortion(),
                 albu.OpticalDistortion(distort_limit=2, shift_limit=0.5),
                 albu.ElasticTransform(alpha=120, sigma=120 * 0.05, alpha_affine=120 * 0.03)
             ], p=.3),
