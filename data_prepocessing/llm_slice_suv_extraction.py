@@ -152,9 +152,10 @@ def llm_slice_suv_extraction(df):
 
     # Write the DataFrame to the Excel file
     #df.to_excel(writer, index=False, sheet_name='Predictions')
-
+    df_to_return = pd.concat([df, df_suv_slice], axis=1)
+    return df_to_return
     # Save the Excel file
     #writer.save()
-    return df_suv_slice
+    #return df_suv_slice
     #print("Excel file 'ai_predictions.xlsx' has been created.")
 
