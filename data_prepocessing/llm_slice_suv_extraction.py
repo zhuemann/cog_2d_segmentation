@@ -111,8 +111,8 @@ def llm_slice_suv_extraction(df):
         accession = []
         for index, row in df.iterrows():
             print(f"index: {index}")
-            #if index == 2:
-            #    break
+            if index == 5:
+                break
             #if index < 1000:
             #    continue
             #accession.append(row["Accession Number"])

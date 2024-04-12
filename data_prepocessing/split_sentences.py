@@ -89,7 +89,10 @@ def extract_sentences_and_numbers(text, word1, word2, double_colon, more_colon):
         #if sentence == "No FDG avid lung nodules are noted.Physiologic FDG uptake is present within the myocardium.":
             #print("skipped")
         #    continue
-
+        if "Background liver metabolic activity" in sentence:
+            continue
+        if "Background mediastinal blood pool metabolic activity" in sentence:
+            continue
         #if find_text_after_pattern(sentence, pattern=".Physiologic") != None:
         #    sentence = find_text_after_pattern(sentence, pattern=".Physiologic")
         #if detect_period_followed_by_char(sentence):
@@ -101,54 +104,55 @@ def extract_sentences_and_numbers(text, word1, word2, double_colon, more_colon):
         if ";" in sentence:
             # since we found a ; in the sentence we want to check if there is a slice and suv on both sides of the ;
             splits = re.split(f';', sentence)
-            if "Background liver metabolic activity" in sentence:
-                continue
-            if "Background mediastinal blood pool metabolic activity" in sentence:
-                continue
             # need to check each split with for loop
             if len(splits) > 2:
-                print(i)
-                print(text)
-                print(sentence)
-                print(splits)
+                #print(i)
+                #print(text)
+                #print(sentence)
+                #print(splits)
                 #print("more colons")
-                more_colon += 1
+                #more_colon += 1
                 #print(sentence)
                 #print(splits)
                 #print(len(splits))
+                for i in range(0,len(splits)):
+                    word1_num, word2_num = sent_with_slice_suv(word1_pattern, word2_pattern,splits[i])
+                    if word1_num and word2_num:
+                        results.append([splits[i], word1_num, word2_num])
+                        #print("added: ")
+                        #print(splits[i])
                 break
-            first_half = splits[0]
-            second_half = splits[1]
-            first_half_word1_num, first_half_word2_num = sent_with_slice_suv(word1_pattern, word2_pattern, first_half)
-            second_half_word1_num, second_half_word2_num = sent_with_slice_suv(word1_pattern, word2_pattern,
-                                                                               second_half)
-            if first_half_word1_num and first_half_word2_num and second_half_word1_num and second_half_word2_num:
-                # print("found valid colon break")
-                if "Background liver metabolic activity" in sentence:
-                    continue
-                if "Background mediastinal blood pool metabolic activity" in sentence:
-                    continue
-                double_colon += 1
-                results.append([first_half, first_half_word1_num, first_half_word2_num])
-                results.append([second_half, second_half_word1_num, second_half_word2_num])
+            # there are two in the split so only split if both before and after the split have suv and
+            else:
+                first_half = splits[0]
+                second_half = splits[1]
+                first_half_word1_num, first_half_word2_num = sent_with_slice_suv(word1_pattern, word2_pattern, first_half)
+                second_half_word1_num, second_half_word2_num = sent_with_slice_suv(word1_pattern, word2_pattern,
+                                                                                   second_half)
+                if first_half_word1_num and first_half_word2_num and second_half_word1_num and second_half_word2_num: # both halfs have suv and slice so add separately
+
+                    double_colon += 1
+                    results.append([first_half, first_half_word1_num, first_half_word2_num])
+                    results.append([second_half, second_half_word1_num, second_half_word2_num])
+
+                else: # there is ;  but both halfs don't have suv and slice so keep them together
+                    word1_num, word2_num = sent_with_slice_suv(word1_pattern, word2_pattern, sentence)
+                    if word1_num and word2_num:
+                        results.append([sentence, word1_num, word2_num])
 
 
-        else:
+        else: # there is no ; so we just add them if if there is suv and slice
             word1_num, word2_num = sent_with_slice_suv(word1_pattern, word2_pattern, sentence)
             # If both patterns are found, extract the numbers and add them to the results
             if word1_num and word2_num:
-                if "Background liver metabolic activity" in sentence:
-                    continue
                 results.append([sentence, word1_num, word2_num])
-                #print(f"index: {i} sent: {sentence}")
-    #print(f"{double_colon, more_colon}")
 
     return results, double_colon, more_colon
 
 def split_sentences():
 
-    #df_path = "Z:/Zach_Analysis/text_data/indications.xlsx"
-    df_path = "/UserData/Zach_Analysis/text_data/indications.xlsx"
+    df_path = "Z:/Zach_Analysis/text_data/indications.xlsx"
+    #df_path = "/UserData/Zach_Analysis/text_data/indications.xlsx"
     df = pandas.read_excel(df_path, sheet_name = "lymphoma_uw_only")
 
 

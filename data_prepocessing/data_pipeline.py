@@ -6,6 +6,7 @@ def run_data_pipeline():
 
     df = split_sentences()
     #print(df)
+    #print(fail)
     df = llm_slice_suv_extraction(df)
     print(df)
     df.to_excel("test.xlsx", index=False, sheet_name='Predictions')
