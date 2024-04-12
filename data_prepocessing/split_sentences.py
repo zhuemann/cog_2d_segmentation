@@ -1,0 +1,151 @@
+import numpy as np
+import os
+import pandas
+import regex as re
+import sys
+import pandas as pd
+
+
+def sent_with_slice_suv(word1_pattern, word2_pattern, sentence):
+    # Search for both patterns in the sentence
+    word1_match = word1_pattern.search(sentence)
+    word2_match = word2_pattern.search(sentence)
+    # If both patterns are found, extract the numbers and add them to the results
+    if word1_match and word2_match:
+        word1_num = word1_match.group(1)
+        word2_num = word2_match.group(1)
+        return word1_num, word2_num
+    else:
+        return None, None
+
+def extract_sentences_and_numbers(text, word1, word2, double_colon, more_colon):
+    # Compile patterns to find the keywords followed by numbers
+    # This regex looks for the word followed by optional spaces, possibly some words, and then a number
+    word1_pattern = re.compile(re.escape(word1) + r'\s*(?:\w+\s*)*?(\d+(?:\.\d+)?)', re.IGNORECASE)
+    word2_pattern = re.compile(re.escape(word2) + r'\s*(?:\w+\s*)*?(\d+(?:\.\d+)?)', re.IGNORECASE)
+
+    # Use regex to find sentences in the text. Assuming sentences end with '.', '!', or '?'
+    sentences = re.split(r'(?<=[.!?*\n])\s+', text)  # need to slit on new line, *
+    # Initialize a list to hold the results
+
+    # report_findings = text.replace("_x000D_", " ").replace("\n", " ").replace("#", " ")
+    # report_findings = report_findings.replace("...", " ")
+    # report_findings = re.sub(r"\.{2,}", ".", report_findings)
+    # report_findings = re.sub(r'\s+', ' ', report_findings).strip()
+    results = []
+
+    # Check each sentence for the patterns
+    for i, sentence in enumerate(sentences):
+        if ".There" in sentence:
+            print(sentence)
+        if ";" in sentence:
+            # since we found a ; in the sentence we want to check if there is a slice and suv on both sides of the ;
+            splits = re.split(f';', sentence)
+            # need to check each split with for loop
+            if len(splits) > 2:
+                #print("more colons")
+                more_colon += 1
+                #print(sentence)
+                #print(splits)
+                #print(len(splits))
+                break
+            first_half = splits[0]
+            second_half = splits[1]
+            first_half_word1_num, first_half_word2_num = sent_with_slice_suv(word1_pattern, word2_pattern, first_half)
+            second_half_word1_num, second_half_word2_num = sent_with_slice_suv(word1_pattern, word2_pattern,
+                                                                               second_half)
+            if first_half_word1_num and first_half_word2_num and second_half_word1_num and second_half_word2_num:
+                # print("found valid colon break")
+                if "Background liver metabolic activity" in sentence:
+                    continue
+                double_colon += 1
+                results.append([first_half, first_half_word1_num, first_half_word2_num])
+                results.append([second_half, second_half_word1_num, second_half_word2_num])
+
+
+        else:
+            word1_num, word2_num = sent_with_slice_suv(word1_pattern, word2_pattern, sentence)
+            # If both patterns are found, extract the numbers and add them to the results
+            if word1_num and word2_num:
+                if "Background liver metabolic activity" in sentence:
+                    continue
+                results.append([sentence, word1_num, word2_num])
+                #print(f"index: {i} sent: {sentence}")
+    #print(f"{double_colon, more_colon}")
+
+    return results, double_colon, more_colon
+
+def split_sentences():
+
+    df_path = "Z:/Zach_Analysis/text_data/indications.xlsx"
+    df = pandas.read_excel(df_path, sheet_name = "lymphoma_uw_only")
+
+
+    # Assuming df is your original DataFrame
+    sum_test = 0
+    double_colon, more_colon = 0, 0
+    print_examples = False
+    collected_data = []  # List to collect data
+    is_uw_lymphoma_data = False
+    for index, row in df.iterrows():
+
+        if is_uw_lymphoma_data:
+            acession_num = row.iloc[0]
+            report = row.iloc[2]
+            impressions = row.iloc[3]
+            indications = row.iloc[4]
+            text = row.iloc[2]
+        else:
+            petlymph = row["research_id"]
+            # acession_num = row["Accession Number"]
+            report = row["findings"]
+            # impressions = row["impressions"]
+            impressions = row["impression"]
+            # indications = row["indications"]
+            report_findings = row["findings"]  # .replace("_x000D_", " ").replace("\n", " ").replace("#", " ")
+            text = row["findings"]
+
+        # if index > 10000:
+        #    break
+        #print(f"index: {index}")
+        if isinstance(report, str):
+
+            report_findings = text.replace("_x000D_", " ").replace("\n", " ").replace("#", " ")
+            # report_findings = report_findings.replace(";", ". ") # trying getter way of handling ;
+            report_findings = report_findings.replace("   ", ". ")
+            report_findings = report_findings.replace("...", ". ")
+            report_findings = re.sub(r"\.{2,}", ". ", report_findings)
+            report_findings = re.sub(r'\s+', ' ', report_findings).strip()
+
+            sent, double_colon, more_colon = extract_sentences_and_numbers(report_findings, "slice", "suv",
+                                                                           double_colon, more_colon)
+
+            if len(sent) > 0:
+                if print_examples:
+                    print(f"Extracted sentences: {sent}")
+                    print(f"Whole report: {report}\n")
+
+                for sentence in sent:
+                    sentence_example = sentence[0]
+                    slice_example = sentence[1]
+                    suv_example = sentence[2]
+                    collected_data.append({
+                        # 'Accession Number': acession_num,
+                        'Petlymph': petlymph,
+                        'Findings': report,
+                        'Impression': impressions,
+                        # 'Indication': indications,
+                        'Extracted Sentences': sentence_example,
+                        'Slice': slice_example,
+                        'SUV': suv_example
+                    })
+                sum_test += len(sent)
+
+    print(f"number of examples: {sum_test}")
+    print(f"double colon: {double_colon}")
+    print(f"more colon: {more_colon}")
+
+    # Convert list to DataFrame and save
+    output_df = pd.DataFrame(collected_data)
+    return output_df
+    # output_df.to_excel('extracted_data_all_pet_anonymized.xlsx', index=False)
