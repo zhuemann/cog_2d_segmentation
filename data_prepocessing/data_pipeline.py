@@ -18,6 +18,6 @@ def run_data_pipeline():
     df = concenus_voting(df)
     df.to_excel(save_base + "concenus_output_3.xlsx", index=False)
 
-    df = get_max_pixel_step3()
+    df = get_max_pixel_step3(df)
     print(df)
     df.to_excel(save_base + "max_pixel_4.xlsx", index=False)
