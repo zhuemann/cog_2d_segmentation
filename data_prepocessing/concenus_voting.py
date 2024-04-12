@@ -79,9 +79,7 @@ def concenus_voting_old(df):
 
 def concenus_voting(df):
 
-    num_3s = 0
-    num_1s = 0
-    num_0s = 0
+
     new_df = []
     suv_cut = 0
     templated_background = 0
@@ -105,12 +103,11 @@ def concenus_voting(df):
         suv_count = Counter(suv_list)
 
         slice_num = max(slice_count, key=slice_count.get)
-        print(f"count: {slice_count[slice_num]}")
-        if slice_count[slice_num] >= 2:
-            print("found slice with 2 votes!")
+        if slice_count[slice_num] < 2:
+            slice_num = None
         suv_num = max(suv_count, key=suv_count.get)
-        print(slice_count)
-        print(suv_count)
+        if suv_count[suv_num] < 2:
+            suv_num = None
 
         new_df.append({"Petlymph": row["Petlymph"],
                        "Findings": row["Findings"],
