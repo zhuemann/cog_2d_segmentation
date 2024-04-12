@@ -86,7 +86,7 @@ def concenus_voting(df):
     templated_background = 0
     for index, row in df.iterrows():
 
-        if index > 25:
+        if index > 500:
             break
 
         slice_list = []
