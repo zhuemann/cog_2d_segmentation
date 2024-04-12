@@ -99,7 +99,7 @@ def concenus_voting(df):
         suv_list.append(row["mixstral-8x7b-instructAI_SUV"])
         suv_list.append(row["llama2-instructAI_SUV"])
 
-        slice_count = Coutner(slice_list)
+        slice_count = Counter(slice_list)
         suv_count = Counter(suv_list)
 
         print(slice_count)
