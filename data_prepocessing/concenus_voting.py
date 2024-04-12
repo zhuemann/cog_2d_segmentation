@@ -102,7 +102,10 @@ def concenus_voting(df):
         slice_count = Counter(slice_list)
         suv_count = Counter(suv_list)
 
-        slice_num = max(slice_count, key=suv_count.get)
+        slice_num = max(slice_count, key=slice_count.get)
+        print(f"count: {slice_count[slice_num]}")
+        if slice_count[slice_num] >= 2:
+            print("found slice with 2 votes!")
         suv_num = max(suv_count, key=suv_count.get)
         print(slice_count)
         print(suv_count)
