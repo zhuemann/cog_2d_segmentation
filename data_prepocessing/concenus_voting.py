@@ -79,13 +79,14 @@ def concenus_voting_old(df):
 
 def concenus_voting(df):
 
-
+    no_concensus_slice = 0
+    no_concensus_suv = 0
     new_df = []
     suv_cut = 0
     templated_background = 0
     for index, row in df.iterrows():
 
-        if index > 10:
+        if index > 25:
             break
 
         slice_list = []
@@ -105,9 +106,11 @@ def concenus_voting(df):
         slice_num = max(slice_count, key=slice_count.get)
         if slice_count[slice_num] < 2:
             slice_num = None
+            no_concensus_slice += 1
         suv_num = max(suv_count, key=suv_count.get)
         if suv_count[suv_num] < 2:
             suv_num = None
+            no_concensus_suv += 1
 
         new_df.append({"Petlymph": row["Petlymph"],
                        "Findings": row["Findings"],
@@ -116,6 +119,10 @@ def concenus_voting(df):
                        "Slice": slice_num,
                        "SUV": suv_num
                        })
+
+    print(f"no concensus slice: {no_concensus_slice}")
+    print(f"no concensus suv: {no_concensus_suv}")
+
 
     # Convert list to DataFrame and save
     output_df = pd.DataFrame(new_df)
