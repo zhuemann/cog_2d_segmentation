@@ -40,15 +40,16 @@ def get_max_pixel_of_segmented_regions_v2(labeled_regions, img):
         max_suv_dict[label] = (max_pixel_value, min_slice, max_slice, tuple(max_pixel_index))
 
     return max_suv_dict
-def get_max_pixel_step3():
+def get_max_pixel_step3(df):
     # check how many sentences have a pet scan with them
-    uw_100 = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain/concensus_slice_suv_anonymized_2.xlsx"
-    uw_100 = pd.read_excel(uw_100)
+    #uw_100 = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain/concensus_slice_suv_anonymized_2.xlsx"
+    #uw_100 = pd.read_excel(uw_100)
     # print(uw_100)
     #uw_100 = uw_100[uw_100["Petlymph"] == 'PETLYMPH_4361']
     # uw_100 = uw_100[uw_100["Petlymph"] == 'PETLYMPH_4513']
 
-    print(uw_100)
+    #print(uw_100)
+    uw_100 = df
 
     patient_decoding = "/UserData/Zach_Analysis/patient_decoding.xlsx"
     patient_decoding = pd.read_excel(patient_decoding)
@@ -155,7 +156,7 @@ def get_max_pixel_step3():
 
     new_columns = list(uw_100.columns) + ['i', 'j', 'k']
     new_df = pd.DataFrame(found_pixels_df, columns=new_columns)
-    new_df.to_excel('/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/found_pixels_in_sentence_uw_anonymized_3_v4.xlsx', index=False)
+    #new_df.to_excel('/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/found_pixels_in_sentence_uw_anonymized_3_v4.xlsx', index=False)
     print(new_df)
     print(len(new_df))
     print(f"below suv 2.5: {below_suv_threshold}")
@@ -164,3 +165,4 @@ def get_max_pixel_step3():
     print(f"lesions succesfully located: {found_noted_lesion}")
     print(f"not evaluaged sentences missing pet: {sentences_not_evalued_missing_pet}")
     print(f"no suv but does have pet: {no_suv_file_but_does_have_mac}")
+    return new_df
