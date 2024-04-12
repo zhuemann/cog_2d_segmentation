@@ -116,6 +116,7 @@ def get_max_pixel_step3():
 
             #slice_tolerance = 3
             slice_tolerance = suv_ref
+            slice_tolerance = 1
             #suv_tolerance = 0.2
             suv_tolerance = suv_ref*0.05
             found_items = 0
