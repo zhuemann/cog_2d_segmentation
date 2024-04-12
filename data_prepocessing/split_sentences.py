@@ -18,11 +18,60 @@ def sent_with_slice_suv(word1_pattern, word2_pattern, sentence):
     else:
         return None, None
 
+
+def detect_period_followed_by_char(text):
+    # Regular expression pattern to find a period followed by a non-decimal, non-space, non-newline character
+    pattern = r'\.(?![\s\d.])'
+
+    # Search for the pattern in the text
+    matches = re.finditer(pattern, text)
+
+    # Check for matches not followed by spaces or newlines
+    for match in matches:
+        # Get the index of the character after the period
+        index = match.end()
+        # Check if the character is not a space or newline
+        if index < len(text) and text[index] not in ' \n),':
+            if "e.g." in text:
+                return False
+            return True
+
+    return False
+
+def add_space_after_period(text, keyword):
+    # Build a dynamic pattern based on the keyword provided
+    pattern = r'\.' + re.escape(keyword)
+
+    # Use re.sub to replace the found pattern with ". {keyword}" (note the space after the period)
+    updated_text = re.sub(pattern, '. ' + keyword, text)
+
+    return updated_text
+
+
+def format_periods(text):
+    # Regular expression pattern to identify periods that are not followed by a number, space, new line, ')', or 'e.g.'
+    # Negative lookahead is used to specify conditions where replacement should not occur
+
+    if "i.e." in text or "e.g" in text:
+        return text
+
+    #pattern = r'\.(?!(\d|\s|\n|\)))'
+    pattern = r'\.(?!(\d|\s|\n|\)|e\.g\.|i\.e\.|/))'
+
+    # Use re.sub to replace the identified pattern with ". " (a period followed by a space)
+    updated_text = re.sub(pattern, '. ', text)
+
+    return updated_text
+
 def extract_sentences_and_numbers(text, word1, word2, double_colon, more_colon):
     # Compile patterns to find the keywords followed by numbers
     # This regex looks for the word followed by optional spaces, possibly some words, and then a number
     word1_pattern = re.compile(re.escape(word1) + r'\s*(?:\w+\s*)*?(\d+(?:\.\d+)?)', re.IGNORECASE)
     word2_pattern = re.compile(re.escape(word2) + r'\s*(?:\w+\s*)*?(\d+(?:\.\d+)?)', re.IGNORECASE)
+
+    # fix templated errors in text and add periods that physican didn't type
+    text = add_space_after_period(text, "Physiologic")
+    text = format_periods(text)
 
     # Use regex to find sentences in the text. Assuming sentences end with '.', '!', or '?'
     sentences = re.split(r'(?<=[.!?*\n])\s+', text)  # need to slit on new line, *
@@ -36,13 +85,32 @@ def extract_sentences_and_numbers(text, word1, word2, double_colon, more_colon):
 
     # Check each sentence for the patterns
     for i, sentence in enumerate(sentences):
-        if ".There" in sentence:
-            print(sentence)
+
+        #if sentence == "No FDG avid lung nodules are noted.Physiologic FDG uptake is present within the myocardium.":
+            #print("skipped")
+        #    continue
+
+        #if find_text_after_pattern(sentence, pattern=".Physiologic") != None:
+        #    sentence = find_text_after_pattern(sentence, pattern=".Physiologic")
+        #if detect_period_followed_by_char(sentence):
+        #    print(sentence)
+        #    print(format_periods(sentence))
+
+        #if ".There" in sentence:
+        #    print(sentence)
         if ";" in sentence:
             # since we found a ; in the sentence we want to check if there is a slice and suv on both sides of the ;
             splits = re.split(f';', sentence)
+            if "Background liver metabolic activity" in sentence:
+                continue
+            if "Background mediastinal blood pool metabolic activity" in sentence:
+                continue
             # need to check each split with for loop
             if len(splits) > 2:
+                print(i)
+                print(text)
+                print(sentence)
+                print(splits)
                 #print("more colons")
                 more_colon += 1
                 #print(sentence)
@@ -57,6 +125,8 @@ def extract_sentences_and_numbers(text, word1, word2, double_colon, more_colon):
             if first_half_word1_num and first_half_word2_num and second_half_word1_num and second_half_word2_num:
                 # print("found valid colon break")
                 if "Background liver metabolic activity" in sentence:
+                    continue
+                if "Background mediastinal blood pool metabolic activity" in sentence:
                     continue
                 double_colon += 1
                 results.append([first_half, first_half_word1_num, first_half_word2_num])
