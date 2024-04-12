@@ -116,9 +116,9 @@ def get_max_pixel_step3():
 
             #slice_tolerance = 3
             slice_tolerance = suv_ref
-            slice_tolerance = 1
-            #suv_tolerance = 0.2
-            suv_tolerance = suv_ref*0.05
+            slice_tolerance = 0
+            suv_tolerance = 0.1
+            #suv_tolerance = suv_ref*0.05
             found_items = 0
             for key, value in max_suv_dic.items():
                 suv_max, slice_min, slice_max, pixel = value
