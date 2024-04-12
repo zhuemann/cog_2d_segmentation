@@ -151,8 +151,8 @@ def extract_sentences_and_numbers(text, word1, word2, double_colon, more_colon):
 
 def split_sentences():
 
-    df_path = "Z:/Zach_Analysis/text_data/indications.xlsx"
-    #df_path = "/UserData/Zach_Analysis/text_data/indications.xlsx"
+    #df_path = "Z:/Zach_Analysis/text_data/indications.xlsx"
+    df_path = "/UserData/Zach_Analysis/text_data/indications.xlsx"
     df = pandas.read_excel(df_path, sheet_name = "lymphoma_uw_only")
 
 
