@@ -118,9 +118,4 @@ def concenus_voting(df):
     # Convert list to DataFrame and save
     output_df = pd.DataFrame(new_df)
     #output_df.to_excel('concensus_slice_suv_anonymized.xlsx', index=False)
-    print(f"num 3: {num_3s}")
-    print(f"num 1: {num_1s}")
-    print(f"num 0: {num_0s}")
-    print(f"below 2.5: {suv_cut}")
-    print(f"templated lang: {templated_background}")
     return output_df
