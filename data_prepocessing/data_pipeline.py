@@ -20,4 +20,4 @@ def run_data_pipeline():
 
     df = get_max_pixel_step3(df)
     print(df)
-    df.to_excel(save_base + "max_pixel_4.xlsx", index=False)
+    df.to_excel(save_base + "max_pixel_4_500.xlsx", index=False)
