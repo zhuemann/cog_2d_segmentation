@@ -115,7 +115,7 @@ SUV: 3.0
 You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
 Sentence: """
 
-    models = ['llama-13b-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
+    models = ['mistral-7b-instruct', 'mixstral-8x7b-instruct']
     for model in models:
         ai_slice = []
         ai_suv = []
