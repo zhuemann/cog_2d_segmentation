@@ -110,24 +110,10 @@ Sentence: Several mildly enlarged scattered small lymph nodes in the right level
 [/INST]
 Slice: 90
 SUV: 3.0
-[INST]
-You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
-Sentence: For example: a right upper paratracheal node now measures SUV max of 1.5 and 0.8 cm in short axis diameter (PET/CT axial slice 95) compared to prior SUV max of 1.7 and 1.1 cm in short axis diameter.
-[/INST]
-Slice: 95
-SUV: 1.5
-[INST]
-You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
-Sentence: Chest: There is interval reduction of hypermetabolic activity of the left axillary lymph nodes, the most FDG avid node (slice 95) measuring an SUV Max of 1.7 today (previously 2.8), which is similar to mediastinal background blood pool activity with an SUV Max of 1.9.
-[/INST]
-Slice: 95
-SUV: 1.7
 </s>
 [INST]
 You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
-Sentence: 
-    
-    """
+Sentence: """
 
     models = ['llama-13b-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     for model in models:
@@ -143,7 +129,7 @@ Sentence:
             #accession.append(row["Accession Number"])
             accession.append(row["Petlymph"])
             sentence = row["Extracted Sentences"]
-            total_prompt = instruction_v2 + sentence + "[/INST]"
+            total_prompt = instruction_v2 + sentence + "\n[/INST]"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
 
 
