@@ -122,7 +122,7 @@ def llm_slice_suv_extraction(df):
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
 
 
-            generated = ollama.generate(model=model, prompt = total_prompt, options = {"n_ctx" : 2048})
+            generated = ollama.generate(model=model, prompt = total_prompt)
             response = generated["response"]
             #print(response)
             #print(type(response))
