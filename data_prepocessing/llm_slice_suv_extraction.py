@@ -104,15 +104,15 @@ def llm_slice_suv_extraction(df):
     You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
     Sentence: '''
 
-    models = ['mistral-7b-instruct', 'mixstral-8x7b-instruct', 'llama2-instruct']
+    models = ['mistral-7b-instruct', 'mixstral-8x7b-instruct', 'llama-13b-instruct:']
     for model in models:
         ai_slice = []
         ai_suv = []
         accession = []
         for index, row in df.iterrows():
             print(f"index: {index}")
-            if index == 500:
-                break
+            #if index == 500:
+            #    break
             #if index < 1000:
             #    continue
             #accession.append(row["Accession Number"])
