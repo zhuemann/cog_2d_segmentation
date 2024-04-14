@@ -217,7 +217,8 @@ SUV: 3.0
     """
 
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
-    models = ['dolphin-instruct']
+    #models = ['dolphin-instruct']
+    models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     for model in models:
         ai_slice = []
         ai_suv = []
@@ -243,13 +244,13 @@ SUV: 3.0
             #response = process_single_prompt(model, total_prompt)
             #generated = ollama.generate(model=model, prompt = total_prompt)
             #response = generated["response"]
-            print(response)
-            print(f"respone length: {len(response)}")
+            #print(response)
+            #print(f"respone length: {len(response)}")
             #print(type(response))
             sent = extract_sentences_and_numbers(response, "slice", "suv")
             slice_val, suv_val = extract_values(response)
             #print(f"slice: {slice_val} suv: {suv_val}")
-            print(f"slice_val: {slice_val} and suv_val: {suv_val}")
+            #print(f"slice_val: {slice_val} and suv_val: {suv_val}")
             if slice_val is not None and suv_val is not None:
                 ai_slice.append(slice_val)
                 ai_suv.append(suv_val)
