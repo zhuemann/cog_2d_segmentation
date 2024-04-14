@@ -206,9 +206,9 @@ Sentence: """
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
 
             #response = generate_with_timeout(model, total_prompt, timeout=60)
-            response = process_single_prompt(model, total_prompt)
-            #generated = ollama.generate(model=model, prompt = total_prompt)
-            #response = generated["response"]
+            #response = process_single_prompt(model, total_prompt)
+            generated = ollama.generate(model=model, prompt = total_prompt, num_predict=200,)
+            response = generated["response"]
             #print(response)
             #print(f"respone length: {len(response)}")
             #print(type(response))
