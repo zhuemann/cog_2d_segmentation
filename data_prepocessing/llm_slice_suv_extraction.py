@@ -135,7 +135,7 @@ Sentence: """
 
             generated = ollama.generate(model=model, prompt = total_prompt)
             response = generated["response"]
-            #print(response)
+            print(response)
             #print(type(response))
             #sent = extract_sentences_and_numbers(response, "slice", "suv")
             slice_val, suv_val = extract_values(response)
