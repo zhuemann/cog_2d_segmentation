@@ -116,7 +116,7 @@ You are a helpful assistant tasked with extracting values from a sentence. You s
 Sentence: """
 
     #models = ['llama2-7b_smaller-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
-    models = ['mixstral-7b-instruct']
+    models = ['mistral-7b-instruct']
     for model in models:
         ai_slice = []
         ai_suv = []
