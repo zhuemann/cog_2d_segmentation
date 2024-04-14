@@ -54,6 +54,33 @@ def generate_with_timeout(model, prompt, timeout=60):
             print("Generation timed out after 60 seconds.")
             return ""  # or handle the timeout differently, depending on your needs
 
+def generate_response(model, prompt):
+    # Simulated function to represent the call to your generative model
+    print("Generating for prompt:", prompt)
+    generated = ollama.generate(model=model, prompt=prompt)
+    response = generated["response"]
+    return response
+
+def process_single_prompt(model, prompt, timeout=60):
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        # Submit the generation task for a single prompt
+        future = executor.submit(generate_response, model, prompt)
+        try:
+            # Try to get the result within the timeout
+            result = future.result(timeout=timeout)
+            print("Result for", prompt, ":", result)
+            return result
+        except concurrent.futures.TimeoutError:
+            print("Timeout occurred for prompt:", prompt)
+            return ""
+        except Exception as e:
+            print("Error occurred for prompt:", prompt, "Error:", str(e))
+            return ""
+
+def process_prompts_one_by_one(model, prompts):
+    for prompt in prompts:
+        process_single_prompt(model, prompt)
+
 def extract_sentences_and_numbers(text, word1, word2):
     # Compile patterns to find the keywords followed by numbers
     # This regex looks for the word followed by optional spaces, possibly some words, and then a number
@@ -178,7 +205,8 @@ Sentence: """
             total_prompt = instruction + sentence + "\n[/INST]"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
 
-            response = generate_with_timeout(model, total_prompt, timeout=60)
+            #response = generate_with_timeout(model, total_prompt, timeout=60)
+            response = process_single_prompt(model, total_prompt)
             #generated = ollama.generate(model=model, prompt = total_prompt)
             #response = generated["response"]
             #print(response)
