@@ -16,7 +16,7 @@ def timeout_handler(signum, frame):
     raise TimeoutError
 
 # Function to setup the signal and execute your code
-def generate_with_timeout(model, prompt, timeout=60):
+def generate_with_timeout_v1(model, prompt, timeout=60):
     # Set the signal handler for the alarm signal
     signal.signal(signal.SIGALRM, timeout_handler)
     # Schedule the alarm
@@ -32,6 +32,27 @@ def generate_with_timeout(model, prompt, timeout=60):
     finally:
         # Disable the alarm
         signal.alarm(0)
+
+import concurrent.futures
+import time
+
+def generate_with_timeout(model, prompt, timeout=60):
+    # Define the function that will be called asynchronously
+    def generate_response():
+        generated = ollama.generate(model=model, prompt=prompt)
+        response = generated["response"]
+        return response
+
+    # Use ThreadPoolExecutor to manage asynchronous execution
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        # Submit the function to the executor
+        future = executor.submit(generate_response)
+        try:
+            # Wait for the function to complete or timeout
+            return future.result(timeout=timeout)
+        except concurrent.futures.TimeoutError:
+            print("Generation timed out after 60 seconds.")
+            return ""  # or handle the timeout differently, depending on your needs
 
 def extract_sentences_and_numbers(text, word1, word2):
     # Compile patterns to find the keywords followed by numbers
