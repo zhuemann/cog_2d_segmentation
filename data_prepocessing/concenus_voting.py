@@ -95,12 +95,12 @@ def concenus_voting(df):
         slice_list.append(row["mistral-7b-instructAI_Slice"])
         slice_list.append(row["mixstral-8x7b-instructAI_Slice"])
         #slice_list.append(row["llama2-instructAI_Slice"])
-        slice_list.append(row["llama2-7b-AI_Slice"])
+        #slice_list.append(row["llama2-7b-AI_Slice"])
 
         suv_list.append(row["mistral-7b-instructAI_SUV"])
         suv_list.append(row["mixstral-8x7b-instructAI_SUV"])
         #suv_list.append(row["llama2-instructAI_SUV"])
-        suv_list.append(row["llama2-7b_AI_SUV"])
+        #suv_list.append(row["llama2-7b_AI_SUV"])
 
         slice_count = Counter(slice_list)
         suv_count = Counter(suv_list)
