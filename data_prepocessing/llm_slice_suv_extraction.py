@@ -122,7 +122,7 @@ Sentence: """
         accession = []
         for index, row in df.iterrows():
             print(f"index: {index}")
-            if index == 500:
+            if index == 100:
                 break
             #if index < 1000:
             #    continue
