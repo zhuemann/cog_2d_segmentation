@@ -68,13 +68,13 @@ def process_single_prompt(model, prompt, timeout=60):
         try:
             # Try to get the result within the timeout
             result = future.result(timeout=timeout)
-            print("Result for", prompt, ":", result)
+            #print("Result for", prompt, ":", result)
             return result
         except concurrent.futures.TimeoutError:
-            print("Timeout occurred for prompt:", prompt)
+            #print("Timeout occurred for prompt:", prompt)
             return ""
         except Exception as e:
-            print("Error occurred for prompt:", prompt, "Error:", str(e))
+            #print("Error occurred for prompt:", prompt, "Error:", str(e))
             return ""
 
 def process_prompts_one_by_one(model, prompts):
