@@ -115,15 +115,15 @@ SUV: 3.0
 You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
 Sentence: """
 
-    models = ['mistral-7b-instruct', 'mixstral-8x7b-instruct', 'llama2-7b']
+    models = ['llama2-7b','mistral-7b-instruct', 'mixstral-8x7b-instruct']
     for model in models:
         ai_slice = []
         ai_suv = []
         accession = []
         for index, row in df.iterrows():
             print(f"index: {index}")
-            #if index == 500:
-            #    break
+            if index == 500:
+                break
             #if index < 1000:
             #    continue
             #accession.append(row["Accession Number"])
