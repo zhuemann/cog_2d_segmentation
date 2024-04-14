@@ -16,8 +16,8 @@ def run_data_pipeline():
 
     df = pd.read_excel(save_base + "model_predictions_for_suv_slice_extraction_2.xlsx")
     df = concenus_voting(df)
-    df.to_excel(save_base + "concenus_output_3.xlsx", index=False)
+    #df.to_excel(save_base + "concenus_output_3.xlsx", index=False)
 
     df = get_max_pixel_step3(df)
     print(df)
-    df.to_excel(save_base + "max_pixel_4_500.xlsx", index=False)
+    #df.to_excel(save_base + "max_pixel_4_500.xlsx", index=False)
