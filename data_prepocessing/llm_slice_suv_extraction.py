@@ -234,7 +234,7 @@ Sentence:
             #response = process_single_prompt(model, total_prompt)
             #generated = ollama.generate(model=model, prompt = total_prompt)
             #response = generated["response"]
-            #print(response)
+            print(response)
             #print(f"respone length: {len(response)}")
             #print(type(response))
             #sent = extract_sentences_and_numbers(response, "slice", "suv")
