@@ -159,7 +159,7 @@ Slice: 57
 SUV: 7.3
 [INST]
 You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
-Sentence: There is significant interval decrease of the metabolic activity fusing to the lateral right scapula located inferior to the right glenoid (currently SUV max is 3.3 on slice 94 compared to 6.3 on the prior PET/CT from October 28, 2015).
+Sentence: There is significant interval decrease of the metabolic activity fusing to the lateral right scapula located inferior to the right glenoid (currently SUV max is 3.3 on slice 94 compared to 6.3 on the prior PET/CT.
 [/INST]
 Slice: 94
 SUV: 3.3
@@ -240,7 +240,7 @@ Sentence:
             sent = extract_sentences_and_numbers(response, "slice", "suv")
             slice_val, suv_val = extract_values(response)
             #print(f"slice: {slice_val} suv: {suv_val}")
-            #print(f"slice_val: {slice_val} and suv_val: {suv_val}")
+            print(f"slice_val: {slice_val} and suv_val: {suv_val}")
             if slice_val is not None and suv_val is not None:
                 ai_slice.append(slice_val)
                 ai_suv.append(suv_val)
