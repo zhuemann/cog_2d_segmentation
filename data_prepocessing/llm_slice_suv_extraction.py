@@ -56,7 +56,7 @@ def generate_with_timeout(model, prompt, timeout=60):
 
 def generate_response(model, prompt):
     # Simulated function to represent the call to your generative model
-    print("Generating for prompt:", prompt)
+    #print("Generating for prompt:", prompt)
     generated = ollama.generate(model=model, prompt=prompt)
     response = generated["response"]
     return response
