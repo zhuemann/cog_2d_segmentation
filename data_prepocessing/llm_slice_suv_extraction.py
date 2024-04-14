@@ -36,7 +36,7 @@ def generate_with_timeout_v1(model, prompt, timeout=60):
 import concurrent.futures
 import time
 
-def generate_with_timeout(model, prompt, timeout=60):
+def generate_with_timeout_v2(model, prompt, timeout=60):
     # Define the function that will be called asynchronously
     def generate_response():
         generated = ollama.generate(model=model, prompt=prompt)
@@ -80,6 +80,22 @@ def process_single_prompt(model, prompt, timeout=60):
 def process_prompts_one_by_one(model, prompts):
     for prompt in prompts:
         process_single_prompt(model, prompt)
+
+
+def generate_with_timeout(model, prompt, timeout=60):
+    try:
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            # Define a task to run the generation
+            future = executor.submit(ollama.generate, model=model, prompt=prompt)
+            # Wait for the result with the specified timeout
+            result = future.result(timeout=timeout)
+            return result["response"]
+    except concurrent.futures.TimeoutError:
+        print("Timeout occurred - generation took too long")
+        return None
+    except Exception as e:
+        print("An error occurred:", str(e))
+        return None
 
 def extract_sentences_and_numbers(text, word1, word2):
     # Compile patterns to find the keywords followed by numbers
@@ -205,10 +221,15 @@ Sentence: """
             total_prompt = instruction + sentence + "\n[/INST]"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
 
+            response = generate_with_timeout(model, total_prompt)
+
+            if response == None:
+                print("none response")
+                response = ""
             #response = generate_with_timeout(model, total_prompt, timeout=60)
             #response = process_single_prompt(model, total_prompt)
-            generated = ollama.generate(model=model, prompt = total_prompt, num_predict=200)
-            response = generated["response"]
+            #generated = ollama.generate(model=model, prompt = total_prompt)
+            #response = generated["response"]
             #print(response)
             #print(f"respone length: {len(response)}")
             #print(type(response))
