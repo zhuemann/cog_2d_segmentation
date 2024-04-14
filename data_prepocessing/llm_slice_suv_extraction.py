@@ -202,6 +202,10 @@ SUV: 3.0
 [INST]
 You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
 Sentence: """
+    instruction_zero_shot = """<s> [INST] 
+You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
+Sentence:
+[/INST]"""
 
     models = ['llama2-7b-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     #models = ['mistral-7b-instruct']
@@ -218,7 +222,7 @@ Sentence: """
             #accession.append(row["Accession Number"])
             accession.append(row["Petlymph"])
             sentence = row["Extracted Sentences"]
-            total_prompt = instruction + sentence + "\n[/INST]"
+            total_prompt = instruction_zero_shot + sentence + "\n[/INST]"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
 
             response = generate_with_timeout(model, total_prompt)
