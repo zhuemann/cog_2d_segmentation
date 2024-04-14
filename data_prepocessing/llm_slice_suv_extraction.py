@@ -207,7 +207,16 @@ You are a helpful assistant tasked with extracting values from a sentence. You s
 Sentence:
 [/INST]"""
 
-    models = ['llama2-7b-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
+    instruction_dolphin = """<|im_start|>system
+You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.<|im_end|>
+<|im_start|>user
+Sentence: Several mildly enlarged scattered small lymph nodes in the right level 2 and 3 cervical nodal regions, largest most prominent being a 1.1 x 0.8 cm mild enlarged right level III cervical node with mild FDG uptake with SUV max 3.0 (PET/CT axial slice 90).
+<|im_start|>assistant
+Slice: 90
+SUV: 3.0
+    """
+
+    models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     #models = ['mistral-7b-instruct']
     for model in models:
         ai_slice = []
