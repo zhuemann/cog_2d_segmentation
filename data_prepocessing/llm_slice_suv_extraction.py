@@ -28,7 +28,7 @@ def generate_with_timeout(model, prompt, timeout=60):
         return response
     except TimeoutError:
         print("Generation timed out after 60 seconds.")
-        return None
+        return ""
     finally:
         # Disable the alarm
         signal.alarm(0)
@@ -139,8 +139,8 @@ SUV: 3.0
 You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
 Sentence: """
 
-    #models = ['llama2-7b_smaller-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
-    models = ['mistral-7b-instruct']
+    models = ['llama2-7b-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
+    #models = ['mistral-7b-instruct']
     for model in models:
         ai_slice = []
         ai_suv = []

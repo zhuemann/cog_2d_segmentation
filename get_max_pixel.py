@@ -69,8 +69,8 @@ def get_max_pixel_step3(df):
         print(f"index: {index} mathces_found: {found_noted_lesion} duplicates: {dups_found} missing pet: {sentences_not_evalued_missing_pet}")
         # if index < 3645:
         #    continue
-        if index > 500:
-            break
+        #if index > 500:
+        #    break
         # if index > 10:
         #    break
         """
