@@ -222,7 +222,7 @@ Sentence:
             #accession.append(row["Accession Number"])
             accession.append(row["Petlymph"])
             sentence = row["Extracted Sentences"]
-            total_prompt = instruction_zero_shot + sentence + "\n[/INST]"
+            total_prompt = instruction + sentence + "\n[/INST]"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
 
             response = generate_with_timeout(model, total_prompt)
