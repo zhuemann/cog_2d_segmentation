@@ -9,6 +9,30 @@ import sys
 import ollama
 
 
+import signal
+
+# Timeout handler function
+def timeout_handler(signum, frame):
+    raise TimeoutError
+
+# Function to setup the signal and execute your code
+def generate_with_timeout(model, prompt, timeout=60):
+    # Set the signal handler for the alarm signal
+    signal.signal(signal.SIGALRM, timeout_handler)
+    # Schedule the alarm
+    signal.alarm(timeout)
+    try:
+        # Attempt to run the main function
+        generated = ollama.generate(model=model, prompt=prompt)
+        response = generated["response"]
+        return response
+    except TimeoutError:
+        print("Generation timed out after 60 seconds.")
+        return None
+    finally:
+        # Disable the alarm
+        signal.alarm(0)
+
 def extract_sentences_and_numbers(text, word1, word2):
     # Compile patterns to find the keywords followed by numbers
     # This regex looks for the word followed by optional spaces, possibly some words, and then a number
@@ -133,9 +157,9 @@ Sentence: """
             total_prompt = instruction + sentence + "\n[/INST]"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
 
-
-            generated = ollama.generate(model=model, prompt = total_prompt)
-            response = generated["response"]
+            response = generate_with_timeout(model, total_prompt, timeout=60)
+            #generated = ollama.generate(model=model, prompt = total_prompt)
+            #response = generated["response"]
             print(response)
             print(f"respone length: {len(response)}")
             #print(type(response))
