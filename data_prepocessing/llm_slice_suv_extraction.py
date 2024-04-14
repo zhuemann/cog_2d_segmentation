@@ -130,51 +130,51 @@ def llm_slice_suv_extraction(df):
     #df_path = "/UserData/Zach_Analysis/suv_slice_text/test_samples_2000.xlsx"
     #df = pandas.read_excel(df_path)
     instruction = '''<s> [INST] 
-    You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
-    Sentence: Several mildly enlarged scattered small lymph nodes in the right level 2 and 3 cervical nodal regions, largest most prominent being a 1.1 x 0.8 cm mild enlarged right level III cervical node with mild FDG uptake with SUV max 3.0 (PET/CT axial slice 90).
-    [/INST]
-    Slice: 90
-    SUV: 3.0
-    [INST]
-    You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
-    Sentence: Head/Neck: There is asymmetric intense FDG uptake within the left palatine tonsillar bed (slice 57) that fuses to soft tissue fullness and shows SUV max of 7.3 compared to 4.0 on the contralateral right side. 
-    [/INST]
-    Slice: 57
-    SUV: 7.3
-    [INST]
-    You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
-    Sentence: There is significant interval decrease of the metabolic activity fusing to the lateral right scapula located inferior to the right glenoid (currently SUV max is 3.3 on slice 94 compared to 6.3 on the prior PET/CT from October 28, 2015).
-    [/INST]
-    Slice: 94
-    SUV: 3.3
-    [INST]
-    You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
-    Sentence For example the largest and most hypermetabolic left axillary lymph node is noted on slice 104 that measures 2.1 x 1.1 cm and shows SUV max of 5.5. 
-    [/INST]
-    Slice: 104
-    SUV: 5.5
-    [INST]
-    You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
-    Sentence: Chest: There is interval reduction of hypermetabolic activity of the left axillary lymph nodes, the most FDG avid node (slice 95) measuring an SUV Max of 1.7 today (previously 2.8), which is similar to mediastinal background blood pool activity with an SUV Max of 1.9.
-    [/INST]
-    Slice: 95
-    SUV: 1.7
-    [INST]
-    You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
-    Sentence: This again remains difficult to measure, but measures approximately 11.6 cm in maximum transverse dimension as compared to 23 cm previously and demonstrates heterogeneous mild FDG uptake with an SUV max of 6.0 (slice location 218).
-    [/INST]
-    Slice: 218
-    SUV: 6.0
-    [INST]
-    You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
-    Sentence: For example: a right upper paratracheal node now measures SUV max of 1.5 and 0.8 cm in short axis diameter (PET/CT axial slice 95) compared to prior SUV max of 1.7 and 1.1 cm in short axis diameter.
-    [/INST]
-    Slice: 95
-    SUV: 1.5
-    </s>
-    [INST]
-    You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
-    Sentence: '''
+You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
+Sentence: Several mildly enlarged scattered small lymph nodes in the right level 2 and 3 cervical nodal regions, largest most prominent being a 1.1 x 0.8 cm mild enlarged right level III cervical node with mild FDG uptake with SUV max 3.0 (PET/CT axial slice 90).
+[/INST]
+Slice: 90
+SUV: 3.0
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
+Sentence: Head/Neck: There is asymmetric intense FDG uptake within the left palatine tonsillar bed (slice 57) that fuses to soft tissue fullness and shows SUV max of 7.3 compared to 4.0 on the contralateral right side. 
+[/INST]
+Slice: 57
+SUV: 7.3
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
+Sentence: There is significant interval decrease of the metabolic activity fusing to the lateral right scapula located inferior to the right glenoid (currently SUV max is 3.3 on slice 94 compared to 6.3 on the prior PET/CT from October 28, 2015).
+[/INST]
+Slice: 94
+SUV: 3.3
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
+Sentence For example the largest and most hypermetabolic left axillary lymph node is noted on slice 104 that measures 2.1 x 1.1 cm and shows SUV max of 5.5. 
+[/INST]
+Slice: 104
+SUV: 5.5
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
+Sentence: Chest: There is interval reduction of hypermetabolic activity of the left axillary lymph nodes, the most FDG avid node (slice 95) measuring an SUV Max of 1.7 today (previously 2.8), which is similar to mediastinal background blood pool activity with an SUV Max of 1.9.
+[/INST]
+Slice: 95
+SUV: 1.7
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
+Sentence: This again remains difficult to measure, but measures approximately 11.6 cm in maximum transverse dimension as compared to 23 cm previously and demonstrates heterogeneous mild FDG uptake with an SUV max of 6.0 (slice location 218).
+[/INST]
+Slice: 218
+SUV: 6.0
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
+Sentence: For example: a right upper paratracheal node now measures SUV max of 1.5 and 0.8 cm in short axis diameter (PET/CT axial slice 95) compared to prior SUV max of 1.7 and 1.1 cm in short axis diameter.
+[/INST]
+Slice: 95
+SUV: 1.5
+</s>
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
+Sentence: '''
 
     instruction_v2 = """<s> [INST] 
 You are a helpful assistant tasked with extracting values from a sentence. You should return the slice number and its associated suv value for the current scan.
@@ -207,7 +207,7 @@ Sentence: """
 
             #response = generate_with_timeout(model, total_prompt, timeout=60)
             #response = process_single_prompt(model, total_prompt)
-            generated = ollama.generate(model=model, prompt = total_prompt, num_predict=200,)
+            generated = ollama.generate(model=model, prompt = total_prompt, num_predict=200)
             response = generated["response"]
             #print(response)
             #print(f"respone length: {len(response)}")
