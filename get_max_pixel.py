@@ -137,14 +137,15 @@ def get_max_pixel_step3(df):
                 # if it is under 2.3 we don't want it
                 if suv_max < 2.3:
                     continue
-
+                print(
+                    f"Real SUVmax: {suv_ref} slice range passed slice_min: {slice_min} slice_max: {slice_max} suv_max: {suv_max}")
 
                 # check if our noted slice from the physican is between the max and min slices extracted with tolerance
                 if slice_overlap_ref(slice_ref, slice_min, slice_max, slice_tolerance):
                     # if (slice_min - slice_tolerance) <= slice_ref and (slice_max + slice_tolerance) >= slice_ref:
                     # check if our suv_max from segmentation is within the suv tolerance noted
                     #print(f"slice range: {slice_ref - slice_tolerance} to {slice_ref + slice_tolerance}")
-                    print(f"Real SUVmax: {suv_ref} slice range passed slice_min: {slice_min} slice_max: {slice_max} suv_max: {suv_max}")
+                    #print(f"Real SUVmax: {suv_ref} slice range passed slice_min: {slice_min} slice_max: {slice_max} suv_max: {suv_max}")
                     if abs(suv_max - suv_ref) <= suv_tolerance:
                         found_noted_lesion += 1
                         # print(row)
