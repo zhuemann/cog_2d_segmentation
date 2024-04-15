@@ -27,8 +27,11 @@ def get_max_pixel_of_segmented_regions_v2(labeled_regions, img):
         indices = np.argwhere(labeled_regions == label)
 
         # get the number of indices we have, esentially the volume of segmented area
-        num_indices = len(indices)
-        print(num_indices)
+        #num_indices = len(indices)
+        #print(num_indices)
+        # this is skip if the volume is too small
+        #if num_indices <= 3:
+        #    continue
         # Extract the corresponding pixel values from img
         pixel_values = img[indices[:, 0], indices[:, 1], indices[:, 2]]
 
@@ -145,6 +148,7 @@ def get_max_pixel_step3(df):
                 if slice_overlap_ref(slice_ref, slice_min, slice_max, slice_tolerance):
                     # if (slice_min - slice_tolerance) <= slice_ref and (slice_max + slice_tolerance) >= slice_ref:
                     # check if our suv_max from segmentation is within the suv tolerance noted
+                    print(f"slice ref: {slice_ref} slice_min: {slice_min} slice_max: {slice_max}")
                     #print(f"slice range: {slice_ref - slice_tolerance} to {slice_ref + slice_tolerance}")
                     #print(f"Real SUVmax: {suv_ref} slice range passed slice_min: {slice_min} slice_max: {slice_max} suv_max: {suv_max}")
                     if abs(suv_max - suv_ref) <= suv_tolerance:
