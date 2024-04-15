@@ -138,6 +138,7 @@ def get_max_pixel_step3(df):
                 if suv_max < 2.3:
                     continue
 
+
                 # check if our noted slice from the physican is between the max and min slices extracted with tolerance
                 if slice_overlap_ref(slice_ref, slice_min, slice_max, slice_tolerance):
                     # if (slice_min - slice_tolerance) <= slice_ref and (slice_max + slice_tolerance) >= slice_ref:
