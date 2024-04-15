@@ -132,8 +132,9 @@ def get_max_pixel_step3(df):
             found_items = 0
             for key, value in max_suv_dic.items():
                 suv_max, slice_min, slice_max, pixel = value
-                print(
-                    f"Real SUVmax: {suv_ref} slice range passed slice_min: {slice_min} slice_max: {slice_max} suv_max: {suv_max}")
+                #print(
+                #    f"Real SUVmax: {suv_ref} slice range passed slice_min: {slice_min} slice_max: {slice_max} suv_max: {suv_max}")
+                print(f"length: {slice_max - slice_min}")
                 # inverts teh slice indexing to match physican convention
                 #slice_min = img.shape[2] - slice_min
                 #slice_max = img.shape[2] - slice_max
