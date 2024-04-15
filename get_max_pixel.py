@@ -27,8 +27,8 @@ def get_max_pixel_of_segmented_regions_v2(labeled_regions, img):
         indices = np.argwhere(labeled_regions == label)
 
         # get the number of indices we have, esentially the volume of segmented area
-        #num_indices = len(indices)
-
+        num_indices = len(indices)
+        print(num_indices)
         # Extract the corresponding pixel values from img
         pixel_values = img[indices[:, 0], indices[:, 1], indices[:, 2]]
 
