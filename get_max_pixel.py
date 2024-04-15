@@ -130,10 +130,10 @@ def get_max_pixel_step3(df):
             for key, value in max_suv_dic.items():
                 suv_max, slice_min, slice_max, pixel = value
                 # inverts teh slice indexing to match physican convention
-                #slice_min = img.shape[2] - slice_min
-                #slice_max = img.shape[2] - slice_max
-                slice_max = img.shape[2] - slice_min
-                slice_min = img.shape[2] - slice_max
+                slice_min = img.shape[2] - slice_min
+                slice_max = img.shape[2] - slice_max
+                #slice_max = img.shape[2] - slice_min
+                #slice_min = img.shape[2] - slice_max
                 # if it is under 2.3 we don't want it
                 if suv_max < 2.3:
                     continue
