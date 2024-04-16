@@ -6,7 +6,7 @@ from data_prepocessing.get_max_pixel import get_max_pixel_step3
 from data_prepocessing.remove_dups_non_anontomical_sent import remove_dups_non_anontomical_sent
 from data_prepocessing.make_labels_from_point import make_labels_from_suv_max_points
 from data_prepocessing.create_sentence_mips_and_labels import create_mips
-from plot_mips_with_labels import plot_mips_with_labels
+from data_prepocessing.data_visualization.plot_mips_with_labels import plot_mips_with_labels
 import pandas as pd
 def run_data_pipeline():
 
