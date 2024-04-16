@@ -16,7 +16,7 @@ def remove_dups_non_anontomical_sent(df):
     # Drop the temporary 'Label_Number' column if you don't need it
     df_filtered.drop('Label_Number', axis=1, inplace=True)
 
-    df_path = "Z:/Zach_Analysis/suv_slice_text/uw_pet_lymphoma_next_and_previous_sentence_annotated.xlsx"
+    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_pet_lymphoma_next_and_previous_sentence_annotated.xlsx"
     df_anotomical_info = pd.read_excel(df_path)
 
     # Merge the two DataFrames on 'Petlymph' and 'Extracted sentences'
@@ -28,4 +28,5 @@ def remove_dups_non_anontomical_sent(df):
     df_dropped.rename(columns={'Slice_x': 'Slice'}, inplace=True)
     df_dropped.rename(columns={'SUV_x': 'SUV'}, inplace=True)
 
+    print(f"final df length: {len(df_dropped)}")
     return df_dropped
