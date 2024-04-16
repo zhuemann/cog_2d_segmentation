@@ -154,7 +154,7 @@ def get_max_pixel_step3(df):
                 if slice_overlap_ref(slice_ref, slice_min, slice_max, slice_tolerance):
                     # if (slice_min - slice_tolerance) <= slice_ref and (slice_max + slice_tolerance) >= slice_ref:
                     # check if our suv_max from segmentation is within the suv tolerance noted
-                    print(f"slice ref: {slice_ref} slice_min: {slice_min} slice_max: {slice_max}")
+                    #print(f"slice ref: {slice_ref} slice_min: {slice_min} slice_max: {slice_max}")
                     #print(f"slice range: {slice_ref - slice_tolerance} to {slice_ref + slice_tolerance}")
                     #print(f"Real SUVmax: {suv_ref} slice range passed slice_min: {slice_min} slice_max: {slice_max} suv_max: {suv_max}")
                     if abs(suv_max - suv_ref) <= suv_tolerance:
