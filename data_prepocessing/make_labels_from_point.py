@@ -133,7 +133,7 @@ def contour_above_threshold(img, threshold, pixels):
 
     return new_contour
 
-def itm(start_point, suv_max, img, conversion):
+def itm(start_point, suv_max, img, conversion, exit_early):
     old_threshold = suv_max
     i, j, k = start_point
 
@@ -173,6 +173,7 @@ def itm(start_point, suv_max, img, conversion):
             new_threshold = .7 * source
             canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
             new_contour = contour_above_threshold(img, new_threshold, canidate_pixels)
+            exit_early += 1
             print("exited early")
             break
         # if new_threshold + .2 > suv_max:
@@ -202,6 +203,7 @@ def make_labels_from_suv_max_points(df):
     petlymph_dic = {}
     image_path_base = "Z:/Zach_Analysis/suv_nifti/"
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
+    exit_early = 0
     for index, row in df.iterrows():
         print(f"index: {index}")
 
@@ -253,7 +255,7 @@ def make_labels_from_suv_max_points(df):
         # print(f"listed suv: {row['SUV']}")
         # print(f"extracted sent: {row['Extracted Sentences']}")
 
-        contour = itm(starting_point, row['SUV'], img, volume_conversion)
+        contour = itm(starting_point, row['SUV'], img, volume_conversion, exit_early)
 
         # print(contour)
         # print(row["Extracted Sentences"])
@@ -276,3 +278,4 @@ def make_labels_from_suv_max_points(df):
         #nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v6_nifti' + row["Label_Name"] + '.nii.gz')
         nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/labels_v6_nifti_test/' + row["Label_Name"] + '.nii.gz')
     print(f"missing petlymph number: {missing_conversion}")
+    print(f"exit early: {exit_early}")
