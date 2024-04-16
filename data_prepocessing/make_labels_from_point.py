@@ -271,5 +271,5 @@ def make_labels_from_suv_max_points(df):
         # nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labelsv2/' + str(petlymph) + '_label_' + str(petlymph_dic[petlymph])+ '.nii.gz')
         # nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v3_nifti/' + str(petlymph) + '_label_' + str(petlymph_dic[petlymph])+ '.nii.gz')
         #nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v6_nifti' + row["Label_Name"] + '.nii.gz')
-        nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/labels_v6_nifti' + row["Label_Name"] + '.nii.gz')
+        nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/labels_v6_nifti/' + row["Label_Name"] + '.nii.gz')
     print(f"missing petlymph number: {missing_conversion}")

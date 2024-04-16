@@ -26,6 +26,6 @@ def run_data_pipeline():
     #df.to_excel(save_base + "max_pixel_4_test_run_all.xlsx", index=False)
     df = pd.read_excel(save_base + "max_pixel_4_test_run_all.xlsx")
     df = remove_dups_non_anontomical_sent(df)
-    make_labels_from_suv_max_points(df)
+    #make_labels_from_suv_max_points(df)
 
     create_mips(df)
