@@ -100,6 +100,14 @@ def plot_mips_with_labels(df):
         plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
         # plt.colorbar()  # Optional: adds a colorbar to indicate the scale
 
+        # Get current y-axis tick locations
+        locs, _ = plt.yticks()
+
+        # Calculate the max and min values to invert labels
+        y_min, y_max = plt.ylim()
+
+        # Set new labels to appear inverted based on the max value
+        plt.yticks(locs, labels=[f"{y_max - (loc - y_min):.2f}" for loc in locs])
         # Get current locations and labels
         #locs, labels = plt.xticks()  # This gets the current locations and labels
         # Set new labels with reversed order based on current locations
