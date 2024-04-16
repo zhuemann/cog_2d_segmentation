@@ -97,6 +97,7 @@ def plot_mips_with_labels(df):
         plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
         plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
         # plt.colorbar()  # Optional: adds a colorbar to indicate the scale
+        plt.xlim(mip_coronal.shape[1], 0)
         plt.title(str(label_name))
 
         label = label_coronal
@@ -109,7 +110,7 @@ def plot_mips_with_labels(df):
         plt.imshow(mip_coronal, cmap='gray', vmax=10)  # First array with alpha of 0.1
         plt.imshow(array_label_nan, cmap='spring', alpha=0.9)  # Second array over the first, with alpha of 0.1
 
-        sentence = row["Extracted Sentences"] + "pixels: " + str(np.sum(label_coronal))
+        sentence = row["Extracted Sentences"] + " pixels: " + str(np.sum(label_coronal))
         print(sentence)
         sentence = insert_newlines(sentence, word_limit=20)
         #print(f"sum of pos pixels: {np.sum(label)}")
