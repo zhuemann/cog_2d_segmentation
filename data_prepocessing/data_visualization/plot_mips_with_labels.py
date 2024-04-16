@@ -123,6 +123,8 @@ def plot_mips_with_labels(df):
         #plt.yticks(locs, labels=[f"{int(y_max - (loc - y_min))}" for loc in locs])
         #plt.yticks(locs, labels=[f"{int(y_max - loc)}" for loc in locs if loc > -1 and loc < mip_coronal.shape[0]])
 
+        y_max = mip_coronal.shape[0]
+
         # Set y-axis limits and calculate new ticks based on the conditions
         plt.ylim(0, mip_coronal.shape[0])
 
