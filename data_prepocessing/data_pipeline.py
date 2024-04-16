@@ -30,4 +30,4 @@ def run_data_pipeline():
     df.to_excel(save_base + "remove_dups_df_5.xlsx", index=False)
     #make_labels_from_suv_max_points(df)
     #plot_mips_with_labels(df)
-    #create_mips(df)
+    create_mips(df)
