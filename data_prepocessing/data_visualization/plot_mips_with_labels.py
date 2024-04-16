@@ -1,32 +1,8 @@
-import numpy as np
-import os
-import pandas
-import regex as re
-import sys
+
 import pandas as pd
+import numpy as np
 import os
 import nibabel as nib
-from datetime import datetime
-import numpy as np
-import glob
-import cc3d
-import numpy as np
-import numpy as np
-from PIL import Image
-
-def save_2d_image_lossless(image, file_name):
-    """
-    Saves a 2D image to a file in a lossless format (PNG).
-
-    Args:
-    image (ndarray): A 2D image array.
-    file_name (str): The name of the file to save the image.
-    """
-    # Convert the image to PIL Image format and ensure it's in 'L' mode for grayscale
-    pil_image = Image.fromarray(image).convert('L')
-
-    # Save the image in a lossless format (PNG)
-    pil_image.save(file_name, format='PNG')
 
 def normalize_mip(mip):
     # Step 2: Clip values above 11 to 11
@@ -41,44 +17,24 @@ def normalize_mip(mip):
     normalized_uint8 = normalized.astype(np.uint8)
     return normalized_uint8
 
-def create_mips():
-    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/unique_labels_uw_lymphoma_anon_4_renumbered.xlsx"
-    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/unique_labels_uw_lymphoma_anon_4_renumbered_v3.xlsx"
+def plot_mips_with_labels(df):
+
+
+    df_path = "C:/Users/zmh001/PET_visual_grounding/petlymph_visual_grounding_df_drop_non_anatomical_sents.xlsx"
+    df_path = "Z:/Zach_Analysis/petlymph_image_data/unique_labels_uw_lymphoma_anon_4_renumbered_v3.xlsx"
     df = pd.read_excel(df_path)
-    print(len(df))
-    print(df)
-
-    df_decode_path = "/UserData/Zach_Analysis/patient_decoding.xlsx"
-    df_petlymph = pandas.read_excel(df_decode_path)
-
-    found = 0
-    missing_conversion = 0
-    data_df = []
 
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
     label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labelsv2/"
-    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels_v5_nifti/"
+    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels_v6_nifti/"
+
 
     for index, row in df.iterrows():
 
-        # if index > 2:
-        #    break
-        # get the petlymph number if availible
         print(f"index: {index}")
-        #if index < 580:
-        #    continue
-        """
-        petlymph = df_petlymph[df_petlymph["Accession Number"] == row["Accession Number"]]
-        if len(petlymph) == 0:
-            missing_conversion += 1
-            continue
-        else:
-            petlymph = petlymph["Patient ID"].iloc[0]
-            found += 1
-        """
+
         petlymph = row["Petlymph"]
-        #if petlymph == "PETLYMPH_3501" or petlymph == "PETLYMPH_2650" or petlymph == "PETLYMPH_3100":
-        #    continue
+
         # gets the location of the suv converted image if it exists
         folder_name = str(petlymph) + "_" + str(petlymph)
         image_path = os.path.join(image_path_base, folder_name)
@@ -99,7 +55,9 @@ def create_mips():
         label = nii_label.get_fdata()
 
         mip_coronal = np.max(img, axis=1)
-        mip_coronal = normalize_mip(mip_coronal)
+        mip_sagital = np.max(img, axis=0) # I think
+        mip_axial = np.max(img, axis=2) # I think this axis is right
+        #mip_coronal = normalize_mip(mip_coronal)
 
         label_coronal = np.max(label, axis=1)
 
@@ -108,13 +66,10 @@ def create_mips():
         # plt.colorbar()  # Optional, adds a colorbar to show the mapping of values to colors
         # plt.title('2D Maximum Projection')
         # plt.show()
-        label_name = row["Label_Name"]
+        #label_name = row["Label_Name"]
         # print(img.shape)
         #filename_img = "/UserData/Zach_Analysis/petlymph_image_data/images_coronal_mip_v4/" + str(petlymph) + ".png"
-        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip_v5/" + str(label_name) + ".png"
+        #filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip_v6/" + str(label_name) + ".png"
         # save_as_dicom(mip_coronal, filename)
         #save_2d_image_lossless(mip_coronal, filename_img)
-        save_2d_image_lossless(label_coronal, filename_label)
-
-    print(missing_conversion)
-    print(found)
+        #save_2d_image_lossless(label_coronal, filename_label)
