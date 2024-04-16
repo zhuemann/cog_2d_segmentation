@@ -33,7 +33,8 @@ def plot_mips_with_labels(df):
     for index, row in df.iterrows():
 
         print(f"index: {index}")
-
+        if index == 10:
+            break
         petlymph = row["Petlymph"]
 
         # gets the location of the suv converted image if it exists
@@ -77,7 +78,7 @@ def plot_mips_with_labels(df):
 
         plt.figure(figsize=(12, 6))
         plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
-        plt.imshow(mip_coronal, cmap='gray')  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
+        plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
         # plt.colorbar()  # Optional: adds a colorbar to indicate the scale
         plt.title('Sample Numpy Array as an Image')
 
@@ -88,8 +89,10 @@ def plot_mips_with_labels(df):
 
         plt.subplot(1, 2, 2)  # 1 row, 2 columns, second subplo
         # Plot the two numpy arrays overtop of each other
-        plt.imshow(mip_coronal, cmap='gray')  # First array with alpha of 0.1
+        plt.imshow(mip_coronal, cmap='gray', vmax=10)  # First array with alpha of 0.1
         plt.imshow(array_label_nan, cmap='spring', alpha=0.9)  # Second array over the first, with alpha of 0.1
 
         plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plots/" + petlymph)
+        sentence = row["Extracted Sentences"]
+        plt.suptitle(sentence, fontsize=12, color='black')
         plt.show()
