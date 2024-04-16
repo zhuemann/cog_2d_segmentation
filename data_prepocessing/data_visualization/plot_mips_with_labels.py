@@ -100,7 +100,7 @@ def plot_mips_with_labels(df):
         # Get current locations and labels
         locs, labels = plt.xticks()  # This gets the current locations and labels
         # Set new labels with reversed order based on current locations
-        plt.xticks(locs, labels=[f"{int(max(mip_coronal.shape[1]) - loc)}" for loc in locs])
+        plt.xticks(locs, labels=[f"{int(mip_coronal.shape[1] - loc)}" for loc in locs])
         plt.title(str(label_name))
 
         label = label_coronal
