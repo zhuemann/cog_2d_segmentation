@@ -107,7 +107,7 @@ def plot_mips_with_labels(df):
         y_min, y_max = plt.ylim()
 
         # Set new labels to appear inverted based on the max value
-        plt.yticks(locs, labels=[f"{y_max - (loc - y_min):.2f}" for loc in locs])
+        plt.yticks(locs, labels=[f"{y_max - (loc - y_min):}" for loc in locs])
         # Get current locations and labels
         #locs, labels = plt.xticks()  # This gets the current locations and labels
         # Set new labels with reversed order based on current locations
