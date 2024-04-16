@@ -45,13 +45,13 @@ def plot_mips_with_labels(df):
 
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
     label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labelsv2/"
-    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels_v6_nifti_test/"
+    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels_v6_nifti_test_short/"
 
 
     for index, row in df.iterrows():
 
         print(f"index: {index}")
-        if index == 10:
+        if index == 50:
             break
         petlymph = row["Petlymph"]
 

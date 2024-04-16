@@ -204,7 +204,7 @@ def itm(start_point, suv_max, img, conversion, exit_early):
         new_threshold = calculate_threshold(volume, background, source) * source
         # maybe try something like this
         if new_threshold / source > .7:
-            new_threshold = .7 * source
+            new_threshold = .4 * source
             #canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
             #canidate_pixels = extend_pixels_21_neighbors(new_contour)
             canidate_pixels = extend_pixels(new_contour, 2)
@@ -244,6 +244,8 @@ def make_labels_from_suv_max_points(df):
     for index, row in df.iterrows():
         print(f"index: {index}")
 
+        if index > 50:
+            continue
         # if index < 600:
         #    break
         # if index < 3:
@@ -312,6 +314,6 @@ def make_labels_from_suv_max_points(df):
         # nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labelsv2/' + str(petlymph) + '_label_' + str(petlymph_dic[petlymph])+ '.nii.gz')
         # nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v3_nifti/' + str(petlymph) + '_label_' + str(petlymph_dic[petlymph])+ '.nii.gz')
         #nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v6_nifti' + row["Label_Name"] + '.nii.gz')
-        nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/labels_v6_nifti_test/' + row["Label_Name"] + '.nii.gz')
+        nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/labels_v6_nifti_test_short/' + row["Label_Name"] + '.nii.gz')
     print(f"missing petlymph number: {missing_conversion}")
     print(f"exit early: {exit_early}")
