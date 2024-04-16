@@ -51,8 +51,8 @@ def plot_mips_with_labels(df):
     for index, row in df.iterrows():
 
         print(f"index: {index}")
-        if index == 10:
-            break
+        #if index == 10:
+        #    break
         petlymph = row["Petlymph"]
 
         # gets the location of the suv converted image if it exists

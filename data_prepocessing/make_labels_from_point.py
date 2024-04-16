@@ -244,8 +244,8 @@ def make_labels_from_suv_max_points(df):
     for index, row in df.iterrows():
         print(f"index: {index}")
 
-        if index > 50:
-            continue
+        #if index > 50:
+        #    continue
         # if index < 600:
         #    break
         # if index < 3:
