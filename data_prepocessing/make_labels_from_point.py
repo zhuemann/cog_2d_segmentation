@@ -269,7 +269,6 @@ def make_labels_from_suv_max_points(df):
             petlymph_dic[petlymph] = 1
         # gets the location of the suv converted image if it exists
         folder_name = str(petlymph) + "_" + str(petlymph)
-        print(folder_name)
         image_path = os.path.join(image_path_base, folder_name)
         file_names = os.listdir(image_path)
         index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
