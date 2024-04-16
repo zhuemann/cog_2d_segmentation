@@ -196,7 +196,7 @@ def itm(start_point, suv_max, img, conversion, exit_early):
     #print(f"SUVmax: {suv_max}")
     # print(f"SUVmax to background: {suv_max/background}")
     # print(f"background: {background}")
-    return new_contour
+    return new_contour, exit_early
 
 def make_labels_from_suv_max_points(df):
     missing_conversion = 0
@@ -255,7 +255,7 @@ def make_labels_from_suv_max_points(df):
         # print(f"listed suv: {row['SUV']}")
         # print(f"extracted sent: {row['Extracted Sentences']}")
 
-        contour = itm(starting_point, row['SUV'], img, volume_conversion, exit_early)
+        contour, exit_early = itm(starting_point, row['SUV'], img, volume_conversion, exit_early)
 
         # print(contour)
         # print(row["Extracted Sentences"])
