@@ -176,13 +176,13 @@ def itm(start_point, suv_max, img, conversion, exit_early):
 
     # new_threshold = calculate_threshold(volume, background, source)
     new_threshold = (.617 * (background / source) + .316) * source
-    # print(f"threshold: {new_threshold}")
+    print(f"first threshold: {new_threshold}")
 
     # get new adjacent pixels above threshold
     #adjacent_pixels = extend_pixels({start_point}, 1)
     #adjacent_pixels = extend_pixels_6_neighbors({start_point}, 1)
     #adjacent_pixels = extend_pixels_21_neighbors({start_point})
-    adjacent_pixels = extend_pixels({start_point}, 1)
+    adjacent_pixels = extend_pixels({start_point}, 2)
     new_contour = contour_above_threshold(img, new_threshold, adjacent_pixels)
     adjacent_pixels = extend_pixels(new_contour, 1)
     new_contour = contour_above_threshold(img, new_threshold, adjacent_pixels)
@@ -203,11 +203,11 @@ def itm(start_point, suv_max, img, conversion, exit_early):
         old_threshold = new_threshold
         new_threshold = calculate_threshold(volume, background, source) * source
         # maybe try something like this
-        if new_threshold / source > .8:
+        if new_threshold / source > .7:
             new_threshold = .7 * source
             #canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
             #canidate_pixels = extend_pixels_21_neighbors(new_contour)
-            canidate_pixels = extend_pixels(new_contour, 1)
+            canidate_pixels = extend_pixels(new_contour, 2)
             new_contour = contour_above_threshold(img, new_threshold, canidate_pixels)
             exit_early += 1
             print(f"exited early: {exit_early}")
