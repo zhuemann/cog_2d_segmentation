@@ -52,6 +52,37 @@ def get_boundary_pixels(pixel_set):
 
     return boundary_pixels
 
+
+def extend_pixels_21_neighbors(pixels):
+    """
+    Extend a set of pixels by including all neighbors within a 3x3x3 cube centered
+    on each pixel in 3D space, excluding the corners of the cube.
+
+    :param pixels: A set of tuples, where each tuple represents the (x, y, z) coordinates of a pixel.
+    :return: A set containing the original and new extended pixels.
+    """
+    extended_pixels = set(pixels)  # Start with the original set of pixels
+
+    # Define the 21 non-corner directions in a 3x3x3 cube
+    directions = []
+    for dx in [-1, 0, 1]:
+        for dy in [-1, 0, 1]:
+            for dz in [-1, 0, 1]:
+                # Exclude the center (0, 0, 0) and the corners
+                if (dx, dy, dz) != (0, 0, 0) and abs(dx) + abs(dy) + abs(dz) < 3:
+                    directions.append((dx, dy, dz))
+
+    # Iterate through each pixel in the original set
+    for x, y, z in pixels:
+        # Add each of the 21 neighboring pixels
+        for dx, dy, dz in directions:
+            # Calculate new pixel coordinates
+            new_x, new_y, new_z = x + dx, y + dy, z + dz
+            # Add the new pixel to the set
+            extended_pixels.add((new_x, new_y, new_z))
+
+    return extended_pixels
+
 def extend_pixels_6_neighbors(pixels, extension=1):
     """
     Extend a set of pixels by 1 in each of the x, y, and z directions in 3D space,
@@ -148,8 +179,10 @@ def itm(start_point, suv_max, img, conversion, exit_early):
     # print(f"threshold: {new_threshold}")
 
     # get new adjacent pixels above threshold
-    adjacent_pixels = extend_pixels({start_point}, 1)
-    adjacent_pixels = extend_pixels_6_neighbors({start_point}, 1)
+    #adjacent_pixels = extend_pixels({start_point}, 1)
+    #adjacent_pixels = extend_pixels_6_neighbors({start_point}, 1)
+    adjacent_pixels = extend_pixels_21_neighbors({start_point})
+
     # print(adjacent_pixels)
     new_contour = contour_above_threshold(img, new_threshold, adjacent_pixels)
 
@@ -171,7 +204,8 @@ def itm(start_point, suv_max, img, conversion, exit_early):
         # maybe try something like this
         if new_threshold / source > .8:
             new_threshold = .7 * source
-            canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
+            #canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
+            canidate_pixels = extend_pixels_21_neighbors(new_contour)
             new_contour = contour_above_threshold(img, new_threshold, canidate_pixels)
             exit_early += 1
             print("exited early")
@@ -183,7 +217,8 @@ def itm(start_point, suv_max, img, conversion, exit_early):
         # add all adjacent pixels above threshold to the contour
         # get new adjacent pixels above threshold
         # canidate_pixels = extend_pixels(new_contour, 1)
-        canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
+        #canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
+        canidate_pixels = extend_pixels_21_neighbors(new_contour)
         new_contour = contour_above_threshold(img, new_threshold, canidate_pixels)
 
         # if new threhold is different by more than 5 percent then continue process else break and return countour
