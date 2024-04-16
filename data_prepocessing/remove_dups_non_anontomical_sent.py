@@ -28,5 +28,7 @@ def remove_dups_non_anontomical_sent(df):
     df_dropped.rename(columns={'Slice_x': 'Slice'}, inplace=True)
     df_dropped.rename(columns={'SUV_x': 'SUV'}, inplace=True)
 
+    df = df.rename(columns={"Extracted Sentences": "sentence"})
+
     print(f"final df length: {len(df_dropped)}")
     return df_dropped
