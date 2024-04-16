@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import os
 import nibabel as nib
+import matplotlib.pyplot as plt
 
 def normalize_mip(mip):
     # Step 2: Clip values above 11 to 11
@@ -73,3 +74,22 @@ def plot_mips_with_labels(df):
         # save_as_dicom(mip_coronal, filename)
         #save_2d_image_lossless(mip_coronal, filename_img)
         #save_2d_image_lossless(label_coronal, filename_label)
+
+        plt.figure(figsize=(12, 6))
+        plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
+        plt.imshow(mip_coronal, cmap='gray')  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
+        # plt.colorbar()  # Optional: adds a colorbar to indicate the scale
+        plt.title('Sample Numpy Array as an Image')
+
+        label = label_coronal
+        # Set zeros in the second array to NaN for transparency
+        label = np.where(label == 1, 120, label)
+        array_label_nan = np.where(label == 0, np.nan, label)
+
+        plt.subplot(1, 2, 2)  # 1 row, 2 columns, second subplo
+        # Plot the two numpy arrays overtop of each other
+        plt.imshow(mip_coronal, cmap='gray')  # First array with alpha of 0.1
+        plt.imshow(array_label_nan, cmap='spring', alpha=0.9)  # Second array over the first, with alpha of 0.1
+
+        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plots/" + petlymph)
+        plt.show()
