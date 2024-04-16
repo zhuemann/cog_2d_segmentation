@@ -97,11 +97,11 @@ def plot_mips_with_labels(df):
         plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
         plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
         # plt.colorbar()  # Optional: adds a colorbar to indicate the scale
-        plt.title('Sample Numpy Array as an Image')
+        plt.title(str(label_name))
 
         label = label_coronal
         # Set zeros in the second array to NaN for transparency
-        label = np.where(label == 1, 120, label)
+        label = np.where(label == 1, 250, label)
         array_label_nan = np.where(label == 0, np.nan, label)
 
         plt.subplot(1, 2, 2)  # 1 row, 2 columns, second subplo
