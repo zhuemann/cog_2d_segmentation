@@ -125,7 +125,7 @@ def plot_mips_with_labels(df):
 
         sentence = row["Extracted Sentences"] + " pixels: " + str(np.sum(label_coronal))
         #print(sentence)
-        sentence = insert_newlines(sentence, word_limit=20)
+        sentence = insert_newlines(sentence, word_limit=17)
         #print(f"sum of pos pixels: {np.sum(label)}")
         plt.suptitle(sentence, fontsize=12, color='black')
 
