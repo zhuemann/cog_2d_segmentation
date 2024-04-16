@@ -76,8 +76,8 @@ def get_max_pixel_step3(df):
         # if index < 3645:
         #    continue
         #if index > 500:
-        if index > 100:
-            continue
+        #if index > 100:
+        #    continue
         #    break
         # if index > 10:
         #    break
