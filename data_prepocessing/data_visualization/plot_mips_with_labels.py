@@ -99,11 +99,12 @@ def plot_mips_with_labels(df):
         plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
         plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
 
-        print(mip_coronal.shape)
+        # switch the axis plotting of the y axis
         locs, _ = plt.yticks()
         y_min, y_max = plt.ylim()
-        plt.yticks(locs, labels=[f"{int(y_max - (loc - y_min))}" for loc in locs])
-
+        filtered_locs = [loc for loc in locs if loc > -1 and loc < mip_coronal.shape[0]]
+        filtered_labels = [f"{int(y_max - loc)*-1}" for loc in filtered_locs]
+        plt.yticks(filtered_locs, filtered_labels)
 
         label = label_coronal
         # Set zeros in the second array to NaN for transparency
@@ -118,18 +119,9 @@ def plot_mips_with_labels(df):
 
         locs, _ = plt.yticks()
         y_min, y_max = plt.ylim()
-        #for loc in locs:
-        #    print(loc)
-        #plt.yticks(locs, labels=[f"{int(y_max - (loc - y_min))}" for loc in locs])
-        #plt.yticks(locs, labels=[f"{int(y_max - loc)}" for loc in locs if loc > -1 and loc < mip_coronal.shape[0]])
-        # Filter locations and generate labels simultaneously
         filtered_locs = [loc for loc in locs if loc > -1 and loc < mip_coronal.shape[0]]
         filtered_labels = [f"{int(y_max - loc)*-1}" for loc in filtered_locs]
-
-        # Apply the filtered locations and labels
         plt.yticks(filtered_locs, filtered_labels)
-
-
 
         sentence = row["Extracted Sentences"] + " pixels: " + str(np.sum(label_coronal))
         #print(sentence)
