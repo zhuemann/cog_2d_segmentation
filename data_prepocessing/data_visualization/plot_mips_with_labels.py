@@ -133,7 +133,7 @@ def plot_mips_with_labels(df):
         filtered_locs = [loc for loc in locs if loc > -1 and loc < mip_coronal.shape[0]]
 
         # Set new labels for the filtered locations
-        plt.yticks(filtered_locs, [f"{int(y_max - loc)}" for loc in filtered_locs])
+        plt.yticks(filtered_locs, [f"{int(y_max - (loc - y_min))}" for loc in filtered_locs])
 
 
         sentence = row["Extracted Sentences"] + " pixels: " + str(np.sum(label_coronal))
