@@ -93,8 +93,8 @@ def plot_mips_with_labels(df):
         # save_as_dicom(mip_coronal, filename)
         #save_2d_image_lossless(mip_coronal, filename_img)
         #save_2d_image_lossless(label_coronal, filename_label)
-        mip_coronal = mip_coronal.T
-        label_coronal = label_coronal.T
+        mip_coronal = np.rot90(mip_coronal)
+        label_coronal = np.rot90(label_coronal) #label_coronal.T
         plt.figure(figsize=(12, 6))
         plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
         plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
@@ -124,5 +124,5 @@ def plot_mips_with_labels(df):
         plt.suptitle(sentence, fontsize=12, color='black')
 
         plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plots/" + label_name)
-
+        plt.close()
         #plt.show()
