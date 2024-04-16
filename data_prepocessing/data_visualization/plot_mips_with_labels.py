@@ -109,7 +109,7 @@ def plot_mips_with_labels(df):
         plt.imshow(mip_coronal, cmap='gray', vmax=10)  # First array with alpha of 0.1
         plt.imshow(array_label_nan, cmap='spring', alpha=0.9)  # Second array over the first, with alpha of 0.1
 
-        sentence = row["Extracted Sentences"]
+        sentence = row["Extracted Sentences"] + "pixels: " + str(np.sum(label_coronal))
         print(sentence)
         sentence = insert_newlines(sentence, word_limit=20)
         #print(f"sum of pos pixels: {np.sum(label)}")
