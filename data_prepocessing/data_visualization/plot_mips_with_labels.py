@@ -97,6 +97,8 @@ def plot_mips_with_labels(df):
         plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
         plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
         # plt.colorbar()  # Optional: adds a colorbar to indicate the scale
+
+        plt.xlim(mip_coronal.shape[1] - 1, 0)  # Set limits to match the reversed tick labels
         # Get current locations and labels
         locs, labels = plt.xticks()  # This gets the current locations and labels
         # Set new labels with reversed order based on current locations
