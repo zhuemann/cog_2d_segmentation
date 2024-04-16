@@ -75,7 +75,7 @@ def plot_mips_with_labels(df):
         # save_as_dicom(mip_coronal, filename)
         #save_2d_image_lossless(mip_coronal, filename_img)
         #save_2d_image_lossless(label_coronal, filename_label)
-
+        print(row)
         plt.figure(figsize=(12, 6))
         plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
         plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
