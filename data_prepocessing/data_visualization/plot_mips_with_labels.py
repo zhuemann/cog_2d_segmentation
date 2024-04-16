@@ -80,7 +80,7 @@ def plot_mips_with_labels(df):
         #mip_coronal = normalize_mip(mip_coronal)
 
         label_coronal = np.max(label, axis=1)
-        print(f"sum of pos pixels: {np.sum(label_coronal)}")
+        #print(f"sum of pos pixels: {np.sum(label_coronal)}")
         # plt.imshow(mip_coronal, cmap='gray')  # Use an appropriate colormap
         # plt.imshow(label_coronal, cmap="jet", alpha=.2)
         # plt.colorbar()  # Optional, adds a colorbar to show the mapping of values to colors
@@ -93,17 +93,18 @@ def plot_mips_with_labels(df):
         # save_as_dicom(mip_coronal, filename)
         #save_2d_image_lossless(mip_coronal, filename_img)
         #save_2d_image_lossless(label_coronal, filename_label)
+        mip_coronal = mip_coronal.T
+        label_coronal = label_coronal.T
         plt.figure(figsize=(12, 6))
         plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
         plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
         # plt.colorbar()  # Optional: adds a colorbar to indicate the scale
 
-        plt.xlim(mip_coronal.shape[1] - 1, 0)  # Set limits to match the reversed tick labels
         # Get current locations and labels
-        locs, labels = plt.xticks()  # This gets the current locations and labels
+        #locs, labels = plt.xticks()  # This gets the current locations and labels
         # Set new labels with reversed order based on current locations
-        plt.xticks(locs, labels=[f"{int(mip_coronal.shape[1] - loc)}" for loc in locs])
-        plt.title(str(label_name))
+        #plt.xticks(locs, labels=[f"{int(mip_coronal.shape[1] - loc)}" for loc in locs])
+        #plt.title(str(label_name))
 
         label = label_coronal
         # Set zeros in the second array to NaN for transparency
@@ -114,10 +115,10 @@ def plot_mips_with_labels(df):
         # Plot the two numpy arrays overtop of each other
         plt.imshow(mip_coronal, cmap='gray', vmax=10)  # First array with alpha of 0.1
         plt.imshow(array_label_nan, cmap='spring', alpha=0.9)  # Second array over the first, with alpha of 0.1
-        plt.xticks(locs, labels=[f"{int(mip_coronal.shape[1] - loc)}" for loc in locs])
+        #plt.xticks(locs, labels=[f"{int(mip_coronal.shape[1] - loc)}" for loc in locs])
 
         sentence = row["Extracted Sentences"] + " pixels: " + str(np.sum(label_coronal))
-        print(sentence)
+        #print(sentence)
         sentence = insert_newlines(sentence, word_limit=20)
         #print(f"sum of pos pixels: {np.sum(label)}")
         plt.suptitle(sentence, fontsize=12, color='black')
