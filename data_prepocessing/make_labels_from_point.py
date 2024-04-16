@@ -170,7 +170,9 @@ def itm(start_point, suv_max, img, conversion):
         new_threshold = calculate_threshold(volume, background, source) * source
         # maybe try something like this
         if new_threshold / source > .8:
-            new_threshold = .4 * source
+            new_threshold = .7 * source
+            canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
+            new_contour = contour_above_threshold(img, new_threshold, canidate_pixels)
             break
         # if new_threshold + .2 > suv_max:
         #    print("stopping loop thresold greater than suv_max")
