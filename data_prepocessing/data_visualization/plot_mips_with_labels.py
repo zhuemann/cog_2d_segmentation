@@ -80,7 +80,7 @@ def plot_mips_with_labels(df):
         #mip_coronal = normalize_mip(mip_coronal)
 
         label_coronal = np.max(label, axis=1)
-
+        print(f"sum of pos pixels: {np.sum(label_coronal)}")
         # plt.imshow(mip_coronal, cmap='gray')  # Use an appropriate colormap
         # plt.imshow(label_coronal, cmap="jet", alpha=.2)
         # plt.colorbar()  # Optional, adds a colorbar to show the mapping of values to colors
@@ -112,7 +112,7 @@ def plot_mips_with_labels(df):
         sentence = row["Extracted Sentences"]
         print(sentence)
         sentence = insert_newlines(sentence, word_limit=20)
-        print(f"sum of pos pixels: {np.sum(label)}")
+        #print(f"sum of pos pixels: {np.sum(label)}")
         plt.suptitle(sentence, fontsize=12, color='black')
 
         plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plots/" + label_name)
