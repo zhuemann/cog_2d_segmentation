@@ -105,10 +105,10 @@ def calculate_threshold(volume, background, source):
     second_term = .617 * (background / source)
     # third_term = .2
     third_term = .316
-    print(f"first term: {first_term}")
-    print(f"second term: {second_term}")
-    print(f"thrid term: {third_term}")
-    print(f"sum: {first_term + second_term + third_term}")
+    #print(f"first term: {first_term}")
+    #print(f"second term: {second_term}")
+    #print(f"thrid term: {third_term}")
+    #print(f"sum: {first_term + second_term + third_term}")
     return first_term + second_term + third_term
 
 def get_background_value(extension, pixel_set, img):
@@ -160,7 +160,7 @@ def itm(start_point, suv_max, img, conversion):
         # print(f"suv max: {suv_max} current_threshold: {new_threshold}")
         # calculate new boundary based on new set
         background = get_background_value(extension=3, pixel_set=new_contour, img=img)
-        print(f"background value: {background}")
+        #print(f"background value: {background}")
 
         # calculate volume and background
         volume = len(new_contour) * conversion
@@ -186,10 +186,10 @@ def itm(start_point, suv_max, img, conversion):
         change = (old_threshold - new_threshold) / old_threshold
         # print(f"percent change: {change}")
     # print(len(new_contour))
-    print(f"final_threshold: {new_threshold}")
-    print(f"lesion ml: {len(new_contour) * conversion}")
-    print(f"percent SUVmax: {new_threshold / suv_max}")
-    print(f"SUVmax: {suv_max}")
+    #print(f"final_threshold: {new_threshold}")
+    #print(f"lesion ml: {len(new_contour) * conversion}")
+    #print(f"percent SUVmax: {new_threshold / suv_max}")
+    #print(f"SUVmax: {suv_max}")
     # print(f"SUVmax to background: {suv_max/background}")
     # print(f"background: {background}")
     return new_contour
@@ -255,8 +255,8 @@ def make_labels_from_suv_max_points(df):
         # print(contour)
         # print(row["Extracted Sentences"])
 
-        print(row["Extracted Sentences"])
-        print(f"starting point: {starting_point}")
+        #print(row["Extracted Sentences"])
+        #print(f"starting point: {starting_point}")
         #plot_points_on_slices(img, contour, starting_point[2])
         label_data = np.zeros(img.shape, dtype=nii_image.get_data_dtype())
         # Set specified pixels to 1
