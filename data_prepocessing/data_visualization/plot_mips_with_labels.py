@@ -97,6 +97,6 @@ def plot_mips_with_labels(df):
         print(f"sum of pos pixels: {np.sum(label)}")
         plt.suptitle(sentence, fontsize=12, color='black')
 
-        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plots/" + petlymph)
+        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plots/" + label_name)
 
         #plt.show()
