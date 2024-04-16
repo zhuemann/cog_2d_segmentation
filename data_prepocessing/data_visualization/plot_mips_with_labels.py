@@ -95,7 +95,7 @@ def plot_mips_with_labels(df):
         #save_2d_image_lossless(label_coronal, filename_label)
         mip_coronal = np.rot90(mip_coronal)
         label_coronal = np.rot90(label_coronal) #label_coronal.T
-        plt.figure(figsize=(12, 6))
+        plt.figure(figsize=(12, 10))
         plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
         plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
 
