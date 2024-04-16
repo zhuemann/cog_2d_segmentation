@@ -5,6 +5,24 @@ import os
 import nibabel as nib
 import matplotlib.pyplot as plt
 
+
+def insert_newlines(text, word_limit=15):
+    words = text.split()
+    lines = []
+    current_line = []
+
+    for word in words:
+        current_line.append(word)
+        if len(current_line) == word_limit:
+            lines.append(' '.join(current_line))
+            current_line = []
+
+    # Add the last line if there are any remaining words
+    if current_line:
+        lines.append(' '.join(current_line))
+
+    return '\n'.join(lines)
+
 def normalize_mip(mip):
     # Step 2: Clip values above 11 to 11
     clipped = np.clip(mip, None, 11)
@@ -75,7 +93,6 @@ def plot_mips_with_labels(df):
         # save_as_dicom(mip_coronal, filename)
         #save_2d_image_lossless(mip_coronal, filename_img)
         #save_2d_image_lossless(label_coronal, filename_label)
-        print(row)
         plt.figure(figsize=(12, 6))
         plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
         plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
@@ -94,6 +111,7 @@ def plot_mips_with_labels(df):
 
         sentence = row["Extracted Sentences"]
         print(sentence)
+        sentence = insert_newlines(sentence, word_limit=20)
         print(f"sum of pos pixels: {np.sum(label)}")
         plt.suptitle(sentence, fontsize=12, color='black')
 
