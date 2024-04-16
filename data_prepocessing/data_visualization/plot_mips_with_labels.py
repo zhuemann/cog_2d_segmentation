@@ -98,21 +98,12 @@ def plot_mips_with_labels(df):
         plt.figure(figsize=(12, 6))
         plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
         plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
-        # plt.colorbar()  # Optional: adds a colorbar to indicate the scale
 
-        # Get current y-axis tick locations
-        locs, _ = plt.yticks()
-
-        # Calculate the max and min values to invert labels
-        y_min, y_max = plt.ylim()
         print(mip_coronal.shape)
-        # Set new labels to appear inverted based on the max value
+        locs, _ = plt.yticks()
+        y_min, y_max = plt.ylim()
         plt.yticks(locs, labels=[f"{int(y_max - (loc - y_min))}" for loc in locs])
-        # Get current locations and labels
-        #locs, labels = plt.xticks()  # This gets the current locations and labels
-        # Set new labels with reversed order based on current locations
-        #plt.xticks(locs, labels=[f"{int(mip_coronal.shape[1] - loc)}" for loc in locs])
-        #plt.title(str(label_name))
+
 
         label = label_coronal
         # Set zeros in the second array to NaN for transparency
@@ -124,6 +115,10 @@ def plot_mips_with_labels(df):
         plt.imshow(mip_coronal, cmap='gray', vmax=10)  # First array with alpha of 0.1
         plt.imshow(array_label_nan, cmap='spring', alpha=0.9)  # Second array over the first, with alpha of 0.1
         #plt.xticks(locs, labels=[f"{int(mip_coronal.shape[1] - loc)}" for loc in locs])
+
+        locs, _ = plt.yticks()
+        y_min, y_max = plt.ylim()
+        plt.yticks(locs, labels=[f"{int(y_max - (loc - y_min))}" for loc in locs])
 
         sentence = row["Extracted Sentences"] + " pixels: " + str(np.sum(label_coronal))
         #print(sentence)
