@@ -118,7 +118,8 @@ def plot_mips_with_labels(df):
 
         locs, _ = plt.yticks()
         y_min, y_max = plt.ylim()
-        plt.yticks(locs, labels=[f"{int(y_max - (loc - y_min))}" for loc in locs])
+        #plt.yticks(locs, labels=[f"{int(y_max - (loc - y_min))}" for loc in locs])
+        plt.yticks(locs, labels=[f"{int(y_max - loc)}" for loc in locs])
 
         sentence = row["Extracted Sentences"] + " pixels: " + str(np.sum(label_coronal))
         #print(sentence)
