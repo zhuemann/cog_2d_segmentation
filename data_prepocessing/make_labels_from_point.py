@@ -198,6 +198,7 @@ def make_labels_from_suv_max_points(df):
     missing_conversion = 0
     petlymph_dic = {}
     image_path_base = "Z:/Zach_Analysis/suv_nifti/"
+    image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
     for index, row in df.iterrows():
         print(f"index: {index}")
 
@@ -269,5 +270,6 @@ def make_labels_from_suv_max_points(df):
         # Save the new NIfTI image to a file
         # nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labelsv2/' + str(petlymph) + '_label_' + str(petlymph_dic[petlymph])+ '.nii.gz')
         # nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v3_nifti/' + str(petlymph) + '_label_' + str(petlymph_dic[petlymph])+ '.nii.gz')
-        nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v6_nifti' + row["Label_Name"] + '.nii.gz')
+        #nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v6_nifti' + row["Label_Name"] + '.nii.gz')
+        nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/labels_v6_nifti' + row["Label_Name"] + '.nii.gz')
     print(f"missing petlymph number: {missing_conversion}")
