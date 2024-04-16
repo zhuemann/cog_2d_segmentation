@@ -112,6 +112,7 @@ def plot_mips_with_labels(df):
         # Plot the two numpy arrays overtop of each other
         plt.imshow(mip_coronal, cmap='gray', vmax=10)  # First array with alpha of 0.1
         plt.imshow(array_label_nan, cmap='spring', alpha=0.9)  # Second array over the first, with alpha of 0.1
+        plt.xticks(locs, labels=[f"{int(max(mip_coronal.shape[1]) - loc)}" for loc in locs])
 
         sentence = row["Extracted Sentences"] + " pixels: " + str(np.sum(label_coronal))
         print(sentence)
