@@ -21,8 +21,8 @@ def plot_mips_with_labels(df):
 
 
     df_path = "C:/Users/zmh001/PET_visual_grounding/petlymph_visual_grounding_df_drop_non_anatomical_sents.xlsx"
-    df_path = "Z:/Zach_Analysis/petlymph_image_data/unique_labels_uw_lymphoma_anon_4_renumbered_v3.xlsx"
-    df = pd.read_excel(df_path)
+    #df_path = "Z:/Zach_Analysis/petlymph_image_data/unique_labels_uw_lymphoma_anon_4_renumbered_v3.xlsx"
+    #df = pd.read_excel(df_path)
 
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
     label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labelsv2/"
