@@ -211,7 +211,7 @@ def itm(start_point, suv_max, img, conversion, exit_early):
             new_contour = contour_above_threshold(img, new_threshold, canidate_pixels)
             exit_early += 1
             print(f"exited early: {exit_early}")
-            return None
+            return None, exit_early
             #break
         # if new_threshold + .2 > suv_max:
         #    print("stopping loop thresold greater than suv_max")
