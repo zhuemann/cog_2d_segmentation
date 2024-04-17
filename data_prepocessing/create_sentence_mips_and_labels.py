@@ -57,7 +57,7 @@ def create_mips(df):
 
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
     #label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labelsv2/"
-    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels_v7_nifti/"
+    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels_v8_nifti/"
 
     for index, row in df.iterrows():
 
