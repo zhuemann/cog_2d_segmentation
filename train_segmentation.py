@@ -602,7 +602,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             valid_log.append(avg_valid_dice)
             correct_suv_log.append(correct_max_predictions)
 
-            if avg_valid_dice >= best_acc:
+            if avg_valid_dice > best_acc:
                 best_acc = avg_valid_dice
 
                 #print(f"save location: {config['save_location']}")
