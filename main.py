@@ -21,8 +21,8 @@ from data_prepocessing.data_pipeline import run_data_pipeline
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-    run_data_pipeline()
-    print(fail)
+    #run_data_pipeline()
+    #print(fail)
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
     #create_mips()
@@ -62,7 +62,7 @@ if __name__ == '__main__':
 
         #folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
         #save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
-        folder_name = "/contextual_net_higher_lr_2000ep_less_labels_higher_quality_v20/seed" + str(seed) + "/"
+        folder_name = "/contextual_net_higher_lr_2000ep_higher_quality_v21/seed" + str(seed) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing" + folder_name
         save_location = os.path.join(directory_base, save_string)
         # save_location = ""
