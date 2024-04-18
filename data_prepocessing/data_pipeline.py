@@ -25,7 +25,7 @@ def run_data_pipeline():
     #df = get_max_pixel_step3(df)
     #print(df)
     #df.to_excel(save_base + "max_pixel_4_test_rerun_slice_ref_fixed.xlsx", index=False)
-    df = pd.read_excel(save_base + "max_pixel_4_test_rerun_slice_ref_fixed.xls")
+    df = pd.read_excel(save_base + "max_pixel_4_test_rerun_slice_ref_fixed.xlsx")
     df = remove_dups_non_anontomical_sent(df)
     df.to_excel(save_base + "remove_dups_df_5_fixed.xlsx", index=False)
     df = make_labels_from_suv_max_points(df)
