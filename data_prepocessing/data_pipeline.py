@@ -31,7 +31,7 @@ def run_data_pipeline():
     #df = make_labels_from_suv_max_points(df)
     #df.to_excel(save_base + "dropped_problem_segs_6.xlsx", index=False)
     #print(fail)
-    df = pd.read_excel(save_base + "dropped_problem_segs_6.xlsx")
+    df = pd.read_excel(save_base + "dropped_problem_segs_6_v2.xlsx")
 
     plot_mips_with_labels(df)
     #create_mips(df)
