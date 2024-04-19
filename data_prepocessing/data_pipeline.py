@@ -11,7 +11,7 @@ from data_prepocessing.data_visualization.plot_mips_with_labels import plot_mips
 import pandas as pd
 def run_data_pipeline():
 
-    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v3/"
+    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v10/"
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
     #df = split_sentences()
     #df.to_excel(save_base + "sentences_split_1.xlsx", index=False)
@@ -28,10 +28,13 @@ def run_data_pipeline():
     #df.to_excel(save_base + "max_pixel_4_test_rerun_slice_ref_fixed.xlsx", index=False)
     df = pd.read_excel(save_base + "max_pixel_4_test_rerun_slice_ref_fixed.xlsx")
     df = detect_and_remove_multiple_suv_slice(df)
+    print(len(df))
+    df.to_excel(save_base + "remove_multiple_suv_slice_5.xlsx", index=False)
+
     df = remove_dups_non_anontomical_sent(df)
     #df.to_excel(save_base + "remove_dups_df_5_fixed.xlsx", index=False)
     df = make_labels_from_suv_max_points(df)
-    df.to_excel(save_base + "dropped_problem_segs_6_v3.xlsx", index=False)
+    df.to_excel(save_base_final + "dropped_problem_segs_6_v3.xlsx", index=False)
     #print(fail)
     #df = pd.read_excel(save_base + "dropped_problem_segs_6_v2.xlsx")
 
