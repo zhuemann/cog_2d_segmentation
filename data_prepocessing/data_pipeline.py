@@ -32,7 +32,7 @@ def run_data_pipeline():
     df.to_excel(save_base + "remove_multiple_suv_slice_5.xlsx", index=False)
 
     df = remove_dups_non_anontomical_sent(df)
-    #df.to_excel(save_base + "remove_dups_df_5_fixed.xlsx", index=False)
+    df.to_excel(save_base + "remove_dups_df_6.xlsx", index=False)
     df = make_labels_from_suv_max_points(df)
     df.to_excel(save_base_final + "dropped_problem_segs_6_v3.xlsx", index=False)
     #print(fail)
