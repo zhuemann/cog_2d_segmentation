@@ -176,12 +176,12 @@ def itm(start_point, suv_max, img, conversion, exit_early):
 
     # new_threshold = calculate_threshold(volume, background, source)
     new_threshold = (.617 * (background / source) + .316) * source
-    print(f"first threshold: {new_threshold}")
+    #print(f"first threshold: {new_threshold}")
 
     # get new adjacent pixels above threshold
     #adjacent_pixels = extend_pixels({start_point}, 1)
-    adjacent_pixels = extend_pixels_6_neighbors({start_point}, 1)
-    #adjacent_pixels = extend_pixels_21_neighbors({start_point})
+    #adjacent_pixels = extend_pixels_6_neighbors({start_point}, 1)
+    adjacent_pixels = extend_pixels_21_neighbors({start_point})
     #adjacent_pixels = extend_pixels({start_point}, 1)
     new_contour = contour_above_threshold(img, new_threshold, adjacent_pixels)
     #adjacent_pixels = extend_pixels(new_contour, 1)
@@ -220,8 +220,8 @@ def itm(start_point, suv_max, img, conversion, exit_early):
         # add all adjacent pixels above threshold to the contour
         # get new adjacent pixels above threshold
         #canidate_pixels = extend_pixels(new_contour, 1)
-        canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
-        #canidate_pixels = extend_pixels_21_neighbors(new_contour)
+        #canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
+        canidate_pixels = extend_pixels_21_neighbors(new_contour)
         new_contour = contour_above_threshold(img, new_threshold, canidate_pixels)
 
         # if new threhold is different by more than 5 percent then continue process else break and return countour
