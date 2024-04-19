@@ -168,7 +168,7 @@ def itm(start_point, suv_max, img, conversion, exit_early):
     old_threshold = suv_max
     i, j, k = start_point
 
-    change_threshold = .01
+    change_threshold = .001
     # print(f"start point: {start_point}")
     background = get_background_value(extension=3, pixel_set={start_point}, img=img)
     volume = 1 * conversion  # more genearlly it will be len(countour)*conversion
