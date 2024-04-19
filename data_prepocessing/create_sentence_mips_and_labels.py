@@ -110,8 +110,8 @@ def create_mips(df):
         # plt.show()
         label_name = row["Label_Name"]
         # print(img.shape)
-        filename_img = "/UserData/Zach_Analysis/petlymph_image_data/images_coronal_mip_v9/" + str(petlymph) + ".png"
-        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip_v9/" + str(label_name) + ".png"
+        filename_img = "/UserData/Zach_Analysis/petlymph_image_data/images_coronal_mip_v10/" + str(petlymph) + ".png"
+        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip_v10/" + str(label_name) + ".png"
         # save_as_dicom(mip_coronal, filename)
         save_2d_image_lossless(mip_coronal, filename_img)
         save_2d_image_lossless(label_coronal, filename_label)

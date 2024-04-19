@@ -180,9 +180,9 @@ def itm(start_point, suv_max, img, conversion, exit_early):
 
     # get new adjacent pixels above threshold
     #adjacent_pixels = extend_pixels({start_point}, 1)
-    #adjacent_pixels = extend_pixels_6_neighbors({start_point}, 1)
+    adjacent_pixels = extend_pixels_6_neighbors({start_point}, 1)
     #adjacent_pixels = extend_pixels_21_neighbors({start_point})
-    adjacent_pixels = extend_pixels({start_point}, 1)
+    #adjacent_pixels = extend_pixels({start_point}, 1)
     new_contour = contour_above_threshold(img, new_threshold, adjacent_pixels)
     #adjacent_pixels = extend_pixels(new_contour, 1)
     #new_contour = contour_above_threshold(img, new_threshold, adjacent_pixels)
@@ -220,8 +220,8 @@ def itm(start_point, suv_max, img, conversion, exit_early):
         # add all adjacent pixels above threshold to the contour
         # get new adjacent pixels above threshold
         #canidate_pixels = extend_pixels(new_contour, 1)
-        #canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
-        canidate_pixels = extend_pixels_21_neighbors(new_contour)
+        canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
+        #canidate_pixels = extend_pixels_21_neighbors(new_contour)
         new_contour = contour_above_threshold(img, new_threshold, canidate_pixels)
 
         # if new threhold is different by more than 5 percent then continue process else break and return countour
@@ -319,7 +319,7 @@ def make_labels_from_suv_max_points(df):
         # nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labelsv2/' + str(petlymph) + '_label_' + str(petlymph_dic[petlymph])+ '.nii.gz')
         # nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v3_nifti/' + str(petlymph) + '_label_' + str(petlymph_dic[petlymph])+ '.nii.gz')
         #nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v6_nifti' + row["Label_Name"] + '.nii.gz')
-        nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/labels_v9_nifti/' + row["Label_Name"] + '.nii.gz')
+        nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/labels_v10_nifti/' + row["Label_Name"] + '.nii.gz')
     print(f"missing petlymph number: {missing_conversion}")
     print(f"exit early: {exit_early}")
 
@@ -327,4 +327,5 @@ def make_labels_from_suv_max_points(df):
         ~df.apply(lambda row: any(drop_word.lower() in str(cell).lower() for cell in row for drop_word in drop_later),
                   axis=1)]
     print(f"new_length of df: {len(df)}")
+    df.rename(columns={'Extracted Sentences': 'sentence'}, inplace=True)
     return df
