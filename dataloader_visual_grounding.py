@@ -53,7 +53,10 @@ class TextImageDataset(Dataset):
 
         text = str(self.text[index])
         print(f"text before: {text}")
-        text = text.replace(str(self.suv), "").replace(str(self.slice_num), "")
+        slice_num = self.slice_num[index]
+        suv = self.suv[index]
+        print(f"slice: {slice_num} suv: {suv}")
+        text = text.replace(str(suv), "").replace(str(slice_num), "")
         print(f"Text after: {text}")
         #text = re.sub(r'\d+', '', text) # remove numbers Need more sophistcated way of doing this level 3 is stripped
         #text = ""                        # remove all text
