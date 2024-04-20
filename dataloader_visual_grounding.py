@@ -27,6 +27,8 @@ class TextImageDataset(Dataset):
         self.text = dataframe.sentence
         self.targets = self.data.Label_Name
         self.row_ids = self.data.index
+        self.slice_num = dataframe.Slice
+        self.suv = dataframe.SUV
         self.max_len = max_len
         self.img_size = img_size
         self.wordDict = wordDict
@@ -48,8 +50,12 @@ class TextImageDataset(Dataset):
         #print(f"indexing variable: {index}")
         # text extraction
         #global img, image
+
         text = str(self.text[index])
-        text = re.sub(r'\d+', '', text) # remove numbers Need more sophistcated way of doing this level 3 is stripped
+        print(f"text before: {text}")
+        text = text.replace(str(self.suv), "").replace(str(self.slice_num), "")
+        print(f"Text after: {text}")
+        #text = re.sub(r'\d+', '', text) # remove numbers Need more sophistcated way of doing this level 3 is stripped
         #text = ""                        # remove all text
         text = " ".join(text.split())
 
