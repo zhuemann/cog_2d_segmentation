@@ -238,7 +238,7 @@ def itm(start_point, suv_max, img, conversion, exit_early):
 
 def threshold_of_max(start_point, suv_max, img):
 
-    threshold = .5 * suv_max
+    threshold = .6 * suv_max
     segmented_regions = img > threshold
     labels_out = cc3d.connected_components(segmented_regions, connectivity=6)
 
