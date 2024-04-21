@@ -236,6 +236,27 @@ def itm(start_point, suv_max, img, conversion, exit_early):
     # print(f"background: {background}")
     return new_contour, exit_early
 
+def threshold_of_max(start_point, suv_max, img):
+
+    print("hi")
+    threshold = .5 * suv_max
+    segmented_regions = img > threshold
+    labels_out = cc3d.connected_components(segmented_regions, connectivity=6)
+
+    # Extract the label of the connected component at the start point
+    component_label = labels_out[start_point]
+
+    # Create a mask for the connected component at the start point
+    component_mask = labels_out == component_label
+
+    # Extract the indices of the pixels that belong to this component
+    indices = set(zip(*np.where(component_mask)))
+
+    return indices
+
+
+
+
 def make_labels_from_suv_max_points(df):
     missing_conversion = 0
     petlymph_dic = {}
@@ -256,9 +277,12 @@ def make_labels_from_suv_max_points(df):
         #    break
         # if index > 25:
         #    break
+        if row["SUV"] < 2.5:
+            continue
         """
         if index > 10:
             break
+        
 
         # get the petlymph number if availible
         petlymph = df_petlymph[df_petlymph["Accession Number"] == row["Accession Number"]]
@@ -295,7 +319,8 @@ def make_labels_from_suv_max_points(df):
         # print(f"listed suv: {row['SUV']}")
         # print(f"extracted sent: {row['Extracted Sentences']}")
 
-        contour, exit_early = itm(starting_point, row['SUV'], img, volume_conversion, exit_early)
+        #contour, exit_early = itm(starting_point, row['SUV'], img, volume_conversion, exit_early)
+        contour = threshold_of_max(starting_point, row['SUV'], img)
 
         if contour == None:
             drop_later.append(row["Label_Name"])
@@ -319,7 +344,7 @@ def make_labels_from_suv_max_points(df):
         # nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labelsv2/' + str(petlymph) + '_label_' + str(petlymph_dic[petlymph])+ '.nii.gz')
         # nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v3_nifti/' + str(petlymph) + '_label_' + str(petlymph_dic[petlymph])+ '.nii.gz')
         #nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v6_nifti' + row["Label_Name"] + '.nii.gz')
-        nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/labels_v10_nifti/' + row["Label_Name"] + '.nii.gz')
+        nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/labels_v11_nifti/' + row["Label_Name"] + '.nii.gz')
     print(f"missing petlymph number: {missing_conversion}")
     print(f"exit early: {exit_early}")
 
