@@ -33,10 +33,10 @@ def run_data_pipeline():
 
     df = remove_dups_non_anontomical_sent(df)
     df.to_excel(save_base + "remove_dups_df_6.xlsx", index=False)
-    df = make_labels_from_suv_max_points(df)
-    df.to_excel(save_base_final + "dropped_problem_segs_6_v4.xlsx", index=False)
+    df = make_labels_from_suv_max_points(df, save_location = "labels_v12_nifti")
+    df.to_excel(save_base_final + "dropped_problem_segs_6_v5.xlsx", index=False)
     #print(fail)
     #df = pd.read_excel(save_base + "dropped_problem_segs_6_v2.xlsx")
 
     #plot_mips_with_labels(df)
-    create_mips(df)
+    create_mips(df, load_location = "labels_v12_nifti", image_name = "images_coronal_mip_v12", label_name = "labels_coronal_mip_v12")

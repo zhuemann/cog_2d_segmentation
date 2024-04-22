@@ -238,7 +238,7 @@ def itm(start_point, suv_max, img, conversion, exit_early):
 
 def threshold_of_max(start_point, suv_max, img):
 
-    threshold = .6 * suv_max
+    threshold = .5 * suv_max
     segmented_regions = img > threshold
     labels_out = cc3d.connected_components(segmented_regions, connectivity=6)
 
@@ -256,7 +256,7 @@ def threshold_of_max(start_point, suv_max, img):
 
 
 
-def make_labels_from_suv_max_points(df):
+def make_labels_from_suv_max_points(df, save_location):
     missing_conversion = 0
     petlymph_dic = {}
     image_path_base = "Z:/Zach_Analysis/suv_nifti/"
@@ -343,7 +343,7 @@ def make_labels_from_suv_max_points(df):
         # nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labelsv2/' + str(petlymph) + '_label_' + str(petlymph_dic[petlymph])+ '.nii.gz')
         # nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v3_nifti/' + str(petlymph) + '_label_' + str(petlymph_dic[petlymph])+ '.nii.gz')
         #nib.save(new_nifti_img, 'Z:/Zach_Analysis/petlymph_image_data/labels_v6_nifti' + row["Label_Name"] + '.nii.gz')
-        nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/labels_v11_nifti/' + row["Label_Name"] + '.nii.gz')
+        nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/' + save_location +"/"+ row["Label_Name"] + '.nii.gz')
     print(f"missing petlymph number: {missing_conversion}")
     print(f"exit early: {exit_early}")
 
