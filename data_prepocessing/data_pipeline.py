@@ -28,7 +28,7 @@ def run_data_pipeline():
     #df.to_excel(save_base + "max_pixel_4_test_rerun_slice_ref_fixed.xlsx", index=False)
     #df = pd.read_excel(save_base + "max_pixel_4_test_rerun_slice_ref_fixed.xlsx")
     #df = detect_and_remove_multiple_suv_slice(df)
-    print(len(df))
+    #print(len(df))
     #df.to_excel(save_base + "remove_multiple_suv_slice_5.xlsx", index=False)
 
     #df = remove_dups_non_anontomical_sent(df)
