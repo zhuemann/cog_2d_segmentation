@@ -41,7 +41,7 @@ def normalize_mip(mip):
     normalized_uint8 = normalized.astype(np.uint8)
     return normalized_uint8
 
-def create_mips(df, load_location = "labels_v12_nifti", image_name = "images_coronal_mip_v11", label_name = "labels_coronal_mip_v11"):
+def create_mips(df, load_location = "labels_v12_nifti", image_path_name = "images_coronal_mip_v11", label_path_name = "labels_coronal_mip_v11"):
     #df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/unique_labels_uw_lymphoma_anon_4_renumbered.xlsx"
     #df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/unique_labels_uw_lymphoma_anon_4_renumbered_v3.xlsx"
     #df = pd.read_excel(df_path)
@@ -110,8 +110,8 @@ def create_mips(df, load_location = "labels_v12_nifti", image_name = "images_cor
         # plt.show()
         label_name = row["Label_Name"]
         # print(img.shape)
-        filename_img = "/UserData/Zach_Analysis/petlymph_image_data/" + image_name + "/" + str(petlymph) + ".png"
-        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/" + label_name + "/" + str(label_name) + ".png"
+        filename_img = "/UserData/Zach_Analysis/petlymph_image_data/" + image_path_name + "/" + str(petlymph) + ".png"
+        filename_label = "/UserData/Zach_Analysis/petlymph_image_data/" + label_path_name + "/" + str(label_name) + ".png"
         # save_as_dicom(mip_coronal, filename)
         save_2d_image_lossless(mip_coronal, filename_img)
         save_2d_image_lossless(label_coronal, filename_label)
