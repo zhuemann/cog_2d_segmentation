@@ -40,12 +40,13 @@ def plot_mips_with_labels(df):
 
 
     df_path = "C:/Users/zmh001/PET_visual_grounding/petlymph_visual_grounding_df_drop_non_anatomical_sents.xlsx"
+    #df_path = "C:/Users/zmh001/PET_visual_grounding/dropped_problem_segs_6_v3.xlsx" #v3 is itm v4 is .6throld v5 is .5 threshold
     #df_path = "Z:/Zach_Analysis/petlymph_image_data/unique_labels_uw_lymphoma_anon_4_renumbered_v3.xlsx"
     #df = pd.read_excel(df_path)
 
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
     label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labelsv2/"
-    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels_v9_nifti/"
+    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels_v10_nifti/" #v12 is .5 threshold v11 is .6 threshold v10 is ITM
 
 
     for index, row in df.iterrows():
@@ -129,6 +130,6 @@ def plot_mips_with_labels(df):
         #print(f"sum of pos pixels: {np.sum(label)}")
         plt.suptitle(sentence, fontsize=12, color='black')
 
-        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plots_v2/" + label_name)
+        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plots_itm/" + label_name)
         plt.close()
         #plt.show()

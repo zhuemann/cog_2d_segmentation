@@ -1,12 +1,12 @@
 
-from data_prepocessing.split_sentences import split_sentences
-from data_prepocessing.llm_slice_suv_extraction import llm_slice_suv_extraction
-from data_prepocessing.concenus_voting import concenus_voting
-from data_prepocessing.get_max_pixel import get_max_pixel_step3
-from data_prepocessing.llm_sentence_splitting import detect_and_remove_multiple_suv_slice
-from data_prepocessing.remove_dups_non_anontomical_sent import remove_dups_non_anontomical_sent
-from data_prepocessing.make_labels_from_point import make_labels_from_suv_max_points
-from data_prepocessing.create_sentence_mips_and_labels import create_mips
+#from data_prepocessing.split_sentences import split_sentences
+#from data_prepocessing.llm_slice_suv_extraction import llm_slice_suv_extraction
+#from data_prepocessing.concenus_voting import concenus_voting
+#from data_prepocessing.get_max_pixel import get_max_pixel_step3
+#from data_prepocessing.llm_sentence_splitting import detect_and_remove_multiple_suv_slice
+#from data_prepocessing.remove_dups_non_anontomical_sent import remove_dups_non_anontomical_sent
+#from data_prepocessing.make_labels_from_point import make_labels_from_suv_max_points
+#from data_prepocessing.create_sentence_mips_and_labels import create_mips
 from data_prepocessing.data_visualization.plot_mips_with_labels import plot_mips_with_labels
 import pandas as pd
 def run_data_pipeline():
@@ -36,7 +36,7 @@ def run_data_pipeline():
     #df = make_labels_from_suv_max_points(df, save_location = "labels_v12_nifti")
     #df.to_excel(save_base_final + "dropped_problem_segs_6_v5.xlsx", index=False)
     #print(fail)
-    df = pd.read_excel(save_base_final + "dropped_problem_segs_6_v5.xlsx")
+    df = pd.read_excel(save_base_final + "dropped_problem_segs_6_v3.xlsx")
 
-    #plot_mips_with_labels(df)
-    create_mips(df, load_location = "labels_v12_nifti", image_path_name = "images_coronal_mip_v12", label_path_name = "labels_coronal_mip_v12")
+    plot_mips_with_labels(df)
+    #create_mips(df, load_location = "labels_v12_nifti", image_path_name = "images_coronal_mip_v12", label_path_name = "labels_coronal_mip_v12")
