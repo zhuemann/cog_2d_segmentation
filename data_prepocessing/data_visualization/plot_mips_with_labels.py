@@ -46,7 +46,7 @@ def plot_mips_with_labels(df):
 
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
     label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labelsv2/"
-    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels_v11_nifti/" #v12 is .5 threshold v11 is .6 threshold v10 is ITM
+    label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels_v12_nifti/" #v12 is .5 threshold v11 is .6 threshold v10 is ITM
 
 
     for index, row in df.iterrows():
@@ -130,6 +130,6 @@ def plot_mips_with_labels(df):
         #print(f"sum of pos pixels: {np.sum(label)}")
         plt.suptitle(sentence, fontsize=12, color='black')
 
-        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plots_threshold_point_6/" + label_name)
+        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plots_threshold_point_5/" + label_name)
         plt.close()
         #plt.show()
