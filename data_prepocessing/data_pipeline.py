@@ -40,7 +40,7 @@ def run_data_pipeline():
     #print(df)
     #df.to_excel(save_base + "remove_dups_df_6.xlsx", index=False)
     df = pd.read_excel(save_base + "remove_dups_df_6.xlsx")
-    df = make_labels_from_suv_max_points(df, save_location = "labels_v13_nifti_test_2")
+    #df = make_labels_from_suv_max_points(df, save_location = "labels_v13_nifti_test_2")
     #df.to_excel(save_base_final + "dropped_problem_segs_6_v5.xlsx", index=False)
     #print(fail)
 

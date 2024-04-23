@@ -211,7 +211,7 @@ def itm(start_point, suv_max, img, conversion, exit_early):
             canidate_pixels = extend_pixels(new_contour, 1)
             new_contour = contour_above_threshold(img, new_threshold, canidate_pixels, new_contour)
             exit_early += 1
-            print(f"exited early: {exit_early}")
+            print(f"exited early: {exit_early} suv max: {suv_max} pixels: {len(new_contour)}")
             return None, exit_early
             #break
         # if new_threshold + .2 > suv_max:
