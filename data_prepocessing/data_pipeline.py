@@ -7,6 +7,7 @@
 #from data_prepocessing.remove_dups_non_anontomical_sent import remove_dups_non_anontomical_sent
 #from data_prepocessing.make_labels_from_point import make_labels_from_suv_max_points
 #from data_prepocessing.create_sentence_mips_and_labels import create_mips
+from data_prepocessing.remove_dups_non_anontomical_sent import get_anatomical_dataframe
 from data_prepocessing.data_visualization.plot_mips_with_labels import plot_mips_with_labels
 import pandas as pd
 def run_data_pipeline():
@@ -15,7 +16,10 @@ def run_data_pipeline():
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
     #df = split_sentences()
     #df.to_excel(save_base + "sentences_split_1.xlsx", index=False)
-
+    df = pd.read_excel(save_base + "sentences_split_1.xlsx")
+    df_radgraph = get_anatomical_dataframe(df)
+    print(df_radgraph)
+    print(fail)
     #df = llm_slice_suv_extraction(df)
     #df.to_excel(save_base + "model_predictions_for_suv_slice_extraction_2.xlsx", index=False, sheet_name='Predictions')
 
