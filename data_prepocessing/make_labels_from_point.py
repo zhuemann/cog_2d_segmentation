@@ -223,7 +223,7 @@ def itm(start_point, suv_max, img, conversion, exit_early):
         #canidate_pixels = extend_pixels(new_contour, 1)
         #canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
         canidate_pixels = extend_pixels_21_neighbors(new_contour)
-        new_contour = contour_above_threshold(img, new_threshold, canidate_pixels)
+        new_contour = contour_above_threshold(img, new_threshold, canidate_pixels, new_contour)
 
         # if new threhold is different by more than 5 percent then continue process else break and return countour
         change = (old_threshold - new_threshold) / old_threshold
