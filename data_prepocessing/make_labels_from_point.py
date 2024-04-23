@@ -314,6 +314,9 @@ def make_labels_from_suv_max_points(df, save_location):
         volume_conversion = (dims[0] * dims[1] * dims[2]) / 1000
         # print(f"volume conversion: {volume_conversion}")
 
+        if volume_conversion < 0.04:
+            volume_conversion = 0.04346516799926758
+
         starting_point = (row["i"], row["j"], row["k"])
         i, j, k = starting_point
         # print(f"listed suv: {row['SUV']}")

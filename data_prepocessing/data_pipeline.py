@@ -40,9 +40,17 @@ def run_data_pipeline():
     #print(df)
     #df.to_excel(save_base + "remove_dups_df_6.xlsx", index=False)
     df = pd.read_excel(save_base + "remove_dups_df_6.xlsx")
-    df = make_labels_from_suv_max_points(df, save_location = "labels_v13_nifti_test_2")
+    df = make_labels_from_suv_max_points(df, save_location = "labels_v13_nifti_test_3")
     #df.to_excel(save_base_final + "dropped_problem_segs_6_v5.xlsx", index=False)
     #print(fail)
+    """
+    need a function that will check makels doing two things
+    1) check if all labels for each petlymph/image and if any of the labels with different sentences overlap we drop both labels
+    2) check get petlymph for sentence that are the same, if the labels overlap keep 1 of them
+    
+    This should take care of the detect_and_remove_multiple_suv_slice call but should still call it after.
+    """
+
 
     #df = pd.read_excel(save_base_final + "dropped_problem_segs_6_v5.xlsx")
 
