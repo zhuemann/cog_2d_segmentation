@@ -76,7 +76,7 @@ def get_anatomical_dataframe(df):
     #radgraph.
     #f1radgraph = GenRadGraph(reward_level="partial")
     #f1radgraph = GenRadGraph(reward_level="partial")
-    f1radgraph = F1RadGraph()
+    f1radgraph = F1RadGraph(reward_level="partial")
 
     anatomy_list = []
     annotation_list = []
