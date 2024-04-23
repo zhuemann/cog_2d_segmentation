@@ -1,7 +1,8 @@
 import pandas as pd
 
-import radgraph
+from radgraph import GenRadGraph
 
+#from radgraph import
 import os
 #from radgraph import GenRadGraph
 import pandas as pd
@@ -51,7 +52,6 @@ def find_anatomical_entities(sent, f1radgraph):
     if isinstance(sent, str):
         sent = [sent]
 
-    radgraph.GenRadGraph
     annotation = f1radgraph(hyps=sent)
     entities = annotation[0]['entities']
     anatomy = []
@@ -72,8 +72,9 @@ def get_anatomical_dataframe(df):
     #df = pd.read_excel(data_files)
     num_patients = len(df)
 
+    #radgraph.
     #f1radgraph = GenRadGraph(reward_level="partial")
-    f1radgraph = radgraph.GenRadGraph(reward_level="partial")
+    f1radgraph = GenRadGraph(reward_level="partial")
 
     anatomy_list = []
     annotation_list = []
