@@ -197,8 +197,10 @@ def itm(start_point, suv_max, img, conversion, exit_early):
         # print(f"suv max: {suv_max} current_threshold: {new_threshold}")
         # calculate new boundary based on new set
         background = get_background_value(extension=3, pixel_set=new_contour, img=img)
-        if len(new_contour) < 20 and background > .8*source:
+        if len(new_contour) < 20 and background > .7*source:
+            print(f"old background: {background}")
             background = get_background_value(extension=4, pixel_set=new_contour, img=img)
+            print(f"new background: {background}")
         #print(f"background value: {background}")
 
         # calculate volume and background
