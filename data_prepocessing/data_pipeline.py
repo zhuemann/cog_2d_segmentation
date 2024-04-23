@@ -17,10 +17,11 @@ def run_data_pipeline():
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
     #df = split_sentences()
     #df.to_excel(save_base + "sentences_split_1.xlsx", index=False)
-    #df = pd.read_excel(save_base + "sentences_split_1.xlsx")
-    #df_radgraph = get_anatomical_dataframe(df)
-    #print(df_radgraph)
-    #print(fail)
+    df = pd.read_excel(save_base + "sentences_split_1.xlsx")
+    df_radgraph = get_anatomical_dataframe(df)
+
+    print(df_radgraph)
+    print(fail)
     #df = llm_slice_suv_extraction(df)
     #df.to_excel(save_base + "model_predictions_for_suv_slice_extraction_2.xlsx", index=False, sheet_name='Predictions')
 
@@ -44,9 +45,11 @@ def run_data_pipeline():
     #df.to_excel(save_base_final + "dropped_problem_segs_6_v5.xlsx", index=False)
     #print(fail)
     """
-    need a function that will check makels doing two things
-    1) check if all labels for each petlymph/image and if any of the labels with different sentences overlap we drop both labels
-    2) check get petlymph for sentence that are the same, if the labels overlap keep 1 of them
+    need a function that will check makels doing few things things
+    1) check all labels for each petlymph/img and if any of the labels with different sentences overlap we drop the row
+    2) check petlymph for sentence that are the same, if the labels overlap keep 1 of them
+    3) sure label is connected via connectivity neighbors 6, cut positive pixels that are not connected
+    4) final check of label to fall within slice range and suv max matches up with noted suv max (increasing purity)
     
     This should take care of the detect_and_remove_multiple_suv_slice call but should still call it after.
     """
