@@ -156,8 +156,9 @@ def get_background_value(extension, pixel_set, img):
     background_suv = initial_background_sum / len(boundary_coordinates)
     return background_suv
 
-def contour_above_threshold(img, threshold, pixels):
-    new_contour = set([])
+def contour_above_threshold(img, threshold, pixels, already_contoured):
+    #new_contour = set([])
+    new_contour = already_contoured
     for pixel in pixels:
         if img[pixel[0]][pixel[1]][pixel[2]] > threshold:
             new_contour.add(pixel)
@@ -183,7 +184,7 @@ def itm(start_point, suv_max, img, conversion, exit_early):
     #adjacent_pixels = extend_pixels_6_neighbors({start_point}, 1)
     adjacent_pixels = extend_pixels_21_neighbors({start_point})
     #adjacent_pixels = extend_pixels({start_point}, 1)
-    new_contour = contour_above_threshold(img, new_threshold, adjacent_pixels)
+    new_contour = contour_above_threshold(img, new_threshold, adjacent_pixels, set([]))
     #adjacent_pixels = extend_pixels(new_contour, 1)
     #new_contour = contour_above_threshold(img, new_threshold, adjacent_pixels)
 
@@ -208,7 +209,7 @@ def itm(start_point, suv_max, img, conversion, exit_early):
             #canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
             #canidate_pixels = extend_pixels_21_neighbors(new_contour)
             canidate_pixels = extend_pixels(new_contour, 1)
-            new_contour = contour_above_threshold(img, new_threshold, canidate_pixels)
+            new_contour = contour_above_threshold(img, new_threshold, canidate_pixels, new_contour)
             exit_early += 1
             print(f"exited early: {exit_early}")
             return None, exit_early
@@ -318,8 +319,8 @@ def make_labels_from_suv_max_points(df, save_location):
         # print(f"listed suv: {row['SUV']}")
         # print(f"extracted sent: {row['Extracted Sentences']}")
 
-        #contour, exit_early = itm(starting_point, row['SUV'], img, volume_conversion, exit_early)
-        contour = threshold_of_max(starting_point, row['SUV'], img)
+        contour, exit_early = itm(starting_point, row['SUV'], img, volume_conversion, exit_early)
+        #contour = threshold_of_max(starting_point, row['SUV'], img)
 
         if contour == None:
             drop_later.append(row["Label_Name"])
