@@ -268,7 +268,7 @@ def make_labels_from_suv_max_points(df, save_location):
     drop_later = []
     for index, row in df.iterrows():
 
-        if index % 100:
+        if index % 100 == 0:
             print(f"index: {index}")
 
         #if index > 50:
