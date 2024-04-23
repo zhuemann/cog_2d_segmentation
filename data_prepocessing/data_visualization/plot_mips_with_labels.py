@@ -125,8 +125,8 @@ def plot_mips_with_labels(df):
         plt.yticks(filtered_locs, filtered_labels)
 
 
-        #sentence = row["sentence"] + " pixels: " + str(np.sum(label_coronal))
-        sentence = row["Extracted Sentences"] + " pixels: " + str(np.sum(label_coronal))
+        sentence = row["sentence"] + " pixels: " + str(np.sum(label_coronal))
+        #sentence = row["Extracted Sentences"] + " pixels: " + str(np.sum(label_coronal))
 
         #print(sentence)
         sentence = insert_newlines(sentence, word_limit=17)
