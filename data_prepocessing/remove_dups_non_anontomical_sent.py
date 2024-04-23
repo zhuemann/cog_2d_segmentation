@@ -1,9 +1,5 @@
 import pandas as pd
 
-#from radgraph import RadGraph, F1RadGraph
-#from radgraph import
-
-#from radgraph import
 import os
 from radgraph import GenRadGraph
 import pandas as pd
