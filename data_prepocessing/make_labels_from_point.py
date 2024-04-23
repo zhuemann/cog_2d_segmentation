@@ -169,8 +169,8 @@ def itm(start_point, suv_max, img, conversion, exit_early):
     old_threshold = suv_max
     i, j, k = start_point
 
-    if suv_max > 10:
-        suv_max = 10
+    #if suv_max > 10:
+    #    suv_max = 10
     change_threshold = .01
     # print(f"start point: {start_point}")
     background = get_background_value(extension=3, pixel_set={start_point}, img=img)
