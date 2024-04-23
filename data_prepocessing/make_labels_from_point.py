@@ -207,13 +207,13 @@ def itm(start_point, suv_max, img, conversion, exit_early):
         new_threshold = calculate_threshold(volume, background, source) * source
         # maybe try something like this
         if new_threshold / source > .9:
-            new_threshold = .4 * source
+            #new_threshold = .4 * source
             #canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
             #canidate_pixels = extend_pixels_21_neighbors(new_contour)
             #canidate_pixels = extend_pixels(new_contour, 1)
             #new_contour = contour_above_threshold(img, new_threshold, canidate_pixels, new_contour)
             exit_early += 1
-            print(f"exited early: {exit_early} suv max: {suv_max} pixels: {len(new_contour)}")
+            print(f"exited early: {exit_early} suv max: {suv_max} pixels: {len(new_contour)} final threshold: {new_threshold}")
             return None, exit_early
             #break
         # if new_threshold + .2 > suv_max:
@@ -267,7 +267,9 @@ def make_labels_from_suv_max_points(df, save_location):
     exit_early = 0
     drop_later = []
     for index, row in df.iterrows():
-        print(f"index: {index}")
+
+        if index % 100:
+            print(f"index: {index}")
 
         #if index > 50:
         #    continue
