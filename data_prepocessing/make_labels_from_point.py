@@ -169,6 +169,8 @@ def itm(start_point, suv_max, img, conversion, exit_early):
     old_threshold = suv_max
     i, j, k = start_point
 
+    if suv_max > 10:
+        suv_max = 10
     change_threshold = .01
     # print(f"start point: {start_point}")
     background = get_background_value(extension=3, pixel_set={start_point}, img=img)
@@ -208,8 +210,8 @@ def itm(start_point, suv_max, img, conversion, exit_early):
             new_threshold = .4 * source
             #canidate_pixels = extend_pixels_6_neighbors(new_contour, 1)
             #canidate_pixels = extend_pixels_21_neighbors(new_contour)
-            canidate_pixels = extend_pixels(new_contour, 1)
-            new_contour = contour_above_threshold(img, new_threshold, canidate_pixels, new_contour)
+            #canidate_pixels = extend_pixels(new_contour, 1)
+            #new_contour = contour_above_threshold(img, new_threshold, canidate_pixels, new_contour)
             exit_early += 1
             print(f"exited early: {exit_early} suv max: {suv_max} pixels: {len(new_contour)}")
             return None, exit_early
