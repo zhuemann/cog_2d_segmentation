@@ -1,6 +1,7 @@
 import pandas as pd
 
-from radgraph import GenRadGraph
+from radgraph import RadGraph, F1RadGraph
+#from radgraph import
 
 #from radgraph import
 import os
@@ -74,7 +75,8 @@ def get_anatomical_dataframe(df):
 
     #radgraph.
     #f1radgraph = GenRadGraph(reward_level="partial")
-    f1radgraph = GenRadGraph(reward_level="partial")
+    #f1radgraph = GenRadGraph(reward_level="partial")
+    f1radgraph = F1RadGraph()
 
     anatomy_list = []
     annotation_list = []
