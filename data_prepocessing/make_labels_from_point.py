@@ -199,9 +199,9 @@ def itm(start_point, suv_max, img, conversion, exit_early):
         background = get_background_value(extension=3, pixel_set=new_contour, img=img)
         if len(new_contour) < 20 and background > .7*source:
             print(f"old background: {background}")
-            background = get_background_value(extension=4, pixel_set=new_contour, img=img)
+            background = get_background_value(extension=5, pixel_set=new_contour, img=img)
             print(f"new background: {background}")
-            print(new_contour)
+            #print(new_contour)
         #print(f"background value: {background}")
 
         # calculate volume and background
