@@ -17,10 +17,16 @@ def run_data_pipeline():
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
     df = split_sentences()
     df.to_excel(save_base + "sentences_split_1.xlsx", index=False)
+
+    # split the sentences further or drop ones that have too many suv or slice values.
+    df = detect_and_remove_multiple_suv_slice(df)
+    df.to_excel(save_base + "remove_multiple_suv_and_slice_2.xlsx") # replace with llm that splits later
+
+    # then into radgraph with next and previous sentence
+
     #df = pd.read_excel(save_base + "sentences_split_1.xlsx")
     #df_radgraph = get_anatomical_dataframe(df)
 
-    print(df_radgraph)
     print(fail)
     #df = llm_slice_suv_extraction(df)
     #df.to_excel(save_base + "model_predictions_for_suv_slice_extraction_2.xlsx", index=False, sheet_name='Predictions')
