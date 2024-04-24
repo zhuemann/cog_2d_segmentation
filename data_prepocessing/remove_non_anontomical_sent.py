@@ -38,10 +38,19 @@ def remove_non_anontomical_sent(df):
     #df_dropped = filtered_df.drop(
     #columns=['Accession Number', 'Report', 'Impression_y', 'Indication', 'Slice_y', 'SUV_y', 'Previous Sentence',
     #             'Following Sentence', 'annotation', 'anatomy', 'anatomy_available'])
-    #df_dropped.rename(columns={'Slice_x': 'Slice'}, inplace=True)
-    #df_dropped.rename(columns={'SUV_x': 'SUV'}, inplace=True)
 
-    #df_dropped = df.rename(columns={"Extracted Sentences": "sentence"})
+    df_dropped = filtered_df.drop(
+        columns=['Unnamed: 0', 'Petlymph_y', 'Findings_y', 'Impression_y', 'Slice_y', 'SUV_y',
+                  'Previous Sentence', 'Following Sentence', 'annotation', 'anatomy', 'anatomy_available',
+                  'anatomy_available_previous', 'anatomy_available_next'])
+
+    df_dropped.rename(columns={'Slice_x': 'Slice'}, inplace=True)
+    df_dropped.rename(columns={'SUV_x': 'SUV'}, inplace=True)
+    df_dropped.rename(columns={'Petlymph_x': 'Petlymph'}, inplace=True)
+    df_dropped.rename(columns={'Findings_x': 'Findings'}, inplace=True)
+    df_dropped.rename(columns={'Impression_x': 'Impression'}, inplace=True)
+
+    #df_dropped.rename(columns={"Extracted Sentences": "sentence"})
 
     print(f"final df length: {len(df_dropped)}")
     return df_dropped
