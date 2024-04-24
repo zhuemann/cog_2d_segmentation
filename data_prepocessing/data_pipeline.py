@@ -26,7 +26,7 @@ def run_data_pipeline():
     print(len(df))
     df = remove_non_anontomical_sent(df)
     df.to_excel(save_base + "remove_non_anotomical_info_3.xlsx", index=False)
-
+    print(len(df))
     #df = pd.read_excel(save_base + "sentences_split_1.xlsx")
     #df_radgraph = get_anatomical_dataframe(df)
 
