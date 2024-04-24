@@ -23,7 +23,7 @@ def run_data_pipeline():
     df.to_excel(save_base + "remove_multiple_suv_and_slice_2.xlsx") # replace with llm that splits later
 
     # then into radgraph with next and previous sentence
-
+    print(len(df))
     #df = pd.read_excel(save_base + "sentences_split_1.xlsx")
     #df_radgraph = get_anatomical_dataframe(df)
 
