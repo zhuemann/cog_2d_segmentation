@@ -22,7 +22,7 @@ from data_prepocessing.data_pipeline import run_data_pipeline
 if __name__ == '__main__':
 
 
-    #run_data_pipeline()
+    run_data_pipeline()
     #print(fail)
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
