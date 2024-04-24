@@ -33,8 +33,8 @@ def remove_non_anontomical_sent(df):
     # Merge the two DataFrames on 'Petlymph' and 'Extracted sentences'
     merged_df = pd.merge(df_filtered, df_anotomical_info, on=['Extracted Sentences'])
     filtered_df = merged_df[merged_df['anatomy_available'] != 0]
-    print(filtered_df)
-    print(filtered_df.columns.tolist())
+    #print(filtered_df)
+    #print(filtered_df.columns.tolist())
     #df_dropped = filtered_df.drop(
     #columns=['Accession Number', 'Report', 'Impression_y', 'Indication', 'Slice_y', 'SUV_y', 'Previous Sentence',
     #             'Following Sentence', 'annotation', 'anatomy', 'anatomy_available'])
