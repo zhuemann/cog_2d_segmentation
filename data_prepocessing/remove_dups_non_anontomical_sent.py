@@ -105,7 +105,7 @@ if __name__ == '__main__':
 
     # Apply the function to each row in the DataFrame
     df['Previous Sentence'], df['Following Sentence'] = zip(
-        *df.apply(lambda row: find_surrounding_sentences(row['Report'], row['Extracted Sentences']), axis=1))
+        *df.apply(lambda row: find_surrounding_sentences(row['Findings'], row['Extracted Sentences']), axis=1))
 
     # Save the modified DataFrame back to an Excel file
     #df.to_excel('modified_excel_file.xlsx', index=False)
