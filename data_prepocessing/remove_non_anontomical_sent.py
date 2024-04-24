@@ -32,7 +32,7 @@ def remove_non_anontomical_sent(df):
 
     # Merge the two DataFrames on 'Petlymph' and 'Extracted sentences'
     merged_df = pd.merge(df_filtered, df_anotomical_info, on=['Extracted Sentences'])
-    filtered_df = merged_df[merged_df['anatomy_available'] != 0]
+    filtered_df = merged_df[merged_df['anatomy_available'] != 0]    # maybe don't drop is contains AP window or level
     #print(filtered_df)
     #print(filtered_df.columns.tolist())
     #df_dropped = filtered_df.drop(
