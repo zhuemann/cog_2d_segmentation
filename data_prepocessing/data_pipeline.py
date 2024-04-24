@@ -1,7 +1,7 @@
-#from data_prepocessing.split_sentences import split_sentences
-#from data_prepocessing.llm_slice_suv_extraction import llm_slice_suv_extraction
-#from data_prepocessing.concenus_voting import concenus_voting
-#from data_prepocessing.get_max_pixel import get_max_pixel_step3
+from data_prepocessing.split_sentences import split_sentences
+from data_prepocessing.llm_slice_suv_extraction import llm_slice_suv_extraction
+from data_prepocessing.concenus_voting import concenus_voting
+from data_prepocessing.get_max_pixel import get_max_pixel_step3
 from data_prepocessing.llm_sentence_splitting import detect_and_remove_multiple_suv_slice
 from data_prepocessing.remove_dups_non_anontomical_sent import remove_dups_non_anontomical_sent
 from data_prepocessing.make_labels_from_point import make_labels_from_suv_max_points
@@ -11,14 +11,14 @@ from data_prepocessing.data_visualization.plot_mips_with_labels import plot_mips
 import pandas as pd
 def run_data_pipeline():
 
-    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v3/"
-    #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v11/"
+    #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v3/"
+    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v14/"
 
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
-    #df = split_sentences()
-    #df.to_excel(save_base + "sentences_split_1.xlsx", index=False)
-    df = pd.read_excel(save_base + "sentences_split_1.xlsx")
-    df_radgraph = get_anatomical_dataframe(df)
+    df = split_sentences()
+    df.to_excel(save_base + "sentences_split_1.xlsx", index=False)
+    #df = pd.read_excel(save_base + "sentences_split_1.xlsx")
+    #df_radgraph = get_anatomical_dataframe(df)
 
     print(df_radgraph)
     print(fail)
