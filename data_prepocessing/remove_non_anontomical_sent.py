@@ -35,13 +35,13 @@ def remove_non_anontomical_sent(df):
     filtered_df = merged_df[merged_df['anatomy_available'] != 0]
     print(filtered_df)
     print(filtered_df.columns.tolist())
-    df_dropped = filtered_df.drop(
+    #df_dropped = filtered_df.drop(
     #columns=['Accession Number', 'Report', 'Impression_y', 'Indication', 'Slice_y', 'SUV_y', 'Previous Sentence',
     #             'Following Sentence', 'annotation', 'anatomy', 'anatomy_available'])
-    df_dropped.rename(columns={'Slice_x': 'Slice'}, inplace=True)
-    df_dropped.rename(columns={'SUV_x': 'SUV'}, inplace=True)
+    #df_dropped.rename(columns={'Slice_x': 'Slice'}, inplace=True)
+    #df_dropped.rename(columns={'SUV_x': 'SUV'}, inplace=True)
 
-    df_dropped = df.rename(columns={"Extracted Sentences": "sentence"})
+    #df_dropped = df.rename(columns={"Extracted Sentences": "sentence"})
 
     print(f"final df length: {len(df_dropped)}")
     return df_dropped
