@@ -11,11 +11,12 @@ nltk.download('punkt')
 import re
 import numpy as np
 
-def remove_dups_non_anontomical_sent(df):
+def remove_non_anontomical_sent(df):
 
     # throw out the sentence if multiple label points were extracted
-    df_filtered = df.drop_duplicates(subset=['Petlymph', 'Extracted Sentences'], keep=False)
-    print(len(df_filtered))
+    #df_filtered = df.drop_duplicates(subset=['Petlymph', 'Extracted Sentences'], keep=False)
+    #print(len(df_filtered))
+    df_filtered = df
 
     # Create an enumeration column for each label per "Petlymph" ID
     df_filtered['Label_Number'] = df_filtered.groupby('Petlymph').cumcount() + 1
@@ -26,7 +27,7 @@ def remove_dups_non_anontomical_sent(df):
     # Drop the temporary 'Label_Number' column if you don't need it
     df_filtered.drop('Label_Number', axis=1, inplace=True)
 
-    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_pet_lymphoma_next_and_previous_sentence_annotated.xlsx"
+    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v14/uw_pet_lymphoma_next_and_previous_sentence_annotated.xlsx"
     df_anotomical_info = pd.read_excel(df_path)
 
     # Merge the two DataFrames on 'Petlymph' and 'Extracted sentences'
@@ -161,5 +162,5 @@ if __name__ == '__main__':
     df['anatomy_available_previous'] = anatomy_available_previous
     df['anatomy_available_next'] = anatomy_available_next
 
-    df.to_excel('uw_pet_lymphoma_next_and_previous_sentence_annotated.xlsx', index=False)
-
+    df.to_excel(save_base + 'uw_pet_lymphoma_next_and_previous_sentence_annotated.xlsx', index=False)
+    #return df

@@ -3,7 +3,7 @@ from data_prepocessing.llm_slice_suv_extraction import llm_slice_suv_extraction
 from data_prepocessing.concenus_voting import concenus_voting
 from data_prepocessing.get_max_pixel import get_max_pixel_step3
 from data_prepocessing.llm_sentence_splitting import detect_and_remove_multiple_suv_slice
-from data_prepocessing.remove_dups_non_anontomical_sent import remove_dups_non_anontomical_sent
+from data_prepocessing.remove_dups_non_anontomical_sent import remove_non_anontomical_sent
 from data_prepocessing.make_labels_from_point import make_labels_from_suv_max_points
 #from data_prepocessing.create_sentence_mips_and_labels import create_mips
 #from data_prepocessing.remove_dups_non_anontomical_sent import get_anatomical_dataframe
@@ -24,6 +24,9 @@ def run_data_pipeline():
 
     # then into radgraph with next and previous sentence
     print(len(df))
+    df = remove_non_anontomical_sent(df)
+    df.to_excel(save_base + "remove_non_anotomical_info_3.xlsx", index=False)
+
     #df = pd.read_excel(save_base + "sentences_split_1.xlsx")
     #df_radgraph = get_anatomical_dataframe(df)
 
