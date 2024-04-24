@@ -1,8 +1,8 @@
 import pandas as pd
 
 import os
-#from .radgraph import GenRadGraph
-from radgraph import GenRadGraph
+from .radgraph import GenRadGraph
+#from radgraph import GenRadGraph
 import pandas as pd
 from tqdm import tqdm
 import nltk
