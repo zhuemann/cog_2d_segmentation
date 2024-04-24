@@ -64,18 +64,52 @@ def find_anatomical_entities(sent, f1radgraph):
     return annotation, anatomy
 
 
+# Function to find the surrounding sentences
+def find_surrounding_sentences(report, extracted_sentence):
+    # clean up the text a bit same as previous code
+    report_findings = report.replace("_x000D_", " ").replace("\n", " ").replace("#", " ")
+    report_findings = report_findings.replace("...", " ")
+    report_findings = re.sub(r"\.{2,}", ".", report_findings)
+    report = re.sub(r'\s+', ' ', report_findings).strip()
+
+    sentences = re.split(r'(?<=[.!?])\s+', report)
+    previous_sentence = ''
+    following_sentence = ''
+
+    for i, sentence in enumerate(sentences):
+        if extracted_sentence in sentence:
+            if i > 0:
+                previous_sentence = sentences[i - 1].strip()
+            if i < len(sentences) - 1:
+                following_sentence = sentences[i + 1].strip()
+            break
+
+    return previous_sentence, following_sentence
+
+
+
 #def get_anatomical_dataframe(df):
 
 
 if __name__ == '__main__':
 
-    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v3/"
+    #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v3/"
+    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v14/"
+
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
-    df = pd.read_excel(save_base + "sentences_split_1.xlsx")
+    df = pd.read_excel(save_base + "remove_multiple_suv_and_slice_2.xlsx")
     #num_patients = 442
     #data_files = './uw_pet_lymphoma_next_and_previous_sentence.xlsx'
     #df = pd.read_excel(data_files)
     num_patients = len(df)
+
+    # Apply the function to each row in the DataFrame
+    df['Previous Sentence'], df['Following Sentence'] = zip(
+        *df.apply(lambda row: find_surrounding_sentences(row['Report'], row['Extracted Sentences']), axis=1))
+
+    # Save the modified DataFrame back to an Excel file
+    #df.to_excel('modified_excel_file.xlsx', index=False)
+
 
     #radgraph.
     #f1radgraph = GenRadGraph(reward_level="partial")
@@ -84,6 +118,9 @@ if __name__ == '__main__':
     anatomy_list = []
     annotation_list = []
     anatomy_available = []
+
+    anatomy_available_previous = []
+    anatomy_available_next = []
 
     for ii in tqdm(range(num_patients)):
         sent = df['Extracted Sentences'][ii]
@@ -95,8 +132,26 @@ if __name__ == '__main__':
         else:
             anatomy_available.append(1)
 
+        previous = df['Previous Sentence'][ii]
+        annotation, anatomy = find_anatomical_entities(previous, f1radgraph)
+        if len(anatomy) == 0:
+            anatomy_available_previous.append(0)
+        else:
+            anatomy_available_previous.append(1)
+
+        next = df['Following Sentence'][ii]
+        annotation, anatomy = find_anatomical_entities(next, f1radgraph)
+        if len(anatomy) == 0:
+            anatomy_available_next.append(0)
+        else:
+            anatomy_available_next.append(1)
+
+
     df['annotation'] = annotation_list
     df['anatomy'] = anatomy_list
     df['anatomy_available'] = anatomy_available
+    df['anatomy_available_previous'] = anatomy_available_previous
+    df['anatomy_available_next'] = anatomy_available_next
+
     df.to_excel('uw_pet_lymphoma_next_and_previous_sentence_annotated.xlsx', index=False)
 
