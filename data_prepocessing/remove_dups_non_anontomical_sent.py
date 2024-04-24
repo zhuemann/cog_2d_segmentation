@@ -133,19 +133,26 @@ if __name__ == '__main__':
             anatomy_available.append(1)
 
         previous = df['Previous Sentence'][ii]
-        annotation, anatomy = find_anatomical_entities(previous, f1radgraph)
+
+        try:
+            annotation, anatomy = find_anatomical_entities(previous, f1radgraph)
+        except:
+            anatomy = []
         if len(anatomy) == 0:
             anatomy_available_previous.append(0)
         else:
             anatomy_available_previous.append(1)
-        print("after first call")
+
         next = df['Following Sentence'][ii]
-        annotation, anatomy = find_anatomical_entities(next, f1radgraph)
+
+        try:
+            annotation, anatomy = find_anatomical_entities(next, f1radgraph)
+        except:
+            anatomy = []
         if len(anatomy) == 0:
             anatomy_available_next.append(0)
         else:
             anatomy_available_next.append(1)
-        print("after second call")
 
 
     df['annotation'] = annotation_list
