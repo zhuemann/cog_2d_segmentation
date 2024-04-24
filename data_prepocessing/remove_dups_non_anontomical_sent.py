@@ -131,7 +131,7 @@ if __name__ == '__main__':
             anatomy_available.append(0)
         else:
             anatomy_available.append(1)
-
+        """
         previous = df['Previous Sentence'][ii]
         annotation, anatomy = find_anatomical_entities(previous, f1radgraph)
         if len(anatomy) == 0:
@@ -145,7 +145,7 @@ if __name__ == '__main__':
             anatomy_available_next.append(0)
         else:
             anatomy_available_next.append(1)
-
+        """
 
     df['annotation'] = annotation_list
     df['anatomy'] = anatomy_list
