@@ -12,7 +12,7 @@ import pandas as pd
 def run_data_pipeline():
 
     #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v3/"
-    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v13/"
+    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v11/"
 
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
     """
