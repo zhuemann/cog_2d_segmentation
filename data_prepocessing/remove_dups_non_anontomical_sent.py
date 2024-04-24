@@ -64,8 +64,15 @@ def find_anatomical_entities(sent, f1radgraph):
     return annotation, anatomy
 
 
-def get_anatomical_dataframe(df):
-    num_patients = 442
+#def get_anatomical_dataframe(df):
+
+
+if __name__ == '__main__':
+
+    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v3/"
+    save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
+    df = pd.read_excel(save_base + "sentences_split_1.xlsx")
+    #num_patients = 442
     #data_files = './uw_pet_lymphoma_next_and_previous_sentence.xlsx'
     #df = pd.read_excel(data_files)
     num_patients = len(df)
