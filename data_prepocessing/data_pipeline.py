@@ -50,8 +50,8 @@ def run_data_pipeline():
     #print(df)
     #df.to_excel(save_base + "remove_dups_df_6.xlsx", index=False)
     df = pd.read_excel(save_base + "remove_dups_df_6.xlsx")
-    df = make_labels_from_suv_max_points(df, save_location = "labels_v13_nifti_test_3")
-    df.to_excel(save_base_final + "dropped_problem_segs_6_v6.xlsx", index=False)
+    df = make_labels_from_suv_max_points(df, save_location = "labels_v15_nifti")
+    df.to_excel(save_base_final + "single_label_df_7.xlsx", index=False)
     #print(fail)
     """
     need a function that will check makels doing few things things
@@ -67,4 +67,4 @@ def run_data_pipeline():
     #df = pd.read_excel(save_base_final + "dropped_problem_segs_6_v5.xlsx")
 
     #plot_mips_with_labels(df)
-    create_mips(df, load_location = "labels_v13_nifti_test_3", image_path_name = "images_coronal_mip_v13", label_path_name = "labels_coronal_mip_v13")
+    #create_mips(df, load_location = "labels_v13_nifti_test_3", image_path_name = "images_coronal_mip_v13", label_path_name = "labels_coronal_mip_v13")

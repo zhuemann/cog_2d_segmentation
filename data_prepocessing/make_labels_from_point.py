@@ -261,8 +261,17 @@ def threshold_of_max(start_point, suv_max, img):
 
     return indices
 
+def single_component(original_contour, start_point):
 
+    labeled_image = cc3d.connected_components(original_contour, connectivity=6)
 
+    # Extract the label of the connected component at the start point
+    component_label = labeled_image[start_point]
+
+    # Create a binary mask where the selected component is marked as 1, and all others as 0
+    component_mask = np.where(labeled_image == component_label, 1, 0)
+
+    return component_mask
 
 def make_labels_from_suv_max_points(df, save_location):
     missing_conversion = 0
@@ -347,6 +356,12 @@ def make_labels_from_suv_max_points(df, save_location):
         # Set specified pixels to 1
         for x, y, z in contour:
             label_data[x, y, z] = 1
+
+        print(f"sum before: {np.sum(label_data)}")
+        # make it so that the label has only 1 cc-6 from the maximum
+        label_data = single_component(label_data, starting_point)
+
+        print(f"sum after: {np.sum(label_data)}")
 
         affine = nii_image.affine
         # Create a new NIfTI image using the existing image's affine matrix and header
