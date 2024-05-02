@@ -12,17 +12,23 @@ import pandas as pd
 def run_data_pipeline():
 
     #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v3/"
-    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v11/"
+    #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v11/"
+    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v1/"
+
 
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
-    """
-    df = split_sentences()
+
+    df_path = "Z:/Zach_Analysis/text_data/indications.xlsx"
+    df = pd.read_excel(df_path)
+    df.to_excel(save_base + "initial_data_0.xlsx", index=False)
+
+    df = split_sentences(df)
     df.to_excel(save_base + "sentences_split_1.xlsx", index=False)
 
     # split the sentences further or drop ones that have too many suv or slice values.
     df = detect_and_remove_multiple_suv_slice(df)
     df.to_excel(save_base + "remove_multiple_suv_and_slice_2.xlsx") # replace with llm that splits later
-
+    """
     # then into radgraph with next and previous sentence
     print(len(df))
     df = remove_non_anontomical_sent(df)
@@ -49,9 +55,9 @@ def run_data_pipeline():
     #df = remove_dups_non_anontomical_sent(df)
     #print(df)
     #df.to_excel(save_base + "remove_dups_df_6.xlsx", index=False)
-    df = pd.read_excel(save_base + "remove_dups_df_6.xlsx")
-    df = make_labels_from_suv_max_points(df, save_location = "labels_v15_nifti")
-    df.to_excel(save_base_final + "single_label_df_7.xlsx", index=False)
+    #df = pd.read_excel(save_base + "remove_dups_df_6.xlsx")
+    #df = make_labels_from_suv_max_points(df, save_location = "labels_v15_nifti")
+    #df.to_excel(save_base_final + "single_label_df_7.xlsx", index=False)
     #print(fail)
     """
     need a function that will check makels doing few things things
