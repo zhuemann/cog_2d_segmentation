@@ -71,7 +71,8 @@ def detect_and_remove_multiple_suv_slice(df):
     print(len(delete_list))
     # Convert rows_to_delete to a DataFrame
     df_delete = pd.DataFrame(delete_list)
-
+    print(f"df_delete_len: {len(df_delete)}")
+    print(f"df_len: {len(df)}")
     # Merge with an indicator to find which rows are in both DataFrames
     df_merged = df.merge(df_delete, how='outer', indicator=True)
 
