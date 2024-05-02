@@ -106,7 +106,8 @@ def find_surrounding_sentences(report, extracted_sentence):
 if __name__ == '__main__':
 
     #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v3/"
-    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v14/"
+    #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v14/"
+    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v1/"
 
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
     df = pd.read_excel(save_base + "remove_multiple_suv_and_slice_2.xlsx")
@@ -116,8 +117,8 @@ if __name__ == '__main__':
     num_patients = len(df)
 
     # Apply the function to each row in the DataFrame
-    df['Previous Sentence'], df['Following Sentence'] = zip(
-        *df.apply(lambda row: find_surrounding_sentences(row['Findings'], row['Extracted Sentences']), axis=1))
+    #df['Previous Sentence'], df['Following Sentence'] = zip(
+    #    *df.apply(lambda row: find_surrounding_sentences(row['Findings'], row['Extracted Sentences']), axis=1))
 
     # Save the modified DataFrame back to an Excel file
     #df.to_excel('modified_excel_file.xlsx', index=False)
@@ -131,8 +132,8 @@ if __name__ == '__main__':
     annotation_list = []
     anatomy_available = []
 
-    anatomy_available_previous = []
-    anatomy_available_next = []
+    #anatomy_available_previous = []
+    #anatomy_available_next = []
 
     for ii in tqdm(range(num_patients)):
         sent = df['Extracted Sentences'][ii]
@@ -144,6 +145,7 @@ if __name__ == '__main__':
         else:
             anatomy_available.append(1)
 
+        """
         previous = df['Previous Sentence'][ii]
 
         try:
@@ -165,13 +167,14 @@ if __name__ == '__main__':
             anatomy_available_next.append(0)
         else:
             anatomy_available_next.append(1)
+        """
 
 
     df['annotation'] = annotation_list
     df['anatomy'] = anatomy_list
     df['anatomy_available'] = anatomy_available
-    df['anatomy_available_previous'] = anatomy_available_previous
-    df['anatomy_available_next'] = anatomy_available_next
+    #df['anatomy_available_previous'] = anatomy_available_previous
+    #df['anatomy_available_next'] = anatomy_available_next
 
-    df.to_excel(save_base + 'uw_pet_lymphoma_next_and_previous_sentence_annotated.xlsx', index=False)
+    df.to_excel(save_base + 'uw_pet_annotated.xlsx', index=False)
     #return df
