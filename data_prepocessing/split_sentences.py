@@ -163,7 +163,7 @@ def split_sentences(df):
     double_colon, more_colon = 0, 0
     print_examples = False
     collected_data = []  # List to collect data
-    is_uw_lymphoma_data = False
+    is_uw_lymphoma_data = True
     for index, row in df.iterrows():
 
         if is_uw_lymphoma_data:

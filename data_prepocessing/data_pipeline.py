@@ -18,7 +18,8 @@ def run_data_pipeline():
 
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
 
-    df_path = "/UserData/Zach_Analysis/text_data/indications.xlsx"
+    #df_path = "/UserData/Zach_Analysis/text_data/indications.xlsx"
+    df_path = "/UserData/Zach_Analysis/lymphoma_data/all_pet_reports_uw.xlsx"
     df = pd.read_excel(df_path)
     df.to_excel(save_base + "initial_data_0.xlsx", index=False)
 
