@@ -163,15 +163,21 @@ def split_sentences(df):
     double_colon, more_colon = 0, 0
     print_examples = False
     collected_data = []  # List to collect data
-    is_uw_lymphoma_data = True
+    is_uw_pet_data = True
     for index, row in df.iterrows():
 
-        if is_uw_lymphoma_data:
+        if is_uw_pet_data:
             acession_num = row.iloc[0]
+            """
             report = row.iloc[2]
             impressions = row.iloc[3]
             indications = row.iloc[4]
             text = row.iloc[2]
+            """
+            report = row.iloc[8]
+            impressions = row.iloc[7]
+            text = row.iloc[8]
+            petlymph = row.iloc[0]
         else:
             petlymph = row["research_id"]
             # acession_num = row["Accession Number"]
