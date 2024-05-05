@@ -40,10 +40,13 @@ def remove_non_anontomical_sent(df):
     #columns=['Accession Number', 'Report', 'Impression_y', 'Indication', 'Slice_y', 'SUV_y', 'Previous Sentence',
     #             'Following Sentence', 'annotation', 'anatomy', 'anatomy_available'])
 
+    #df_dropped = filtered_df.drop(
+    #    columns=['Unnamed: 0', 'Petlymph_y', 'Findings_y', 'Impression_y', 'Slice_y', 'SUV_y',
+    #              'Previous Sentence', 'Following Sentence', 'annotation', 'anatomy', 'anatomy_available',
+    #              'anatomy_available_previous', 'anatomy_available_next'])
     df_dropped = filtered_df.drop(
         columns=['Unnamed: 0', 'Petlymph_y', 'Findings_y', 'Impression_y', 'Slice_y', 'SUV_y',
-                  'Previous Sentence', 'Following Sentence', 'annotation', 'anatomy', 'anatomy_available',
-                  'anatomy_available_previous', 'anatomy_available_next'])
+                 'annotation', 'anatomy', 'anatomy_available'])
 
     df_dropped.rename(columns={'Slice_x': 'Slice'}, inplace=True)
     df_dropped.rename(columns={'SUV_x': 'SUV'}, inplace=True)
