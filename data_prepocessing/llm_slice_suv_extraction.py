@@ -227,6 +227,8 @@ SUV: 3.0
             print(f"index: {index}")
             #if index == 1000:
             #    break
+            if index > 10:
+                break
             #if index < 1000:
             #    continue
             #accession.append(row["Accession Number"])
