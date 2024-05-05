@@ -27,7 +27,8 @@ def remove_non_anontomical_sent(df):
     # Drop the temporary 'Label_Number' column if you don't need it
     df_filtered.drop('Label_Number', axis=1, inplace=True)
 
-    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v14/uw_pet_lymphoma_next_and_previous_sentence_annotated.xlsx"
+    #df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v14/uw_pet_lymphoma_next_and_previous_sentence_annotated.xlsx"
+    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v1/uw_pet_annotated.xlsx"
     df_anotomical_info = pd.read_excel(df_path)
 
     # Merge the two DataFrames on 'Petlymph' and 'Extracted sentences'

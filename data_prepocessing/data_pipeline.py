@@ -29,12 +29,13 @@ def run_data_pipeline():
     # split the sentences further or drop ones that have too many suv or slice values.
     df = detect_and_remove_multiple_suv_slice(df)
     df.to_excel(save_base + "remove_multiple_suv_and_slice_2.xlsx") # replace with llm that splits later
-    """
+
     # then into radgraph with next and previous sentence
     print(len(df))
     df = remove_non_anontomical_sent(df)
     df.to_excel(save_base + "remove_non_anotomical_info_3.xlsx", index=False)
     print(len(df))
+    """
     #df = pd.read_excel(save_base + "sentences_split_1.xlsx")
     #df_radgraph = get_anatomical_dataframe(df)
 
