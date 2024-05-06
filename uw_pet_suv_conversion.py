@@ -59,7 +59,10 @@ def uw_pet_suv_conversion():
             continue
         directory = os.path.join(dir_path, file)
         date = os.listdir(directory)
-        directory = os.path.join(directory, date)
+        if len(date) == 1:
+            directory = os.path.join(directory, date[0])
+        else:
+            print(f"multiple date files in this folder: {directory}")
         modality = os.listdir(directory)
         print(modality)
         if "PT" in modality:
