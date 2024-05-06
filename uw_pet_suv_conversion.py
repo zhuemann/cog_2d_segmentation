@@ -204,7 +204,7 @@ def file_exploration_analysis():
     dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
 
     files_in_directory = os.listdir(dir_path)
-    print(f"files in folder: {files_in_directory}")
+    #print(f"files in folder: {files_in_directory}")
     no_pt_files_list = []
     index = 0
 
@@ -220,7 +220,7 @@ def file_exploration_analysis():
 
     for file in files_in_directory:
         #print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
-        print(f"index")
+        #print(f"index: index")
         index += 1
         if index > 100:
             break
