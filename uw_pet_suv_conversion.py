@@ -284,6 +284,8 @@ def uw_pet_suv_conversion():
             indices_of_pet = [index for index, element in enumerate(test) if "wb_ac_3d" in element.lower()]
             top_dicom_folder = os.path.join(test_directory, test[indices_of_pet[0]])
             print(f"top: {top_dicom_folder}")
+            convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+
             try:
                 convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             except ValueError:
@@ -294,6 +296,8 @@ def uw_pet_suv_conversion():
             continue
         if any("12__WB_MAC" == element for element in test):
             top_dicom_folder = os.path.join(test_directory, "12__WB_MAC")
+            convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+
             try:
                 convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             except ValueError:
