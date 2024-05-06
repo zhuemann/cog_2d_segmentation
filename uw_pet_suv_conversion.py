@@ -218,6 +218,7 @@ def file_exploration_analysis():
     types_of_scans_ct = {}
     types_of_scans_pt = {}
     types_of_scans_pt["12__WB_MAC"] = 0
+    types_of_scans_pt["5__WB_MAC"] = 0
 
     for file in files_in_directory:
         #print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
@@ -287,6 +288,10 @@ def file_exploration_analysis():
 
         elif any("12__WB_MAC" == element for element in recon_types):
             types_of_scans_pt["12__WB_MAC"] += 1
+
+        elif any("5__WB_MAC" == element for element in recon_types):
+            types_of_scans_pt["5__WB_MAC"] += 1
+        #elif any("4__WB_MAC")
         else:
             for recon in recon_types:
                 if recon in types_of_scans_pt:
