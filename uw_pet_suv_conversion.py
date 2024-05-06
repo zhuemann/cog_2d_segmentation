@@ -245,7 +245,7 @@ def file_exploration_analysis():
         if "CT" in modality:
             num_modality["CT"] += 1
         else:
-            print(f"file: {file} does not have ct scan modality: {modality}")
+            #print(f"file: {file} does not have ct scan modality: {modality}")
             continue
 
         # print(modality)
@@ -254,7 +254,7 @@ def file_exploration_analysis():
             directory = os.path.join(directory, "PT")
             num_modality["PT"] += 1
         else:
-            print(f"file: {file} does not have Pet scan modality: {modality}")
+            #print(f"file: {file} does not have Pet scan modality: {modality}")
             continue
         # print(directory)
         study_name = os.listdir(directory)
