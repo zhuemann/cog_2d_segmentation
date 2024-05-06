@@ -232,6 +232,10 @@ def file_exploration_analysis():
             num_dates[1] += 1
         else:
             print(f"multiple date files in this folder: {directory}")
+            if len(date) not in num_dates:
+                num_dates[len(date)] = 1
+            else:
+                num_dates[len(date)] += 1
 
 
         modality = os.listdir(directory)
@@ -250,6 +254,7 @@ def file_exploration_analysis():
             continue
 
         directory = os.path.join(directory, ref_num[0])
+    print(num_dates)
 
 
 
