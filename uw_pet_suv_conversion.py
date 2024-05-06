@@ -78,6 +78,8 @@ def get_suv_conversion_factor(test_dicom, weight=0):
     print(f"dicom scan datetime: {dicom_scan_datetime}")
     print(f"dicom_inj_datetime: {dicom_inj_datetime}")
     print(f"type: {type(dicom_inj_datetime)}")
+    if dicom_inj_datetime == "":
+        print("no inject time")
     # date difference
     scan_datetime = datetime.strptime(dicom_scan_datetime, '%Y%m%d%H%M%S')
     inj_datetime = datetime.strptime(dicom_inj_datetime, '%Y%m%d%H%M%S')
