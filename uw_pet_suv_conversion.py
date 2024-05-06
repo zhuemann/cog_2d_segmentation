@@ -121,7 +121,10 @@ def convert_pet_nifti_to_suv_nifti(nifti_read_filename, test_dicom, nifti_save_f
         nib.save(suv_img, nifti_save_filename)
         return True, dicom_weight
     else:
+        print("returned false in convert_pet_nifti_to_suv_nifti")
         return False, dicom_weight
+
+
 def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # modality of interest is the modality that will be the reference size for the RTSTRUCT contours, defined by DICOM
     # type ('PT, 'CT', 'MR')
