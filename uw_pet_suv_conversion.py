@@ -271,7 +271,7 @@ def uw_pet_suv_conversion():
             folder_name = type_exam[0]
         """
 
-        print(f"directory before recon checks: {directory} with contents: {os.listdir(directory)}")
+        #print(f"directory before recon checks: {directory} with contents: {os.listdir(directory)}")
         test_directory = directory
         #test_directory = os.path.join(directory, folder_name)
         test = os.listdir(directory)
@@ -279,7 +279,7 @@ def uw_pet_suv_conversion():
         #print("before check")
         if any("12__wb_3d_mac" in element.lower() for element in test):
             top_dicom_folder = os.path.join(test_directory, "12__WB_3D_MAC")
-            print(f"top: {top_dicom_folder}")
+            #print(f"top: {top_dicom_folder}")
             try:
                 convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             except ValueError:
@@ -297,7 +297,7 @@ def uw_pet_suv_conversion():
         if any("wb_ac_3d" in element.lower() for element in test):
             indices_of_pet = [index for index, element in enumerate(test) if "wb_ac_3d" in element.lower()]
             top_dicom_folder = os.path.join(test_directory, test[indices_of_pet[0]])
-            print(f"top: {top_dicom_folder}")
+            #print(f"top: {top_dicom_folder}")
             try:
                 convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             except ValueError:
