@@ -17,13 +17,15 @@ from train_segmentation import train_image_text_segmentation
 #from get_max_pixel import get_max_pixel_step3
 #from create_sentence_mips_and_labels import create_mips
 from data_prepocessing.data_pipeline import run_data_pipeline
+from uw_pet_suv_conversion import uw_pet_suv_conversion
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-
-    run_data_pipeline()
+    uw_pet_suv_conversion()
     print(fail)
+    #run_data_pipeline()
+    #print(fail)
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
     #create_mips()
