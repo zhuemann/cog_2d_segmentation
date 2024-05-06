@@ -75,6 +75,7 @@ def get_suv_conversion_factor(test_dicom, weight=0):
         print('No dose information -- SUV factor set to 1')
         return 1, 0
 
+    print(dicom_inj_datetime, flush=True)
     dicom_inj_datetime = dicom_inj_datetime[:14]  # year(4)/month(2)/day(2)/hour(2)/minute(2)/second(2)
     dicom_scan_datetime = dicom_scan_datetime[:14]  # year(4)/month(2)/day(2)/hour(2)/minute(2)/second(2)
 
