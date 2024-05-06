@@ -59,6 +59,7 @@ def get_suv_conversion_factor(test_dicom, weight=0):
         dicom_half_life = radiopharm_object['00181075'].value  # Radionuclide Half Life
         dicom_dose = radiopharm_object['00181074'].value  # Radionuclide Total Dose
         if '00181078' in radiopharm_object:  # Radiopharmaceutical Start DateTime
+            print(f"radiopharm_object: {radiopharm_object}")
             if radiopharm_object['00181078'].value != None:
                 dicom_inj_datetime = radiopharm_object['00181078'].value[:14]  # Radiopharmaceutical Start DateTime
                 print(f"dicom after declared in 00181078: {dicom_inj_datetime}", flush=True)
