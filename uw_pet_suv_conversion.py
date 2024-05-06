@@ -140,6 +140,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
 
     # unique names for subjects and scans
     subject_save_name = dicom_id + '_' + dicom_name.replace(' ', '_').replace('__', '_')
+    print(f"subject_save_name: {subject_save_name}")
     subject_save_folder = os.path.join(top_nifti_folder, subject_save_name)
     os.makedirs(subject_save_folder, exist_ok=True)
     scan_save_name = '{}_{}_{}_{}'.format(subject_save_name, dicom_study_date, dicom_modality, \
@@ -229,7 +230,7 @@ def uw_pet_suv_conversion():
         else:
             print(f"file: {file} does not have Pet scan")
             continue
-        print(directory)
+        #print(directory)
         ref_num = os.listdir(directory)
         if len(ref_num) == 0:
             print(f"something funny: {file}")
@@ -253,12 +254,12 @@ def uw_pet_suv_conversion():
             folder_name = type_exam[0]
         """
 
-        print(f"directory before recon checks: {directory}")
+        print(f"directory before recon checks: {directory} with contents: {os.listdir(directory)}")
         test_directory = directory
         #test_directory = os.path.join(directory, folder_name)
         test = os.listdir(directory)
-        print(test)
-        print("before check")
+        #print(test)
+        #print("before check")
         if any("12__wb_3d_mac" in element.lower() for element in test):
             top_dicom_folder = os.path.join(test_directory, "12__WB_3D_MAC")
             print(f"top: {top_dicom_folder}")
