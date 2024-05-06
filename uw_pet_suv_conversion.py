@@ -281,6 +281,7 @@ def file_exploration_analysis():
             potential_suv_images += 1
             indices_of_pet = [index for index, element in enumerate(recon_types) if "wb_ac_3d" in element.lower()]
             name = recon_types[indices_of_pet[0]]
+            name = "wb_ac_3d"
             if name in types_of_scans_pt:
                 types_of_scans_pt[name] += 1
             else:
