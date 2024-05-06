@@ -150,10 +150,12 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
                                           dicom_series_description.replace(' ', '_'))
 
     if dicom_modality in ['CT', 'MR', 'NM']:
+        print(f"dicom_modality: {dicom_modality}")
         dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
                                           os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
                                           reorient_nifti=False)
     elif dicom_modality == 'PT':
+        print(f"dicom_modality: {dicom_modality}")
         dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
                                           os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
                                           reorient_nifti=False)
