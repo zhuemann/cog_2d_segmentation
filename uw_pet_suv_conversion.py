@@ -209,7 +209,7 @@ def uw_pet_suv_conversion():
     for file in files_in_directory:
         print(index)
         index += 1
-        if index > 5:
+        if index > 100:
             break
         #if index < 4630:
         #    continue
