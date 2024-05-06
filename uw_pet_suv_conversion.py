@@ -1,6 +1,164 @@
 
 import os
 import pandas as pd
+import dicom2nifti
+import nibabel as nib
+from datetime import datetime
+import numpy as np
+import glob
+import pydicom
+
+
+def get_suv_conversion_factor(test_dicom, weight=0):
+    '''
+        Get patients' weights (in kg, to g) / date difference (to second) / Half-life of a F-18 between the injection and acquisition
+        SUV = tracer uptake (or activity concentration) in ROI (Bq/ml) / (injected dose (Bq) * 2^(-T/tau)) / patient weight (g))
+        water density = 1 g/ml
+        T: delay between the injection time and the scan time, tau: half-life of the radionuclides
+    '''
+    # print(test_dicom)
+    dicom_corrections = test_dicom['00280051'].value
+    if 'ATTN' not in dicom_corrections and 'attn' not in dicom_corrections:
+        print('Not attenuation corrected -- SUV factor set to 1')
+        return 1, 0
+
+    dicom_manufacturer = test_dicom['00080070'].value.lower()
+    if weight != 0:
+        try:
+            dicom_weight = test_dicom['00101030'].value
+            if dicom_weight == 0 or dicom_weight == None:
+                dicom_weight = weight
+        except:
+            dicom_weight = weight
+    else:
+        try:
+            dicom_weight = test_dicom['00101030'].value
+            if dicom_weight == 0 or dicom_weight == None:
+                print('No weight info -- SUV factor set to 1')
+                return 1, 0  # no weight info
+        except:
+            print('No weight info -- SUV factor set to 1')
+            return 1, 0  # no weight info
+
+    # scantime info
+    if dicom_manufacturer[0:2] == 'ge' and '0009100D' in test_dicom:
+        dicom_scan_datetime = test_dicom['0009100D'].value[0:14]  # need to check!
+    else:
+        dicom_scan_datetime = test_dicom['00080021'].value + test_dicom['00080031'].value
+        # Series Date (8) + Series Time (6) = Series DateTime (14)
+        dicom_scan_datetime = dicom_scan_datetime[:14]
+    # find non-number characters
+    non_decimal = [char for char in dicom_scan_datetime if char.isdigit()]
+    dicom_scan_datetime = ''.join(non_decimal)
+    # radiopharmaceutical info
+    radiopharm_object = test_dicom['00540016'][0]
+    # print(radiopharm_object)
+    if '00181074' in radiopharm_object and '00181075' in radiopharm_object:
+        dicom_half_life = radiopharm_object['00181075'].value  # Radionuclide Half Life
+        dicom_dose = radiopharm_object['00181074'].value  # Radionuclide Total Dose
+        if '00181078' in radiopharm_object:  # Radiopharmaceutical Start DateTime
+            if radiopharm_object['00181078'].value != None:
+                dicom_inj_datetime = radiopharm_object['00181078'].value[:14]  # Radiopharmaceutical Start DateTime
+            else:
+                dicom_inj_datetime = dicom_scan_datetime[0:8] + radiopharm_object['00181072'].value
+        else:
+            dicom_inj_datetime = dicom_scan_datetime[0:8] + radiopharm_object['00181072'].value
+        # convert dicom_inj_datetime to string
+        dicom_inj_datetime = str(dicom_inj_datetime)
+        non_decimal = [char for char in dicom_inj_datetime if char.isdigit()]
+        dicom_inj_datetime = ''.join(non_decimal)
+    # sometimes tracer info is wiped, and if GE, can be found in private tags
+    else:
+        print('No dose information -- SUV factor set to 1')
+        return 1, 0
+
+    dicom_inj_datetime = dicom_inj_datetime[:14]  # year(4)/month(2)/day(2)/hour(2)/minute(2)/second(2)
+    dicom_scan_datetime = dicom_scan_datetime[:14]  # year(4)/month(2)/day(2)/hour(2)/minute(2)/second(2)
+    # date difference
+    scan_datetime = datetime.strptime(dicom_scan_datetime, '%Y%m%d%H%M%S')
+    inj_datetime = datetime.strptime(dicom_inj_datetime, '%Y%m%d%H%M%S')
+    diff_seconds = (scan_datetime - inj_datetime).total_seconds()
+    while diff_seconds < 0:  # scan time > injection time
+        diff_seconds += 24 * 3600
+        # SUV factor
+    # print(dicom_dose, dicom_half_life, dicom_weight, diff_seconds, '\n')
+    dose_corrected = dicom_dose * 2 ** (- diff_seconds / dicom_half_life)
+
+    # Units = BQML
+    suv_factor = 1 / (
+                (dose_corrected / dicom_weight) * 0.001)  # 1/(dose_corrected (decay-corrected Bq) /dicom_weight (gram))
+    if test_dicom.Units == "BQML":
+        return suv_factor, dicom_weight
+    else:
+        return 1, dicom_weight
+
+    # if test_dicom.Units == "CNTS":
+    # suv_factor /= test_dicom['00280030'].value[0] * test_dicom['00280030'].value[1] * float(test_dicom['00180050'].value) * 0.001
+    # raise ValueError('Unknown units: %s' % test_dicom.Units)
+
+def convert_pet_nifti_to_suv_nifti(nifti_read_filename, test_dicom, nifti_save_filename, weight=0, norm_factor=1):
+    suv_factor, dicom_weight = get_suv_conversion_factor(test_dicom, weight)
+    if suv_factor != 1:
+        orig = nib.load(nifti_read_filename)
+        data = orig.get_fdata()
+        new_data = data.copy()
+        new_data = new_data * suv_factor
+        if np.max(new_data) < 5:
+            print('PET image values seem low. Check SUV conversion')
+            return False, dicom_weight
+        suv_img = nib.Nifti1Image(new_data, orig.affine, orig.header)
+        nib.save(suv_img, nifti_save_filename)
+        return True, dicom_weight
+    elif norm_factor != 1:
+        orig = nib.load(nifti_read_filename)
+        data = orig.get_fdata()
+        new_data = data.copy()
+        new_data = new_data * norm_factor
+        if np.max(new_data) < 5:
+            print('PET image values seem low. Check SUV conversion')
+            return False, dicom_weight
+        suv_img = nib.Nifti1Image(new_data, orig.affine, orig.header)
+        nib.save(suv_img, nifti_save_filename)
+        return True, dicom_weight
+    else:
+        return False, dicom_weight
+def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
+    # modality of interest is the modality that will be the reference size for the RTSTRUCT contours, defined by DICOM
+    # type ('PT, 'CT', 'MR')
+    files = glob.glob(top_dicom_folder + "/*.dcm")
+    if len(files) < 1:
+        print('Empty folder: ' + files)
+        raise Exception("Fail to find DICOM files")
+
+    # get dicom info for saving
+    test_dicom = pydicom.dcmread(files[0])
+    dicom_modality = test_dicom['00080060'].value
+    dicom_name = str(test_dicom['00100010'].value).lower()
+    dicom_id = test_dicom['00100020'].value.lower()
+    dicom_study_date = test_dicom['00080020'].value
+    dicom_series_description = test_dicom['0008103e'].value
+
+    # unique names for subjects and scans
+    subject_save_name = dicom_id + '_' + dicom_name.replace(' ', '_').replace('__', '_')
+    subject_save_folder = os.path.join(top_nifti_folder, subject_save_name)
+    os.makedirs(subject_save_folder, exist_ok=True)
+    scan_save_name = '{}_{}_{}_{}'.format(subject_save_name, dicom_study_date, dicom_modality, \
+                                          dicom_series_description.replace(' ', '_'))
+
+    if dicom_modality in ['CT', 'MR', 'NM']:
+        dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
+                                          os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
+                                          reorient_nifti=False)
+    elif dicom_modality == 'PT':
+        dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
+                                          os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
+                                          reorient_nifti=False)
+        convert_pet_nifti_to_suv_nifti(os.path.join(subject_save_folder, scan_save_name + '.nii.gz'), test_dicom,
+                                       os.path.join(subject_save_folder, scan_save_name + '_SUV.nii.gz'))
+
+
+
+
 
 def files_transfer_analysis():
     dir_path = "/mnt/dsb2b/"
@@ -96,6 +254,7 @@ def uw_pet_suv_conversion():
         test_directory = os.path.join(directory, folder_name)
         test = os.listdir(test_directory)
         print(test)
+        print("before check")
         if any("12__wb_3d_mac" in element.lower() for element in test):
             top_dicom_folder = os.path.join(test_directory, "12__WB_3D_MAC")
             print(f"top: {top_dicom_folder}")
