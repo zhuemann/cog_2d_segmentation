@@ -222,8 +222,8 @@ def file_exploration_analysis():
         #print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
         #print(f"index: index")
         index += 1
-        if index > 100:
-            break
+        #if index > 100:
+        #    break
 
         directory = os.path.join(dir_path, file)
         date = os.listdir(directory)
