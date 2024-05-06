@@ -217,6 +217,7 @@ def file_exploration_analysis():
     num_study_names = {1:0 , "extra": 0, 0:0}
     types_of_scans_ct = {}
     types_of_scans_pt = {}
+    types_of_scans_pt["12__WB_MAC"] = 0
 
     for file in files_in_directory:
         #print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
@@ -271,17 +272,32 @@ def file_exploration_analysis():
 
         directory = os.path.join(directory, study_name[0])
         recon_types = os.listdir(directory)
-        for recon in recon_types:
 
-            if recon in types_of_scans_pt:
-                types_of_scans_pt[recon] += 1
+        if any("12__wb_3d_mac" in element.lower() for element in recon_types):
+            types_of_scans_pt["12__WB_MAC"] += 1
+
+        elif any("wb_ac_3d" in element.lower() for element in recon_types):
+            potential_suv_images += 1
+            indices_of_pet = [index for index, element in enumerate(recon_types) if "wb_ac_3d" in element.lower()]
+            name = recon_types[indices_of_pet[0]]
+            if name in types_of_scans_pt:
+                types_of_scans_pt[name] += 1
             else:
-                types_of_scans_pt[recon] = 1
+                types_of_scans_pt = 1
+
+        elif any("12__WB_MAC" == element for element in recon_types):
+            types_of_scans_pt["12__WB_MAC"] += 1
+        else:
+            for recon in recon_types:
+                if recon in types_of_scans_pt:
+                    types_of_scans_pt[recon] += 1
+                else:
+                    types_of_scans_pt[recon] = 1
 
 
     print(f"number of dates in files: {num_dates}")
     print(f"number of modality in date file: {num_modality}")
-    print(f"types of scans: {types_of_scans_pt}")
+    #print(f"types of scans: {types_of_scans_pt}")
     for key, value in types_of_scans_pt.items():
 
         if value > 20:
