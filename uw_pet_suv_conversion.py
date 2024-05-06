@@ -241,7 +241,7 @@ def uw_pet_suv_conversion():
         type_exam = os.listdir(directory)
         # print(modality)
         # print(test)
-
+        """
         if 'PET_CT_SKULL_BASE_TO_THIGH' in type_exam:
             folder_name = 'PET_CT_SKULL_BASE_TO_THIGH'
         elif len(type_exam) > 1:
@@ -251,9 +251,12 @@ def uw_pet_suv_conversion():
             continue
         else:
             folder_name = type_exam[0]
+        """
 
-        test_directory = os.path.join(directory, folder_name)
-        test = os.listdir(test_directory)
+        print(f"directory before recon checks: {directory}")
+        test_directory = directory
+        #test_directory = os.path.join(directory, folder_name)
+        test = os.listdir(directory)
         print(test)
         print("before check")
         if any("12__wb_3d_mac" in element.lower() for element in test):
