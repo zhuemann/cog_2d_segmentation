@@ -247,7 +247,7 @@ def uw_pet_suv_conversion():
         elif len(type_exam) > 1:
             weird_path_names.append(file)
             multi_length += 1
-            print(f"type of exam greater than 1")
+            print(f"type of exam greater than 1:{type_exam}")
             continue
         else:
             folder_name = type_exam[0]
