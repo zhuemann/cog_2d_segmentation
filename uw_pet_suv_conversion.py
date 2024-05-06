@@ -57,24 +57,26 @@ def uw_pet_suv_conversion():
         #    continue
         if file in skip_files or file in no_pt_files or file in time_data_skip or file in dicom_error:
             continue
-        test_directory = os.path.join(dir_path, file)
-        modality = os.listdir(test_directory)
+        directory = os.path.join(dir_path, file)
+        date = os.listdir(directory)
+        directory = os.path.join(dir_path, date)
+        modality = os.listdir(directory)
         print(modality)
         if "PT" in modality:
-            test_directory = os.path.join(dir_path, file, "PT")
+            directory = os.path.join(dir_path, file, "PT")
         else:
             print(f"file: {file} does not have Pet scan")
             continue
-        print(test_directory)
-        ref_num = os.listdir(test_directory)
+        print(directory)
+        ref_num = os.listdir(directory)
         if len(ref_num) == 0:
             print(f"something funny: {file}")
             no_pt_files_list.append(file)
             continue
         # print(ref_num)
-        test_directory = os.path.join(test_directory, ref_num[0])
+        directory = os.path.join(directory, ref_num[0])
         # print(test_directory)
-        type_exam = os.listdir(test_directory)
+        type_exam = os.listdir(directory)
         # print(modality)
         # print(test)
 
@@ -87,7 +89,7 @@ def uw_pet_suv_conversion():
         else:
             folder_name = type_exam[0]
 
-        test_directory = os.path.join(test_directory, folder_name)
+        test_directory = os.path.join(directory, folder_name)
         test = os.listdir(test_directory)
         print(test)
         if any("12__wb_3d_mac" in element.lower() for element in test):
