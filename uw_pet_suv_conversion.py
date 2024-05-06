@@ -22,16 +22,19 @@ def files_transfer_analysis():
 def uw_pet_suv_conversion():
 
 
-    files_transfer_analysis()
-    print(fail)
+    #files_transfer_analysis()
+    #print(fail)
 
     #top_dicom_folder = "/UserData/1043/PETLYMPH_3004/PT/20150125/BODY/1203__PET_CORONAL/"
-    top_nifti_folder = "/UserData/Zach_Analysis/suv_nifti_test/"
-    top_nifti_folder = "/UserData/UW_PET_Data/uw_pet_suv/"
+    #top_nifti_folder = "/UserData/Zach_Analysis/suv_nifti_test/"
+    #top_nifti_folder = "/UserData/UW_PET_Data/uw_pet_suv/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     #convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
 
-    dir_path = "/UserData/1043/"
-    dir_path = "/mnt/dsb2b/"
+    #dir_path = "/UserData/1043/"
+    #dir_path = "/mnt/dsb2b/"
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+
     files_in_directory = os.listdir(dir_path)
     print(files_in_directory)
 
@@ -48,8 +51,10 @@ def uw_pet_suv_conversion():
     for file in files_in_directory:
         print(index)
         index += 1
-        if index < 4630:
-            continue
+        if index > 5:
+            break
+        #if index < 4630:
+        #    continue
         if file in skip_files or file in no_pt_files or file in time_data_skip or file in dicom_error:
             continue
         test_directory = os.path.join(dir_path, file)
@@ -60,7 +65,7 @@ def uw_pet_suv_conversion():
         else:
             print(f"file: {file} does not have Pet scan")
             continue
-
+        print(test_directory)
         ref_num = os.listdir(test_directory)
         if len(ref_num) == 0:
             print(f"something funny: {file}")
