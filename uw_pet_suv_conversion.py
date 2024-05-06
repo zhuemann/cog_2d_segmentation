@@ -270,6 +270,7 @@ def uw_pet_suv_conversion():
         if any("12__wb_3d_mac" in element.lower() for element in test):
             top_dicom_folder = os.path.join(test_directory, "12__WB_3D_MAC")
             print(f"top: {top_dicom_folder}")
+            convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             try:
                 convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             except ValueError:
