@@ -204,7 +204,7 @@ def file_exploration_analysis():
     dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
 
     files_in_directory = os.listdir(dir_path)
-    #print(f"files in folder: {files_in_directory}")
+    print(f"files in folder: {len(files_in_directory)}")
     no_pt_files_list = []
     index = 0
 
@@ -213,8 +213,8 @@ def file_exploration_analysis():
 
     num_dates = {} # key is number of dates in folder value is how many folders have that value
     num_dates[1] = 0
-    num_modality = {"PT": 0, "CT": 0}
-    num_study_names = {}
+    num_modality = {"PT": 0, "CT": 0, "extra": 0}
+    num_study_names = {1:0 , "extra": 0, 0:0}
     types_of_scans_ct = {}
     types_of_scans_pt = {}
 
@@ -239,23 +239,48 @@ def file_exploration_analysis():
 
 
         modality = os.listdir(directory)
+
+        if len(modality) > 2:
+            num_modality["extra"] += 1
+        if "CT" in modality:
+            num_modality["CT"] += 1
+        else:
+            print(f"file: {file} does not have ct scan modality: {modality}")
+            continue
+
         # print(modality)
         if "PT" in modality:
             # directory = os.path.join(dir_path, file, "PT")
             directory = os.path.join(directory, "PT")
+            num_modality["PT"] += 1
         else:
-            print(f"file: {file} does not have Pet scan")
+            print(f"file: {file} does not have Pet scan modality: {modality}")
             continue
         # print(directory)
-        ref_num = os.listdir(directory)
-        if len(ref_num) == 0:
+        study_name = os.listdir(directory)
+        if len(study_name) == 0:
             print(f"something funny: {file}")
             no_pt_files_list.append(file)
-            continue
+            num_study_names[0] += 1
+            #continue
+        elif study_name == 1:
+            num_study_names[1] += 1
+        else:
+            num_study_names["extra"] += 1
 
-        directory = os.path.join(directory, ref_num[0])
-    print(num_dates)
 
+        directory = os.path.join(directory, study_name[0])
+        recon_types = os.listdir(directory)
+        for recon in recon_types:
+
+            if recon in types_of_scans_pt:
+                types_of_scans_pt[recon] += 1
+            else:
+                types_of_scans_pt[recon] = 1
+
+
+    print(f"number of dates in files: {num_dates}")
+    print(f"number of modality in date file: {num_modality}")
 
 
 def uw_pet_suv_conversion():
