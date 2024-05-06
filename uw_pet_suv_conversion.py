@@ -36,7 +36,7 @@ def uw_pet_suv_conversion():
     dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
 
     files_in_directory = os.listdir(dir_path)
-    print(files_in_directory)
+    #print(files_in_directory)
 
     no_pt_files_list = []
     index = 0
@@ -59,7 +59,7 @@ def uw_pet_suv_conversion():
             continue
         test_directory = os.path.join(dir_path, file)
         modality = os.listdir(test_directory)
-
+        print(modality)
         if "PT" in modality:
             test_directory = os.path.join(dir_path, file, "PT")
         else:
