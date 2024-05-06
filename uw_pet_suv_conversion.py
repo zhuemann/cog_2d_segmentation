@@ -282,6 +282,10 @@ def file_exploration_analysis():
     print(f"number of dates in files: {num_dates}")
     print(f"number of modality in date file: {num_modality}")
     print(f"types of scans: {types_of_scans_pt}")
+    for key, value in types_of_scans_pt:
+
+        if value > 20:
+            print(f"{key} {value}")
 
 
 def uw_pet_suv_conversion():
