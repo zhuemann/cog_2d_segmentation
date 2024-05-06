@@ -66,7 +66,8 @@ def uw_pet_suv_conversion():
         modality = os.listdir(directory)
         print(modality)
         if "PT" in modality:
-            directory = os.path.join(dir_path, file, "PT")
+            #directory = os.path.join(dir_path, file, "PT")
+            directory = os.path.join(directory, "PT")
         else:
             print(f"file: {file} does not have Pet scan")
             continue
