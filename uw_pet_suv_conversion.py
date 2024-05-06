@@ -63,16 +63,16 @@ def get_suv_conversion_factor(test_dicom, weight=0):
             #if radiopharm_object['00181078'].value != None:
             if radiopharm_object['00181078'].value != "":
                 dicom_inj_datetime = radiopharm_object['00181078'].value[:14]  # Radiopharmaceutical Start DateTime
-                print(f"dicom after declared in 00181078: {dicom_inj_datetime}", flush=True)
+                #print(f"dicom after declared in 00181078: {dicom_inj_datetime}", flush=True)
             else:
                 dicom_inj_datetime = dicom_scan_datetime[0:8] + radiopharm_object['00181072'].value
-                print(f"dicom after declared: {dicom_inj_datetime}", flush=True)
+                #print(f"dicom after declared: {dicom_inj_datetime}", flush=True)
         else:
             dicom_inj_datetime = dicom_scan_datetime[0:8] + radiopharm_object['00181072'].value
-        print(f"before string conversion: {dicom_inj_datetime}", flush=True)
+        #print(f"before string conversion: {dicom_inj_datetime}", flush=True)
         # convert dicom_inj_datetime to string
         dicom_inj_datetime = str(dicom_inj_datetime)
-        print(f"dicom inject time end: {dicom_inj_datetime}", flush=True)
+        #print(f"dicom inject time end: {dicom_inj_datetime}", flush=True)
         non_decimal = [char for char in dicom_inj_datetime if char.isdigit()]
         dicom_inj_datetime = ''.join(non_decimal)
     # sometimes tracer info is wiped, and if GE, can be found in private tags
@@ -235,7 +235,7 @@ def uw_pet_suv_conversion():
     for file in files_in_directory:
         print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
         index += 1
-        if index > 1000:
+        if index > 100:
             break
         #if index < 4630:
         #    continue
