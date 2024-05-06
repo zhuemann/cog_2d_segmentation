@@ -11,7 +11,7 @@ def uw_pet_suv_conversion():
     #convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
 
     dir_path = "/UserData/1043/"
-    dir_path = "/mnt/PURENFS/Bradshaw/UW_PET_Data/dsb2b/"
+    dir_path = "/mnt/dsb2b/"
     files_in_directory = os.listdir(dir_path)
     print(files_in_directory)
     no_pt_files_list = []
