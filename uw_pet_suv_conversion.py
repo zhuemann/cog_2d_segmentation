@@ -77,9 +77,9 @@ def get_suv_conversion_factor(test_dicom, weight=0):
     dicom_inj_datetime = dicom_inj_datetime[:14]  # year(4)/month(2)/day(2)/hour(2)/minute(2)/second(2)
     dicom_scan_datetime = dicom_scan_datetime[:14]  # year(4)/month(2)/day(2)/hour(2)/minute(2)/second(2)
 
-    print(f"dicom scan datetime: {dicom_scan_datetime}")
-    print(f"dicom_inj_datetime: {dicom_inj_datetime}")
-    print(f"type: {type(dicom_inj_datetime)}")
+    #print(f"dicom scan datetime: {dicom_scan_datetime}")
+    #print(f"dicom_inj_datetime: {dicom_inj_datetime}")
+    #print(f"type: {type(dicom_inj_datetime)}")
     if dicom_inj_datetime == "":
         raise missing_injection_time(f"no injection time")
 
@@ -279,7 +279,6 @@ def uw_pet_suv_conversion():
         if any("12__wb_3d_mac" in element.lower() for element in test):
             top_dicom_folder = os.path.join(test_directory, "12__WB_3D_MAC")
             print(f"top: {top_dicom_folder}")
-            convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             try:
                 convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             except ValueError:
@@ -293,8 +292,6 @@ def uw_pet_suv_conversion():
             indices_of_pet = [index for index, element in enumerate(test) if "wb_ac_3d" in element.lower()]
             top_dicom_folder = os.path.join(test_directory, test[indices_of_pet[0]])
             print(f"top: {top_dicom_folder}")
-            convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
-
             try:
                 convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             except ValueError:
@@ -305,8 +302,6 @@ def uw_pet_suv_conversion():
             continue
         if any("12__WB_MAC" == element for element in test):
             top_dicom_folder = os.path.join(test_directory, "12__WB_MAC")
-            convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
-
             try:
                 convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             except ValueError:
