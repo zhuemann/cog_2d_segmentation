@@ -1,9 +1,29 @@
 
 import os
+import pandas as pd
+
+def files_transfer_analysis():
+    dir_path = "/mnt/dsb2b/"
+    files_in_directory = os.listdir(dir_path)
+    print(files_in_directory)
+
+    df_path = "/UserData/UW_PET_Data/UWPETCTWB_Research-Image-Requests_20240311.xlsx"
+    df = pd.read_excel(df_path)
+
+    # Filter the DataFrame to include only rows where the filename is not in files_in_directory
+    filtered_df = df[~df['Coded Accession Number'].isin(files_in_directory)]
+
+    # Save the filtered DataFrame to an Excel file
+    output_file_path = '/UserData/UW_PET_Data/missing_accession_numbers.xlsx'
+    filtered_df.to_excel(output_file_path, index=False)
+
+
 
 def uw_pet_suv_conversion():
 
 
+    files_transfer_analysis()
+    print(fail)
 
     #top_dicom_folder = "/UserData/1043/PETLYMPH_3004/PT/20150125/BODY/1203__PET_CORONAL/"
     top_nifti_folder = "/UserData/Zach_Analysis/suv_nifti_test/"
@@ -14,6 +34,7 @@ def uw_pet_suv_conversion():
     dir_path = "/mnt/dsb2b/"
     files_in_directory = os.listdir(dir_path)
     print(files_in_directory)
+
     no_pt_files_list = []
     index = 0
     found_pet_images = 0
