@@ -8,6 +8,8 @@ import numpy as np
 import glob
 import pydicom
 
+class missing_injection_time(Exception):
+    pass
 
 def get_suv_conversion_factor(test_dicom, weight=0):
     '''
@@ -79,7 +81,8 @@ def get_suv_conversion_factor(test_dicom, weight=0):
     print(f"dicom_inj_datetime: {dicom_inj_datetime}")
     print(f"type: {type(dicom_inj_datetime)}")
     if dicom_inj_datetime == "":
-        print("no inject time")
+        raise missing_injection_time(f"no injection time")
+
     # date difference
     scan_datetime = datetime.strptime(dicom_scan_datetime, '%Y%m%d%H%M%S')
     inj_datetime = datetime.strptime(dicom_inj_datetime, '%Y%m%d%H%M%S')
