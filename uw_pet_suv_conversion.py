@@ -217,6 +217,7 @@ def uw_pet_suv_conversion():
     index = 0
     found_pet_images = 0
     multi_length = 0
+    missing_inject_info = 0
     skip_files = set([])
     no_pt_files = set([])
     time_data_skip = set([])
@@ -224,7 +225,7 @@ def uw_pet_suv_conversion():
     weird_path_names = []
     time_errors = []
     for file in files_in_directory:
-        print(index)
+        print(f"index: {index} missing inject info: {missing_inject_info}")
         index += 1
         if index > 100:
             break
@@ -286,6 +287,11 @@ def uw_pet_suv_conversion():
                 time_errors.append(file)
                 continue
 
+            except missing_injection_time as e:
+                print("missing inject time: {e}")
+                missing_inject_info += 1
+                continue
+
             found_pet_images += 1
             continue
         if any("wb_ac_3d" in element.lower() for element in test):
@@ -298,6 +304,11 @@ def uw_pet_suv_conversion():
                 print("failed")
                 time_errors.append(file)
                 continue
+
+            except missing_injection_time as e:
+                print("missing inject time: {e}")
+                missing_inject_info += 1
+                continue
             found_pet_images += 1
             continue
         if any("12__WB_MAC" == element for element in test):
@@ -307,6 +318,10 @@ def uw_pet_suv_conversion():
             except ValueError:
                 print("failed")
                 time_errors.append(file)
+                continue
+            except missing_injection_time as e:
+                print("missing inject time: {e}")
+                missing_inject_info += 1
                 continue
             found_pet_images += 1
             #continue
