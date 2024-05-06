@@ -59,7 +59,7 @@ def get_suv_conversion_factor(test_dicom, weight=0):
         dicom_half_life = radiopharm_object['00181075'].value  # Radionuclide Half Life
         dicom_dose = radiopharm_object['00181074'].value  # Radionuclide Total Dose
         if '00181078' in radiopharm_object:  # Radiopharmaceutical Start DateTime
-            print(f"radiopharm_object: {radiopharm_object}")
+            #print(f"radiopharm_object: {radiopharm_object}")
             #if radiopharm_object['00181078'].value != None:
             if radiopharm_object['00181078'].value != "":
                 dicom_inj_datetime = radiopharm_object['00181078'].value[:14]  # Radiopharmaceutical Start DateTime
@@ -200,10 +200,63 @@ def files_transfer_analysis():
     filtered_df.to_excel(output_file_path, index=False)
 
 
+def file_exploration_analysis():
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+
+    files_in_directory = os.listdir(dir_path)
+    print(f"files in folder: {files_in_directory}")
+    no_pt_files_list = []
+    index = 0
+
+    missing_inject_info = 0
+    potential_suv_images = 0
+
+    num_dates = {} # key is number of dates in folder value is how many folders have that value
+    num_dates[1] = 0
+    num_modality = {"PT": 0, "CT": 0}
+    num_study_names = {}
+    types_of_scans_ct = {}
+    types_of_scans_pt = {}
+
+    for file in files_in_directory:
+        #print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
+        print(f"index")
+        index += 1
+        if index > 100:
+            break
+
+        directory = os.path.join(dir_path, file)
+        date = os.listdir(directory)
+        if len(date) == 1:
+            directory = os.path.join(directory, date[0])
+            num_dates[1] += 1
+        else:
+            print(f"multiple date files in this folder: {directory}")
+
+
+        modality = os.listdir(directory)
+        # print(modality)
+        if "PT" in modality:
+            # directory = os.path.join(dir_path, file, "PT")
+            directory = os.path.join(directory, "PT")
+        else:
+            print(f"file: {file} does not have Pet scan")
+            continue
+        # print(directory)
+        ref_num = os.listdir(directory)
+        if len(ref_num) == 0:
+            print(f"something funny: {file}")
+            no_pt_files_list.append(file)
+            continue
+
+        directory = os.path.join(directory, ref_num[0])
+
+
 
 def uw_pet_suv_conversion():
 
-
+    file_exploration_analysis()
+    print(fail)
     #files_transfer_analysis()
     #print(fail)
 
