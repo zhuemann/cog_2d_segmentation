@@ -218,6 +218,7 @@ def uw_pet_suv_conversion():
     found_pet_images = 0
     multi_length = 0
     missing_inject_info = 0
+    potential_suv_images = 0
     skip_files = set([])
     no_pt_files = set([])
     time_data_skip = set([])
@@ -225,7 +226,7 @@ def uw_pet_suv_conversion():
     weird_path_names = []
     time_errors = []
     for file in files_in_directory:
-        print(f"index: {index} missing inject info: {missing_inject_info}")
+        print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
         index += 1
         if index > 100:
             break
@@ -278,6 +279,7 @@ def uw_pet_suv_conversion():
         #print(test)
         #print("before check")
         if any("12__wb_3d_mac" in element.lower() for element in test):
+            potential_suv_images += 1
             top_dicom_folder = os.path.join(test_directory, "12__WB_3D_MAC")
             #print(f"top: {top_dicom_folder}")
             try:
@@ -295,6 +297,7 @@ def uw_pet_suv_conversion():
             found_pet_images += 1
             continue
         if any("wb_ac_3d" in element.lower() for element in test):
+            potential_suv_images += 1
             indices_of_pet = [index for index, element in enumerate(test) if "wb_ac_3d" in element.lower()]
             top_dicom_folder = os.path.join(test_directory, test[indices_of_pet[0]])
             #print(f"top: {top_dicom_folder}")
@@ -312,6 +315,7 @@ def uw_pet_suv_conversion():
             found_pet_images += 1
             continue
         if any("12__WB_MAC" == element for element in test):
+            potential_suv_images += 1
             top_dicom_folder = os.path.join(test_directory, "12__WB_MAC")
             try:
                 convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
