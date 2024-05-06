@@ -228,7 +228,7 @@ def uw_pet_suv_conversion():
     for file in files_in_directory:
         print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
         index += 1
-        if index > 100:
+        if index > 1000:
             break
         #if index < 4630:
         #    continue
