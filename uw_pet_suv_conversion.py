@@ -156,9 +156,11 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
                                           reorient_nifti=False)
     elif dicom_modality == 'PT':
         print(f"dicom_modality: {dicom_modality}")
+        print(f"about to call dicom to nifiti")
         dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
                                           os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
                                           reorient_nifti=False)
+        print(f" about to call convert to nifiti to suv nifiti")
         convert_pet_nifti_to_suv_nifti(os.path.join(subject_save_folder, scan_save_name + '.nii.gz'), test_dicom,
                                        os.path.join(subject_save_folder, scan_save_name + '_SUV.nii.gz'))
 
