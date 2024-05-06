@@ -226,7 +226,7 @@ def uw_pet_suv_conversion():
         else:
             print(f"multiple date files in this folder: {directory}")
         modality = os.listdir(directory)
-        print(modality)
+        #print(modality)
         if "PT" in modality:
             #directory = os.path.join(dir_path, file, "PT")
             directory = os.path.join(directory, "PT")
@@ -269,6 +269,7 @@ def uw_pet_suv_conversion():
             try:
                 convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             except ValueError:
+                print("failed")
                 time_errors.append(file)
                 continue
 
@@ -281,6 +282,7 @@ def uw_pet_suv_conversion():
             try:
                 convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             except ValueError:
+                print("failed")
                 time_errors.append(file)
                 continue
             found_pet_images += 1
@@ -290,7 +292,8 @@ def uw_pet_suv_conversion():
             try:
                 convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
             except ValueError:
+                print("failed")
                 time_errors.append(file)
                 continue
             found_pet_images += 1
-            continue
+            #continue
