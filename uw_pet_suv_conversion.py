@@ -61,6 +61,7 @@ def get_suv_conversion_factor(test_dicom, weight=0):
         if '00181078' in radiopharm_object:  # Radiopharmaceutical Start DateTime
             if radiopharm_object['00181078'].value != None:
                 dicom_inj_datetime = radiopharm_object['00181078'].value[:14]  # Radiopharmaceutical Start DateTime
+                print(f"dicom after declared in 00181078: {dicom_inj_datetime}", flush=True)
             else:
                 dicom_inj_datetime = dicom_scan_datetime[0:8] + radiopharm_object['00181072'].value
                 print(f"dicom after declared: {dicom_inj_datetime}", flush=True)
