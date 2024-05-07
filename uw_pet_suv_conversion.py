@@ -372,12 +372,14 @@ def uw_pet_suv_conversion():
     weird_path_names = []
     time_errors = []
     for file in files_in_directory:
-        print(f"index: {index} found pet images: {found_pet_images}")
+        print(f"index: {index} found pet images: {found_pet_images} file: {file}")
         index += 1
         #if index > 100:
         #    break
         #if index < 4630:
         #    continue
+        if index < 970:
+            continue
         if file in skip_files or file in no_pt_files or file in time_data_skip or file in dicom_error:
             continue
         directory = os.path.join(dir_path, file)
