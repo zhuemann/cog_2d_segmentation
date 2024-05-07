@@ -156,16 +156,16 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     dicom_id = test_dicom['00100020'].value.lower()
     dicom_study_date = test_dicom['00080020'].value
     dicom_series_description = test_dicom['0008103e'].value
-    print(f"top dicom folder: {top_dicom_folder}")
+    #print(f"top dicom folder: {top_dicom_folder}")
     folder_names = top_dicom_folder.split("/")
     indices_of_pet = [index for index, element in enumerate(folder_names) if "petwb_" in element.lower()]
-    print(f"indices: {indices_of_pet}")
-    print(f"test: {folder_names[indices_of_pet[0]]}")
+    #print(f"indices: {indices_of_pet}")
+    #print(f"test: {folder_names[indices_of_pet[0]]}")
     # unique names for subjects and scans
     #subject_save_name = dicom_id + '_' + dicom_name.replace(' ', '_').replace('__', '_')
     #print(f"subject_save_name: {subject_save_name}")
     subject_save_name = folder_names[indices_of_pet[0]]
-    print(f"subject_save_name: {subject_save_name}")
+    #print(f"subject_save_name: {subject_save_name}")
 
     subject_save_folder = os.path.join(top_nifti_folder, subject_save_name)
     os.makedirs(subject_save_folder, exist_ok=True)
@@ -374,8 +374,8 @@ def uw_pet_suv_conversion():
     for file in files_in_directory:
         print(f"index: {index} found pet images: {found_pet_images}")
         index += 1
-        if index > 100:
-            break
+        #if index > 100:
+        #    break
         #if index < 4630:
         #    continue
         if file in skip_files or file in no_pt_files or file in time_data_skip or file in dicom_error:
