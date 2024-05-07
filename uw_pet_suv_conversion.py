@@ -382,7 +382,7 @@ def uw_pet_suv_conversion():
         #    break
         #if index < 4630:
         #    continue
-        if os.path.exists(os.path.join(top_nifti_folder, file)):
+        if os.path.exists(os.path.join(top_nifti_folder, file)) and file is not "PETWB_004604_04":
             found_pet_images += 1
             print("already found this image")
             continue
