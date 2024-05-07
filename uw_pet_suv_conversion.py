@@ -307,8 +307,11 @@ def file_exploration_analysis():
     print(f"number of modality in date file: {num_modality}")
     #print(f"types of scans: {types_of_scans_pt}")
     #sum = 0
-    for key, value in types_of_scans_pt.items():
+    #for key, value in types_of_scans_pt.items():
         #sum += value
+    #    if value > 20:
+    #        print(f"{key} {value}")
+    for key, value in sorted(types_of_scans_pt.items(), key=lambda item: item[1], reverse=True):
         if value > 20:
             print(f"{key} {value}")
     #print(f"total images we will have: {sum}")
