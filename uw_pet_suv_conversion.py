@@ -255,7 +255,7 @@ def file_exploration_analysis():
         else:
             #print(f"file: {file} does not have ct scan modality: {modality}")
             continue
-        """
+
         if "PT" in modality:
             # directory = os.path.join(dir_path, file, "PT")
             directory = os.path.join(directory, "PT")
@@ -263,6 +263,7 @@ def file_exploration_analysis():
         else:
             #print(f"file: {file} does not have Pet scan modality: {modality}")
             continue
+
         """
         if "CT" in modality:
             # directory = os.path.join(dir_path, file, "PT")
@@ -271,6 +272,7 @@ def file_exploration_analysis():
         else:
             #print(f"file: {file} does not have Pet scan modality: {modality}")
             continue
+        """
 
         # print(directory)
         study_name = os.listdir(directory)
@@ -329,10 +331,11 @@ def file_exploration_analysis():
     #print(f"total images we will have: {sum}")
 
 
+
 def uw_pet_suv_conversion():
 
-    file_exploration_analysis()
-    print(fail)
+    #file_exploration_analysis()
+    #print(fail)
     #files_transfer_analysis()
     #print(fail)
 
@@ -362,7 +365,7 @@ def uw_pet_suv_conversion():
     weird_path_names = []
     time_errors = []
     for file in files_in_directory:
-        print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
+        print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images} found pet images: {found_pet_images}")
         index += 1
         if index > 100:
             break
@@ -432,7 +435,7 @@ def uw_pet_suv_conversion():
 
             found_pet_images += 1
             continue
-        if any("wb_ac_3d" in element.lower() for element in test):
+        elif any("wb_ac_3d" in element.lower() for element in test):
             potential_suv_images += 1
             indices_of_pet = [index for index, element in enumerate(test) if "wb_ac_3d" in element.lower()]
             top_dicom_folder = os.path.join(test_directory, test[indices_of_pet[0]])
@@ -450,7 +453,7 @@ def uw_pet_suv_conversion():
                 continue
             found_pet_images += 1
             continue
-        if any("12__WB_MAC" == element for element in test):
+        elif any("12__WB_MAC" == element for element in test):
             potential_suv_images += 1
             top_dicom_folder = os.path.join(test_directory, "12__WB_MAC")
             try:
@@ -464,4 +467,58 @@ def uw_pet_suv_conversion():
                 missing_inject_info += 1
                 continue
             found_pet_images += 1
-            #continue
+
+        elif any("5__WB_MAC" == element for element in test):
+            found_pet_images += 1
+            top_dicom_folder = os.path.join(test_directory, "5__WB_MAC")
+            try:
+                convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            except ValueError:
+                print("failed")
+                time_errors.append(file)
+                continue
+        elif any("4__WB_MAC" == element for element in test):
+            found_pet_images += 1
+            top_dicom_folder = os.path.join(test_directory, "4__WB_MAC")
+            try:
+                convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            except ValueError:
+                print("failed")
+                time_errors.append(file)
+                continue
+        elif any("4__PET_AC_3D" == element for element in test):
+            found_pet_images += 1
+            top_dicom_folder = os.path.join(test_directory, "4__PET_AC_3D")
+            try:
+                convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            except ValueError:
+                print("failed")
+                time_errors.append(file)
+                continue
+        elif any("13__WB_3D_MAC" == element for element in test):
+            found_pet_images += 1
+            top_dicom_folder = os.path.join(test_directory, "13__WB_3D_MAC")
+            try:
+                convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            except ValueError:
+                print("failed")
+                time_errors.append(file)
+                continue
+        elif any("13__WB_MAC" == element for element in test):
+            found_pet_images += 1
+            top_dicom_folder = os.path.join(test_directory, "13__WB_MAC")
+            try:
+                convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            except ValueError:
+                print("failed")
+                time_errors.append(file)
+                continue
+        elif any("12__PET_AC_3D" == element for element in test):
+            found_pet_images += 1
+            top_dicom_folder = os.path.join(test_directory, "12__PET_AC_3D")
+            try:
+                convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+            except ValueError:
+                print("failed")
+                time_errors.append(file)
+                continue
