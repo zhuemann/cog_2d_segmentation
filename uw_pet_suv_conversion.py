@@ -376,7 +376,7 @@ def uw_pet_suv_conversion():
     skip_files = set([])
     no_pt_files = set(["PETWB_015788_01"])
     time_data_skip = set([])
-    dicom_error = set(["PETWB_005434_01"]) #PETWB_004604_04
+    dicom_error = set(["PETWB_005434_01", "PETWB_004604_04"]) #PETWB_004604_04
     weird_path_names = []
     time_errors = []
     for file in files_in_directory:
@@ -386,10 +386,11 @@ def uw_pet_suv_conversion():
         #    break
         #if index < 4630:
         #    continue
-        if os.path.exists(os.path.join(top_nifti_folder, file)) and file is not "PETWB_004604_04":
+        if os.path.exists(os.path.join(top_nifti_folder, file)):
             found_pet_images += 1
             print("already found this image")
             continue
+
         #if index < 1970:
         #    continue
         if file in skip_files or file in no_pt_files or file in time_data_skip or file in dicom_error:
@@ -448,6 +449,8 @@ def uw_pet_suv_conversion():
                 print("failed")
                 time_errors.append(file)
                 continue
+            except Exception:
+                continue
 
             except missing_injection_time as e:
                 print("missing inject time: {e}")
@@ -466,6 +469,8 @@ def uw_pet_suv_conversion():
                 print("failed")
                 time_errors.append(file)
                 continue
+            except Exception:
+                continue
 
             except missing_injection_time as e:
                 print("missing inject time: {e}")
@@ -482,6 +487,8 @@ def uw_pet_suv_conversion():
                 print("failed")
                 time_errors.append(file)
                 continue
+            except Exception:
+                continue
             except missing_injection_time as e:
                 print("missing inject time: {e}")
                 missing_inject_info += 1
@@ -497,6 +504,8 @@ def uw_pet_suv_conversion():
                 print("failed")
                 time_errors.append(file)
                 continue
+            except Exception:
+                continue
         elif any("4__WB_MAC" == element for element in test):
             found_pet_images += 1
             top_dicom_folder = os.path.join(test_directory, "4__WB_MAC")
@@ -505,6 +514,8 @@ def uw_pet_suv_conversion():
             except ValueError:
                 print("failed")
                 time_errors.append(file)
+                continue
+            except Exception:
                 continue
         elif any("4__PET_AC_3D" == element for element in test):
             found_pet_images += 1
@@ -515,6 +526,8 @@ def uw_pet_suv_conversion():
                 print("failed")
                 time_errors.append(file)
                 continue
+            except Exception:
+                continue
         elif any("13__WB_3D_MAC" == element for element in test):
             found_pet_images += 1
             top_dicom_folder = os.path.join(test_directory, "13__WB_3D_MAC")
@@ -523,6 +536,8 @@ def uw_pet_suv_conversion():
             except ValueError:
                 print("failed")
                 time_errors.append(file)
+                continue
+            except Exception:
                 continue
         elif any("13__WB_MAC" == element for element in test):
             found_pet_images += 1
@@ -533,6 +548,8 @@ def uw_pet_suv_conversion():
                 print("failed")
                 time_errors.append(file)
                 continue
+            except Exception:
+                continue
         elif any("12__PET_AC_3D" == element for element in test):
             found_pet_images += 1
             top_dicom_folder = os.path.join(test_directory, "12__PET_AC_3D")
@@ -541,4 +558,6 @@ def uw_pet_suv_conversion():
             except ValueError:
                 print("failed")
                 time_errors.append(file)
+                continue
+            except Exception:
                 continue
