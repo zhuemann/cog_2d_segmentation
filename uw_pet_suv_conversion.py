@@ -292,26 +292,26 @@ def file_exploration_analysis():
 
         elif any("5__WB_MAC" == element for element in recon_types):
             types_of_scans_pt["5__WB_MAC"] += 1
-        else:
-            continue
-        #elif any("4__WB_MAC")
         #else:
-        #    for recon in recon_types:
-        #        if recon in types_of_scans_pt:
-        #            types_of_scans_pt[recon] += 1
-        #        else:
-        #            types_of_scans_pt[recon] = 1
+        #    continue
+        #elif any("4__WB_MAC")
+        else:
+            for recon in recon_types:
+                if recon in types_of_scans_pt:
+                    types_of_scans_pt[recon] += 1
+                else:
+                    types_of_scans_pt[recon] = 1
 
 
     print(f"number of dates in files: {num_dates}")
     print(f"number of modality in date file: {num_modality}")
     #print(f"types of scans: {types_of_scans_pt}")
-    sum = 0
+    #sum = 0
     for key, value in types_of_scans_pt.items():
-        sum += value
+        #sum += value
         if value > 20:
             print(f"{key} {value}")
-    print(f"total images we will have: {sum}")
+    #print(f"total images we will have: {sum}")
 
 
 def uw_pet_suv_conversion():
