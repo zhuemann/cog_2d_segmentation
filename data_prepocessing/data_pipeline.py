@@ -15,7 +15,7 @@ def run_data_pipeline():
     #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v11/"
     save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v1/"
 
-
+    """
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
 
     #df_path = "/UserData/Zach_Analysis/text_data/indications.xlsx"
@@ -35,7 +35,8 @@ def run_data_pipeline():
     df = remove_non_anontomical_sent(df)
     df.to_excel(save_base + "remove_non_anotomical_info_3.xlsx", index=False)
     print(len(df))
-
+    """
+    df = pd.read_excel(save_base + "remove_non_anotomical_info_3.xlsx")
     #df = pd.read_excel(save_base + "sentences_split_1.xlsx")
     #df_radgraph = get_anatomical_dataframe(df)
 
