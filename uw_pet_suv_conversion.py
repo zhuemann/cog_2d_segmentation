@@ -378,7 +378,7 @@ def uw_pet_suv_conversion():
         #    break
         #if index < 4630:
         #    continue
-        if index < 970:
+        if index < 1970:
             continue
         if file in skip_files or file in no_pt_files or file in time_data_skip or file in dicom_error:
             continue
