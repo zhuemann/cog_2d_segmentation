@@ -292,8 +292,7 @@ def file_exploration_analysis():
 
         elif any("5__WB_MAC" == element for element in recon_types):
             types_of_scans_pt["5__WB_MAC"] += 1
-        #else:
-        #    continue
+
         #elif any("4__WB_MAC")
         else:
             for recon in recon_types:
