@@ -248,6 +248,7 @@ SUV: 3.0
             #print(response)
             #print(f"respone length: {len(response)}")
             #print(type(response))
+            print(response)
             extraction = extract_sentences_and_numbers(response, "slice", "suv")
             print(extraction, flush=True)
             sent = extraction[0]
