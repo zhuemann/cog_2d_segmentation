@@ -218,7 +218,14 @@ def file_exploration_analysis():
     types_of_scans_ct = {}
     types_of_scans_pt = {}
     types_of_scans_pt["12__WB_MAC"] = 0
+    types_of_scans_pt["12__WB_3d_MAC"] = 0
     types_of_scans_pt["5__WB_MAC"] = 0
+    types_of_scans_pt["4__WB_MAC"] = 0
+    types_of_scans_pt["wb_ac_3d"] = 0
+    types_of_scans_pt["4__PET_AC_3D"] = 0
+    types_of_scans_pt["13__WB_3D_MAC"] = 0
+    types_of_scans_pt["13__WB_MAC"] = 0
+    types_of_scans_pt["12__PET_AC_3D"] = 0
 
     for file in files_in_directory:
         #print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
@@ -238,7 +245,6 @@ def file_exploration_analysis():
                 num_dates[len(date)] = 1
             else:
                 num_dates[len(date)] += 1
-
 
         modality = os.listdir(directory)
 
@@ -275,25 +281,24 @@ def file_exploration_analysis():
         recon_types = os.listdir(directory)
 
         if any("12__wb_3d_mac" in element.lower() for element in recon_types):
-            types_of_scans_pt["12__WB_MAC"] += 1
-
+            types_of_scans_pt["12__WB_3d_MAC"] += 1
         elif any("wb_ac_3d" in element.lower() for element in recon_types):
-            potential_suv_images += 1
-            indices_of_pet = [index for index, element in enumerate(recon_types) if "wb_ac_3d" in element.lower()]
-            name = recon_types[indices_of_pet[0]]
-            name = "wb_ac_3d"
-            if name in types_of_scans_pt:
-                types_of_scans_pt[name] += 1
-            else:
-                types_of_scans_pt[name] = 1
-
+            types_of_scans_pt["wb_ac_3d"] += 1
         elif any("12__WB_MAC" == element for element in recon_types):
             types_of_scans_pt["12__WB_MAC"] += 1
-
         elif any("5__WB_MAC" == element for element in recon_types):
             types_of_scans_pt["5__WB_MAC"] += 1
+        elif any("4__WB_MAC" == element for element in recon_types):
+            types_of_scans_pt["4__WB_MAC"] += 1
+        elif any("4__PET_AC_3D" == element for element in recon_types):
+            types_of_scans_pt["4__PET_AC_3D"] += 1
+        elif any("13__WB_3D_MAC" == element for element in recon_types):
+            types_of_scans_pt["13__WB_3D_MAC"] += 1
+        elif any("13__WB_MAC" == element for element in recon_types):
+            types_of_scans_pt["13__WB_MAC"] += 1
+        elif any("12__PET_AC_3D" == element for element in recon_types):
+            types_of_scans_pt["12__PET_AC_3D"] += 1
 
-        #elif any("4__WB_MAC")
         else:
             for recon in recon_types:
                 if recon in types_of_scans_pt:
