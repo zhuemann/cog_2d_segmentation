@@ -366,7 +366,7 @@ def uw_pet_suv_conversion():
     missing_inject_info = 0
     potential_suv_images = 0
     skip_files = set([])
-    no_pt_files = set([])
+    no_pt_files = set(["PETWB_015788_01"])
     time_data_skip = set([])
     dicom_error = set(["PETWB_005434_01"])
     weird_path_names = []
