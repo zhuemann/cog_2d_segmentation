@@ -248,8 +248,8 @@ SUV: 3.0
             #print(response)
             #print(f"respone length: {len(response)}")
             #print(type(response))
-            sent = extract_sentences_and_numbers(response, "slice", "suv")
-            slice_val, suv_val = extract_values(response)
+            sent, slice_val, suv_val = extract_sentences_and_numbers(response, "slice", "suv")
+            #slice_val, suv_val = extract_values(response)
             #print(f"slice: {slice_val} suv: {suv_val}")
             #print(f"slice_val: {slice_val} and suv_val: {suv_val}")
             if slice_val is not None and suv_val is not None:
