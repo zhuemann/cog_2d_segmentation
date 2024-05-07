@@ -248,14 +248,14 @@ SUV: 3.0
             #print(response)
             #print(f"respone length: {len(response)}")
             #print(type(response))
-            print(response)
+            #print(response)
             #extraction = extract_sentences_and_numbers(response, "slice", "suv")
             #print(extraction, flush=True)
             #sent = extraction[0]
             #slice_val = extraction[1]
             #suv_val = extraction[2]
             slice_val, suv_val = extract_values(response)
-            print(f"slice: {slice_val} suv: {suv_val}")
+            #print(f"slice: {slice_val} suv: {suv_val}")
             #print(f"slice_val: {slice_val} and suv_val: {suv_val}")
             if slice_val is not None and suv_val is not None:
                 ai_slice.append(slice_val)
