@@ -162,8 +162,11 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     print(f"indices: {indices_of_pet}")
     print(f"test: {folder_names[indices_of_pet[0]]}")
     # unique names for subjects and scans
-    subject_save_name = dicom_id + '_' + dicom_name.replace(' ', '_').replace('__', '_')
+    #subject_save_name = dicom_id + '_' + dicom_name.replace(' ', '_').replace('__', '_')
+    #print(f"subject_save_name: {subject_save_name}")
+    subject_save_name = folder_names[indices_of_pet[0]]
     print(f"subject_save_name: {subject_save_name}")
+
     subject_save_folder = os.path.join(top_nifti_folder, subject_save_name)
     os.makedirs(subject_save_folder, exist_ok=True)
     scan_save_name = '{}_{}_{}_{}'.format(subject_save_name, dicom_study_date, dicom_modality, \
