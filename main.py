@@ -22,10 +22,10 @@ from uw_pet_suv_conversion import uw_pet_suv_conversion
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-    uw_pet_suv_conversion()
-    print(fail)
-    #run_data_pipeline()
+    #uw_pet_suv_conversion()
     #print(fail)
+    run_data_pipeline()
+    print(fail)
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
     #create_mips()

@@ -234,16 +234,15 @@ SUV: 3.0
             sentence = row["Extracted Sentences"]
             total_prompt = instruction + sentence + "\n[/INST]"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
+            #response = generate_with_timeout(model, total_prompt)
 
-            response = generate_with_timeout(model, total_prompt)
-
-            if response == None:
-                print("none response")
-                response = ""
+            #if response == None:
+            #    print("none response")
+            #    response = ""
             #response = generate_with_timeout(model, total_prompt, timeout=60)
             #response = process_single_prompt(model, total_prompt)
-            #generated = ollama.generate(model=model, prompt = total_prompt)
-            #response = generated["response"]
+            generated = ollama.generate(model=model, prompt = total_prompt)
+            response = generated["response"]
             #print(response)
             #print(f"respone length: {len(response)}")
             #print(type(response))
@@ -254,9 +253,16 @@ SUV: 3.0
             if slice_val is not None and suv_val is not None:
                 ai_slice.append(slice_val)
                 ai_suv.append(suv_val)
+            elif slice_val is not None and suv_val is None:
+                ai_slice.append(slice_val)
+                ai_suv.append(0)
+            elif slice_val is None and suv_val is not None:
+                ai_slice.append(0)
+                ai_suv.append(suv_val)
             else:
                 ai_slice.append(0)
                 ai_suv.append(0)
+
 
 
         # Convert lists to a DataFrame
