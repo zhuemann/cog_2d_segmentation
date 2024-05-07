@@ -365,7 +365,7 @@ def uw_pet_suv_conversion():
     weird_path_names = []
     time_errors = []
     for file in files_in_directory:
-        print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images} found pet images: {found_pet_images}")
+        print(f"index: {index} found pet images: {found_pet_images}")
         index += 1
         if index > 100:
             break
