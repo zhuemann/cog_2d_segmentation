@@ -228,7 +228,7 @@ SUV: 3.0
             #if index == 1000:
             #    break
             #if index < 1000:
-            if index > 100:
+            if index > 2500:
                 break
             #    continue
             #accession.append(row["Accession Number"])
