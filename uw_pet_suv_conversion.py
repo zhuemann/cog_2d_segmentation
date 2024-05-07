@@ -378,8 +378,12 @@ def uw_pet_suv_conversion():
         #    break
         #if index < 4630:
         #    continue
-        if index < 1970:
+        if os.path.exists(os.path.join(top_nifti_folder, file)):
+            found_pet_images += 1
+            print("already found this image")
             continue
+        #if index < 1970:
+        #    continue
         if file in skip_files or file in no_pt_files or file in time_data_skip or file in dicom_error:
             continue
         directory = os.path.join(dir_path, file)
