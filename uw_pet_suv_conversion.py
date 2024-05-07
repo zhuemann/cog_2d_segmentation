@@ -368,7 +368,7 @@ def uw_pet_suv_conversion():
     skip_files = set([])
     no_pt_files = set([])
     time_data_skip = set([])
-    dicom_error = set([])
+    dicom_error = set(["PETWB_005434_01"])
     weird_path_names = []
     time_errors = []
     for file in files_in_directory:
