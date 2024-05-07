@@ -156,7 +156,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     dicom_id = test_dicom['00100020'].value.lower()
     dicom_study_date = test_dicom['00080020'].value
     dicom_series_description = test_dicom['0008103e'].value
-
+    print(f"top dicom folder: {top_dicom_folder}")
     # unique names for subjects and scans
     subject_save_name = dicom_id + '_' + dicom_name.replace(' ', '_').replace('__', '_')
     print(f"subject_save_name: {subject_save_name}")
