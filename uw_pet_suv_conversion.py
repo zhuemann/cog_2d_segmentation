@@ -373,14 +373,13 @@ def get_voxel_dimensions(root_directory):
                             voxel_dims_count[voxel_dims] = 1
                     except Exception as e:
                         print(f"Error processing {filename} in {subdir}: {e}")
-
+    print(voxel_dims_count)
     return voxel_dims_count
 
 def uw_pet_suv_conversion():
 
     #file_exploration_analysis()
-    voxel_dim = get_voxel_dimensions("/mnt/Bradshaw/UW_PET_Data/SUV_images/")
-    print(voxel_dim)
+    get_voxel_dimensions("/mnt/Bradshaw/UW_PET_Data/SUV_images/")
     print(fail)
     #files_transfer_analysis()
     #print(fail)
