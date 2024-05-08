@@ -430,14 +430,18 @@ def get_voxel_dimensions(root_directory):
     print("image size")
     sum_short = 0
     sum_long = 0
+    very_short = 0
     for key, value in sorted(image_size.items(), key=lambda item: item[1], reverse=True):
         print(f"{key} {value}")
         if key[2] <= 384:
             sum_short += value
         else:
             sum_long += value
+        if key[2] <= 200:
+            very_short += value
     print(f"number of images under 384 in length: {sum_short}")
     print(f"number that need cropping: {sum_long}")
+    print(f"under 200, likely remove from dataset: {very_short}")
     return voxel_dims_count
 
 def uw_pet_suv_conversion():
