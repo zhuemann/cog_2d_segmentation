@@ -443,10 +443,20 @@ def get_voxel_dimensions(root_directory):
     print(f"under 200, likely remove from dataset: {very_short}")
     return voxel_dims_count
 
+def call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts):
+    try:
+        convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
+    except Exception:
+        found_cts -= 1
+    found_cts += 1
+    return found_cts
+
 
 def file_exploration_analysis_ct():
     dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
     dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+
     files_in_directory = os.listdir(dir_path_suv)
     print(f"files in folder: {len(files_in_directory)}")
     no_pt_files_list = []
@@ -470,14 +480,26 @@ def file_exploration_analysis_ct():
     types_of_scans_pt["13__WB_3D_MAC"] = 0
     types_of_scans_pt["13__WB_MAC"] = 0
     types_of_scans_pt["12__PET_AC_3D"] = 0
-
+    same_slice_nums = 0
+    found_cts = 0
     for file in files_in_directory:
         # print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
         # print(f"index: index")
-        print(file)
+        #print(file)
         index += 1
         # if index > 100:
         #    break
+        suv_dims = 0
+        suv_path = os.path.join(dir_path_suv, file)
+        for filename in os.listdir(suv_path):
+            if filename.endswith(".nii.gz") and "suv" in filename.lower():
+                filepath = os.path.join(suv_path, filename)
+                try:
+                    # Load the NIfTI file
+                    nii = nib.load(filepath)
+                    suv_dims = nii.header.get_data_shape()
+                except:
+                    print("can't get dimensions from suv")
 
         directory = os.path.join(dir_path, file)
         date = os.listdir(directory)
@@ -501,14 +523,6 @@ def file_exploration_analysis_ct():
             # print(f"file: {file} does not have ct scan modality: {modality}")
             continue
 
-        if "CT" in modality:
-            # directory = os.path.join(dir_path, file, "PT")
-            directory = os.path.join(directory, "CT")
-            num_modality["CT"] += 1
-        else:
-            #print(f"file: {file} does not have Pet scan modality: {modality}")
-            continue
-
         # print(directory)
         study_name = os.listdir(directory)
         if len(study_name) == 0:
@@ -523,6 +537,17 @@ def file_exploration_analysis_ct():
 
         directory = os.path.join(directory, study_name[0])
         recon_types = os.listdir(directory)
+
+        """
+        if any("2__ctac" in element.lower() for element in recon_types):
+            
+            top_dicom_folder = os.path.join(recon_types, "2__CTAC")
+            try:
+                found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts)
+            except:
+                continue
+        """
+
 
         if any("12__wb_3d_mac" in element.lower() for element in recon_types):
             types_of_scans_pt["12__WB_3d_MAC"] += 1
@@ -545,10 +570,18 @@ def file_exploration_analysis_ct():
 
         else:
             for recon in recon_types:
-                if recon in types_of_scans_pt:
-                    types_of_scans_pt[recon] += 1
-                else:
-                    types_of_scans_pt[recon] = 1
+
+                top_dicom_folder = os.path.join(recon_types, recon)
+
+                z = len(os.listdir(top_dicom_folder))
+
+                if z == suv_dims[2]:
+                    same_slice_nums += 1
+                    if recon in types_of_scans_pt:
+                        types_of_scans_pt[recon] += 1
+                    else:
+                        types_of_scans_pt[recon] = 1
+                    continue
 
     print(f"number of dates in files: {num_dates}")
     print(f"number of modality in date file: {num_modality}")
@@ -562,6 +595,7 @@ def file_exploration_analysis_ct():
         if value > 20:
             print(f"{key} {value}")
     # print(f"total images we will have: {sum}")
+    print(f"has matching ct with same z: {same_slice_nums}")
 
 
 def uw_pet_suv_conversion():
