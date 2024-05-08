@@ -8,6 +8,8 @@ import numpy as np
 import glob
 import pydicom
 
+from nilearn.image import resample_img
+
 class missing_injection_time(Exception):
     pass
 
@@ -346,9 +348,33 @@ def file_exploration_analysis():
     #print(f"total images we will have: {sum}")
 
 
+def resample_nii_to_3mm(nii_image, output_file_path):
+    # Load the NIfTI file
+    #nii = nib.load(input_file_path)
+
+    new_voxel_size = [3, 3, 3]
+    # Get the current affine
+    affine = nii_image.affine
+
+    # Create a new affine matrix for the desired voxel size
+    new_affine = affine.copy()
+    for i in range(3):
+        new_affine[i, i] = new_voxel_size[i] * affine[i, i] / nii_image.header.get_zooms()[i]
+
+    # Define the new affine matrix for 3mm x 3mm x 3mm voxels
+    target_affine = np.eye(4) * 3
+    target_affine[3, 3] = 1  # Set the affine translation parameters correctly
+
+    # Resample the image
+    resampled_img = resample_img(nii_image, target_affine=new_affine, interpolation='linear')
+    return resampled_img
+    # Save the resampled image
+    #nib.save(resampled_img, output_file_path)
+
+
 def get_voxel_dimensions(root_directory):
     voxel_dims_count = {}
-
+    image_size = {}
     i = -1
     # Loop through all subdirectories in the root directory
     for subdir in os.listdir(root_directory):
@@ -365,16 +391,24 @@ def get_voxel_dimensions(root_directory):
                         nii = nib.load(filepath)
                         # Extract voxel dimensions
                         voxel_dims = tuple(nii.header.get_zooms()[:3])  # Get only the first three dimensions
-
+                        resampled_img = resample_nii_to_3mm(nii, "")
                         # Count the voxel dimensions
                         if voxel_dims in voxel_dims_count:
                             voxel_dims_count[voxel_dims] += 1
                         else:
                             voxel_dims_count[voxel_dims] = 1
+
+                        if resampled_img.shape in image_size:
+                            image_size[resampled_img.shape] += 1
+                        else:
+                            image_size[resampled_img.shape] = 1
                     except Exception as e:
                         print(f"Error processing {filename} in {subdir}: {e}")
     print(f"dictionary: {voxel_dims_count}")
     for key, value in sorted(voxel_dims_count.items(), key=lambda item: item[1], reverse=True):
+        print(f"{key} {value}")
+    print("image size")
+    for key, value in sorted(image_size.items(), key=lambda item: item[1], reverse=True):
         print(f"{key} {value}")
     return voxel_dims_count
 
