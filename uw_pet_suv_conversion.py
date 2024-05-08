@@ -372,6 +372,23 @@ def resample_nii_to_3mm(nii_image, output_file_path):
     #nib.save(resampled_img, output_file_path)
 
 
+def calculate_new_dimensions(nii):
+    # Load the NIfTI file
+    #nii = nib.load(input_file_path)
+
+    # Get current dimensions and voxel sizes
+    current_shape = nii.header.get_data_shape()
+    current_voxel_dims = nii.header.get_zooms()
+
+    # New voxel size
+    new_voxel_size = (3, 3, 3)
+
+    # Calculate new dimensions based on the ratio of old voxel size to new voxel size
+    new_dimensions = np.ceil(np.array(current_shape) * np.array(current_voxel_dims) / np.array(new_voxel_size)).astype(
+        int)
+
+    return new_dimensions
+
 def get_voxel_dimensions(root_directory):
     voxel_dims_count = {}
     image_size = {}
@@ -393,17 +410,18 @@ def get_voxel_dimensions(root_directory):
                         nii = nib.load(filepath)
                         # Extract voxel dimensions
                         voxel_dims = tuple(nii.header.get_zooms()[:3])  # Get only the first three dimensions
-                        resampled_img = resample_nii_to_3mm(nii, "")
+                        #resampled_img = resample_nii_to_3mm(nii, "")
+                        new_dim = calculate_new_dimensions(nii)
                         # Count the voxel dimensions
                         if voxel_dims in voxel_dims_count:
                             voxel_dims_count[voxel_dims] += 1
                         else:
                             voxel_dims_count[voxel_dims] = 1
 
-                        if resampled_img.shape in image_size:
-                            image_size[resampled_img.shape] += 1
+                        if new_dim in image_size:
+                            image_size[new_dim] += 1
                         else:
-                            image_size[resampled_img.shape] = 1
+                            image_size[new_dim] = 1
                     except Exception as e:
                         print(f"Error processing {filename} in {subdir}: {e}")
     print(f"dictionary: {voxel_dims_count}")
