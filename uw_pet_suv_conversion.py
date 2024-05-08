@@ -571,7 +571,7 @@ def file_exploration_analysis_ct():
         else:
             for recon in recon_types:
 
-                top_dicom_folder = os.path.join(recon_types, recon)
+                top_dicom_folder = os.path.join(directory, recon)
 
                 z = len(os.listdir(top_dicom_folder))
 
