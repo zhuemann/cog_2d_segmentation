@@ -346,10 +346,37 @@ def file_exploration_analysis():
     #print(f"total images we will have: {sum}")
 
 
+def get_voxel_dimensions(root_directory):
+    voxel_dims_count = {}
+
+    # Loop through all subdirectories in the root directory
+    for subdir in os.listdir(root_directory):
+        subdir_path = os.path.join(root_directory, subdir)
+        if os.path.isdir(subdir_path):
+            # Loop through all files in the subdirectory
+            for filename in os.listdir(subdir_path):
+                if filename.endswith(".nii.gz") and "suv" in filename.lower():
+                    filepath = os.path.join(subdir_path, filename)
+                    try:
+                        # Load the NIfTI file
+                        nii = nib.load(filepath)
+                        # Extract voxel dimensions
+                        voxel_dims = tuple(nii.header.get_zooms()[:3])  # Get only the first three dimensions
+
+                        # Count the voxel dimensions
+                        if voxel_dims in voxel_dims_count:
+                            voxel_dims_count[voxel_dims] += 1
+                        else:
+                            voxel_dims_count[voxel_dims] = 1
+                    except Exception as e:
+                        print(f"Error processing {filename} in {subdir}: {e}")
+
+    return voxel_dims_count
 
 def uw_pet_suv_conversion():
 
-    file_exploration_analysis()
+    #file_exploration_analysis()
+    get_voxel_dimensions("/mnt/Bradshaw/UW_PET_Data/SUV_images/")
     print(fail)
     #files_transfer_analysis()
     #print(fail)
