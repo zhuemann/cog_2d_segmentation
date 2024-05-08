@@ -601,9 +601,8 @@ def file_exploration_analysis_ct():
                 #print(top_dicom_folder)
                 z = len(os.listdir(top_dicom_folder))
                 x, y = get_dicom_dimensions(top_dicom_folder)
-                print(f"z of dicom: {x} slices in suv: {suv_dims[0]}")
-                print(f"z of dicom: {y} slices in suv: {suv_dims[1]}")
-
+                print(f"x of dicom: {x} slices in suv: {suv_dims[0]}")
+                print(f"y of dicom: {y} slices in suv: {suv_dims[1]}")
                 print(f"z of dicom: {z} slices in suv: {suv_dims[2]}")
 
                 if z == suv_dims[2] and x == suv_dims[0] and y == suv_dims[1] and z == suv_dims[2]:
