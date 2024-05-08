@@ -452,6 +452,23 @@ def call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts):
     return found_cts
 
 
+def get_dicom_dimensions(folder_path):
+    # Iterate over files in the given folder
+    for filename in os.listdir(folder_path):
+        # Construct the full file path
+        file_path = os.path.join(folder_path, filename)
+
+        # Check if the file is a DICOM file
+        if pydicom.misc.is_dicom(file_path):
+            # Read the DICOM file
+            dicom_file = pydicom.dcmread(file_path)
+
+            # Retrieve dimensions
+            dimensions = (dicom_file.Rows, dicom_file.Columns)
+            return dimensions
+
+    return None
+
 def file_exploration_analysis_ct():
     dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
     dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
@@ -577,8 +594,8 @@ def file_exploration_analysis_ct():
                 top_dicom_folder = os.path.join(directory, recon)
 
                 z = len(os.listdir(top_dicom_folder))
-
-                if z == suv_dims[2]:
+                x, y = get_dicom_dimensions(top_dicom_folder)
+                if x == suv_dims[0] and y == suv_dims[1] and z == suv_dims[2]:
                     same_slice_nums += 1
                     if recon in types_of_scans_pt:
                         types_of_scans_pt[recon] += 1
