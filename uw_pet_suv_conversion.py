@@ -484,12 +484,12 @@ def file_exploration_analysis_ct():
     found_cts = 0
     for file in files_in_directory:
         # print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
-        # print(f"index: index")
+        print(f"index: index")
         #print(file)
         index += 1
         # if index > 100:
         #    break
-        suv_dims = (0,0,0)
+        suv_dims = (0, 0, 0)
         suv_path = os.path.join(dir_path_suv, file)
         for filename in os.listdir(suv_path):
             if filename.endswith(".nii.gz") and "suv" in filename.lower():
@@ -502,7 +502,7 @@ def file_exploration_analysis_ct():
 
                     print("can't get dimensions from suv")
 
-        print(f"suv_dims: {suv_dims}")
+        #print(f"suv_dims: {suv_dims}")
         directory = os.path.join(dir_path, file)
         date = os.listdir(directory)
         if len(date) == 1:
@@ -572,8 +572,8 @@ def file_exploration_analysis_ct():
 
         else:
             for recon in recon_types:
-                print(directory)
-                print(recon)
+                #print(directory)
+                #print(recon)
                 top_dicom_folder = os.path.join(directory, recon)
 
                 z = len(os.listdir(top_dicom_folder))
