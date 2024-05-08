@@ -600,8 +600,12 @@ def file_exploration_analysis_ct():
                 top_dicom_folder = os.path.join(directory, recon)
                 #print(top_dicom_folder)
                 z = len(os.listdir(top_dicom_folder))
-                #print(f"z of dicom: {z} slices in suv: {suv_dims[2]}")
                 x, y = get_dicom_dimensions(top_dicom_folder)
+                print(f"z of dicom: {x} slices in suv: {suv_dims[0]}")
+                print(f"z of dicom: {y} slices in suv: {suv_dims[1]}")
+
+                print(f"z of dicom: {z} slices in suv: {suv_dims[2]}")
+
                 if z == suv_dims[2] and x == suv_dims[0] and y == suv_dims[1] and z == suv_dims[2]:
                     same_slice_nums += 1
                     if recon in types_of_scans_pt:
@@ -609,7 +613,8 @@ def file_exploration_analysis_ct():
                     else:
                         types_of_scans_pt[recon] = 1
                     continue
-
+        if index == 10:
+            break
     print(f"number of dates in files: {num_dates}")
     print(f"number of modality in date file: {num_modality}")
     # print(f"types of scans: {types_of_scans_pt}")
