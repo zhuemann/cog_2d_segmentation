@@ -217,7 +217,7 @@ def files_transfer_analysis():
     filtered_df.to_excel(output_file_path, index=False)
 
 
-def file_exploration_analysis():
+def file_exploration_analysis_pet():
     dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
 
     files_in_directory = os.listdir(dir_path)
@@ -348,6 +348,125 @@ def file_exploration_analysis():
     #print(f"total images we will have: {sum}")
 
 
+def file_exploration_analysis_ct():
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+
+    files_in_directory = os.listdir(dir_path)
+    print(f"files in folder: {len(files_in_directory)}")
+    no_pt_files_list = []
+    index = 0
+
+    missing_inject_info = 0
+    potential_suv_images = 0
+
+    num_dates = {}  # key is number of dates in folder value is how many folders have that value
+    num_dates[1] = 0
+    num_modality = {"PT": 0, "CT": 0, "extra": 0}
+    num_study_names = {1: 0, "extra": 0, 0: 0}
+    types_of_scans_ct = {}
+    types_of_scans_pt = {}
+    types_of_scans_pt["12__WB_MAC"] = 0
+    types_of_scans_pt["12__WB_3d_MAC"] = 0
+    types_of_scans_pt["5__WB_MAC"] = 0
+    types_of_scans_pt["4__WB_MAC"] = 0
+    types_of_scans_pt["wb_ac_3d"] = 0
+    types_of_scans_pt["4__PET_AC_3D"] = 0
+    types_of_scans_pt["13__WB_3D_MAC"] = 0
+    types_of_scans_pt["13__WB_MAC"] = 0
+    types_of_scans_pt["12__PET_AC_3D"] = 0
+
+    for file in files_in_directory:
+        # print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
+        # print(f"index: index")
+        index += 1
+        # if index > 100:
+        #    break
+
+        directory = os.path.join(dir_path, file)
+        date = os.listdir(directory)
+        if len(date) == 1:
+            directory = os.path.join(directory, date[0])
+            num_dates[1] += 1
+        else:
+            print(f"multiple date files in this folder: {directory}")
+            if len(date) not in num_dates:
+                num_dates[len(date)] = 1
+            else:
+                num_dates[len(date)] += 1
+
+        modality = os.listdir(directory)
+
+        if len(modality) > 2:
+            num_modality["extra"] += 1
+        if "CT" in modality:
+            num_modality["CT"] += 1
+        else:
+            # print(f"file: {file} does not have ct scan modality: {modality}")
+            continue
+
+        if "CT" in modality:
+            # directory = os.path.join(dir_path, file, "PT")
+            directory = os.path.join(directory, "CT")
+            num_modality["CT"] += 1
+        else:
+            #print(f"file: {file} does not have Pet scan modality: {modality}")
+            continue
+
+        # print(directory)
+        study_name = os.listdir(directory)
+        if len(study_name) == 0:
+            print(f"something funny: {file}")
+            no_pt_files_list.append(file)
+            num_study_names[0] += 1
+            # continue
+        elif study_name == 1:
+            num_study_names[1] += 1
+        else:
+            num_study_names["extra"] += 1
+
+        directory = os.path.join(directory, study_name[0])
+        recon_types = os.listdir(directory)
+
+        if any("12__wb_3d_mac" in element.lower() for element in recon_types):
+            types_of_scans_pt["12__WB_3d_MAC"] += 1
+        elif any("wb_ac_3d" in element.lower() for element in recon_types):
+            types_of_scans_pt["wb_ac_3d"] += 1
+        elif any("12__WB_MAC" == element for element in recon_types):
+            types_of_scans_pt["12__WB_MAC"] += 1
+        elif any("5__WB_MAC" == element for element in recon_types):
+            types_of_scans_pt["5__WB_MAC"] += 1
+        elif any("4__WB_MAC" == element for element in recon_types):
+            types_of_scans_pt["4__WB_MAC"] += 1
+        elif any("4__PET_AC_3D" == element for element in recon_types):
+            types_of_scans_pt["4__PET_AC_3D"] += 1
+        elif any("13__WB_3D_MAC" == element for element in recon_types):
+            types_of_scans_pt["13__WB_3D_MAC"] += 1
+        elif any("13__WB_MAC" == element for element in recon_types):
+            types_of_scans_pt["13__WB_MAC"] += 1
+        elif any("12__PET_AC_3D" == element for element in recon_types):
+            types_of_scans_pt["12__PET_AC_3D"] += 1
+
+        else:
+            for recon in recon_types:
+                if recon in types_of_scans_pt:
+                    types_of_scans_pt[recon] += 1
+                else:
+                    types_of_scans_pt[recon] = 1
+
+    print(f"number of dates in files: {num_dates}")
+    print(f"number of modality in date file: {num_modality}")
+    # print(f"types of scans: {types_of_scans_pt}")
+    # sum = 0
+    # for key, value in types_of_scans_pt.items():
+    # sum += value
+    #    if value > 20:
+    #        print(f"{key} {value}")
+    for key, value in sorted(types_of_scans_pt.items(), key=lambda item: item[1], reverse=True):
+        if value > 20:
+            print(f"{key} {value}")
+    # print(f"total images we will have: {sum}")
+
+
 def resample_nii_to_3mm(nii_image, output_file_path):
     # Load the NIfTI file
     #nii = nib.load(input_file_path)
@@ -446,11 +565,12 @@ def get_voxel_dimensions(root_directory):
 
 def uw_pet_suv_conversion():
 
-    #file_exploration_analysis()
+    #file_exploration_analysis_pet()
+    file_exploration_analysis_ct()
     #get_voxel_dimensions("/mnt/Bradshaw/UW_PET_Data/SUV_images/")
-    #print(fail)
-    files_transfer_analysis()
     print(fail)
+    #files_transfer_analysis()
+    #print(fail)
 
     #top_dicom_folder = "/UserData/1043/PETLYMPH_3004/PT/20150125/BODY/1203__PET_CORONAL/"
     #top_nifti_folder = "/UserData/Zach_Analysis/suv_nifti_test/"
