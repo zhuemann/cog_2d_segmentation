@@ -386,8 +386,8 @@ def calculate_new_dimensions(nii):
     # Calculate new dimensions based on the ratio of old voxel size to new voxel size
     new_dimensions = np.ceil(np.array(current_shape) * np.array(current_voxel_dims) / np.array(new_voxel_size)).astype(
         int)
-    print(new_dimensions)
-    return new_dimensions
+    #print(new_dimensions)
+    return tuple(new_dimensions)
 
 def get_voxel_dimensions(root_directory):
     voxel_dims_count = {}
