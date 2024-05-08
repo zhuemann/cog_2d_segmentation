@@ -213,7 +213,7 @@ def files_transfer_analysis():
     filtered_df = df[~df['Coded Accession Number'].isin(files_in_directory)]
 
     # Save the filtered DataFrame to an Excel file
-    output_file_path = '/UserData/UW_PET_Data/missing_accession_numbers.xlsx'
+    output_file_path = '/UserData/UW_PET_Data/missing_accession_numbers_v2.xlsx'
     filtered_df.to_excel(output_file_path, index=False)
 
 
@@ -447,10 +447,10 @@ def get_voxel_dimensions(root_directory):
 def uw_pet_suv_conversion():
 
     #file_exploration_analysis()
-    get_voxel_dimensions("/mnt/Bradshaw/UW_PET_Data/SUV_images/")
-    print(fail)
-    #files_transfer_analysis()
+    #get_voxel_dimensions("/mnt/Bradshaw/UW_PET_Data/SUV_images/")
     #print(fail)
+    files_transfer_analysis()
+    print(fail)
 
     #top_dicom_folder = "/UserData/1043/PETLYMPH_3004/PT/20150125/BODY/1203__PET_CORONAL/"
     #top_nifti_folder = "/UserData/Zach_Analysis/suv_nifti_test/"
