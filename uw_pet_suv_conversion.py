@@ -349,8 +349,8 @@ def file_exploration_analysis():
 
 def uw_pet_suv_conversion():
 
-    #file_exploration_analysis()
-    #print(fail)
+    file_exploration_analysis()
+    print(fail)
     #files_transfer_analysis()
     #print(fail)
 
@@ -450,6 +450,7 @@ def uw_pet_suv_conversion():
                 time_errors.append(file)
                 continue
             except Exception:
+                found_pet_images -= 1
                 continue
 
             except missing_injection_time as e:
@@ -470,8 +471,8 @@ def uw_pet_suv_conversion():
                 time_errors.append(file)
                 continue
             except Exception:
+                found_pet_images -= 1
                 continue
-
             except missing_injection_time as e:
                 print("missing inject time: {e}")
                 missing_inject_info += 1
@@ -488,6 +489,7 @@ def uw_pet_suv_conversion():
                 time_errors.append(file)
                 continue
             except Exception:
+                found_pet_images -= 1
                 continue
             except missing_injection_time as e:
                 print("missing inject time: {e}")
@@ -505,6 +507,7 @@ def uw_pet_suv_conversion():
                 time_errors.append(file)
                 continue
             except Exception:
+                found_pet_images -= 1
                 continue
         elif any("4__WB_MAC" == element for element in test):
             found_pet_images += 1
@@ -516,6 +519,7 @@ def uw_pet_suv_conversion():
                 time_errors.append(file)
                 continue
             except Exception:
+                found_pet_images -= 1
                 continue
         elif any("4__PET_AC_3D" == element for element in test):
             found_pet_images += 1
@@ -527,6 +531,7 @@ def uw_pet_suv_conversion():
                 time_errors.append(file)
                 continue
             except Exception:
+                found_pet_images -= 1
                 continue
         elif any("13__WB_3D_MAC" == element for element in test):
             found_pet_images += 1
@@ -538,6 +543,7 @@ def uw_pet_suv_conversion():
                 time_errors.append(file)
                 continue
             except Exception:
+                found_pet_images -= 1
                 continue
         elif any("13__WB_MAC" == element for element in test):
             found_pet_images += 1
@@ -549,6 +555,7 @@ def uw_pet_suv_conversion():
                 time_errors.append(file)
                 continue
             except Exception:
+                found_pet_images -= 1
                 continue
         elif any("12__PET_AC_3D" == element for element in test):
             found_pet_images += 1
@@ -560,4 +567,5 @@ def uw_pet_suv_conversion():
                 time_errors.append(file)
                 continue
             except Exception:
+                found_pet_images -= 1
                 continue
