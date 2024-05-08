@@ -595,7 +595,7 @@ def file_exploration_analysis_ct():
 
                 z = len(os.listdir(top_dicom_folder))
                 print(f"z of dicom: {z} slices in suv: {suv_dims[2]}")
-                x, y = get_dicom_dimensions(top_dicom_folder)
+                #x, y = get_dicom_dimensions(top_dicom_folder)
                 if z == suv_dims[2]:# x == suv_dims[0] and y == suv_dims[1] and z == suv_dims[2]:
                     same_slice_nums += 1
                     if recon in types_of_scans_pt:
