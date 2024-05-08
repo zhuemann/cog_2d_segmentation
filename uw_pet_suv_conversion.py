@@ -379,7 +379,8 @@ def get_voxel_dimensions(root_directory):
 def uw_pet_suv_conversion():
 
     #file_exploration_analysis()
-    get_voxel_dimensions("/mnt/Bradshaw/UW_PET_Data/SUV_images/")
+    voxel_dim = get_voxel_dimensions("/mnt/Bradshaw/UW_PET_Data/SUV_images/")
+    print(voxel_dim)
     print(fail)
     #files_transfer_analysis()
     #print(fail)
