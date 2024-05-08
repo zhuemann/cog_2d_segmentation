@@ -598,11 +598,11 @@ def file_exploration_analysis_ct():
                 #print(directory)
                 #print(recon)
                 top_dicom_folder = os.path.join(directory, recon)
-                print(top_dicom_folder)
+                #print(top_dicom_folder)
                 z = len(os.listdir(top_dicom_folder))
-                print(f"z of dicom: {z} slices in suv: {suv_dims[2]}")
-                #x, y = get_dicom_dimensions(top_dicom_folder)
-                if z == suv_dims[2]:# x == suv_dims[0] and y == suv_dims[1] and z == suv_dims[2]:
+                #print(f"z of dicom: {z} slices in suv: {suv_dims[2]}")
+                x, y = get_dicom_dimensions(top_dicom_folder)
+                if z == suv_dims[2]: # and x == suv_dims[0] and y == suv_dims[1] and z == suv_dims[2]:
                     same_slice_nums += 1
                     if recon in types_of_scans_pt:
                         types_of_scans_pt[recon] += 1
