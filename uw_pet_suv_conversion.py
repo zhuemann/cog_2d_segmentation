@@ -592,7 +592,7 @@ def file_exploration_analysis_ct():
                 #print(directory)
                 #print(recon)
                 top_dicom_folder = os.path.join(directory, recon)
-
+                print(top_dicom_folder)
                 z = len(os.listdir(top_dicom_folder))
                 print(f"z of dicom: {z} slices in suv: {suv_dims[2]}")
                 #x, y = get_dicom_dimensions(top_dicom_folder)
