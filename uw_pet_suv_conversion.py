@@ -436,8 +436,8 @@ def get_voxel_dimensions(root_directory):
             sum_short += value
         else:
             sum_long += value
-    print(f"number of images under 384 in length: {sum}")
-    print(f"number that need cropping: {value}")
+    print(f"number of images under 384 in length: {sum_short}")
+    print(f"number that need cropping: {sum_long}")
     return voxel_dims_count
 
 def uw_pet_suv_conversion():
