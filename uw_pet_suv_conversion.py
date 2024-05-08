@@ -489,7 +489,7 @@ def file_exploration_analysis_ct():
         index += 1
         # if index > 100:
         #    break
-        suv_dims = 0
+        suv_dims = (0,0,0)
         suv_path = os.path.join(dir_path_suv, file)
         for filename in os.listdir(suv_path):
             if filename.endswith(".nii.gz") and "suv" in filename.lower():
@@ -499,7 +499,9 @@ def file_exploration_analysis_ct():
                     nii = nib.load(filepath)
                     suv_dims = nii.header.get_data_shape()
                 except:
+
                     print("can't get dimensions from suv")
+
         print(f"suv_dims: {suv_dims}")
         directory = os.path.join(dir_path, file)
         date = os.listdir(directory)
