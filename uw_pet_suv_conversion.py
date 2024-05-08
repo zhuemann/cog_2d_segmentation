@@ -349,9 +349,12 @@ def file_exploration_analysis():
 def get_voxel_dimensions(root_directory):
     voxel_dims_count = {}
 
+    i = -1
     # Loop through all subdirectories in the root directory
     for subdir in os.listdir(root_directory):
         subdir_path = os.path.join(root_directory, subdir)
+        i += 1
+        print(f"index:{i}")
         if os.path.isdir(subdir_path):
             # Loop through all files in the subdirectory
             for filename in os.listdir(subdir_path):
