@@ -381,7 +381,7 @@ def calculate_new_dimensions(nii):
     current_voxel_dims = nii.header.get_zooms()
 
     # New voxel size
-    new_voxel_size = (3, 3, 3)
+    new_voxel_size = (3.65, 3.65, 3.65)
 
     # Calculate new dimensions based on the ratio of old voxel size to new voxel size
     new_dimensions = np.ceil(np.array(current_shape) * np.array(current_voxel_dims) / np.array(new_voxel_size)).astype(
