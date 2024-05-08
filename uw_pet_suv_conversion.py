@@ -500,7 +500,7 @@ def file_exploration_analysis_ct():
                     suv_dims = nii.header.get_data_shape()
                 except:
                     print("can't get dimensions from suv")
-
+        print(f"suv_dims: {suv_dims}")
         directory = os.path.join(dir_path, file)
         date = os.listdir(directory)
         if len(date) == 1:
