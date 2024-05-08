@@ -398,8 +398,8 @@ def get_voxel_dimensions(root_directory):
         subdir_path = os.path.join(root_directory, subdir)
         i += 1
         print(f"index:{i}")
-        if i > 100:
-            break
+        #if i > 100:
+        #    break
         if os.path.isdir(subdir_path):
             # Loop through all files in the subdirectory
             for filename in os.listdir(subdir_path):
