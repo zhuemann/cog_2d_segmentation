@@ -607,7 +607,7 @@ def file_exploration_analysis_ct():
                 print(f"y of dicom: {y} slices in suv: {suv_dims[1]}")
                 print(f"z of dicom: {z} slices in suv: {suv_dims[2]}")
 
-                if z == suv_dims[2] and x == suv_dims[0] and y == suv_dims[1] and z == suv_dims[2]:
+                if z == suv_dims[2]: # and x == suv_dims[0] and y == suv_dims[1] and z == suv_dims[2]:
                     same_slice_nums += 1
                     if recon in types_of_scans_pt:
                         types_of_scans_pt[recon] += 1
