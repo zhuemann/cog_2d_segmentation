@@ -580,7 +580,7 @@ def file_exploration_analysis_ct():
         number_matches = 0
         recon_type_list = []
         if any("2__ctac" in element.lower() for element in recon_types):
-            top_dicom_folder = os.path.join(recon_types, "2__CTAC")
+            top_dicom_folder = os.path.join(directory, "2__CTAC")
             try:
                 found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts)
             except:
