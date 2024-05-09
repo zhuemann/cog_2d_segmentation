@@ -506,7 +506,7 @@ def file_exploration_analysis_ct():
         # print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
         #if index > 10:
         #    continue
-        print(f"index: {index}")
+        print(f"index: {index} filename: {file}")
         #print(file)
         index += 1
         # if index > 100:
@@ -579,8 +579,12 @@ def file_exploration_analysis_ct():
         """
         number_matches = 0
         recon_type_list = []
-        if any("12__wb_3d_mac" in element.lower() for element in recon_types):
-            types_of_scans_pt["12__WB_3d_MAC"] += 1
+        if any("2__ctac" in element.lower() for element in recon_types):
+            top_dicom_folder = os.path.join(recon_types, "2__CTAC")
+            try:
+                found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts)
+            except:
+                continue
         elif any("wb_ac_3d" in element.lower() for element in recon_types):
             types_of_scans_pt["wb_ac_3d"] += 1
         elif any("12__WB_MAC" == element for element in recon_types):
