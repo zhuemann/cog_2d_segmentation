@@ -499,6 +499,8 @@ def file_exploration_analysis_ct():
     #types_of_scans_pt["12__PET_AC_3D"] = 0
     same_slice_nums = 0
     found_cts = 0
+
+    matches_dic = {}
     for file in files_in_directory:
         # print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
         #if index > 10:
@@ -574,8 +576,7 @@ def file_exploration_analysis_ct():
             except:
                 continue
         """
-
-        print(f"image name: {file}")
+        number_matches = 0
         if any("12__wb_3d_mac" in element.lower() for element in recon_types):
             types_of_scans_pt["12__WB_3d_MAC"] += 1
         elif any("wb_ac_3d" in element.lower() for element in recon_types):
@@ -611,11 +612,17 @@ def file_exploration_analysis_ct():
 
                 if z == suv_dims[2]: # and x == suv_dims[0] and y == suv_dims[1] and z == suv_dims[2]:
                     same_slice_nums += 1
+                    number_matches += 1
                     if recon in types_of_scans_pt:
                         types_of_scans_pt[recon] += 1
                     else:
                         types_of_scans_pt[recon] = 1
-                    continue
+
+            if number_matches in matches_dic:
+                matches_dic[number_matches] += 1
+            else:
+                matches_dic[number_matches] = 1
+
 
     print(f"number of dates in files: {num_dates}")
     print(f"number of modality in date file: {num_modality}")
@@ -630,6 +637,7 @@ def file_exploration_analysis_ct():
         print(f"{key} {value}")
     # print(f"total images we will have: {sum}")
     print(f"has matching ct with same z: {same_slice_nums}")
+    print(f"matches dic: {matches_dic}")
 
 
 def uw_pet_suv_conversion():
