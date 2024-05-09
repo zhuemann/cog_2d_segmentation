@@ -501,6 +501,8 @@ def file_exploration_analysis_ct():
     found_cts = 0
     for file in files_in_directory:
         # print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
+        if index > 10:
+            continue
         print(f"index: {index}")
         #print(file)
         index += 1
@@ -598,7 +600,7 @@ def file_exploration_analysis_ct():
                 #print(directory)
                 #print(recon)
 
-                print(f"recon name: {recon}")
+                #print(f"recon name: {recon}")
                 top_dicom_folder = os.path.join(directory, recon)
                 #print(top_dicom_folder)
                 z = len(os.listdir(top_dicom_folder))
@@ -614,8 +616,7 @@ def file_exploration_analysis_ct():
                     else:
                         types_of_scans_pt[recon] = 1
                     continue
-        if index > 10:
-           continue
+
     print(f"number of dates in files: {num_dates}")
     print(f"number of modality in date file: {num_modality}")
     # print(f"types of scans: {types_of_scans_pt}")
