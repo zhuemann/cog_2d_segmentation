@@ -573,7 +573,7 @@ def file_exploration_analysis_ct():
                 continue
         """
 
-
+        print(f"image name: {file}")
         if any("12__wb_3d_mac" in element.lower() for element in recon_types):
             types_of_scans_pt["12__WB_3d_MAC"] += 1
         elif any("wb_ac_3d" in element.lower() for element in recon_types):
@@ -597,6 +597,7 @@ def file_exploration_analysis_ct():
             for recon in recon_types:
                 #print(directory)
                 #print(recon)
+
                 print(f"recon name: {recon}")
                 top_dicom_folder = os.path.join(directory, recon)
                 #print(top_dicom_folder)
