@@ -621,11 +621,11 @@ def file_exploration_analysis_ct():
                     else:
                         types_of_scans_pt[recon] = 1
             if number_matches > 1:
-                for recon in recon_type_list:
-                    if recon in multiple_recon_dic:
-                        multiple_recon_dic[recon] += 1
-                    else:
-                        multiple_recon_dic[recon] = 1
+                recon = tuple(recon_type_list)
+                if recon in multiple_recon_dic:
+                    multiple_recon_dic[recon] += 1
+                else:
+                     multiple_recon_dic[recon] = 1
 
             if number_matches in matches_dic:
                 matches_dic[number_matches] += 1
