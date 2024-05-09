@@ -626,8 +626,8 @@ def file_exploration_analysis_ct():
     #    if value > 20:
     #        print(f"{key} {value}")
     for key, value in sorted(types_of_scans_pt.items(), key=lambda item: item[1], reverse=True):
-        if value > 20:
-            print(f"{key} {value}")
+        #if value > 20:
+        print(f"{key} {value}")
     # print(f"total images we will have: {sum}")
     print(f"has matching ct with same z: {same_slice_nums}")
 
