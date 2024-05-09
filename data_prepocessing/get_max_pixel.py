@@ -46,6 +46,33 @@ def get_max_pixel_of_segmented_regions_v2(labeled_regions, img):
         max_suv_dict[label] = (max_pixel_value, min_slice, max_slice, tuple(max_pixel_index))
 
     return max_suv_dict
+
+def get_max_pixel_of_segmented_regions_v3(labeled_regions, img, slice_ref):
+    unique_labels = np.unique(labeled_regions[labeled_regions != False])
+    max_suv_dict = {}
+    for label in unique_labels:
+        # Find the indices of all pixels belonging to the current label
+        indices = np.argwhere(labeled_regions == label)
+
+        # Check if the current component intersects with the given z-plane
+        if not (indices[:, 2].min() < slice_ref < indices[:, 2].max()):
+            continue  # Skip components that do not intersect the slice_ref
+
+        # Extract the corresponding pixel values from img
+        pixel_values = img[indices[:, 0], indices[:, 1], indices[:, 2]]
+
+        # Find the maximum pixel value and its index
+        max_pixel_value = pixel_values.max()
+        max_pixel_index = indices[pixel_values.argmax()]
+
+        # Compute min and max slice indices for this label
+        min_slice, max_slice = indices[:, 2].min(), indices[:, 2].max()
+
+        # Update the dictionary
+        max_suv_dict[label] = (max_pixel_value, min_slice, max_slice, tuple(max_pixel_index))
+
+    return max_suv_dict
+
 def get_max_pixel_step3(df):
     # check how many sentences have a pet scan with them
     #uw_100 = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain/concensus_slice_suv_anonymized_2.xlsx"
@@ -60,6 +87,7 @@ def get_max_pixel_step3(df):
     patient_decoding = "/UserData/Zach_Analysis/patient_decoding.xlsx"
     patient_decoding = pd.read_excel(patient_decoding)
     valid_pet_scans = set(os.listdir("/UserData/Zach_Analysis/suv_nifti/"))
+    valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/SUV_images/"))
 
     count = 0
     two_rows = 0
@@ -94,12 +122,14 @@ def get_max_pixel_step3(df):
             pet_id = rows_with_value.iloc[0].iloc[1]
         """
         pet_id = row["Petlymph"]
-        check_id = str(pet_id).lower() + "_" + str(pet_id).lower()
+        #check_id = str(pet_id).lower() + "_" + str(pet_id).lower()
+        check_id = pet_id
         if check_id in valid_pet_scans:
             found_pet_scan += 1
 
             # gets the suv image as a numpy array
-            file_path = "/UserData/Zach_Analysis/suv_nifti/" + check_id + "/"
+            #file_path = "/UserData/Zach_Analysis/suv_nifti/" + check_id + "/"
+            file_path = "/mnt/Bradshaw/UW_PET_Data/SUV_images/" + check_id + "/"
             files = os.listdir(file_path)
             index_of_suv = [index for index, s in enumerate(files) if "suv" in s.lower()]
             if len(index_of_suv) == 0:

@@ -35,10 +35,9 @@ def run_data_pipeline():
     df = remove_non_anontomical_sent(df)
     df.to_excel(save_base + "remove_non_anotomical_info_3.xlsx", index=False)
     print(len(df))
-    """
+    
     df = pd.read_excel(save_base + "remove_non_anotomical_info_3.xlsx")
-    #df = pd.read_excel(save_base + "sentences_split_1.xlsx")
-    #df_radgraph = get_anatomical_dataframe(df)
+
 
     df = llm_slice_suv_extraction(df)
     df.to_excel(save_base + "model_predictions_for_suv_slice_extraction_4.xlsx", index=False, sheet_name='Predictions')
@@ -48,14 +47,31 @@ def run_data_pipeline():
     df.to_excel(save_base + "concenus_output_5.xlsx", index=False)
     #df = pd.read_excel(save_base + "concenus_output_3.xlsx")
     """
+    """
+    df = pd.read_excel(save_base + "concenus_output_5.xlsx")
+    print(f"before 2.5 suv filter {len(df)}")
+    # Filter the DataFrame to keep only rows where 'suv' is 2.5 or higher
+    df = df[df['SUV'] >= 2.5]
+    print(f" After2.5 suv filter {len(df)}")
+
+    df_coded = pd.read_excel("/UserData/UW_PET_Data/UWPETCTWB_Research-Image-Requests_20240311.xlsx")
+    # Create a mapping from Original to Coded Accession Numbers
+    mapping = df_coded.set_index('Original Accession Number')['Coded Accession Number']
+    # Replace the Original Accession Numbers with Coded Accession Numbers in df_original
+    df['Petlymph'] = df['Original Accession Number'].map(mapping)
+
+    df.to_excel(save_base + "processed_sentenced_above_threshold_6.xlsx", index=False)
+    """
+
+    df = pd.read_excel(save_base + "processed_sentenced_above_threshold_6.xlsx")
     df = get_max_pixel_step3(df)
-    #print(df)
-    df.to_excel(save_base + "max_pixel_6.xlsx", index=False)
+    df.to_excel(save_base + "max_pixel_7.xlsx", index=False)
+
     #df = pd.read_excel(save_base + "max_pixel_4_test_rerun_slice_ref_fixed.xlsx")
     #df = detect_and_remove_multiple_suv_slice(df)
     #print(len(df))
     #df.to_excel(save_base + "remove_multiple_suv_slice_5.xlsx", index=False)
-    """
+
     #df = remove_dups_non_anontomical_sent(df)
     #print(df)
     #df.to_excel(save_base + "remove_dups_df_6.xlsx", index=False)
