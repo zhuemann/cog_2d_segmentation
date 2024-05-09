@@ -501,8 +501,8 @@ def file_exploration_analysis_ct():
     found_cts = 0
     for file in files_in_directory:
         # print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
-        if index > 10:
-            continue
+        #if index > 10:
+        #    continue
         print(f"index: {index}")
         #print(file)
         index += 1
