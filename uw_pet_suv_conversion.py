@@ -488,15 +488,15 @@ def file_exploration_analysis_ct():
     num_study_names = {1: 0, "extra": 0, 0: 0}
     types_of_scans_ct = {}
     types_of_scans_pt = {}
-    types_of_scans_pt["12__WB_MAC"] = 0
-    types_of_scans_pt["12__WB_3d_MAC"] = 0
-    types_of_scans_pt["5__WB_MAC"] = 0
-    types_of_scans_pt["4__WB_MAC"] = 0
-    types_of_scans_pt["wb_ac_3d"] = 0
-    types_of_scans_pt["4__PET_AC_3D"] = 0
-    types_of_scans_pt["13__WB_3D_MAC"] = 0
-    types_of_scans_pt["13__WB_MAC"] = 0
-    types_of_scans_pt["12__PET_AC_3D"] = 0
+    #types_of_scans_pt["12__WB_MAC"] = 0
+    #types_of_scans_pt["12__WB_3d_MAC"] = 0
+    #types_of_scans_pt["5__WB_MAC"] = 0
+    #types_of_scans_pt["4__WB_MAC"] = 0
+    #types_of_scans_pt["wb_ac_3d"] = 0
+    #types_of_scans_pt["4__PET_AC_3D"] = 0
+    #types_of_scans_pt["13__WB_3D_MAC"] = 0
+    #types_of_scans_pt["13__WB_MAC"] = 0
+    #types_of_scans_pt["12__PET_AC_3D"] = 0
     same_slice_nums = 0
     found_cts = 0
     for file in files_in_directory:
