@@ -499,6 +499,7 @@ def file_exploration_analysis_ct():
     #types_of_scans_pt["12__PET_AC_3D"] = 0
     same_slice_nums = 0
     found_cts = 0
+    multiple_recon_dic = {}
 
     matches_dic = {}
     for file in files_in_directory:
@@ -577,6 +578,7 @@ def file_exploration_analysis_ct():
                 continue
         """
         number_matches = 0
+        recon_type_list = []
         if any("12__wb_3d_mac" in element.lower() for element in recon_types):
             types_of_scans_pt["12__WB_3d_MAC"] += 1
         elif any("wb_ac_3d" in element.lower() for element in recon_types):
@@ -613,10 +615,17 @@ def file_exploration_analysis_ct():
                 if z == suv_dims[2]: # and x == suv_dims[0] and y == suv_dims[1] and z == suv_dims[2]:
                     same_slice_nums += 1
                     number_matches += 1
+                    recon_type_list.append(recon)
                     if recon in types_of_scans_pt:
                         types_of_scans_pt[recon] += 1
                     else:
                         types_of_scans_pt[recon] = 1
+            if number_matches > 1:
+                for recon in recon_type_list:
+                    if recon in multiple_recon_dic:
+                        multiple_recon_dic[recon] += 1
+                    else:
+                        multiple_recon_dic[recon] = 1
 
             if number_matches in matches_dic:
                 matches_dic[number_matches] += 1
@@ -638,6 +647,9 @@ def file_exploration_analysis_ct():
     # print(f"total images we will have: {sum}")
     print(f"has matching ct with same z: {same_slice_nums}")
     print(f"matches dic: {matches_dic}")
+    for key, value in sorted(multiple_recon_dic.items(), key=lambda item: item[1], reverse=True):
+        #if value > 20:
+        print(f"{key} {value}")
 
 
 def uw_pet_suv_conversion():
