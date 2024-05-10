@@ -109,6 +109,8 @@ def get_max_pixel_step3(df):
         #    break
         # if index > 10:
         #    break
+        if index > 7000:
+            break
         """
         accession_num = row["Accession Number"]
         rows_with_value = patient_decoding[patient_decoding['Accession Number'] == accession_num]
