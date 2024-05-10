@@ -109,9 +109,9 @@ def get_max_pixel_step3(df):
         #    break
         # if index > 10:
         #    break
-        if index < 7000:
+        if index < 14000:
             continue
-        if index > 14000:
+        if index > 21000:
             break
         """
         accession_num = row["Accession Number"]
