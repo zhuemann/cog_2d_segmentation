@@ -65,7 +65,7 @@ def run_data_pipeline():
 
     df = pd.read_excel(save_base + "processed_sentenced_above_threshold_6.xlsx")
     df = get_max_pixel_step3(df)
-    df.to_excel(save_base + "max_pixel_7_21000.xlsx", index=False)
+    df.to_excel(save_base + "max_pixel_7_end.xlsx", index=False)
 
     #df = pd.read_excel(save_base + "max_pixel_4_test_rerun_slice_ref_fixed.xlsx")
     #df = detect_and_remove_multiple_suv_slice(df)
