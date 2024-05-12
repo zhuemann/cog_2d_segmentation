@@ -4,6 +4,7 @@ from data_prepocessing.concenus_voting import concenus_voting
 from data_prepocessing.get_max_pixel import get_max_pixel_step3
 from data_prepocessing.llm_sentence_splitting import detect_and_remove_multiple_suv_slice
 from data_prepocessing.remove_non_anontomical_sent import remove_non_anontomical_sent
+from data_prepocessing.remove_duplicates import remove_duplicates
 from data_prepocessing.make_labels_from_point import make_labels_from_suv_max_points
 from data_prepocessing.create_sentence_mips_and_labels import create_mips
 #from data_prepocessing.remove_dups_non_anontomical_sent import get_anatomical_dataframe
@@ -68,6 +69,7 @@ def run_data_pipeline():
     #df.to_excel(save_base + "max_pixel_7_end.xlsx", index=False)
 
     df = pd.read_excel(save_base + "max_pixel_7.xlsx")
+    df = remove_duplicates(df)
     #df = pd.read_excel(save_base + "max_pixel_4_test_rerun_slice_ref_fixed.xlsx")
     #df = detect_and_remove_multiple_suv_slice(df)
     #print(len(df))
