@@ -54,6 +54,7 @@ def create_mips(df, load_location = "labels_v12_nifti", image_path_name = "image
     found = 0
     missing_conversion = 0
     data_df = []
+    not_found = 0
 
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
@@ -92,13 +93,18 @@ def create_mips(df, load_location = "labels_v12_nifti", image_path_name = "image
         label_name = row["Label_Name"]
         label_path = os.path.join(label_path_base, label_name + ".nii.gz")
 
-        # loads in the image as a numpy array
-        nii_image = nib.load(image_path)
-        img = nii_image.get_fdata()
+        try:
+            # loads in the image as a numpy array
+            nii_image = nib.load(image_path)
+            img = nii_image.get_fdata()
 
-        # loads in the label as a numpy array
-        nii_label = nib.load(label_path)
-        label = nii_label.get_fdata()
+            # loads in the label as a numpy array
+            nii_label = nib.load(label_path)
+            label = nii_label.get_fdata()
+        except Exception:
+            not_found += 1
+            print("not found!")
+            continue
 
         mip_coronal = np.max(img, axis=1)
         mip_coronal = normalize_mip(mip_coronal)
@@ -120,3 +126,4 @@ def create_mips(df, load_location = "labels_v12_nifti", image_path_name = "image
 
     print(missing_conversion)
     print(found)
+    print(f"not found: {not_found}")
