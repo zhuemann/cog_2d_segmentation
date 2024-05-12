@@ -202,7 +202,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     #train_df = pd.read_excel(data_base_path + "dropped_problem_segs_6_v6.xlsx")
     train_df = pd.read_excel(data_base_path + "uw_final_df_9.xlsx")
 
-    labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5"]
+    labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1"]
     train_df = train_df[~train_df["Label_Name"].isin(labels_to_skip)]
 
     train_df.set_index("Petlymph", inplace=True)
