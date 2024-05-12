@@ -358,11 +358,11 @@ def make_labels_from_suv_max_points(df, save_location):
         for x, y, z in contour:
             label_data[x, y, z] = 1
 
-        print(f"sum before: {np.sum(label_data)}")
+        #print(f"sum before: {np.sum(label_data)}")
         # make it so that the label has only 1 cc-6 from the maximum
-        label_data = single_component(label_data, starting_point)
+        #label_data = single_component(label_data, starting_point)
 
-        print(f"sum after: {np.sum(label_data)}")
+        #print(f"sum after: {np.sum(label_data)}")
 
         affine = nii_image.affine
         # Create a new NIfTI image using the existing image's affine matrix and header
