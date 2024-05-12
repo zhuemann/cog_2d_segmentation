@@ -16,6 +16,7 @@ def run_data_pipeline():
     #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v3/"
     #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v11/"
     save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v1/"
+    save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
 
     """
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
@@ -91,8 +92,8 @@ def run_data_pipeline():
     #print(df)
     #df.to_excel(save_base + "remove_dups_df_6.xlsx", index=False)
     #df = pd.read_excel(save_base + "remove_dups_df_6.xlsx")
-    #df = make_labels_from_suv_max_points(df, save_location = "uw_labels_v1_nifti")
-    #df.to_excel(save_base_final + "single_label_df_7.xlsx", index=False)
+    df = make_labels_from_suv_max_points(df, save_location = "uw_labels_v1_nifti")
+    df.to_excel(save_base_final + "uw_final_df_9.xlsx", index=False)
     #print(fail)
     """
     need a function that will check makels doing few things things
