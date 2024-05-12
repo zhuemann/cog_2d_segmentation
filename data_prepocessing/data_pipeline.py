@@ -76,6 +76,7 @@ def run_data_pipeline():
     df_2 = pd.read_excel(save_base + "max_pixel_7_21000.xlsx")
 
     df = pd.concat([df, df_1, df_2])
+    print(len(df))
     df.to_excel(save_base + "max_pixel_7_all.xlsx", index=False)
 
     df = remove_duplicates(df)
@@ -90,7 +91,7 @@ def run_data_pipeline():
     #print(df)
     #df.to_excel(save_base + "remove_dups_df_6.xlsx", index=False)
     #df = pd.read_excel(save_base + "remove_dups_df_6.xlsx")
-    df = make_labels_from_suv_max_points(df, save_location = "uw_labels_v1_nifti")
+    #df = make_labels_from_suv_max_points(df, save_location = "uw_labels_v1_nifti")
     #df.to_excel(save_base_final + "single_label_df_7.xlsx", index=False)
     #print(fail)
     """

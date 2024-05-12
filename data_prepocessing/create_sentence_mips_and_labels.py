@@ -56,6 +56,7 @@ def create_mips(df, load_location = "labels_v12_nifti", image_path_name = "image
     data_df = []
 
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     #label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labelsv2/"
     label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/" + load_location
 
@@ -80,7 +81,7 @@ def create_mips(df, load_location = "labels_v12_nifti", image_path_name = "image
         #if petlymph == "PETLYMPH_3501" or petlymph == "PETLYMPH_2650" or petlymph == "PETLYMPH_3100":
         #    continue
         # gets the location of the suv converted image if it exists
-        folder_name = str(petlymph) + "_" + str(petlymph)
+        folder_name = str(petlymph) #+ "_" + str(petlymph)
         image_path = os.path.join(image_path_base, folder_name)
         file_names = os.listdir(image_path)
         index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
