@@ -25,8 +25,8 @@ if __name__ == '__main__':
     #uw_pet_suv_conversion()
     #print(fail)
 
-    run_data_pipeline()
-    print(fail)
+    #run_data_pipeline()
+    #print(fail)
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
     #create_mips()
@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
         #folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
         #save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
-        folder_name = "/contextual_net_1000ep_threshold_itm_improved_v25/seed" + str(seed) + "/"
+        folder_name = "/contextual_net_1000ep_uw_dataset_v1/seed" + str(seed) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing" + folder_name
         save_location = os.path.join(directory_base, save_string)
         # save_location = ""
