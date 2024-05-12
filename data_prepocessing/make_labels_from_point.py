@@ -286,8 +286,8 @@ def make_labels_from_suv_max_points(df, save_location):
         if index % 100 == 0:
             print(f"index: {index}")
 
-        if index < 2000:
-            continue
+        #if index < 2000:
+        #    continue
         #if index > 50:
         #    continue
         # if index < 600:
