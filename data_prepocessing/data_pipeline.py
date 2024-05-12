@@ -69,7 +69,15 @@ def run_data_pipeline():
     #df = get_max_pixel_step3(df)
     #df.to_excel(save_base + "max_pixel_7_end.xlsx", index=False)
 
+    """remove this later just concating dataframes"""
+
     df = pd.read_excel(save_base + "max_pixel_7.xlsx")
+    df_1 = pd.read_excel(save_base + "max_pixel_7_140000.xlsx")
+    df_2 = pd.read_excel(save_base + "max_pixel_7_21000.xlsx")
+
+    df = pd.concat([df, df_1, df_2])
+    df.to_excel(save_base + "max_pixel_7_all.xlsx", index=False)
+
     df = remove_duplicates(df)
     df = assign_label_numbers(df)
 
