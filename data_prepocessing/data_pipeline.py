@@ -71,7 +71,7 @@ def run_data_pipeline():
     #df.to_excel(save_base + "max_pixel_7_end.xlsx", index=False)
 
     """remove this later just concating dataframes"""
-
+    """
     df = pd.read_excel(save_base + "max_pixel_7.xlsx")
     df_1 = pd.read_excel(save_base + "max_pixel_7_140000.xlsx")
     df_2 = pd.read_excel(save_base + "max_pixel_7_21000.xlsx")
@@ -94,6 +94,7 @@ def run_data_pipeline():
     #df = pd.read_excel(save_base + "remove_dups_df_6.xlsx")
     df = make_labels_from_suv_max_points(df, save_location = "uw_labels_v1_nifti")
     df.to_excel(save_base_final + "uw_final_df_9.xlsx", index=False)
+    """
     #print(fail)
     """
     need a function that will check makels doing few things things
@@ -106,7 +107,7 @@ def run_data_pipeline():
     """
 
 
-    #df = pd.read_excel(save_base_final + "dropped_problem_segs_6_v5.xlsx")
+    df = pd.read_excel(save_base_final + "uw_final_df_9.xlsx")
 
     #plot_mips_with_labels(df)
     create_mips(df, load_location = "uw_labels_v1_nifti", image_path_name = "images_coronal_mip_uw_v1", label_path_name = "labels_coronal_mip_uw_v1")
