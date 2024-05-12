@@ -278,6 +278,7 @@ def make_labels_from_suv_max_points(df, save_location):
     petlymph_dic = {}
     image_path_base = "Z:/Zach_Analysis/suv_nifti/"
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     exit_early = 0
     drop_later = []
     for index, row in df.iterrows():
