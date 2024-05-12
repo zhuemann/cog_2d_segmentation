@@ -63,20 +63,21 @@ def run_data_pipeline():
     df.to_excel(save_base + "processed_sentenced_above_threshold_6.xlsx", index=False)
     """
 
-    df = pd.read_excel(save_base + "processed_sentenced_above_threshold_6.xlsx")
-    df = get_max_pixel_step3(df)
-    df.to_excel(save_base + "max_pixel_7_end.xlsx", index=False)
+    #df = pd.read_excel(save_base + "processed_sentenced_above_threshold_6.xlsx")
+    #df = get_max_pixel_step3(df)
+    #df.to_excel(save_base + "max_pixel_7_end.xlsx", index=False)
 
+    df = pd.read_excel(save_base + "max_pixel_7_end.xlsx")
     #df = pd.read_excel(save_base + "max_pixel_4_test_rerun_slice_ref_fixed.xlsx")
-    #df = detect_and_remove_multiple_suv_slice(df)
+    df = detect_and_remove_multiple_suv_slice(df)
     #print(len(df))
-    #df.to_excel(save_base + "remove_multiple_suv_slice_5.xlsx", index=False)
+    df.to_excel(save_base + "remove_multiple_suv_slice_8.xlsx", index=False)
 
     #df = remove_dups_non_anontomical_sent(df)
     #print(df)
     #df.to_excel(save_base + "remove_dups_df_6.xlsx", index=False)
     #df = pd.read_excel(save_base + "remove_dups_df_6.xlsx")
-    #df = make_labels_from_suv_max_points(df, save_location = "labels_v15_nifti")
+    df = make_labels_from_suv_max_points(df, save_location = "uw_labels_v1_nifti")
     #df.to_excel(save_base_final + "single_label_df_7.xlsx", index=False)
     #print(fail)
     """
@@ -93,4 +94,5 @@ def run_data_pipeline():
     #df = pd.read_excel(save_base_final + "dropped_problem_segs_6_v5.xlsx")
 
     #plot_mips_with_labels(df)
+    create_mips(df, load_location = "uw_labels_v1_nifti", image_path_name = "images_coronal_mip_uw_v1", label_path_name = "labels_coronal_mip_uw_v1")
     #create_mips(df, load_location = "labels_v13_nifti_test_3", image_path_name = "images_coronal_mip_v13", label_path_name = "labels_coronal_mip_v13")

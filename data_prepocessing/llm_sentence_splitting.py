@@ -74,8 +74,10 @@ def detect_and_remove_multiple_suv_slice(df):
     print(f"df_delete_len: {len(df_delete)}")
     print(f"df_len: {len(df)}")
     # Merge with an indicator to find which rows are in both DataFrames
-    df_merged = df.merge(df_delete, how='outer', indicator=True)
-
+    if len(df_delete) > 0:
+        df_merged = df.merge(df_delete, how='outer', indicator=True)
+    else:
+        df_merged = df
     # Filter out the rows found in df_delete
     df_final = df_merged[df_merged['_merge'] == 'left_only'].drop('_merge', axis=1)
     print(f"final length: {len(df_final)}")
