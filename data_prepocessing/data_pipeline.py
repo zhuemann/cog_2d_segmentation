@@ -2,9 +2,10 @@ from data_prepocessing.split_sentences import split_sentences
 from data_prepocessing.llm_slice_suv_extraction import llm_slice_suv_extraction
 from data_prepocessing.concenus_voting import concenus_voting
 from data_prepocessing.get_max_pixel import get_max_pixel_step3
-from data_prepocessing.llm_sentence_splitting import detect_and_remove_multiple_suv_slice
+from data_prepocessing.detect_and_remove_multiple_suv_slice import detect_and_remove_multiple_suv_slice
 from data_prepocessing.remove_non_anontomical_sent import remove_non_anontomical_sent
 from data_prepocessing.remove_duplicates import remove_duplicates
+from data_prepocessing.remove_duplicates import assign_label_numbers
 from data_prepocessing.make_labels_from_point import make_labels_from_suv_max_points
 from data_prepocessing.create_sentence_mips_and_labels import create_mips
 #from data_prepocessing.remove_dups_non_anontomical_sent import get_anatomical_dataframe
@@ -70,10 +71,12 @@ def run_data_pipeline():
 
     df = pd.read_excel(save_base + "max_pixel_7.xlsx")
     df = remove_duplicates(df)
+    df = assign_label_numbers(df)
+
     #df = pd.read_excel(save_base + "max_pixel_4_test_rerun_slice_ref_fixed.xlsx")
     #df = detect_and_remove_multiple_suv_slice(df)
     #print(len(df))
-    #df.to_excel(save_base + "remove_multiple_suv_slice_8.xlsx", index=False)
+    df.to_excel(save_base + "final_df_8.xlsx", index=False)
 
     #df = remove_dups_non_anontomical_sent(df)
     #print(df)
