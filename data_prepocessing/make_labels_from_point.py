@@ -286,6 +286,8 @@ def make_labels_from_suv_max_points(df, save_location):
         if index % 100 == 0:
             print(f"index: {index}")
 
+        if index < 2000:
+            continue
         #if index > 50:
         #    continue
         # if index < 600:
@@ -340,8 +342,11 @@ def make_labels_from_suv_max_points(df, save_location):
         i, j, k = starting_point
         # print(f"listed suv: {row['SUV']}")
         # print(f"extracted sent: {row['Extracted Sentences']}")
+        try:
+            contour, exit_early = itm(starting_point, row['SUV'], img, volume_conversion, exit_early)
+        except Exception:
+            continue
 
-        contour, exit_early = itm(starting_point, row['SUV'], img, volume_conversion, exit_early)
         #contour = threshold_of_max(starting_point, row['SUV'], img)
 
         if contour == None:
