@@ -200,7 +200,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     #train_df = pd.read_excel(data_base_path + "unique_labels_uw_lymphoma_anon_4_renumbered_v3.xlsx")
     #train_df = pd.read_excel(data_base_path + "remove_dups_df_5.xlsx")
     #train_df = pd.read_excel(data_base_path + "dropped_problem_segs_6_v6.xlsx")
-    train_df = pd.read_excel(data_base_path + "uw_final_df_9.xlsx")
+    #train_df = pd.read_excel(data_base_path + "uw_final_df_9.xlsx")
+    train_df = pd.read_excel(data_base_path + "uw_final_df_9_all.xlsx")
 
     labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1", "PETWB_012579_01_label_2", "PETWB_003190_01_label_3"]
     train_df = train_df[~train_df["Label_Name"].isin(labels_to_skip)]

@@ -23,14 +23,14 @@ from data_prepocessing.utility import get_suv_file_names
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-    df = "/UserData/Zach_Analysis/petlymph_image_data/uw_final_df_9.xlsx"
-    df = pd.read_excel(df)
-    get_suv_file_names(df)
+    #df = "/UserData/Zach_Analysis/petlymph_image_data/uw_final_df_9.xlsx"
+    #df = pd.read_excel(df)
+    #get_suv_file_names(df)
     #uw_pet_suv_conversion()
-    print(fail)
+    #print(fail)
 
-    run_data_pipeline()
-    print(fail)
+    #run_data_pipeline()
+    #print(fail)
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
     #create_mips()
@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
         #folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
         #save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
-        folder_name = "/contextual_net_1000ep_uw_dataset_v2/seed" + str(seed) + "/"
+        folder_name = "/contextual_net_1000ep_uw_dataset_v3/seed" + str(seed) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing" + folder_name
         save_location = os.path.join(directory_base, save_string)
         # save_location = ""
