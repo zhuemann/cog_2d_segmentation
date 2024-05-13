@@ -25,8 +25,8 @@ if __name__ == '__main__':
     #uw_pet_suv_conversion()
     #print(fail)
 
-    #run_data_pipeline()
-    #print(fail)
+    run_data_pipeline()
+    print(fail)
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
     #create_mips()
