@@ -24,6 +24,7 @@ from data_prepocessing.utility import get_suv_file_names
 if __name__ == '__main__':
 
     df = "/UserData/Zach_Analysis/petlymph_image_data/uw_final_df_9.xlsx"
+    df = pd.read_excel(df)
     get_suv_file_names(df)
     #uw_pet_suv_conversion()
     print(fail)
