@@ -606,7 +606,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             avg_valid_dice = np.average(valid_dice)
             print(f"Epoch {str(epoch)}, Average Valid Dice Score = {avg_valid_dice}")
             print(f"validation prediction sum: {prediction_sum}")
-            print(f"valid correct_max_predictions: {correct_max_predictions}")
+            print(f"valid correct_max_predictions: {correct_max_predictions} or: {correct_max_predictions/len(valid_df)}%")
             valid_log.append(avg_valid_dice)
             correct_suv_log.append(correct_max_predictions)
 
@@ -706,7 +706,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         avg_test_dice = np.average(test_dice)
         print(f"Epoch {str(epoch)}, Average Test Dice Score = {avg_test_dice}")
         print(f"testing prediction sum: {prediction_sum}")
-        print(f"test correct_max_predictions: {correct_max_predictions}")
+        print(f"test correct_max_predictions: {correct_max_predictions} or: {correct_max_predictions/len(test_df)}")
 
         #print(f"target: {target_rle_list}")
         #print(f"pred rle: {pred_rle_list}")

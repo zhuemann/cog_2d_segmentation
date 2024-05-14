@@ -20,3 +20,8 @@ def get_suv_file_names(df):
 
     # Save the DataFrame to an Excel file
     df.to_excel("full_suv_names.xlsx", index=False)
+
+
+def create_prediction_plots():
+
+    print("hi")
