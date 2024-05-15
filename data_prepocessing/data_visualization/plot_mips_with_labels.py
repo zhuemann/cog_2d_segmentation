@@ -47,7 +47,11 @@ def plot_mips_with_labels(df):
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
     label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labelsv2/"
     label_path_base = "/UserData/Zach_Analysis/petlymph_image_data/labels_v13_nifti_test_3/" #v12 is .5 threshold v11 is .6 threshold v10 is ITM
-
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+    label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v2_nifti/"
+    labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
+                      "PETWB_012579_01_label_2", "PETWB_003190_01_label_3",
+                      "PETWB_011401_02_label_3"]
 
     for index, row in df.iterrows():
 
@@ -55,9 +59,11 @@ def plot_mips_with_labels(df):
         #if index == 10:
         #    break
         petlymph = row["Petlymph"]
+        if row["Label_Name"] in labels_to_skip:
+            continue
 
         # gets the location of the suv converted image if it exists
-        folder_name = str(petlymph) + "_" + str(petlymph)
+        folder_name = str(petlymph) #+ "_" + str(petlymph)
         image_path = os.path.join(image_path_base, folder_name)
         file_names = os.listdir(image_path)
         index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
@@ -133,6 +139,6 @@ def plot_mips_with_labels(df):
         #print(f"sum of pos pixels: {np.sum(label)}")
         plt.suptitle(sentence, fontsize=12, color='black')
 
-        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plot_itm_test_update_v3/" + label_name)
+        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plot_uw_dataset_v2/" + label_name)
         plt.close()
         #plt.show()
