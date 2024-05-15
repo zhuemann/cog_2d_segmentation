@@ -338,7 +338,7 @@ def analyze_ct_series_when_pt_matches(root_dir, pt_substring):
                                     for series_folder in os.listdir(exam_type_path):
                                         exam_paths.setdefault(series_folder, {}).update({modality_folder.upper(): exam_type_path})
 
-                                    print(exam_paths)
+                                    #print(exam_paths)
                                     # Analyze collected exam folders
                                     for series_folder, paths in exam_paths.items():
                                         pt_path = paths.get('PT')
@@ -346,7 +346,9 @@ def analyze_ct_series_when_pt_matches(root_dir, pt_substring):
                                         if pt_path and ct_path:  # Both PT and CT exist for the exam
                                             pt_series_found = False
                                             # Check PT folders for the specific substring
+
                                             for pt_series_folder in os.listdir(pt_path):
+                                                print(pt_series_folder)
                                                 if pt_substring.lower() in pt_series_folder.lower():
                                                     pt_series_found = True
                                                     print(f"Match found in PT: {pt_series_folder} in {pt_path}")
