@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import nibabel as nib
+import numpy as np
 
 def get_suv_file_names(df):
 
@@ -50,6 +51,14 @@ def average_components(tuples_list):
     print(f"Average of i: {avg_i}")
     print(f"Average of j: {avg_j}")
     print(f"Average of k: {avg_k}")
+
+def first_nonzero_plane(label):
+    # Iterate over each slice along the first dimension (i-index)
+    for i in range(label.shape[0]):
+        if np.any(label[i,:,:] != 0):
+            return i
+    return None  # Return None if all elements are zero
+
 def count_left_right_sided(df):
 
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
@@ -61,6 +70,10 @@ def count_left_right_sided(df):
     right_indices = []
     left_and_right_count = 0
     neither_count = 0
+
+    left_index_list = []
+    right_index_list = []
+
     for index, row in df.iterrows():
         print(f"index: {index}")
         sentence = row["sentence"]
@@ -69,14 +82,17 @@ def count_left_right_sided(df):
         label_name = row["Label_Name"] + ".nii.gz"
         label_path = os.path.join(label_path_base, label_name)
         nii_label = nib.load(label_path)
-        #label = nii_label.get_fdata()
+        label = nii_label.get_fdata()
         coordinates = (row["i"], row["j"], row["k"])
 
         if 'left' in sentence and 'right' not in sentence:
-
             left_indices.append(coordinates)
+            index = first_nonzero_plane(label)
+            left_index_list.append(index)
         elif 'left' not in sentence and 'right' in sentence:
             right_indices.append(coordinates)
+            index = first_nonzero_plane(label)
+            right_index_list.append(index)
         elif 'left'  in sentence and 'right' in sentence:
             left_and_right_count += 1
         else:
@@ -91,4 +107,7 @@ def count_left_right_sided(df):
     average_components(right_indices)
     print(f"left and right count: {left_and_right_count}")
     print(f"neither_count: {neither_count}")
+
+    print(f"left average index: {sum(left_index_list)/len(left_index_list)}")
+    print(f"right average index: {sum(right_index_list)/len(right_index_list)}")
 
