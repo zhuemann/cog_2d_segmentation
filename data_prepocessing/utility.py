@@ -226,8 +226,11 @@ from collections import defaultdict
 def analyze_ct_series_when_pt_matches(root_dir, pt_substring):
     ct_series_count = defaultdict(int)  # Dictionary to count occurrences of CT series
 
+    index = 0
     # Iterate over each patient coding folder
     for patient_coding in os.listdir(root_dir):
+        print(f"index: {index}")
+        index += 1
         patient_path = os.path.join(root_dir, patient_coding)
         if os.path.exists(patient_path) and os.path.isdir(patient_path):  # Check if it's a directory
             # Traverse the directory structure date->modality->exam_name->series
@@ -262,5 +265,49 @@ def analyze_ct_series_when_pt_matches(root_dir, pt_substring):
 
     return ct_series_count
 
+def analyze_matching_ct_series_for_pt_substring(root_dir, pt_substring):
+    ct_series_count = defaultdict(int)  # Dictionary to count matching occurrences of CT series based on file count
+    index = 0
+    # Iterate over each patient coding folder
+    for patient_coding in os.listdir(root_dir):
+        print(f"index: {index}")
+        index += 1
+        patient_path = os.path.join(root_dir, patient_coding)
+        if os.path.exists(patient_path) and os.path.isdir(patient_path):  # Check if it's a directory
+            # Traverse the directory structure date->modality->exam_name->series
+            pt_series_details = []  # To store tuples of (PT exam path, number of files)
+            ct_series_details = []  # To store tuples of (CT exam path, number of files)
+
+            for date_folder in os.listdir(patient_path):
+                date_path = os.path.join(patient_path, date_folder)
+                if os.path.isdir(date_path):
+                    for modality_folder in os.listdir(date_path):
+                        modality_path = os.path.join(date_path, modality_folder)
+                        if os.path.isdir(modality_path):
+                            for exam_folder in os.listdir(modality_path):
+                                exam_path = os.path.join(modality_path, exam_folder)
+                                if os.path.isdir(exam_path):
+                                    # Check PT folders for the specific substring and record file count
+                                    if 'PT' in modality_folder.upper():
+                                        for series_folder in os.listdir(exam_path):
+                                            series_path = os.path.join(exam_path, series_folder)
+                                            if pt_substring.lower() in series_folder.lower():
+                                                file_count = len([f for f in os.listdir(series_path) if os.path.isfile(os.path.join(series_path, f))])
+                                                pt_series_details.append((series_path, file_count))
+                                                break  # Stop searching once a match is found in this exam path
+                                    elif 'CT' in modality_folder.upper():
+                                        for series_folder in os.listdir(exam_path):
+                                            series_path = os.path.join(exam_path, series_folder)
+                                            file_count = len([f for f in os.listdir(series_path) if os.path.isfile(os.path.join(series_path, f))])
+                                            ct_series_details.append((series_path, file_count))
+
+            # Compare file counts in PT and corresponding CT paths
+            for pt_path, pt_file_count in pt_series_details:
+                for ct_path, ct_file_count in ct_series_details:
+                    if pt_file_count == ct_file_count:
+                        series_name = ct_path.split(os.sep)[-1]
+                        ct_series_count[series_name] += 1
+
+    return ct_series_count
 
 
