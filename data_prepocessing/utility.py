@@ -82,7 +82,7 @@ def count_left_right_sided(df):
         sentence = row["sentence"]
         if row["Label_Name"] in labels_to_skip:
             continue
-        if index > 500:
+        if index > 5000:
             break
         label_name = row["Label_Name"] + ".nii.gz"
         label_path = os.path.join(label_path_base, label_name)
