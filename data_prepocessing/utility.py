@@ -167,6 +167,8 @@ def finding_missing_images():
             if os.path.isdir(patient_path):  # Check if it's a directory
                 pt_found = False
                 ct_found = False
+                pt_path = None
+                ct_path = None
 
                 # Traverse the directory structure date->modality->series->exam_name
                 for date_folder in os.listdir(patient_path):
@@ -178,29 +180,35 @@ def finding_missing_images():
                             for exam_folder in os.listdir(modality_path):
                                 exam_path = os.path.join(modality_path, exam_folder)
                                 if os.path.isdir(exam_path):
-                                    #print(f"exam path: {exam_path}")
-                                    # Check if the folder belongs to PT or CT modalities and check the names
                                     if 'PT' in modality_folder.upper():
-                                        #print(f"eval PT: {os.listdir(exam_path)}")
-                                        pt_found = any(substring.lower() in series_folder.lower() for series_folder in
-                                                       os.listdir(exam_path) for substring in key_substrings_pt)
+                                        if any(substring.lower() in series_folder.lower() for series_folder in
+                                               os.listdir(exam_path) for substring in key_substrings_pt):
+                                            pt_found = True
+                                            pt_path = exam_path  # Store the path where PT was found
                                     elif 'CT' in modality_folder.upper():
-                                        ct_found = any(substring.lower() in series_folder.lower() for series_folder in
-                                                       os.listdir(exam_path) for substring in key_substrings_ct)
+                                        if any(substring.lower() in series_folder.lower() for series_folder in
+                                               os.listdir(exam_path) for substring in key_substrings_ct):
+                                            ct_found = True
+                                            ct_path = exam_path  # Store the path where CT was found
 
 
                 # Record the results for this patient coding
-                results[patient_coding] = (pt_found, ct_found)
+                results[patient_coding] = (pt_found, ct_found, pt_path, ct_path)
 
         else:
-            results[patient_coding] = (False, False)
+            results[patient_coding] = (False, False, None, None)
             folders_not_found += 1
-
+    """
     df = pd.DataFrame(list(results.items()), columns=['Patient_Coding', 'Findings'])
     df[['PET_Found', 'CT_Found']] = pd.DataFrame(df['Findings'].tolist(), index=df.index)
     df.drop('Findings', axis=1, inplace=True)
-
+    """
     file_path = "/UserData/UW_PET_Data/full_accounting_of_pet_ct_found.xlsx"
+    df = pd.DataFrame.from_dict(results, orient='index', columns=['PET_Found', 'CT_Found', 'PT_Path', 'CT_Path'])
     # Write the DataFrame to an Excel file
+    df.reset_index(inplace=True)
+    df.rename(columns={'index': 'Patient_Coding'}, inplace=True)
     df.to_excel(file_path, index=False, engine='openpyxl')
+    # Write the DataFrame to an Excel file
+    #df.to_excel(file_path, index=False, engine='openpyxl')
     print(f"folders not found: {folders_not_found}")
