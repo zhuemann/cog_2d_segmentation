@@ -59,6 +59,8 @@ def count_left_right_sided(df):
                       "PETWB_011401_02_label_3"]
     left_indices = []
     right_indices = []
+    left_and_right_count = 0
+    neither_count = 0
     for index, row in df.iterrows():
         print(f"index: {index}")
         sentence = row["sentence"]
@@ -75,6 +77,11 @@ def count_left_right_sided(df):
             left_indices.append(coordinates)
         elif 'left' not in sentence and 'right' in sentence:
             right_indices.append(coordinates)
+        elif 'left'  in sentence and 'right' in sentence:
+            left_and_right_count += 1
+        else:
+            neither_count += 1
+
 
     print("left components")
     print(f"len left: {len(left_indices)}")
@@ -82,4 +89,6 @@ def count_left_right_sided(df):
     print("right comonents")
     print(f"len right: {len(right_indices)}")
     average_components(right_indices)
+    print(f"left and right count: {left_and_right_count}")
+    print(f"neither_count: {neither_count}")
 
