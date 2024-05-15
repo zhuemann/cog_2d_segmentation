@@ -153,7 +153,7 @@ def finding_missing_images():
 
     key_substrings_pt = ["wb_3d_mac", "WB_MAC", "wb_ac_3d", "PET_AC_3D"]  # Add the rest of your PT substrings here
     key_substrings_ct = ["CTAC", "CT_IMAGES", "WB_Standard"]  # Add any more CT substrings if needed
-
+    folders_not_found = 0
     results = {}
     for index, row in df.iterrows():
 
@@ -161,27 +161,27 @@ def finding_missing_images():
         folder_name = row["Coded Accession Number"]
         patient_coding = row["Coded Accession Number"]
         patient_path = os.path.join(dicom_path, folder_name)
-        print(patient_path)
+        #print(patient_path)
         if os.path.exists(patient_path):
             #patient_path = os.path.join(root_dir, patient_coding)
             if os.path.isdir(patient_path):  # Check if it's a directory
                 pt_found = False
                 ct_found = False
 
-                # Traverse the directory structure date->modality->series
+                # Traverse the directory structure date->modality->series->exam_name
                 for date_folder in os.listdir(patient_path):
                     date_path = os.path.join(patient_path, date_folder)
                     if os.path.isdir(date_path):
                         for modality_folder in os.listdir(date_path):
                             modality_path = os.path.join(date_path, modality_folder)
-                            print(f"modality path: {modality_path}")
+                            #print(f"modality path: {modality_path}")
                             for exam_folder in os.listdir(modality_path):
                                 exam_path = os.path.join(modality_path, exam_folder)
                                 if os.path.isdir(exam_path):
-                                    print(f"exam path: {exam_path}")
+                                    #print(f"exam path: {exam_path}")
                                     # Check if the folder belongs to PT or CT modalities and check the names
                                     if 'PT' in modality_folder.upper():
-                                        print(f"eval PT: {os.listdir(exam_path)}")
+                                        #print(f"eval PT: {os.listdir(exam_path)}")
                                         pt_found = any(substring.lower() in series_folder.lower() for series_folder in
                                                        os.listdir(exam_path) for substring in key_substrings_pt)
                                     elif 'CT' in modality_folder.upper():
@@ -194,6 +194,7 @@ def finding_missing_images():
 
         else:
             results[patient_coding] = (False, False)
+            folders_not_found += 1
 
     df = pd.DataFrame(list(results.items()), columns=['Patient_Coding', 'Findings'])
     df[['PET_Found', 'CT_Found']] = pd.DataFrame(df['Findings'].tolist(), index=df.index)
@@ -202,3 +203,4 @@ def finding_missing_images():
     file_path = "/UserData/UW_PET_Data/full_accounting_of_pet_ct_found.xlsx"
     # Write the DataFrame to an Excel file
     df.to_excel(file_path, index=False, engine='openpyxl')
+    print(f"folders not found: {folders_not_found}")
