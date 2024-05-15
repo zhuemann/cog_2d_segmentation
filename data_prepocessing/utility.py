@@ -157,6 +157,7 @@ def finding_missing_images():
     results = {}
     for index, row in df.iterrows():
 
+        print(f"index: {index}")
         folder_name = row["Coded Accession Number"]
         patient_coding = row["Coded Accession Number"]
         patient_path = os.path.join(dicom_path, folder_name)
