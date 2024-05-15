@@ -8,6 +8,7 @@ from data_prepocessing.remove_duplicates import remove_duplicates
 from data_prepocessing.remove_duplicates import assign_label_numbers
 from data_prepocessing.make_labels_from_point import make_labels_from_suv_max_points
 from data_prepocessing.create_sentence_mips_and_labels import create_mips
+from data_prepocessing.utility import count_left_right_sided
 #from data_prepocessing.remove_dups_non_anontomical_sent import get_anatomical_dataframe
 from data_prepocessing.data_visualization.plot_mips_with_labels import plot_mips_with_labels
 import pandas as pd
@@ -71,7 +72,7 @@ def run_data_pipeline():
     #df.to_excel(save_base + "max_pixel_7_end.xlsx", index=False)
 
     """remove this later just concating dataframes"""
-
+    """
     df = pd.read_excel(save_base + "max_pixel_7.xlsx")
     df_1 = pd.read_excel(save_base + "max_pixel_7_140000.xlsx")
     df_2 = pd.read_excel(save_base + "max_pixel_7_21000.xlsx")
@@ -95,7 +96,7 @@ def run_data_pipeline():
     #df = pd.read_excel(save_base + "remove_dups_df_6.xlsx")
     df = make_labels_from_suv_max_points(df, save_location = "uw_labels_v2_nifti")
     df.to_excel(save_base_final + "uw_final_df_9_all.xlsx", index=False)
-
+    """
     #print(fail)
     """
     need a function that will check makels doing few things things
@@ -108,8 +109,9 @@ def run_data_pipeline():
     """
 
 
-    #df = pd.read_excel(save_base_final + "uw_final_df_9.xlsx")
+    df = pd.read_excel(save_base_final + "uw_final_df_9_all.xlsx")
+    count_left_right_sided(df)
 
     #plot_mips_with_labels(df)
-    create_mips(df, load_location = "uw_labels_v2_nifti", image_path_name = "images_coronal_mip_uw_v2", label_path_name = "labels_coronal_mip_uw_v2")
+    #create_mips(df, load_location = "uw_labels_v2_nifti", image_path_name = "images_coronal_mip_uw_v2", label_path_name = "labels_coronal_mip_uw_v2")
     #create_mips(df, load_location = "labels_v13_nifti_test_3", image_path_name = "images_coronal_mip_v13", label_path_name = "labels_coronal_mip_v13")
