@@ -219,3 +219,49 @@ def finding_missing_images():
     # Write the DataFrame to an Excel file
     #df.to_excel(file_path, index=False, engine='openpyxl')
     print(f"folders not found: {folders_not_found}")
+
+
+from collections import defaultdict
+
+
+def analyze_ct_series_when_pt_matches(root_dir, pt_substring):
+    ct_series_count = defaultdict(int)  # Dictionary to count occurrences of CT series
+
+    # Iterate over each patient coding folder
+    for patient_coding in os.listdir(root_dir):
+        patient_path = os.path.join(root_dir, patient_coding)
+        if os.path.exists(patient_path) and os.path.isdir(patient_path):  # Check if it's a directory
+            # Traverse the directory structure date->modality->exam_name->series
+            for date_folder in os.listdir(patient_path):
+                date_path = os.path.join(patient_path, date_folder)
+                if os.path.isdir(date_path):
+                    exam_paths = {}
+                    # Collect paths for PT and CT under the same exam_folder
+                    for modality_folder in os.listdir(date_path):
+                        modality_path = os.path.join(date_path, modality_folder)
+                        if os.path.isdir(modality_path):
+                            if 'PT' in modality_folder.upper() or 'CT' in modality_folder.upper():
+                                for exam_folder in os.listdir(modality_path):
+                                    exam_paths.setdefault(exam_folder, {}).update(
+                                        {modality_folder.upper(): modality_path})
+
+                    # Analyze collected exam folders
+                    for exam_folder, paths in exam_paths.items():
+                        pt_path = paths.get('PT')
+                        ct_path = paths.get('CT')
+                        if pt_path and ct_path:  # Check if both PT and CT exist for the exam
+                            pt_series_found = False
+                            # Check PT folders for the specific substring
+                            for series_folder in os.listdir(pt_path):
+                                if pt_substring.lower() in series_folder.lower():
+                                    pt_series_found = True
+                                    break
+                            # If PT with specific substring found, count all CT series
+                            if pt_series_found:
+                                for ct_series_folder in os.listdir(ct_path):
+                                    ct_series_count[ct_series_folder] += 1
+
+    return ct_series_count
+
+
+
