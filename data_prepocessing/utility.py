@@ -89,7 +89,7 @@ def count_left_right_sided(df):
         label = nii_label.get_fdata()
 
         midpoint = label.shape[0]/2
-        buffer_dist = 20
+        buffer_dist = 30
         coordinates = (row["i"], row["j"], row["k"])
 
 
@@ -105,7 +105,7 @@ def count_left_right_sided(df):
             right_indices.append(coordinates)
             index = first_nonzero_plane(label)
             right_index_list.append(index)
-            cutoff = midpoint + buffer_dist
+            cutoff = midpoint - buffer_dist
             if index < cutoff:
                 print(f"right but on left half index {index} midline: {cutoff} label name: {row['Label_Name']}")
                 right_cross_midline += 1
