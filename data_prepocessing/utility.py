@@ -161,7 +161,7 @@ def finding_missing_images():
         folder_name = row["Coded Accession Number"]
         patient_coding = row["Coded Accession Number"]
         patient_path = os.path.join(dicom_path, folder_name)
-
+        print(patient_path)
         if os.path.exists(patient_path):
 
             #patient_path = os.path.join(root_dir, patient_coding)
