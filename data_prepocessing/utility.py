@@ -137,3 +137,63 @@ def count_left_right_sided(df):
 
     filtered_df = df[df['Label_Name'].isin(rows_to_return)]
     return filtered_df
+
+
+
+
+
+def finding_missing_images():
+
+
+    df_path = "/UserData/UW_PET_Data/UWPETCTWB_Research-Image-Requests_20240311.xlsx"
+    df = pd.read_excel(df_path)
+
+    dicom_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+
+    key_substrings_pt = ["wb_3d_mac", "WB_MAC", "wb_ac_3d", "PET_AC_3D"]  # Add the rest of your PT substrings here
+    key_substrings_ct = ["CTAC", "CT_IMAGES", "WB_Standard"]  # Add any more CT substrings if needed
+
+    results = {}
+    for index, row in df.iterrows():
+
+        folder_name = row["Coded Accession Number"]
+        patient_coding = row["Coded Accession Number"]
+        patient_path = os.path.join(dicom_path, folder_name)
+
+        if os.path.exists(patient_path):
+
+            #patient_path = os.path.join(root_dir, patient_coding)
+            if os.path.isdir(patient_path):  # Check if it's a directory
+                pt_found = False
+                ct_found = False
+
+                # Traverse the directory structure date->modality->series
+                for date_folder in os.listdir(patient_path):
+                    date_path = os.path.join(patient_path, date_folder)
+                    if os.path.isdir(date_path):
+                        for modality_folder in os.listdir(date_path):
+                            modality_path = os.path.join(date_path, modality_folder)
+                            if os.path.isdir(modality_path):
+                                # Check if the folder belongs to PT or CT modalities and check the names
+                                if 'PT' in modality_folder.upper():
+                                    pt_found = any(substring.lower() in series_folder.lower() for series_folder in
+                                                   os.listdir(modality_path) for substring in key_substrings_pt)
+                                elif 'CT' in modality_folder.upper():
+                                    ct_found = any(substring.lower() in series_folder.lower() for series_folder in
+                                                   os.listdir(modality_path) for substring in key_substrings_ct)
+
+
+                # Record the results for this patient coding
+                results[patient_coding] = (pt_found, ct_found)
+
+        else:
+            results[patient_coding] = (False, False)
+
+    df = pd.DataFrame(list(results.items()), columns=['Patient_Coding', 'Findings'])
+    df[['PET_Found', 'CT_Found']] = pd.DataFrame(df['Findings'].tolist(), index=df.index)
+    df.drop('Findings', axis=1, inplace=True)
+
+    file_path = "/UserData/UW_PET_Data/full_accounting_of_pet_ct_found.xlsx"
+    # Write the DataFrame to an Excel file
+    df.to_excel(file_path, index=False, engine='openpyxl')

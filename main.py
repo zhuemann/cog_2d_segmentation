@@ -19,6 +19,7 @@ from train_segmentation import train_image_text_segmentation
 from data_prepocessing.data_pipeline import run_data_pipeline
 from uw_pet_suv_conversion import uw_pet_suv_conversion
 from data_prepocessing.utility import get_suv_file_names
+from data_prepocessing.utility import finding_missing_images
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -27,7 +28,8 @@ if __name__ == '__main__':
     #df = pd.read_excel(df)
     #get_suv_file_names(df)
     #uw_pet_suv_conversion()
-    #print(fail)
+    finding_missing_images()
+    print(fail)
 
     #run_data_pipeline()
     #print(fail)
