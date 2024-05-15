@@ -152,7 +152,7 @@ def finding_missing_images():
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
 
     key_substrings_pt = ["wb_3d_mac", "WB_MAC", "wb_ac_3d", "PET_AC_3D", "WB_IRCTAC"]  # Add the rest of your PT substrings here
-    key_substrings_ct = ["CTAC", "CT_IMAGES", "WB_Standard"]  # Add any more CT substrings if needed
+    key_substrings_ct = ["CTAC", "CT_IMAGES", "WB_Standard", "WB_CT_SLICES"]  # Add any more CT substrings if needed
     folders_not_found = 0
     results = {}
     for index, row in df.iterrows():
