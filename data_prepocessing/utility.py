@@ -180,16 +180,23 @@ def finding_missing_images():
                             for exam_folder in os.listdir(modality_path):
                                 exam_path = os.path.join(modality_path, exam_folder)
                                 if os.path.isdir(exam_path):
+                                    # Check if the folder belongs to PT or CT modalities and check the names
                                     if 'PT' in modality_folder.upper():
-                                        if any(substring.lower() in series_folder.lower() for series_folder in
-                                               os.listdir(exam_path) for substring in key_substrings_pt):
-                                            pt_found = True
-                                            pt_path = exam_path  # Store the path where PT was found
+                                        for series_folder in os.listdir(exam_path):
+                                            if any(substring.lower() in series_folder.lower() for substring in
+                                                   key_substrings_pt):
+                                                pt_found = True
+                                                pt_path = os.path.join(exam_path,
+                                                                       series_folder)  # Store the full path including the matching folder
+                                                break  # Stop searching once a match is found
                                     elif 'CT' in modality_folder.upper():
-                                        if any(substring.lower() in series_folder.lower() for series_folder in
-                                               os.listdir(exam_path) for substring in key_substrings_ct):
-                                            ct_found = True
-                                            ct_path = exam_path  # Store the path where CT was found
+                                        for series_folder in os.listdir(exam_path):
+                                            if any(substring.lower() in series_folder.lower() for substring in
+                                                   key_substrings_ct):
+                                                ct_found = True
+                                                ct_path = os.path.join(exam_path,
+                                                                       series_folder)  # Store the full path including the matching folder
+                                                break  # Stop searching once a match is found
 
 
                 # Record the results for this patient coding
