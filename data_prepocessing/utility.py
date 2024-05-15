@@ -175,6 +175,7 @@ def finding_missing_images():
                     if os.path.isdir(date_path):
                         for modality_folder in os.listdir(date_path):
                             modality_path = os.path.join(date_path, modality_folder)
+                            print(f"modality path: {modality_path}")
                             if os.path.isdir(modality_path):
                                 # Check if the folder belongs to PT or CT modalities and check the names
                                 if 'PT' in modality_folder.upper():
