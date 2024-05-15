@@ -30,8 +30,8 @@ if __name__ == '__main__':
     #get_suv_file_names(df)
     #uw_pet_suv_conversion()
 
-    ct_series_count = analyze_ct_series_when_pt_matches(root_dir="/mnt/Bradshaw/UW_PET_Data/dsb2b/",  pt_substring="WB_IRCTAC")
-    print(ct_series_count)
+    #ct_series_count = analyze_ct_series_when_pt_matches(root_dir="/mnt/Bradshaw/UW_PET_Data/dsb2b/",  pt_substring="WB_IRCTAC")
+    #print(ct_series_count)
     #ct_series_count = analyze_matching_ct_series_for_pt_substring(root_dir="/mnt/Bradshaw/UW_PET_Data/dsb2b/",  pt_substring="WB_IRCTAC")
     #print(ct_series_count)
     #finding_missing_images()

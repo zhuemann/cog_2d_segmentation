@@ -270,10 +270,8 @@ def analyze_matching_ct_series_for_pt_substring(root_dir, pt_substring):
     index = 0
     # Iterate over each patient coding folder
     for patient_coding in os.listdir(root_dir):
-        #print(f"index: {index}")
+        print(f"index: {index}")
         index += 1
-        if index == 1000:
-            break
         patient_path = os.path.join(root_dir, patient_coding)
         if os.path.exists(patient_path) and os.path.isdir(patient_path):  # Check if it's a directory
             # Traverse the directory structure date->modality->exam_name->series
