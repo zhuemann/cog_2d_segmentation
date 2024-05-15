@@ -71,10 +71,12 @@ def count_left_right_sided(df):
 
             left_indices.append(coordinates)
         elif 'left' not in sentence and 'right' in sentence:
-            right_indices.appen(coordinates)
+            right_indices.append(coordinates)
 
     print("left components")
+    print(f"len left: {len(left_indices)}")
     average_components(left_indices)
     print("right comonents")
+    print(f"len right: {len(right_indices)}")
     average_components(right_indices)
 
