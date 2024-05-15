@@ -163,7 +163,6 @@ def finding_missing_images():
         patient_path = os.path.join(dicom_path, folder_name)
         print(patient_path)
         if os.path.exists(patient_path):
-            print("found true")
             #patient_path = os.path.join(root_dir, patient_coding)
             if os.path.isdir(patient_path):  # Check if it's a directory
                 pt_found = False
@@ -179,6 +178,7 @@ def finding_missing_images():
                             if os.path.isdir(modality_path):
                                 # Check if the folder belongs to PT or CT modalities and check the names
                                 if 'PT' in modality_folder.upper():
+                                    print(f"eval PT: {os.listdir(modality_path)}")
                                     pt_found = any(substring.lower() in series_folder.lower() for series_folder in
                                                    os.listdir(modality_path) for substring in key_substrings_pt)
                                 elif 'CT' in modality_folder.upper():
