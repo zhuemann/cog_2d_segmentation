@@ -134,3 +134,6 @@ def count_left_right_sided(df):
     print(f"left cross midline: {left_cross_midline}")
     print(f"right cross midline: {right_cross_midline}")
     print(rows_to_return)
+
+    filtered_df = df[df['Label_Name'].isin(rows_to_return)]
+    return filtered_df
