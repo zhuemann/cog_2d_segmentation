@@ -61,7 +61,7 @@ def count_left_right_sided(df):
 
         sentence = row["sentence"]
 
-        label_name = row["Label_Name"]
+        label_name = row["Label_Name"] + ".png"
         label_path = os.path.join(label_path_base, label_name)
         nii_label = nib.load(label_path)
         label = nii_label.get_fdata()
