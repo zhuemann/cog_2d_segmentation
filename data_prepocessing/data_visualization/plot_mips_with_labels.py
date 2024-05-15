@@ -140,7 +140,7 @@ def plot_mips_with_labels(df):
         plt.suptitle(sentence, fontsize=12, color='black')
 
         #plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plot_uw_dataset_v2/" + label_name)
-        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_with_side_errors_5/" + label_name)
+        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_with_side_errors_10/" + label_name)
 
         plt.close()
         #plt.show()
