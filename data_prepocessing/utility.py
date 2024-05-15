@@ -261,6 +261,7 @@ def analyze_ct_series_when_pt_matches(root_dir, pt_substring):
                                 for ct_series_folder in os.listdir(ct_path):
                                     ct_series_count[ct_series_folder] += 1
 
+    print(ct_series_count)
     return ct_series_count
 
 
