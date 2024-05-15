@@ -203,11 +203,49 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     #train_df = pd.read_excel(data_base_path + "uw_final_df_9.xlsx")
     train_df = pd.read_excel(data_base_path + "uw_final_df_9_all.xlsx")
 
+    # Specified labels to skip
+    labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
+                      "PETWB_012579_01_label_2", "PETWB_003190_01_label_3",
+                      "PETWB_011401_02_label_3"]
+
+    # Filtering .png files
+    files_directory = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_with_side_errors_10/"
+    files = os.listdir(files_directory)
+    stripped_files = [file[:-4] for file in files if file.endswith('.png')]
+
+    print(f"before drop length: {len(train_df)}")
+    # Filtering the DataFrame
+    train_df = train_df[~train_df["Label_Name"].isin(labels_to_skip)]
+    train_df = train_df[~train_df["Label_Name"].isin(stripped_files)]
+    print(f"after dropped length: {len(train_df)}")
+
+    # Grouping by 'Petlymph' and splitting the groups
+    groups = train_df.groupby('Petlymph')
+    group_list = [group for _, group in groups]
+
+    # Splitting the groups into train, validation, and test
+    train_idx, test_valid_idx = model_selection.train_test_split(range(len(group_list)), train_size=0.80,
+                                                                 random_state=seed)
+    test_idx, valid_idx = model_selection.train_test_split(test_valid_idx, test_size=config["test_samples"],
+                                                           random_state=seed)
+
+    # Reconstruct DataFrames from grouped indices
+    train_df = pd.concat([group_list[i] for i in train_idx])
+    test_df = pd.concat([group_list[i] for i in test_idx])
+    valid_df = pd.concat([group_list[i] for i in valid_idx])
+
+    """
     print(f"before dropped length: {len(train_df)}")
     labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1", "PETWB_012579_01_label_2", "PETWB_003190_01_label_3",
                       "PETWB_011401_02_label_3"]
-    print(f"after dropped length: {len(train_df)}")
+
+    files = os.listdir("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_with_side_errors_10/")
+    # Filter out only the .png files and strip the .png extension
+    stripped_files = [file[:-4] for file in files if file.endswith('.png')]
     train_df = train_df[~train_df["Label_Name"].isin(labels_to_skip)]
+    train_df = train_df[~train_df["Label_Name"].isin(stripped_files)]
+    print(f"after dropped length: {len(train_df)}")
+
 
     train_df.set_index("Petlymph", inplace=True)
 
@@ -220,6 +258,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
         test_valid_df, test_size=config["test_samples"], random_state=seed, shuffle=True
         # stratify=test_valid_df.label.values
     )
+    """
     #valid_df = test_valid_df
     #test_df = test_valid_df
 
