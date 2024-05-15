@@ -89,7 +89,7 @@ def count_left_right_sided(df):
         label = nii_label.get_fdata()
 
         midpoint = label.shape[0]/2
-        buffer_dist = 30
+        buffer_dist = 20
         coordinates = (row["i"], row["j"], row["k"])
 
 
