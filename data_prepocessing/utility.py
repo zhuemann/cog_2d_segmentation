@@ -58,13 +58,13 @@ def count_left_right_sided(df):
     left_indices = []
     right_indices = []
     for index, row in df.iterrows():
-
+        print(f"index: {index}")
         sentence = row["sentence"]
 
         label_name = row["Label_Name"] + ".nii.gz"
         label_path = os.path.join(label_path_base, label_name)
         nii_label = nib.load(label_path)
-        label = nii_label.get_fdata()
+        #label = nii_label.get_fdata()
         coordinates = (row["i"], row["j"], row["k"])
 
         if 'left' in sentence and 'right' not in sentence:
