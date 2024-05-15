@@ -175,15 +175,18 @@ def finding_missing_images():
                         for modality_folder in os.listdir(date_path):
                             modality_path = os.path.join(date_path, modality_folder)
                             print(f"modality path: {modality_path}")
-                            if os.path.isdir(modality_path):
-                                # Check if the folder belongs to PT or CT modalities and check the names
-                                if 'PT' in modality_folder.upper():
-                                    print(f"eval PT: {os.listdir(modality_path)}")
-                                    pt_found = any(substring.lower() in series_folder.lower() for series_folder in
-                                                   os.listdir(modality_path) for substring in key_substrings_pt)
-                                elif 'CT' in modality_folder.upper():
-                                    ct_found = any(substring.lower() in series_folder.lower() for series_folder in
-                                                   os.listdir(modality_path) for substring in key_substrings_ct)
+                            for exam_folder in os.listdir(modality_path):
+                                exam_path = os.path.join(modality_path, exam_folder)
+                                if os.path.isdir(exam_path):
+                                    print(f"exam path: {exam_path}")
+                                    # Check if the folder belongs to PT or CT modalities and check the names
+                                    if 'PT' in modality_folder.upper():
+                                        print(f"eval PT: {os.listdir(exam_path)}")
+                                        pt_found = any(substring.lower() in series_folder.lower() for series_folder in
+                                                       os.listdir(exam_path) for substring in key_substrings_pt)
+                                    elif 'CT' in modality_folder.upper():
+                                        ct_found = any(substring.lower() in series_folder.lower() for series_folder in
+                                                       os.listdir(exam_path) for substring in key_substrings_ct)
 
 
                 # Record the results for this patient coding
