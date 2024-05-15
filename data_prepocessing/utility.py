@@ -271,8 +271,11 @@ def analyze_ct_series_when_pt_matches_v1(root_dir, pt_substring):
 def analyze_ct_series_when_pt_matches(root_dir, pt_substring):
     ct_series_count = defaultdict(int)  # Dictionary to count occurrences of CT series
 
+    index = 0
     # Iterate over each patient coding folder
     for patient_coding in os.listdir(root_dir):
+        print(f"index: {index}")
+        index += 1
         patient_path = os.path.join(root_dir, patient_coding)
         if os.path.exists(patient_path) and os.path.isdir(patient_path):  # Check if it's a directory
             # Traverse the directory structure date->modality->exam_name->series
@@ -283,6 +286,7 @@ def analyze_ct_series_when_pt_matches(root_dir, pt_substring):
                     # Collect paths for PT and CT under the same exam_folder
                     for modality_folder in os.listdir(date_path):
                         modality_path = os.path.join(date_path, modality_folder)
+                        print(modality_path)
                         if os.path.isdir(modality_path):
                             for exam_folder in os.listdir(modality_path):
                                 exam_paths.setdefault(exam_folder, {}).update({modality_folder.upper(): modality_path})
