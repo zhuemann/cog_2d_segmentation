@@ -97,14 +97,14 @@ def count_left_right_sided(df):
             left_indices.append(coordinates)
             index = first_nonzero_plane(label)
             left_index_list.append(index)
-            if index < midpoint + 20:
-                print(f"left but on right half petlymph is: {row['Petlymph']}")
+            if index > midpoint + 20:
+                print(f"left but on right half index: {index} midline: {midpoint} petlymph is: {row['Petlymph']}")
                 left_cross_midline += 1
         elif 'left' not in sentence and 'right' in sentence:
             right_indices.append(coordinates)
             index = first_nonzero_plane(label)
             right_index_list.append(index)
-            if index > midpoint - 20:
+            if index < midpoint - 20:
                 print(f"right but on left half petlymph is: {row['Petlymph']}")
                 right_cross_midline += 1
         elif 'left'  in sentence and 'right' in sentence:
