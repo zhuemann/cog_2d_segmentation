@@ -97,7 +97,7 @@ def count_left_right_sided(df):
             left_indices.append(coordinates)
             index = first_nonzero_plane(label)
             left_index_list.append(index)
-            cutoff = midpoint + buffer_dist
+            cutoff = midpoint - buffer_dist
             if index < cutoff:
                 print(f"left but on right half index: {index} midline: {cutoff} label name: {row['Label_Name']}")
                 left_cross_midline += 1
@@ -105,7 +105,7 @@ def count_left_right_sided(df):
             right_indices.append(coordinates)
             index = first_nonzero_plane(label)
             right_index_list.append(index)
-            cutoff = midpoint - buffer_dist
+            cutoff = midpoint + buffer_dist
             if index > cutoff:
                 print(f"right but on left half index {index} midline: {cutoff} label name: {row['Label_Name']}")
                 right_cross_midline += 1
