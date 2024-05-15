@@ -338,6 +338,7 @@ def analyze_ct_series_when_pt_matches(root_dir, pt_substring):
                                     for series_folder in os.listdir(exam_type_path):
                                         exam_paths.setdefault(series_folder, {}).update({modality_folder.upper(): exam_type_path})
 
+                                    print(exam_paths)
                                     # Analyze collected exam folders
                                     for series_folder, paths in exam_paths.items():
                                         pt_path = paths.get('PT')
