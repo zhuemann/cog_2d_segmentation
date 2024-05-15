@@ -79,20 +79,30 @@ def count_left_right_sided(df):
         sentence = row["sentence"]
         if row["Label_Name"] in labels_to_skip:
             continue
+        if index > 1000:
+            continue
         label_name = row["Label_Name"] + ".nii.gz"
         label_path = os.path.join(label_path_base, label_name)
         nii_label = nib.load(label_path)
         label = nii_label.get_fdata()
+
+        midpoint = label.shape[0]/2
+
         coordinates = (row["i"], row["j"], row["k"])
+
 
         if 'left' in sentence and 'right' not in sentence:
             left_indices.append(coordinates)
             index = first_nonzero_plane(label)
             left_index_list.append(index)
+            if index > midpoint + 20:
+                print(f"left but on right half petlymph is: {row['Petlymph']}")
         elif 'left' not in sentence and 'right' in sentence:
             right_indices.append(coordinates)
             index = first_nonzero_plane(label)
             right_index_list.append(index)
+            if index < midpoint - 20:
+                print(f"right but on left half petlymph is: {row['Petlymph']}")
         elif 'left'  in sentence and 'right' in sentence:
             left_and_right_count += 1
         else:
