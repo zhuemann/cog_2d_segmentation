@@ -76,6 +76,7 @@ def count_left_right_sided(df):
 
     left_cross_midline = 0
     right_cross_midline = 0
+    rows_to_return = []
     for index, row in df.iterrows():
         print(f"index: {index}")
         sentence = row["sentence"]
@@ -101,6 +102,7 @@ def count_left_right_sided(df):
             if index < cutoff:
                 print(f"left but on right half index: {index} midline: {cutoff} label name: {row['Label_Name']}")
                 left_cross_midline += 1
+                rows_to_return.append(row["Label_Name"])
         elif 'left' not in sentence and 'right' in sentence:
             right_indices.append(coordinates)
             index = first_nonzero_plane(label)
@@ -109,6 +111,8 @@ def count_left_right_sided(df):
             if index > cutoff:
                 print(f"right but on left half index {index} midline: {cutoff} label name: {row['Label_Name']}")
                 right_cross_midline += 1
+                rows_to_return.append(row["Label_Name"])
+
         elif 'left'  in sentence and 'right' in sentence:
             left_and_right_count += 1
         else:
@@ -129,4 +133,4 @@ def count_left_right_sided(df):
 
     print(f"left cross midline: {left_cross_midline}")
     print(f"right cross midline: {right_cross_midline}")
-
+    print(rows_to_return)
