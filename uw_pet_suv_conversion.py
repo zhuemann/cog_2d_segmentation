@@ -469,6 +469,113 @@ def get_dicom_dimensions(folder_path):
 
     return None
 
+
+def file_conversion_ct():
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+    dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+
+    files_in_directory = os.listdir(dir_path_suv)
+    print(f"files in folder: {len(files_in_directory)}")
+    no_pt_files_list = []
+    index = 0
+
+    num_dates = {}  # key is number of dates in folder value is how many folders have that value
+    num_dates[1] = 0
+    num_modality = {"PT": 0, "CT": 0, "extra": 0}
+    num_study_names = {1: 0, "extra": 0, 0: 0}
+
+    found_cts = 0
+
+    for file in files_in_directory:
+        # print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
+        # if index > 10:
+        #    continue
+        print(f"index: {index} filename: {file} found CTs: {found_cts}")
+        # print(file)
+        index += 1
+        # if index > 100:
+        #    break
+        suv_dims = (0, 0, 0)
+        suv_path = os.path.join(dir_path_suv, file)
+        for filename in os.listdir(suv_path):
+            if filename.endswith(".nii.gz") and "suv" in filename.lower():
+                filepath = os.path.join(suv_path, filename)
+                try:
+                    # Load the NIfTI file
+                    nii = nib.load(filepath)
+                    suv_dims = nii.header.get_data_shape()
+                except:
+
+                    print("can't get dimensions from suv")
+
+        # print(f"suv_dims: {suv_dims}")
+        directory = os.path.join(dir_path, file)
+        date = os.listdir(directory)
+        if len(date) == 1:
+            directory = os.path.join(directory, date[0])
+            num_dates[1] += 1
+        else:
+            print(f"multiple date files in this folder: {directory}")
+            if len(date) not in num_dates:
+                num_dates[len(date)] = 1
+            else:
+                num_dates[len(date)] += 1
+
+        modality = os.listdir(directory)
+
+        if len(modality) > 2:
+            num_modality["extra"] += 1
+        if "CT" in modality:
+            num_modality["CT"] += 1
+        else:
+            # print(f"file: {file} does not have ct scan modality: {modality}")
+            continue
+        if "CT" in modality:
+            # directory = os.path.join(dir_path, file, "PT")
+            directory = os.path.join(directory, "CT")
+        else:
+            print(f"file: {file} does not have Pet scan")
+            continue
+
+        # print(directory)
+        study_name = os.listdir(directory)
+        if len(study_name) == 0:
+            print(f"something funny: {file}")
+            no_pt_files_list.append(file)
+            num_study_names[0] += 1
+            # continue
+        elif study_name == 1:
+            num_study_names[1] += 1
+        else:
+            num_study_names["extra"] += 1
+
+        directory = os.path.join(directory, study_name[0])
+        recon_types = os.listdir(directory)
+
+
+        substrings_to_check = ["CT_MAR", "CTAC", "WB_CT_SLICES", "CT_IMAGES", "WB_Standard"]
+        # Iterate over each substring and check if it's present in any element of recon_types
+        for substring in substrings_to_check:
+            # Normalize to lower case for case-insensitive comparison
+            matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
+            if matched_recon:
+                # If a match is found, build the path
+                top_dicom_folder = os.path.join(directory, matched_recon)
+                z = len(os.listdir(top_dicom_folder))
+                # checks if slices line up other wise don't convert and keep searching
+                if z == suv_dims[2]:
+                    # Perform your additional logic or function calls here
+                    try:
+                        found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts)
+                        found_cts += 1
+                    except:
+                        continue  # If an error occurs, continue with the next substring
+
+
+
+
+
 def file_exploration_analysis_ct():
     dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
     dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
@@ -579,6 +686,23 @@ def file_exploration_analysis_ct():
         """
         number_matches = 0
         recon_type_list = []
+        substrings_to_check = ["CT_MAR", "CTAC", "WB_CT_SLICES", "CT_IMAGES", "WB_Standard"]
+        # Iterate over each substring and check if it's present in any element of recon_types
+        for substring in substrings_to_check:
+            # Normalize to lower case for case-insensitive comparison
+            matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
+            if matched_recon:
+                # If a match is found, build the path
+                top_dicom_folder = os.path.join(directory, matched_recon)
+                z = len(os.listdir(top_dicom_folder))
+                #checks if slices line up other wise don't convert and keep searching
+                if z == suv_dims[2]:
+                    # Perform your additional logic or function calls here
+                    try:
+                        found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts)
+                    except:
+                        continue  # If an error occurs, continue with the next substring
+
         if any("2__ctac" in element.lower() for element in recon_types):
             top_dicom_folder = os.path.join(directory, "2__CTAC")
             # if there is already a CT in the top_dicom_folder continue
