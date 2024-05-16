@@ -36,8 +36,8 @@ if __name__ == '__main__':
     #ct_series_count = analyze_matching_ct_series_for_pt_substring(root_dir="/mnt/Bradshaw/UW_PET_Data/dsb2b/",  pt_substring="WB_IRCTAC")
     #print(ct_series_count)
     #finding_missing_images()
-    file_conversion_ct()
-    print(fail)
+    #file_conversion_ct()
+    #print(fail)
 
     #run_data_pipeline()
     #print(fail)
