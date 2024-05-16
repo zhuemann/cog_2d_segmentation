@@ -568,7 +568,6 @@ def file_conversion_ct():
                     # Perform your additional logic or function calls here
                     try:
                         found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts)
-                        found_cts += 1
                     except:
                         continue  # If an error occurs, continue with the next substring
 
