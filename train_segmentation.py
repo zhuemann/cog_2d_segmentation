@@ -25,6 +25,7 @@ import segmentation_models_pytorch as smp
 #from create_unet import load_img_segmentation_model
 from models.ConTextual_seg_lang_model import Attention_ConTEXTual_Lang_Seg_Model
 from utility import mask2rle
+from data_prepocessing.template_removal import template_removal
 
 import torch.nn.functional as F
 
@@ -219,6 +220,9 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     train_df = train_df[~train_df["Label_Name"].isin(stripped_files)]
     print(f"after dropped length: {len(train_df)}")
 
+    train_df = template_removal(train_df)
+    print(f"after template removal {len(train_df)}")
+
     # Grouping by 'Petlymph' and splitting the groups
     groups = train_df.groupby('Petlymph')
     group_list = [group for _, group in groups]
@@ -389,10 +393,10 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     output_resize = transforms.Compose([transforms.Resize(IMG_SIZE)]) #407 x 907
 
 
-    print("train_df")
-    print(train_df)
-    print("valid df")
-    print(valid_df)
+    #print("train_df")
+    #print(train_df)
+    #print("valid df")
+    #print(valid_df)
     training_set = TextImageDataset(train_df, tokenizer, 512, mode="train", transforms = albu_augs, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = None)
     valid_set =    TextImageDataset(valid_df, tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
     test_set =     TextImageDataset(test_df,  tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)

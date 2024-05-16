@@ -34,8 +34,8 @@ if __name__ == '__main__':
     #print(ct_series_count)
     #ct_series_count = analyze_matching_ct_series_for_pt_substring(root_dir="/mnt/Bradshaw/UW_PET_Data/dsb2b/",  pt_substring="WB_IRCTAC")
     #print(ct_series_count)
-    finding_missing_images()
-    print(fail)
+    #finding_missing_images()
+    #print(fail)
 
     #run_data_pipeline()
     #print(fail)
@@ -78,7 +78,7 @@ if __name__ == '__main__':
 
         #folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
         #save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
-        folder_name = "/contextual_net_1000ep_uw_dataset_larger_left_right_removed_v5/seed" + str(seed) + "/"
+        folder_name = "/contextual_net_1000ep_uw_dataset_larger_left_right_removed_template_removal_v6/seed" + str(seed) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing" + folder_name
         save_location = os.path.join(directory_base, save_string)
         # save_location = ""

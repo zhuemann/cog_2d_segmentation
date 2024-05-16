@@ -11,6 +11,7 @@ from data_prepocessing.create_sentence_mips_and_labels import create_mips
 from data_prepocessing.utility import count_left_right_sided
 #from data_prepocessing.remove_dups_non_anontomical_sent import get_anatomical_dataframe
 from data_prepocessing.data_visualization.plot_mips_with_labels import plot_mips_with_labels
+from data_prepocessing.template_removal import template_removal
 import pandas as pd
 def run_data_pipeline():
 
@@ -110,6 +111,8 @@ def run_data_pipeline():
 
 
     df = pd.read_excel(save_base_final + "uw_final_df_9_all.xlsx")
+
+    df = template_removal(df)
 
     df = count_left_right_sided(df)
 
