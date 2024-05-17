@@ -155,7 +155,7 @@ def plot_ct_head_projections():
             fig, axes = plt.subplots(1, 2, figsize=(20, 10))
 
             # Plot the CT projection
-            axes[0].imshow(ct_max_projection_2d.T, cmap='jet', origin='lower', vmax=500, vmin=-1000, extent=z_extent)
+            axes[0].imshow(ct_max_projection_2d.T, cmap='jet', origin='lower', vmax=500, vmin=-1000, extent=z_plane)
             axes[0].set_title('CT Maximum Intensity Projection (Axis 1)')
             axes[0].set_xlabel('X-axis')
             axes[0].set_ylabel('Z-axis')
@@ -165,7 +165,7 @@ def plot_ct_head_projections():
             axes[0].legend()
 
             # Plot the SUV projection
-            axes[1].imshow(suv_max_projection_2d.T, cmap='jet', origin='lower', extent=z_extent)
+            axes[1].imshow(suv_max_projection_2d.T, cmap='jet', origin='lower', extent=z_plane)
             axes[1].set_title('SUV Maximum Intensity Projection (Axis 1)')
             axes[1].set_xlabel('X-axis')
             axes[1].set_ylabel('Z-axis')
