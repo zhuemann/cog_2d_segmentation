@@ -42,8 +42,11 @@ def plot_ct_head_projections():
     for folder in folder_list:
         print(f"index: {index} total frames cropped: {cropped_frames}")
         index += 1
-        #if index < 1000:
-        #    continue
+        if index < 1000:
+            continue
+        if index > 1100 and index < 7000:
+            continue
+
         #if images_created == 500:
         #    break
         current_path = os.path.join(base_folder, folder)
