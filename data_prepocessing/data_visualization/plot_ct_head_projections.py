@@ -123,3 +123,5 @@ def plot_ct_head_projections():
             images_created += 1
         else:
             print(f'No z-plane with a value above 1000 found along the midpoint line for folder: {folder}')
+
+    print(f"total cropped frames: {cropped_frames}")
