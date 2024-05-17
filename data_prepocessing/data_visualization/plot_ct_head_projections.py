@@ -73,7 +73,7 @@ def plot_ct_head_projections():
         ct_data = ct_nifti_image.get_fdata()
         suv_data = suv_nifti_image.get_fdata()
 
-        z_plane = find_z_plane_above_threshold(500, ct_data)
+        z_plane = find_z_plane_above_threshold(1000, ct_data)
         crop_offset = ct_data.shape[2] - z_plane
         cropped_frames += crop_offset
         # Check if a z-plane was found
