@@ -31,7 +31,7 @@ def find_z_plane_above_threshold(threshold, data):
     return None
 
 
-def plot_ct_head_projections():
+def plot_ct_head_projections_v0():
 
     base_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
 
@@ -100,3 +100,79 @@ def plot_ct_head_projections():
             images_created += 1
         else:
             print(f'No z-plane with a value above 1000 found along the midpoint line for file: {file_name}')
+
+
+def plot_ct_head_projections():
+
+    base_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+    folder_list = os.listdir(base_folder)
+    save_base = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/ct_find_head_mips/"
+    index = 0
+    images_created = 0
+
+    for folder in folder_list:
+        print(f"index: {index}")
+        index += 1
+        if index < 1000:
+            continue
+        if images_created == 500:
+            break
+        current_path = os.path.join(base_folder, folder)
+
+        ct_path_final = None
+        suv_path_final = None
+
+        for file_name in os.listdir(current_path):
+            if "CT" in file_name:
+                ct_path_final = os.path.join(current_path, file_name)
+            if "SUV" in file_name:
+                suv_path_final = os.path.join(current_path, file_name)
+
+        if ct_path_final is None or suv_path_final is None:
+            continue
+
+        save_destination = os.path.join(save_base, str(folder) + ".png")
+
+        # Load the NIfTI files
+        ct_nifti_image = nib.load(ct_path_final)
+        suv_nifti_image = nib.load(suv_path_final)
+
+        # Get the data arrays from the NIfTI images
+        ct_data = ct_nifti_image.get_fdata()
+        suv_data = suv_nifti_image.get_fdata()
+
+        z_plane = find_z_plane_above_threshold(-250, ct_data)
+
+        # Check if a z-plane was found
+        if z_plane is not None:
+            # Create a 2D maximum intensity projection along axis 1 for CT
+            ct_max_projection_2d = np.max(ct_data, axis=1)
+
+            # Create a 2D maximum intensity projection along axis 1 for SUV
+            suv_max_projection_2d = np.max(suv_data, axis=1)
+
+            # Plotting the 2D projections side by side
+            fig, axes = plt.subplots(1, 2, figsize=(20, 10))
+
+            # Plot the CT projection
+            axes[0].imshow(ct_max_projection_2d.T, cmap='jet', origin='lower', vmax=500, vmin=-1000)
+            axes[0].set_title('CT Maximum Intensity Projection (Axis 1)')
+            axes[0].set_xlabel('X-axis')
+            axes[0].set_ylabel('Z-axis')
+            axes[0].axhline(y=z_plane, color='r', linestyle='--', label=f'z-plane {z_plane}')
+            midpoint_x = ct_data.shape[0] // 2
+            axes[0].axvline(x=midpoint_x, color='b', linestyle='--', label=f'x-midpoint {midpoint_x}')
+            axes[0].legend()
+
+            # Plot the SUV projection
+            axes[1].imshow(suv_max_projection_2d.T, cmap='jet', origin='lower')
+            axes[1].set_title('SUV Maximum Intensity Projection (Axis 1)')
+            axes[1].set_xlabel('X-axis')
+            axes[1].set_ylabel('Z-axis')
+
+            # Save the combined figure to the save destination
+            plt.savefig(save_destination)
+            plt.close()
+            images_created += 1
+        else:
+            print(f'No z-plane with a value above 1000 found along the midpoint line for folder: {folder}')
