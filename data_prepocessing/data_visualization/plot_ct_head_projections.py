@@ -106,15 +106,15 @@ def plot_ct_head_projections():
 
     base_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     folder_list = os.listdir(base_folder)
-    save_base = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/ct_find_head_mips/"
+    save_base = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/ct_find_head_mips_v2/"
     index = 0
     images_created = 0
 
     for folder in folder_list:
         print(f"index: {index}")
         index += 1
-        if index < 1000:
-            continue
+        #if index < 1000:
+        #    continue
         if images_created == 500:
             break
         current_path = os.path.join(base_folder, folder)
@@ -132,7 +132,7 @@ def plot_ct_head_projections():
             continue
 
         save_destination = os.path.join(save_base, str(folder) + ".png")
-
+        print(save_destination)
         # Load the NIfTI files
         ct_nifti_image = nib.load(ct_path_final)
         suv_nifti_image = nib.load(suv_path_final)
