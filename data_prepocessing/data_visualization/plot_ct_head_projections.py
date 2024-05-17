@@ -19,10 +19,11 @@ def plot_ct_head_projections():
     folder_list = os.listdir(base_folder)
     save_base = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/ct_find_head_mips/"
     index = 0
+    images_created = 0
     for folder in folder_list:
         print(f"index: {index}")
         index += 1
-        if index == 10:
+        if images_created == 10:
             break
         current_path = os.path.join(base_folder, folder)
 
@@ -75,5 +76,6 @@ def plot_ct_head_projections():
             #save_path = os.path.join(save_destination, f'{file_name}_projection.png')
             plt.savefig(save_destination)
             plt.close()
+            images_created += 1
         else:
             print(f'No z-plane with a value above 1000 found along the midpoint line for file: {file_name}')
