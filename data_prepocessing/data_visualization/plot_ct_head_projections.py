@@ -69,8 +69,8 @@ def plot_ct_head_projections():
             plt.legend()
 
             # Save the figure to the save destination
-            save_path = os.path.join(save_destination, f'{file_name}_projection.png')
-            plt.savefig(save_path)
+            #save_path = os.path.join(save_destination, f'{file_name}_projection.png')
+            plt.savefig(save_destination)
             plt.close()
         else:
             print(f'No z-plane with a value above 1000 found along the midpoint line for file: {file_name}')
