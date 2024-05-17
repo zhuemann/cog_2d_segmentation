@@ -155,7 +155,7 @@ def plot_ct_head_projections():
             fig, axes = plt.subplots(1, 2, figsize=(20, 10))
 
             # Plot the CT projection
-            axes[0].imshow(ct_max_projection_2d.T, cmap='jet', origin='lower', vmax=500, vmin=-1000)
+            axes[0].imshow(ct_max_projection_2d.T, cmap='jet', origin='lower', vmax=3000, vmin=-1000)
             axes[0].set_title('CT Maximum Intensity Projection (Axis 1)')
             axes[0].set_xlabel('X-axis')
             axes[0].set_ylabel('Z-axis')
