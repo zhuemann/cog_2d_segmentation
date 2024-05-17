@@ -151,14 +151,11 @@ def plot_ct_head_projections():
             # Create a 2D maximum intensity projection along axis 1 for SUV
             suv_max_projection_2d = np.max(suv_data, axis=1)
 
-            # Determine the extent of the images
-            z_extent = [0, ct_max_projection_2d.shape[1], 0, ct_max_projection_2d.shape[0]]
-
             # Plotting the 2D projections side by side
             fig, axes = plt.subplots(1, 2, figsize=(20, 10))
 
             # Plot the CT projection
-            axes[0].imshow(ct_max_projection_2d.T, cmap='jet', origin='lower', vmax=500, vmin=-1000, extent=z_extent)
+            axes[0].imshow(ct_max_projection_2d.T, cmap='jet', origin='lower', vmax=500, vmin=-1000)
             axes[0].set_title('CT Maximum Intensity Projection (Axis 1)')
             axes[0].set_xlabel('X-axis')
             axes[0].set_ylabel('Z-axis')
@@ -168,13 +165,10 @@ def plot_ct_head_projections():
             axes[0].legend()
 
             # Plot the SUV projection
-            axes[1].imshow(suv_max_projection_2d.T, cmap='jet', origin='lower', extent=z_extent)
+            axes[1].imshow(suv_max_projection_2d.T, cmap='jet', origin='lower')
             axes[1].set_title('SUV Maximum Intensity Projection (Axis 1)')
             axes[1].set_xlabel('X-axis')
             axes[1].set_ylabel('Z-axis')
-            axes[1].axhline(y=z_plane, color='r', linestyle='--', label=f'z-plane {z_plane}')
-            axes[1].axvline(x=midpoint_x, color='b', linestyle='--', label=f'x-midpoint {midpoint_x}')
-            axes[1].legend()
 
             # Save the combined figure to the save destination
             plt.savefig(save_destination)
