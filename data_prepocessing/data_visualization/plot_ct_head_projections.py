@@ -20,7 +20,7 @@ def find_z_plane_above_threshold(threshold, data):
     # Define the region around the midline
     x_start = max(midpoint_x - 50, 0)
     x_end = min(midpoint_x + 50, data.shape[0])
-    y_start = max(midpoint_y - 50, 0)
+    y_start = max(midpoint_y - 150, 0)
     y_end = min(midpoint_y + 50, data.shape[1])
 
     for z in reversed(range(data.shape[2])):
