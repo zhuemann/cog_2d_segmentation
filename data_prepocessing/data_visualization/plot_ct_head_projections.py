@@ -30,9 +30,9 @@ def plot_ct_head_projections():
 
         if "CT" not in current_path:
             continue
-        save_path = os.path.join(save_base, folder)
-        save_destination = save_path + ".png"
 
+
+        save_destination = save_base + str(folder) + ".png"
 
         #print(current_path)
 
