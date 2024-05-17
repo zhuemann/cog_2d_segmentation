@@ -42,7 +42,7 @@ def plot_ct_head_projections():
     for folder in folder_list:
         print(f"index: {index}")
         index += 1
-        if index < 450:
+        if index < 1000:
             continue
         if images_created == 500:
             break
@@ -51,7 +51,7 @@ def plot_ct_head_projections():
         for file_name in os.listdir(current_path):
             #print(file_name)
             if "CT" in file_name:
-                current_path = os.path.join(current_path, file_name)
+                current_path_final = os.path.join(current_path, file_name)
 
         if "CT" not in current_path:
             continue
@@ -62,7 +62,7 @@ def plot_ct_head_projections():
         #print(current_path)
 
         # Load the NIfTI file
-        nifti_image = nib.load(current_path)
+        nifti_image = nib.load(current_path_final)
 
         # Get the data array from the NIfTI image
         data = nifti_image.get_fdata()
