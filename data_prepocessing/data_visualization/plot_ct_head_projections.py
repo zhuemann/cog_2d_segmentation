@@ -25,7 +25,7 @@ def find_z_plane_above_threshold(threshold, data):
 
     for z in reversed(range(data.shape[2])):
         # Calculate the mean value in the region for the current z-plane
-        region_mean = np.mean(data[x_start:x_end, y_start:y_end, z])
+        region_mean = np.max(data[x_start:x_end, y_start:y_end, z])
         if region_mean > threshold:
             return z
     return None
