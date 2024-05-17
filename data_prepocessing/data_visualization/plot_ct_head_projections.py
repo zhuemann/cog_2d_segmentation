@@ -53,7 +53,7 @@ def plot_ct_head_projections():
             if "CT" in file_name:
                 current_path_final = os.path.join(current_path, file_name)
 
-        if "CT" not in current_path:
+        if "CT" not in current_path_final:
             continue
 
 
