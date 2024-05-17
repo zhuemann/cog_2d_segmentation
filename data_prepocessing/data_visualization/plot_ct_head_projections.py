@@ -155,7 +155,7 @@ def plot_ct_head_projections():
             ct_max_projection_2d_axis0 = np.max(ct_data, axis=0)
 
             # Plotting the 2D projections side by side
-            fig, axes = plt.subplots(1, 2, figsize=(20, 10))
+            fig, axes = plt.subplots(1, 3, figsize=(30, 10))
 
             # Plot the CT projection
             axes[0].imshow(ct_max_projection_2d.T, cmap='jet', origin='lower', vmax=3000, vmin=-1000)
