@@ -23,7 +23,7 @@ def plot_ct_head_projections():
     for folder in folder_list:
         print(f"index: {index}")
         index += 1
-        if images_created == 10:
+        if images_created == 100:
             break
         current_path = os.path.join(base_folder, folder)
 
