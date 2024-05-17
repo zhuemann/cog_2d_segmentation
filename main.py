@@ -23,6 +23,7 @@ from data_prepocessing.utility import finding_missing_images
 from data_prepocessing.utility import analyze_ct_series_when_pt_matches
 from data_prepocessing.utility import analyze_matching_ct_series_for_pt_substring
 from uw_pet_suv_conversion import file_conversion_ct
+from data_prepocessing.data_visualization.plot_ct_head_projections import plot_ct_head_projections
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
@@ -37,7 +38,8 @@ if __name__ == '__main__':
     #print(ct_series_count)
     #finding_missing_images()
     #file_conversion_ct()
-    #print(fail)
+    plot_ct_head_projections()
+    print(fail)
 
     #run_data_pipeline()
     #print(fail)
