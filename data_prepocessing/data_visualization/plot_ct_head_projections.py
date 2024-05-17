@@ -7,7 +7,7 @@ def find_z_plane_above_threshold(threshold, data):
     midpoint_x = data.shape[0] // 2
     midpoint_y = data.shape[1] // 2
 
-    for z in range(data.shape[2]):
+    for z in reversed(range(data.shape[2])):
         if data[midpoint_x, midpoint_y, z] > threshold:
             return z
     return None
