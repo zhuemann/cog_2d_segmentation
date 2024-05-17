@@ -151,6 +151,9 @@ def plot_ct_head_projections():
             # Create a 2D maximum intensity projection along axis 1 for SUV
             suv_max_projection_2d = np.max(suv_data, axis=1)
 
+            # Create a 2D maximum intensity projection along axis 0 for CT
+            ct_max_projection_2d_axis0 = np.max(ct_data, axis=0)
+
             # Plotting the 2D projections side by side
             fig, axes = plt.subplots(1, 2, figsize=(20, 10))
 
@@ -170,6 +173,16 @@ def plot_ct_head_projections():
             axes[1].set_xlabel('X-axis')
             axes[1].set_ylabel('Z-axis')
             axes[1].axhline(y=z_plane, color='r', linestyle='--', label=f'z-plane {z_plane}')
+
+            # Plot the CT projection on axis 0
+            axes[2].imshow(ct_max_projection_2d_axis0.T, cmap='jet', origin='lower', vmax=500, vmin=-1000)
+            axes[2].set_title('CT Maximum Intensity Projection (Axis 0)')
+            axes[2].set_xlabel('Y-axis')
+            axes[2].set_ylabel('Z-axis')
+            axes[2].axhline(y=z_plane, color='r', linestyle='--', label=f'z-plane {z_plane}')
+            midpoint_y = ct_data.shape[1] // 2
+            axes[2].axvline(x=midpoint_y, color='b', linestyle='--', label=f'y-midpoint {midpoint_y}')
+            axes[2].legend()
 
             # Save the combined figure to the save destination
             plt.savefig(save_destination)
