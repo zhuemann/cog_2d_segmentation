@@ -13,8 +13,8 @@ def plot_ct_head_projections():
         current_path = os.path.join(base_folder, folder)
 
         for file_name in os.listdir(current_path):
-
-            if "CT" in file_name and os.path.isfile(os.path.join(base_folder, file_name)):
+            print(file_name)
+            if "CT" in file_name:
                 current_path = os.path.join(current_path, file_name)
 
         print(current_path)
