@@ -106,7 +106,7 @@ def plot_ct_head_projections():
 
     base_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     folder_list = os.listdir(base_folder)
-    save_base = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/ct_find_head_mips_v2/"
+    save_base = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/ct_find_head_mips_v3/"
     index = 0
     images_created = 0
 
