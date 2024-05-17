@@ -3,7 +3,7 @@ import nibabel as nib
 import numpy as np
 import matplotlib.pyplot as plt
 
-def find_z_plane_above_threshold(threshold, data):
+def find_z_plane_above_threshold_v1(threshold, data):
     midpoint_x = data.shape[0] // 2
     midpoint_y = data.shape[1] // 2
 
@@ -11,6 +11,25 @@ def find_z_plane_above_threshold(threshold, data):
         if data[midpoint_x, midpoint_y, z] > threshold:
             return z
     return None
+
+
+def find_z_plane_above_threshold(threshold, data):
+    midpoint_x = data.shape[0] // 2
+    midpoint_y = data.shape[1] // 2
+
+    # Define the region around the midline
+    x_start = max(midpoint_x - 50, 0)
+    x_end = min(midpoint_x + 50, data.shape[0])
+    y_start = max(midpoint_y - 50, 0)
+    y_end = min(midpoint_y + 50, data.shape[1])
+
+    for z in range(data.shape[2]):
+        # Calculate the mean value in the region for the current z-plane
+        region_mean = np.mean(data[x_start:x_end, y_start:y_end, z])
+        if region_mean > threshold:
+            return z
+    return None
+
 
 def plot_ct_head_projections():
 
