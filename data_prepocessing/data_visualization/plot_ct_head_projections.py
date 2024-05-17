@@ -25,8 +25,8 @@ def find_z_plane_above_threshold(threshold, data):
 
     for z in reversed(range(data.shape[2])):
         # Calculate the mean value in the region for the current z-plane
-        region_mean = np.max(data[x_start:x_end, y_start:y_end, z])
-        if region_mean > threshold:
+        region_max = np.max(data[x_start:x_end, y_start:y_end, z])
+        if region_max > threshold:
             return z
     return None
 
@@ -65,7 +65,7 @@ def plot_ct_head_projections():
         # Get the data array from the NIfTI image
         data = nifti_image.get_fdata()
 
-        z_plane = find_z_plane_above_threshold(-100, data)
+        z_plane = find_z_plane_above_threshold(-1000, data)
 
         # Check if a z-plane was found
         if z_plane is not None:
