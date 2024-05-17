@@ -18,13 +18,14 @@ def plot_ct_head_projections():
 
     folder_list = os.listdir(base_folder)
     save_base = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/ct_find_head_mips/"
-
+    index = 0
     for folder in folder_list:
-
+        print(f"index: {index}")
+        index += 1
         current_path = os.path.join(base_folder, folder)
 
         for file_name in os.listdir(current_path):
-            print(file_name)
+            #print(file_name)
             if "CT" in file_name:
                 current_path = os.path.join(current_path, file_name)
 
@@ -46,7 +47,7 @@ def plot_ct_head_projections():
 
         # Check if a z-plane was found
         if z_plane is not None:
-            print(f'The z-plane along the midpoint line with a value above 1000 is: {z_plane}')
+            #print(f'The z-plane along the midpoint line with a value above 1000 is: {z_plane}')
 
             # Create a 2D maximum intensity projection along axis 1
             max_projection_2d = np.max(data, axis=1)
