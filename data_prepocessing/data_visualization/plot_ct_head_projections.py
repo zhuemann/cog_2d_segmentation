@@ -165,10 +165,11 @@ def plot_ct_head_projections():
             axes[0].legend()
 
             # Plot the SUV projection
-            axes[1].imshow(suv_max_projection_2d.T, cmap='jet', origin='lower')
+            axes[1].imshow(suv_max_projection_2d.T, cmap='jet', origin='lower', vmax=10, vmin=0)
             axes[1].set_title('SUV Maximum Intensity Projection (Axis 1)')
             axes[1].set_xlabel('X-axis')
             axes[1].set_ylabel('Z-axis')
+            axes[1].axhline(y=z_plane, color='r', linestyle='--', label=f'z-plane {z_plane}')
 
             # Save the combined figure to the save destination
             plt.savefig(save_destination)
