@@ -31,77 +31,6 @@ def find_z_plane_above_threshold(threshold, data):
     return None
 
 
-def plot_ct_head_projections_v0():
-
-    base_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
-
-    folder_list = os.listdir(base_folder)
-    save_base = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/ct_find_head_mips/"
-    index = 0
-    images_created = 0
-    for folder in folder_list:
-        print(f"index: {index}")
-        index += 1
-        if index < 1000:
-            continue
-        if images_created == 500:
-            break
-        current_path = os.path.join(base_folder, folder)
-
-        for file_name in os.listdir(current_path):
-            #print(file_name)
-            if "CT" in file_name:
-                current_path_final = os.path.join(current_path, file_name)
-
-        if "CT" not in current_path_final:
-            continue
-
-
-        save_destination = save_base + str(folder) + ".png"
-
-        #print(current_path)
-
-        # Load the NIfTI file
-        nifti_image = nib.load(current_path_final)
-
-        # Get the data array from the NIfTI image
-        data = nifti_image.get_fdata()
-
-        z_plane = find_z_plane_above_threshold(-250, data)
-
-        # Check if a z-plane was found
-        if z_plane is not None:
-            #print(f'The z-plane along the midpoint line with a value above 1000 is: {z_plane}')
-
-            # Create a 2D maximum intensity projection along axis 1
-            max_projection_2d = np.max(data, axis=1)
-
-            # Plotting the 2D projection with the line
-            plt.figure(figsize=(10, 10))
-            plt.imshow(max_projection_2d.T, cmap='jet', origin='lower', vmax=500,
-                       vmin=-1000)  # Transposed for correct orientation
-            plt.colorbar(label='Max intensity')
-            plt.title('2D Maximum Intensity Projection (Axis 1)')
-            plt.xlabel('X-axis')
-            plt.ylabel('Z-axis')
-
-            # Calculate the midpoint of the first dimension
-            midpoint_x = data.shape[0] // 2
-
-            # Plot the line at the calculated midpoint and z-plane
-            plt.axhline(y=z_plane, color='r', linestyle='--', label=f'z-plane {z_plane}')
-            plt.axvline(x=midpoint_x, color='b', linestyle='--', label=f'x-midpoint {midpoint_x}')
-            plt.legend()
-
-            # Save the figure to the save destination
-            #save_path = os.path.join(save_destination, f'{file_name}_projection.png')
-            plt.savefig(save_destination)
-            plt.close()
-            images_created += 1
-        else:
-            print(f'No z-plane with a value above 1000 found along the midpoint line for file: {file_name}')
-
-
 def plot_ct_head_projections():
 
     base_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
@@ -109,14 +38,14 @@ def plot_ct_head_projections():
     save_base = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/ct_find_head_mips_v3/"
     index = 0
     images_created = 0
-
+    cropped_frames = 0
     for folder in folder_list:
-        print(f"index: {index}")
+        print(f"index: {index} total frames cropped: {cropped_frames}")
         index += 1
         #if index < 1000:
         #    continue
-        if images_created == 500:
-            break
+        #if images_created == 500:
+        #    break
         current_path = os.path.join(base_folder, folder)
 
         ct_path_final = None
@@ -142,7 +71,8 @@ def plot_ct_head_projections():
         suv_data = suv_nifti_image.get_fdata()
 
         z_plane = find_z_plane_above_threshold(-250, ct_data)
-
+        crop_offset = ct_data.shape[2] - z_plane
+        cropped_frames += crop_offset
         # Check if a z-plane was found
         if z_plane is not None:
             # Create a 2D maximum intensity projection along axis 1 for CT
@@ -169,7 +99,7 @@ def plot_ct_head_projections():
 
             # Plot the SUV projection
             axes[1].imshow(suv_max_projection_2d.T, cmap='jet', origin='lower', vmax=10, vmin=0)
-            axes[1].set_title('SUV Maximum Intensity Projection (Axis 1)')
+            axes[1].set_title(f'SUV Maximum Intensity Projection (Axis 1) offset: {crop_offset}')
             axes[1].set_xlabel('X-axis')
             axes[1].set_ylabel('Z-axis')
             axes[1].axhline(y=z_plane, color='r', linestyle='--', label=f'z-plane {z_plane}')
