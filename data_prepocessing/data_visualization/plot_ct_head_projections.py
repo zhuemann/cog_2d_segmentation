@@ -35,7 +35,7 @@ def plot_ct_head_projections():
 
     base_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     folder_list = os.listdir(base_folder)
-    save_base = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/ct_find_head_mips_v3/"
+    save_base = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/ct_find_head_mips_v4/"
     index = 0
     images_created = 0
     cropped_frames = 0
@@ -70,7 +70,7 @@ def plot_ct_head_projections():
         ct_data = ct_nifti_image.get_fdata()
         suv_data = suv_nifti_image.get_fdata()
 
-        z_plane = find_z_plane_above_threshold(-250, ct_data)
+        z_plane = find_z_plane_above_threshold(100, ct_data)
         crop_offset = ct_data.shape[2] - z_plane
         cropped_frames += crop_offset
         # Check if a z-plane was found
