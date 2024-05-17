@@ -76,7 +76,7 @@ def plot_ct_head_projections():
 
             # Plotting the 2D projection with the line
             plt.figure(figsize=(10, 10))
-            plt.imshow(max_projection_2d.T, cmap='jet', origin='lower', vmax=3000,
+            plt.imshow(max_projection_2d.T, cmap='jet', origin='lower', vmax=500,
                        vmin=-1000)  # Transposed for correct orientation
             plt.colorbar(label='Max intensity')
             plt.title('2D Maximum Intensity Projection (Axis 1)')
