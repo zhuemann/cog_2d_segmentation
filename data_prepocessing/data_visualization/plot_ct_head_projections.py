@@ -46,7 +46,7 @@ def plot_ct_head_projections():
         # Get the data array from the NIfTI image
         data = nifti_image.get_fdata()
 
-        z_plane = find_z_plane_above_threshold(25, data)
+        z_plane = find_z_plane_above_threshold(1, data)
 
         # Check if a z-plane was found
         if z_plane is not None:
