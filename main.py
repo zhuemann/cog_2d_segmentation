@@ -38,8 +38,8 @@ if __name__ == '__main__':
     #print(ct_series_count)
     #finding_missing_images()
     #file_conversion_ct()
-    plot_ct_head_projections()
-    print(fail)
+    #plot_ct_head_projections()
+    #print(fail)
 
     #run_data_pipeline()
     #print(fail)
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 32, "dir_base": directory_base, "epochs": 500, "n_classes": 2, "LR": 1e-3,
+    config = {"seed": 1, "batch_size": 32, "dir_base": directory_base, "epochs": 400, "n_classes": 2, "LR": 1e-3,
               "IMG_SIZE": (192, 384), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/", #"IMG_SIZE": (128, 256)
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": ""}
 
@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
         #folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
         #save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
-        folder_name = "/contextual_net_1000ep_uw_dataset_larger_left_right_removed_template_removal_longer_v7/seed" + str(seed) + "/"
+        folder_name = "/contextual_net_1000ep_uw_dataset_unfrozen_at_250_v8/seed" + str(seed) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing" + folder_name
         save_location = os.path.join(directory_base, save_string)
         # save_location = ""
