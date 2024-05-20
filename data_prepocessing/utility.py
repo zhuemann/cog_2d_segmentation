@@ -311,3 +311,71 @@ def analyze_matching_ct_series_for_pt_substring(root_dir, pt_substring):
     return ct_series_count
 
 
+def generate_data_sheet_on_uw_pet_dataset():
+
+    df_path = "/UserData/UW_PET_Data/UWPETCTWB_Research-Image-Requests_20240311.xlsx"
+    df = pd.read_excel(df_path)
+
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+
+    key_substrings_pt = ["WB_3D_MAC", "WB_MAC", "WB_AC_3D", "PET_AC_3D", "WB_IRCTAC"]
+    key_substrings_ct = ["CTAC", "CT_IMAGES", "WB_Standard", "WB_CT_SLICES", "CT_MAR"]
+
+    # Prepare a list to hold all rows of data
+    data = []
+
+    for index, row in df.iterrows():
+
+        print(f"index: {index}")
+        patient_coding = row["Coded Accession Number"]
+
+        # Initialize dictionary to hold row data
+        row_data = {
+            "Patient Coding": patient_coding,
+            "PET Found": False,
+            "PET Series": None,
+            "PET Path": None,
+            "CT Found": False,
+            "CT Series": None,
+            "CT Path": None
+        }
+
+        image_path = os.path.join(image_path_base, patient_coding)
+
+        if not os.path.exists(image_path):
+            data.append(row_data)
+
+        files = os.listdir(image_path)
+
+        # Check for PET files
+        for file in files:
+            if "SUV" in file:
+                row_data["PET Found"] = True
+                row_data["PET Path"] = os.path.join(image_path, file)
+                # Check for series in PET files
+                for substring in key_substrings_pt:
+                    if substring in file:
+                        row_data["PET Series"] = substring
+                        break
+
+        # Check for CT files
+        for file in files:
+            if "CT" in file and not row_data["CT Found"]:  # To ensure only the first CT file is taken
+                row_data["CT Found"] = True
+                row_data["CT Path"] = os.path.join(image_path, file)
+                # Check for series in CT files
+                for substring in key_substrings_ct:
+                    if substring in file:
+                        row_data["CT Series"] = substring
+                        break
+
+        # Append the row data to the list
+        data.append(row_data)
+    # Create a DataFrame
+    output_df = pd.DataFrame(data)
+
+    # Save to Excel
+    output_path = "/UserData/UW_PET_Data/UW_PET_Datasheet.xlsx"
+    output_df.to_excel(output_path, index=False)
+
+    print("Data sheet generated and saved to Excel successfully.")

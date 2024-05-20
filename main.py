@@ -24,9 +24,12 @@ from data_prepocessing.utility import analyze_ct_series_when_pt_matches
 from data_prepocessing.utility import analyze_matching_ct_series_for_pt_substring
 from uw_pet_suv_conversion import file_conversion_ct
 from data_prepocessing.data_visualization.plot_ct_head_projections import plot_ct_head_projections
+from data_prepocessing.utility import generate_data_sheet_on_uw_pet_dataset
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
+    generate_data_sheet_on_uw_pet_dataset()
+    print(fail)
     #df = "/UserData/Zach_Analysis/petlymph_image_data/uw_final_df_9.xlsx"
     #df = pd.read_excel(df)
     #get_suv_file_names(df)

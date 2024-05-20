@@ -79,3 +79,4 @@ def get_max_pixel_value(images, targets, outputs):
     max_output, _ = torch.max(max_output, dim=1)
 
     return max_target, max_output
+
