@@ -344,6 +344,7 @@ def generate_data_sheet_on_uw_pet_dataset():
 
         if not os.path.exists(image_path):
             data.append(row_data)
+            continue
 
         files = os.listdir(image_path)
 
