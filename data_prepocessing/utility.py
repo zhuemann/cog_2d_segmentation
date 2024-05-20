@@ -93,7 +93,8 @@ def count_left_right_sided(df):
         buffer_dist = 10
         coordinates = (row["i"], row["j"], row["k"])
 
-
+        number_of_images_correct = 0
+        not_checked = 0
         if 'left' in sentence and 'right' not in sentence:
             left_indices.append(coordinates)
             index = first_nonzero_plane(label)
@@ -103,6 +104,11 @@ def count_left_right_sided(df):
                 print(f"left but on right half index: {index} midline: {cutoff} label name: {row['Label_Name']}")
                 left_cross_midline += 1
                 rows_to_return.append(row["Label_Name"])
+            elif index > midpoint + buffer_dist:
+                number_of_images_correct += 1
+            else:
+                not_checked += 1
+
         elif 'left' not in sentence and 'right' in sentence:
             right_indices.append(coordinates)
             index = first_nonzero_plane(label)
@@ -112,11 +118,16 @@ def count_left_right_sided(df):
                 print(f"right but on left half index {index} midline: {cutoff} label name: {row['Label_Name']}")
                 right_cross_midline += 1
                 rows_to_return.append(row["Label_Name"])
-
+            elif index < midpoint - buffer_dist:
+                number_of_images_correct += 1
+            else:
+                not_checked += 1
         elif 'left'  in sentence and 'right' in sentence:
             left_and_right_count += 1
+            not_checked += 1
         else:
             neither_count += 1
+            not_checked += 1
 
 
     print("left components")
@@ -134,6 +145,9 @@ def count_left_right_sided(df):
     print(f"left cross midline: {left_cross_midline}")
     print(f"right cross midline: {right_cross_midline}")
     print(rows_to_return)
+
+    print(f"images not checked: {not_checked}")
+    print(f"total images correct: {number_of_images_correct}")
 
     filtered_df = df[df['Label_Name'].isin(rows_to_return)]
     return filtered_df
