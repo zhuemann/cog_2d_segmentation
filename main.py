@@ -28,8 +28,8 @@ from data_prepocessing.utility import generate_data_sheet_on_uw_pet_dataset
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-    generate_data_sheet_on_uw_pet_dataset()
-    print(fail)
+    #generate_data_sheet_on_uw_pet_dataset()
+    #print(fail)
     #df = "/UserData/Zach_Analysis/petlymph_image_data/uw_final_df_9.xlsx"
     #df = pd.read_excel(df)
     #get_suv_file_names(df)
@@ -44,8 +44,8 @@ if __name__ == '__main__':
     #plot_ct_head_projections()
     #print(fail)
 
-    #run_data_pipeline()
-    #print(fail)
+    run_data_pipeline()
+    print(fail)
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
     #create_mips()
