@@ -206,14 +206,15 @@ def plot_for_label_accuracy_assessment(df):
         # loads in the image as a numpy array
         nii_image = nib.load(image_path)
         img = nii_image.get_fdata()
-        print(f"pet image dimensions: {img.shape}")
+        #print(f"pet image dimensions: {img.shape}")
 
         # loads in the label as a numpy array
         nii_label = nib.load(label_path)
         label = nii_label.get_fdata()
 
         ct_label = resample_image(label, ct_volume.shape)
-        print(f"ct label dimensions: {ct_label.shape}")
+        ct_label = np.round(ct_label).astype(int)
+        #print(f"ct label dimensions: {ct_label.shape}")
         transaxial_slice = ct_volume[:, :, slice_num]
 
         mip_coronal = np.max(img, axis=1)
@@ -272,9 +273,9 @@ def plot_for_label_accuracy_assessment(df):
         ax3.set_title('Sagittal')
 
         ax4 = plt.subplot(1, 4, 4)
-        ax4.imshow(mip_axial, cmap='gray', vmax=400, vmin = -500)
+        ax4.imshow(mip_axial, cmap='gray', vmax=400, vmin = 0)
         ax4.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
-        ax4.set_title('Axial')
+        ax4.set_title(f'Axial Slice: {slice_num}')
 
         plt.suptitle(row["sentence"] + " pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
 
