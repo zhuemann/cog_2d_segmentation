@@ -219,20 +219,25 @@ def plot_for_label_accuracy_assessment(df):
 
         # Plotting
         plt.figure(figsize=(24, 10))
-        ax1 = plt.subplot(1, 4, 1)
+
+        ax1 = plt.subplot(1, 4, 2)
         ax1.imshow(mip_coronal, cmap='gray', vmax=10)
-        ax1.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9)
-        ax1.set_title('Coronal')
+        ax1.set_title('MIP')
 
         ax2 = plt.subplot(1, 4, 2)
-        ax2.imshow(mip_sagittal, cmap='gray', vmax=10)
-        ax2.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9)
-        ax2.set_title('Sagittal')
+        ax2.imshow(mip_coronal, cmap='gray', vmax=10)
+        ax2.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9)
+        ax2.set_title('Coronal')
 
         ax3 = plt.subplot(1, 4, 3)
-        ax3.imshow(mip_axial, cmap='gray', vmax=10)
-        ax3.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
-        ax3.set_title('Axial')
+        ax3.imshow(mip_sagittal, cmap='gray', vmax=10)
+        ax3.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9)
+        ax3.set_title('Sagittal')
+
+        ax4 = plt.subplot(1, 4, 4)
+        ax4.imshow(mip_axial, cmap='gray', vmax=10)
+        ax4.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
+        ax4.set_title('Axial')
 
         plt.suptitle(row["sentence"] + " pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
 
