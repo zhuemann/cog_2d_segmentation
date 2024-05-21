@@ -141,7 +141,7 @@ def plot_for_label_accuracy_assessment(df):
         if os.path.exists('/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/resampled_labels/' + row["Label_Name"] + '.nii.gz'):
             ct_label = nib.load('/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/resampled_labels/' + row["Label_Name"] + '.nii.gz')
         else:
-            ct_label = nib.Nifti1Image(nii_label, affine=ct_volume.affine, header=ct_volume.header)
+            ct_label = nib.Nifti1Image(label, affine=ct_volume.affine, header=ct_volume.header)
             #ct_label = resample_image(label, ct_volume.shape)
             nib.save(ct_label, '/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/resampled_labels/' + row["Label_Name"] + '.nii.gz')
         ct_label.get_fdata()
