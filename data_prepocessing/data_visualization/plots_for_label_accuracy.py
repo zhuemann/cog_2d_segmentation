@@ -158,12 +158,15 @@ def plot_for_label_accuracy_assessment(df):
         resampled_path = '/mnt/Bradshaw/UW_PET_Data/resampled_labels/' + row["Label_Name"] + '.nii.gz'
         if os.path.exists(resampled_path):
             ct_label = nib.load(resampled_path)
+            print("found label")
         else:
+            print("resampling label")
             ct_label = resample_image(label, ct_volume.shape)
             # If it doesn't exist, create a new NIfTI image using the label array, affine, and header from the original label image
             ct_label = nib.Nifti1Image(ct_label, affine=nii_label.affine, header=nii_label.header)
             # Optionally, save it if needed
             nib.save(ct_label, resampled_path)
+
 
 
         ct_label = ct_label.get_fdata()
