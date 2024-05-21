@@ -263,7 +263,7 @@ def plot_for_label_accuracy_assessment(df):
         """
         sentence = row["sentence"]
         sentence = insert_newlines(sentence, word_limit=25)
-        plt.suptitle(sentence + " pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
+        plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) +" Slice:" + slice_num + "SUV: " + str(row["SUV"]), fontsize=12, color='black')
 
         plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mips_accuracy_assessment/" + label_name)
 
