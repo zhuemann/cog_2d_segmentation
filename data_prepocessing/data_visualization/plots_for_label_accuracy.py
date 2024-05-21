@@ -207,7 +207,7 @@ def plot_for_label_accuracy_assessment(df):
         """
         # Plotting the fourth subplot for the axial view with contour overlay
         ax4 = plt.subplot(1, 4, 4)
-        ax4.imshow(mip_axial, cmap='gray', vmax=800, vmin=-500)
+        ax4.imshow(mip_axial, cmap='gray', vmax=1000, vmin=-1000)
         # Generate and plot contours from the label
         contours = measure.find_contours(label_axial, level=0.5)  # Use your predefined function or this direct call
         for contour in contours:
@@ -217,6 +217,7 @@ def plot_for_label_accuracy_assessment(df):
         for contour in contours:
             ax4.plot(contour[:, 1], contour[:, 0], linewidth=2, color='red')  # contour[:, 1] is x, contour[:, 0] is y
 
+        ax4.set_title(f'Axial Slice: {slice_num}')
         plt.suptitle(row["sentence"] + " pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
 
         plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mips_accuracy_assessment/" + label_name)
