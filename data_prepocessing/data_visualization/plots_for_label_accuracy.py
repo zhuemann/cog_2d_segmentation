@@ -175,7 +175,7 @@ def plot_for_label_accuracy_assessment(df):
         # Check if any file was found that contains "CT"
         if index_of_ct:
             # Update image_path to include the file name of the CT image
-            ct_image_path = os.path.join(image_path, file_names[index_of_ct[0]])
+            ct_image_path = os.path.join(image_path_base, folder_name, file_names[index_of_ct[0]])
         else:
             # Handle the case where no CT file is found
             ct_image_path = None
