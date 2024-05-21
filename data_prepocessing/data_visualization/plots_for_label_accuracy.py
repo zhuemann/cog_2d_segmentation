@@ -191,6 +191,7 @@ def plot_for_label_accuracy_assessment(df):
         # loads in the image as a numpy array
         nii_image = nib.load(image_path)
         img = nii_image.get_fdata()
+        print(f"pet image dimensions: {img.shape}")
 
         # loads in the label as a numpy array
         nii_label = nib.load(label_path)
