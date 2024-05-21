@@ -71,6 +71,13 @@ def create_label_outline(label_array):
     outline = label_array - eroded_label
     return outline
 
+from skimage import measure
+
+def find_contours_skimage(binary_image, level=0.5):
+    # Find contours at a constant value level
+    contours = measure.find_contours(binary_image, level=level)
+    return contours
+
 def plot_for_label_accuracy_assessment(df):
 
 
@@ -157,7 +164,7 @@ def plot_for_label_accuracy_assessment(df):
         label_sagittal = np.rot90(label_sagittal)
         mip_axial = np.rot90(mip_axial, k=-1)
         label_axial = np.rot90(label_axial, k=-1)
-        outline = create_label_outline(label_axial)
+        #outline = create_label_outline(label_axial)
 
         plt.figure(figsize=(24, 10))
         plt.subplot(1, 4, 1)  # 1 row, 2 columns, first subplot
@@ -191,12 +198,25 @@ def plot_for_label_accuracy_assessment(df):
         ax3.imshow(mip_sagittal, cmap='gray', vmax=10)
         ax3.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9)
         ax3.set_title('Sagittal')
-
+        """
         ax4 = plt.subplot(1, 4, 4)
         ax4.imshow(mip_axial, cmap='gray', vmax=800, vmin = -500)
-        #ax4.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
-        plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
+        ax4.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
+        #plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
         ax4.set_title(f'Axial Slice: {slice_num}')
+        """
+        # Generate contours from the label
+        contours = find_contours_skimage(label_axial)
+
+        # Plotting
+        fig, ax4 = plt.subplots(figsize=(8, 8))  # Adjust figure size as needed
+
+        # Display the axial MIP
+        ax4.imshow(mip_axial, cmap='gray', vmax=800, vmin=-500)
+
+        # Plot contours
+        for contour in contours:
+            ax4.plot(contour[:, 1], contour[:, 0], linewidth=2, color='red')  # contour[:, 1] is x, contour[:, 0] is y
 
         plt.suptitle(row["sentence"] + " pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
 
