@@ -109,24 +109,24 @@ def run_data_pipeline():
     
     This should take care of the detect_and_remove_multiple_suv_slice call but should still call it after.
     """
-    df = pd.read_excel(save_base + "final_df_8_33000.xlsx")
-    df = remove_non_anontomical_sent(df)
+    #df = pd.read_excel(save_base + "final_df_8_33000.xlsx")
+    #df = remove_non_anontomical_sent(df)
 
     #df = pd.read_excel(save_base_final + "uw_final_df_9_all.xlsx")
-    print(f"length before template removal: {len(df)}")
-    df = df.rename(columns={'Extracted Sentences': 'sentence'})
-    df = template_removal(df)
-    print(f"length after template removal: {len(df)}")
+    #print(f"length before template removal: {len(df)}")
+    #df = df.rename(columns={'Extracted Sentences': 'sentence'})
+    #df = template_removal(df)
+    #print(f"length after template removal: {len(df)}")
 
     # df = count_left_right_sided(df)
     # df.to_excel(save_base_final + "uw_label_wrong_side_analysis_10.xlsx", index=False)
-    df_removal = pd.read_excel(save_base + "uw_label_wrong_side_analysis.xlsx")
-    labels_to_skip = df_removal['Label_Name'].tolist()
-    df = df[~df["Label_Name"].isin(labels_to_skip)]
-    df.to_excel(save_base + "uw_label_wrong_side_removed_test.xlsx", index=False)
-    #print(f"length before: {len(df)}")
-    #df = template_removal(df)
-    #print(f"length after: {len(df)}")
+    #df_removal = pd.read_excel(save_base + "uw_label_wrong_side_analysis.xlsx")
+    #labels_to_skip = df_removal['Label_Name'].tolist()
+    #df = df[~df["Label_Name"].isin(labels_to_skip)]
+    #df.to_excel(save_base + "uw_label_wrong_side_removed_test.xlsx", index=False)
+
+
+    df = pd.read_excel(save_base + "uw_label_wrong_side_removed_test.xlsx")
     sampled_df = df.sample(n=500, random_state=1)
     sampled_df.to_excel(save_base + "cases_for_labeling_accuracy_accessment.xlsx", index=False)
     plot_for_label_accuracy_assessment(sampled_df)

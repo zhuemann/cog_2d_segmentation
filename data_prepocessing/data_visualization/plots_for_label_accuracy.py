@@ -38,8 +38,7 @@ def normalize_mip(mip):
     return normalized_uint8
 
 
-
-def plot_for_label_accuracy_assessment(df):
+def plot_for_label_accuracy_assessment_v2(df):
 
 
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
@@ -51,8 +50,7 @@ def plot_for_label_accuracy_assessment(df):
     for index, row in df.iterrows():
 
         print(f"index: {index}")
-        #if index == 10:
-        #    break
+
         petlymph = row["Petlymph"]
         if row["Label_Name"] in labels_to_skip:
             continue
@@ -76,29 +74,30 @@ def plot_for_label_accuracy_assessment(df):
         nii_label = nib.load(label_path)
         label = nii_label.get_fdata()
 
+
+
         mip_coronal = np.max(img, axis=1)
         mip_sagital = np.max(img, axis=0) # I think
         mip_axial = np.max(img, axis=2) # I think this axis is right
         #mip_coronal = normalize_mip(mip_coronal)
 
         label_coronal = np.max(label, axis=1)
-        #print(f"sum of pos pixels: {np.sum(label_coronal)}")
-        # plt.imshow(mip_coronal, cmap='gray')  # Use an appropriate colormap
-        # plt.imshow(label_coronal, cmap="jet", alpha=.2)
-        # plt.colorbar()  # Optional, adds a colorbar to show the mapping of values to colors
-        # plt.title('2D Maximum Projection')
-        # plt.show()
-        #label_name = row["Label_Name"]
-        # print(img.shape)
-        #filename_img = "/UserData/Zach_Analysis/petlymph_image_data/images_coronal_mip_v4/" + str(petlymph) + ".png"
-        #filename_label = "/UserData/Zach_Analysis/petlymph_image_data/labels_coronal_mip_v6/" + str(label_name) + ".png"
-        # save_as_dicom(mip_coronal, filename)
-        #save_2d_image_lossless(mip_coronal, filename_img)
-        #save_2d_image_lossless(label_coronal, filename_label)
+        label_sagittal = np.max(label, axis=0)
+        label_axial = np.max(label, axis=2)
+
+        #mip_coronal = np.rot90(mip_coronal)
+        #label_coronal = np.rot90(label_coronal) #label_coronal.T
+
+        # Rotate the images for better display
         mip_coronal = np.rot90(mip_coronal)
-        label_coronal = np.rot90(label_coronal) #label_coronal.T
-        plt.figure(figsize=(12, 10))
-        plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
+        label_coronal = np.rot90(label_coronal)
+        mip_sagittal = np.rot90(mip_sagittal)
+        label_sagittal = np.rot90(label_sagittal)
+        mip_axial = np.rot90(mip_axial)
+        label_axial = np.rot90(label_axial)
+
+        plt.figure(figsize=(24, 10))
+        plt.subplot(1, 4, 1)  # 1 row, 2 columns, first subplot
         plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
 
         # switch the axis plotting of the y axis
@@ -113,7 +112,7 @@ def plot_for_label_accuracy_assessment(df):
         label = np.where(label == 1, 250, label)
         array_label_nan = np.where(label == 0, np.nan, label)
 
-        plt.subplot(1, 2, 2)  # 1 row, 2 columns, second subplo
+        plt.subplot(1, 4, 2)  # 1 row, 2 columns, second subplo
         # Plot the two numpy arrays overtop of each other
         plt.imshow(mip_coronal, cmap='gray', vmax=10)  # First array with alpha of 0.1
         plt.imshow(array_label_nan, cmap='spring', alpha=0.9)  # Second array over the first, with alpha of 0.1
@@ -129,13 +128,112 @@ def plot_for_label_accuracy_assessment(df):
         sentence = row["sentence"] + " pixels: " + str(np.sum(label_coronal))
         #sentence = row["Extracted Sentences"] + " pixels: " + str(np.sum(label_coronal))
 
-        #print(sentence)
         sentence = insert_newlines(sentence, word_limit=17)
-        #print(f"sum of pos pixels: {np.sum(label)}")
         plt.suptitle(sentence, fontsize=12, color='black')
 
-        #plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_plot_uw_dataset_v2/" + label_name)
-        #plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mip_with_side_errors_10/" + label_name)
+        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mips_accuracy_assessment/" + label_name)
+
+        plt.close()
+
+
+
+
+def plot_for_label_accuracy_assessment(df):
+
+
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+    label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v2_nifti/"
+    labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
+                      "PETWB_012579_01_label_2", "PETWB_003190_01_label_3",
+                      "PETWB_011401_02_label_3"]
+
+    for index, row in df.iterrows():
+
+        print(f"index: {index}")
+
+        if index > 25:
+            break
+
+        petlymph = row["Petlymph"]
+        if row["Label_Name"] in labels_to_skip:
+            continue
+
+        # gets the location of the suv converted image if it exists
+        folder_name = str(petlymph) #+ "_" + str(petlymph)
+        image_path = os.path.join(image_path_base, folder_name)
+        file_names = os.listdir(image_path)
+        index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
+        image_path = os.path.join(image_path, file_names[index_of_suv[0]])
+
+        # gets location of label nifti
+        label_name = row["Label_Name"]
+        label_path = os.path.join(label_path_base, label_name + ".nii.gz")
+
+        # loads in the image as a numpy array
+        nii_image = nib.load(image_path)
+        img = nii_image.get_fdata()
+
+        # loads in the label as a numpy array
+        nii_label = nib.load(label_path)
+        label = nii_label.get_fdata()
+
+
+
+        mip_coronal = np.max(img, axis=1)
+        mip_sagital = np.max(img, axis=0) # I think
+        mip_axial = np.max(img, axis=2) # I think this axis is right
+        #mip_coronal = normalize_mip(mip_coronal)
+
+        label_coronal = np.max(label, axis=1)
+        label_sagittal = np.max(label, axis=0)
+        label_axial = np.max(label, axis=2)
+
+        #mip_coronal = np.rot90(mip_coronal)
+        #label_coronal = np.rot90(label_coronal) #label_coronal.T
+
+        # Rotate the images for better display
+        mip_coronal = np.rot90(mip_coronal)
+        label_coronal = np.rot90(label_coronal)
+        mip_sagittal = np.rot90(mip_sagittal)
+        label_sagittal = np.rot90(label_sagittal)
+        mip_axial = np.rot90(mip_axial)
+        label_axial = np.rot90(label_axial)
+
+        plt.figure(figsize=(24, 10))
+        plt.subplot(1, 4, 1)  # 1 row, 2 columns, first subplot
+        plt.imshow(mip_coronal, cmap='gray', vmax = 10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
+
+        # switch the axis plotting of the y axis
+        locs, _ = plt.yticks()
+        y_min, y_max = plt.ylim()
+        filtered_locs = [loc for loc in locs if loc > -1 and loc < mip_coronal.shape[0]]
+        filtered_labels = [f"{int(y_max - loc)*-1}" for loc in filtered_locs]
+        plt.yticks(filtered_locs, filtered_labels)
+
+        label = label_coronal
+        # Set zeros in the second array to NaN for transparency
+        label = np.where(label == 1, 250, label)
+        array_label_nan = np.where(label == 0, np.nan, label)
+
+        # Plotting
+        plt.figure(figsize=(24, 10))
+        ax1 = plt.subplot(1, 4, 1)
+        ax1.imshow(mip_coronal, cmap='gray', vmax=10)
+        ax1.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9)
+        ax1.set_title('Coronal')
+
+        ax2 = plt.subplot(1, 4, 2)
+        ax2.imshow(mip_sagittal, cmap='gray', vmax=10)
+        ax2.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9)
+        ax2.set_title('Sagittal')
+
+        ax3 = plt.subplot(1, 4, 3)
+        ax3.imshow(mip_axial, cmap='gray', vmax=10)
+        ax3.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
+        ax3.set_title('Axial')
+
+        plt.suptitle(row["sentence"] + " pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
+
         plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mips_accuracy_assessment/" + label_name)
 
         plt.close()
