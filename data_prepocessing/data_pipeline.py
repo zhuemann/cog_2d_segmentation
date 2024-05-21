@@ -130,7 +130,7 @@ def run_data_pipeline():
     sampled_df = df.sample(n=250, random_state=1)
     sampled_df.to_excel(save_base + "cases_for_labeling_accuracy_accessment_250.xlsx", index=False)
     print("before plotting")
-    plot_for_label_accuracy_assessment(df)
+    plot_for_label_accuracy_assessment(sampled_df)
     #print(df)
 
 
