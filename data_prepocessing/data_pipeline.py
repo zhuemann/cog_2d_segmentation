@@ -117,7 +117,7 @@ def run_data_pipeline():
     # df = count_left_right_sided(df)
     # df.to_excel(save_base_final + "uw_label_wrong_side_analysis_10.xlsx", index=False)
     df_removal = pd.read_excel(save_base + "uw_label_wrong_side_analysis.xlsx")
-    labels_to_skip = df_removal['Label Name'].tolist()
+    labels_to_skip = df_removal['Label_Name'].tolist()
     df = df[~df["Label_Name"].isin(labels_to_skip)]
     df.to_excel(save_base + "uw_label_wrong_side_analysis_10.xlsx", index=False)
     print(df)
