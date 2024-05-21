@@ -12,6 +12,7 @@ from data_prepocessing.utility import count_left_right_sided
 #from data_prepocessing.remove_dups_non_anontomical_sent import get_anatomical_dataframe
 from data_prepocessing.data_visualization.plot_mips_with_labels import plot_mips_with_labels
 from data_prepocessing.template_removal import template_removal
+from data_prepocessing.data_visualization.plots_for_label_accuracy import plot_for_label_accuracy_assessment
 import pandas as pd
 def run_data_pipeline():
 
@@ -123,11 +124,13 @@ def run_data_pipeline():
     labels_to_skip = df_removal['Label_Name'].tolist()
     df = df[~df["Label_Name"].isin(labels_to_skip)]
     df.to_excel(save_base + "uw_label_wrong_side_removed_test.xlsx", index=False)
-    print(f"length before: {len(df)}")
+    #print(f"length before: {len(df)}")
     #df = template_removal(df)
-    print(f"length after: {len(df)}")
-
-    print(df)
+    #print(f"length after: {len(df)}")
+    sampled_df = df.sample(n=500, random_state=1)
+    sampled_df.to_excel(save_base + "cases_for_labeling_accuracy_accessment.xlsx", index=False)
+    plot_for_label_accuracy_assessment(sampled_df)
+    #print(df)
 
 
     #plot_mips_with_labels(df)
