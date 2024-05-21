@@ -162,7 +162,7 @@ def plot_for_label_accuracy_assessment(df):
             nib.save(ct_label, resampled_path)
 
 
-        ct_label.get_fdata()
+        ct_label = ct_label.get_fdata()
         ct_label = np.round(ct_label).astype(int)
         print(f"ct label dimensions: {ct_label.shape} sum: {np.sum(ct_label)}")
         transaxial_slice = ct_volume[:, :, k_num]
