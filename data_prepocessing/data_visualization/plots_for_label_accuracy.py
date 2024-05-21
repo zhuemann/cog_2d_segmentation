@@ -212,7 +212,7 @@ def plot_for_label_accuracy_assessment(df):
         nii_label = nib.load(label_path)
         label = nii_label.get_fdata()
 
-        ct_volume = resample_image(ct_volume, img.shape)
+        ct_label = resample_image(label, ct_volume.shape)
         transaxial_slice = ct_volume[:, :, slice_num]
 
         mip_coronal = np.max(img, axis=1)
@@ -224,6 +224,7 @@ def plot_for_label_accuracy_assessment(df):
         label_coronal = np.max(label, axis=1)
         label_sagittal = np.max(label, axis=0)
         label_axial = np.max(label, axis=2)
+        label_axis = ct_label[:,:, slice_num]
 
         #mip_coronal = np.rot90(mip_coronal)
         #label_coronal = np.rot90(label_coronal) #label_coronal.T
