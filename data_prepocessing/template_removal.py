@@ -2,7 +2,7 @@ import regex as re
 
 def contains_target_phrases(sentence):
     # Compile a regular expression pattern to search for the phrases, making it case-insensitive
-    pattern = re.compile(r'background liver|background mediastinal blood pool| background liver', re.IGNORECASE)
+    pattern = re.compile(r'background liver|background mediastinal blood pool|…Background liver', re.IGNORECASE)
 
     # Search the sentence for the pattern
     if pattern.search(sentence):
