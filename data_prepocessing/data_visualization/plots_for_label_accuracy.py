@@ -152,7 +152,7 @@ def plot_for_label_accuracy_assessment(df):
         label = nii_label.get_fdata()  # the label data
 
         # Checking if the resampled label file already exists
-        resampled_path = '/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/resampled_labels/' + row["Label_Name"] + '.nii.gz'
+        resampled_path = '/mnt/Bradshaw/UW_PET_Data/resampled_labels/' + row["Label_Name"] + '.nii.gz'
         if os.path.exists(resampled_path):
             ct_label = nib.load(resampled_path)
         else:
