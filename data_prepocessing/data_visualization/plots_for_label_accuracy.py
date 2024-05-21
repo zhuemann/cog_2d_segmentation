@@ -136,6 +136,20 @@ def plot_for_label_accuracy_assessment_v2(df):
         plt.close()
 
 
+def resample_image(ct_image, target_shape):
+    """
+    Resample the 3D image to the target shape using interpolation.
+
+    :param ct_image: numpy.ndarray, the original CT image with shape (512, 512, 299)
+    :param target_shape: tuple, the target dimensions (192, 192, 299)
+    :return: numpy.ndarray, the resampled image
+    """
+    # Calculate the zoom factors for each dimension
+    zoom_factors = [n / o for n, o in zip(target_shape, ct_image.shape)]
+
+    # Resample using spline interpolation
+    resampled_image = zoom(ct_image, zoom_factors, order=3)  # order=3 uses cubic interpolation
+    return resampled_image
 
 
 def plot_for_label_accuracy_assessment(df):
@@ -186,7 +200,7 @@ def plot_for_label_accuracy_assessment(df):
         ct_volume = ct_image.get_fdata()
         print(f"ct dimensions: {ct_volume.shape}")
         slice_num = row["Slice"]
-        transaxial_slice = ct_volume[:, :, slice_num]
+        #transaxial_slice = ct_volume[:, :, slice_num]
 
         # loads in the image as a numpy array
         nii_image = nib.load(image_path)
@@ -196,6 +210,9 @@ def plot_for_label_accuracy_assessment(df):
         # loads in the label as a numpy array
         nii_label = nib.load(label_path)
         label = nii_label.get_fdata()
+
+        ct_volume = resample_image(ct_volume, img.shape)
+        transaxial_slice = ct_volume[:, :, slice_num]
 
         mip_coronal = np.max(img, axis=1)
         mip_sagittal = np.max(img, axis=0) # I think
