@@ -182,7 +182,7 @@ def plot_for_label_accuracy_assessment(df):
 
 
         mip_coronal = np.max(img, axis=1)
-        mip_sagital = np.max(img, axis=0) # I think
+        mip_sagittal = np.max(img, axis=0) # I think
         mip_axial = np.max(img, axis=2) # I think this axis is right
         #mip_coronal = normalize_mip(mip_coronal)
 
