@@ -126,6 +126,7 @@ def plot_for_label_accuracy_assessment(df):
         ct_volume = ct_image.get_fdata()
         print(f"ct dimensions: {ct_volume.shape}")
         slice_num = row["Slice"]
+        k_num = row["k"]
         #transaxial_slice = ct_volume[:, :, slice_num]
 
         # loads in the image as a numpy array
@@ -140,7 +141,7 @@ def plot_for_label_accuracy_assessment(df):
         ct_label = resample_image(label, ct_volume.shape)
         ct_label = np.round(ct_label).astype(int)
         print(f"ct label dimensions: {ct_label.shape} sum: {np.sum(ct_label)}")
-        transaxial_slice = ct_volume[:, :, slice_num]
+        transaxial_slice = ct_volume[:, :, k_num]
 
         mip_coronal = np.max(img, axis=1)
         mip_sagittal = np.max(img, axis=0) # I think
