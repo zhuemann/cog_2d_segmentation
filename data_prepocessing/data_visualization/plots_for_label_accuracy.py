@@ -134,6 +134,7 @@ def plot_for_label_accuracy_assessment(df):
         img = nii_image.get_fdata()
         #print(f"pet image dimensions: {img.shape}")
 
+        """
         # loads in the label as a numpy array
         nii_label = nib.load(label_path)
         label = nii_label.get_fdata()
@@ -144,6 +145,23 @@ def plot_for_label_accuracy_assessment(df):
             ct_label = nib.Nifti1Image(label, affine=ct_volume.affine, header=ct_volume.header)
             #ct_label = resample_image(label, ct_volume.shape)
             nib.save(ct_label, '/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/resampled_labels/' + row["Label_Name"] + '.nii.gz')
+        """
+
+        # loads in the label as a numpy array
+        nii_label = nib.load(label_path)
+        label = nii_label.get_fdata()  # the label data
+
+        # Checking if the resampled label file already exists
+        resampled_path = '/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/resampled_labels/' + row["Label_Name"] + '.nii.gz'
+        if os.path.exists(resampled_path):
+            ct_label = nib.load(resampled_path)
+        else:
+            # If it doesn't exist, create a new NIfTI image using the label array, affine, and header from the original label image
+            ct_label = nib.Nifti1Image(label, affine=nii_label.affine, header=nii_label.header)
+            # Optionally, save it if needed
+            nib.save(ct_label, resampled_path)
+
+
         ct_label.get_fdata()
         ct_label = np.round(ct_label).astype(int)
         print(f"ct label dimensions: {ct_label.shape} sum: {np.sum(ct_label)}")
