@@ -151,7 +151,7 @@ def plot_for_label_accuracy_assessment(df):
 
         print(f"index: {index}")
 
-        if index > 25:
+        if index > 200:
             break
 
         petlymph = row["Petlymph"]
