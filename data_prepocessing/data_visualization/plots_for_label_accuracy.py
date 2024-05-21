@@ -207,7 +207,7 @@ def plot_for_label_accuracy_assessment(df):
         """
         # Plotting the fourth subplot for the axial view with contour overlay
         ax4 = plt.subplot(1, 4, 4)
-        ax4.imshow(mip_axial, cmap='gray', vmax=1000, vmin=0)
+        ax4.imshow(mip_axial, cmap='gray', vmax=500, vmin=0)
         # Generate and plot contours from the label
         contours = measure.find_contours(label_axial, level=0.5)  # Use your predefined function or this direct call
         for contour in contours:
