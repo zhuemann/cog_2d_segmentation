@@ -195,7 +195,7 @@ def plot_for_label_accuracy_assessment(df):
         ax4 = plt.subplot(1, 4, 4)
         ax4.imshow(mip_axial, cmap='gray', vmax=800, vmin = -500)
         #ax4.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
-        plt.imshow(outline == 1, 250, np.nan)  # Overlay the outline in 'spring' colormap
+        plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
         ax4.set_title(f'Axial Slice: {slice_num}')
 
         plt.suptitle(row["sentence"] + " pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
