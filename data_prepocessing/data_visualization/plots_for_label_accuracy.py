@@ -202,6 +202,7 @@ def plot_for_label_accuracy_assessment(df):
 
         ax4 = plt.subplot(1, 5, 4)
         ax4.imshow(mip_axial, cmap='gray', vmax=500, vmin=-200)
+        ax4.set_title(f'Axial Slice: {slice_num}')
 
         ax5 = plt.subplot(1, 4, 4)
         ax5.imshow(mip_axial, cmap='gray', vmax=500, vmin = -200)
@@ -225,7 +226,7 @@ def plot_for_label_accuracy_assessment(df):
         for contour in contours:
             ax5.plot(contour[:, 1], contour[:, 0], linewidth=2, color='red')  # contour[:, 1] is x, contour[:, 0] is y
         """
-        ax4.set_title(f'Axial Slice: {slice_num}')
+
         plt.suptitle(row["sentence"] + " pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
 
         plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mips_accuracy_assessment/" + label_name)
