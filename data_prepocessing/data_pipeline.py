@@ -129,6 +129,7 @@ def run_data_pipeline():
     df = pd.read_excel(save_base + "uw_label_wrong_side_removed_test.xlsx")
     sampled_df = df.sample(n=500, random_state=1)
     sampled_df.to_excel(save_base + "cases_for_labeling_accuracy_accessment.xlsx", index=False)
+    print("before plotting")
     plot_for_label_accuracy_assessment(sampled_df)
     #print(df)
 
