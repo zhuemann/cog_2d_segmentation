@@ -274,7 +274,7 @@ def plot_for_label_accuracy_assessment(df):
         ax3.set_title('Sagittal')
 
         ax4 = plt.subplot(1, 4, 4)
-        ax4.imshow(mip_axial, cmap='gray', vmax=400, vmin = -100)
+        ax4.imshow(mip_axial, cmap='gray', vmax=4=800, vmin = -500)
         ax4.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
         ax4.set_title(f'Axial Slice: {slice_num}')
 
