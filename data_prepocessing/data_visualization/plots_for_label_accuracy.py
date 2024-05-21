@@ -171,6 +171,21 @@ def plot_for_label_accuracy_assessment(df):
         label_name = row["Label_Name"]
         label_path = os.path.join(label_path_base, label_name + ".nii.gz")
 
+        index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
+        # Check if any file was found that contains "CT"
+        if index_of_ct:
+            # Update image_path to include the file name of the CT image
+            ct_image_path = os.path.join(image_path, file_names[index_of_ct[0]])
+        else:
+            # Handle the case where no CT file is found
+            ct_image_path = None
+            print("No CT file found in the directory.")
+
+        ct_image = nib.load(ct_image_path)
+        ct_volume = ct_image.get_fdata()
+        slice_num = row["Slice"]
+        transaxial_slice = ct_volume[:, :, slice_num]
+
         # loads in the image as a numpy array
         nii_image = nib.load(image_path)
         img = nii_image.get_fdata()
@@ -179,11 +194,10 @@ def plot_for_label_accuracy_assessment(df):
         nii_label = nib.load(label_path)
         label = nii_label.get_fdata()
 
-
-
         mip_coronal = np.max(img, axis=1)
         mip_sagittal = np.max(img, axis=0) # I think
-        mip_axial = np.max(img, axis=2) # I think this axis is right
+        #mip_axial = np.max(img, axis=2) # I think this axis is right
+        mip_axial = transaxial_slice
         #mip_coronal = normalize_mip(mip_coronal)
 
         label_coronal = np.max(label, axis=1)
