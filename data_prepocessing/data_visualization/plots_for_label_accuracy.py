@@ -208,21 +208,24 @@ def plot_for_label_accuracy_assessment(df):
         label = np.where(label == 1, 250, label)
         array_label_nan = np.where(label == 0, np.nan, label)
 
+        # Extract voxel dimensions (in mm)
+        voxel_dims = nii_image.header.get_zooms()
+
         # Plotting
         plt.figure(figsize=(24, 10))
 
         ax1 = plt.subplot(1, 5, 1)
-        ax1.imshow(mip_coronal, cmap='gray_r', vmax=10)
+        ax1.imshow(mip_coronal, cmap='gray_r', vmax=10, aspect=voxel_dims[0]/voxel_dims[1])
         ax1.set_title('MIP')
 
         ax2 = plt.subplot(1, 5, 2)
-        ax2.imshow(mip_coronal, cmap='gray_r', vmax=10)
-        ax2.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9)
+        ax2.imshow(mip_coronal, cmap='gray_r', vmax=10, aspect=voxel_dims[0]/voxel_dims[1])
+        ax2.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9, aspect=voxel_dims[0]/voxel_dims[1])
         ax2.set_title('Coronal')
 
         ax3 = plt.subplot(1, 5, 3)
-        ax3.imshow(mip_sagittal, cmap='gray_r', vmax=10)
-        ax3.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9)
+        ax3.imshow(mip_sagittal, cmap='gray_r', vmax=10, aspect=voxel_dims[0]/voxel_dims[1])
+        ax3.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9, aspect=voxel_dims[0]/voxel_dims[1])
         ax3.set_title('Sagittal')
 
         ax4 = plt.subplot(1, 5, 4)
