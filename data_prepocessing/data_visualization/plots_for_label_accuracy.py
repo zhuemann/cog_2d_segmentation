@@ -65,7 +65,7 @@ def create_label_outline(label_array):
     :return: numpy.ndarray, binary array where 1s represent the outline of the label
     """
     # Perform binary erosion on the label
-    eroded_label = binary_erosion(label_array, structure=np.ones((3, 3, 3)))
+    eroded_label = binary_erosion(label_array, structure=np.ones((3, 3)))
 
     # Subtract the eroded label from the original to get the outline
     outline = label_array - eroded_label
