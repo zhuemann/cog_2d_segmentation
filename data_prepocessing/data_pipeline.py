@@ -110,12 +110,16 @@ def run_data_pipeline():
     """
 
 
-    df = pd.read_excel(save_base_final + "uw_final_df_9_all.xlsx")
+    #df = pd.read_excel(save_base_final + "uw_final_df_9_all.xlsx")
 
-    df = template_removal(df)
+    #df = template_removal(df)
 
-    df = count_left_right_sided(df)
-    df.to_excel(save_base_final + "uw_label_wrong_side_analysis_10.xlsx", index=False)
+    # df = count_left_right_sided(df)
+    # df.to_excel(save_base_final + "uw_label_wrong_side_analysis_10.xlsx", index=False)
+    df = pd.read_excel(save_base + "uw_label_wrong_side_analysis_10.xlsx")
+    print(df)
+
+
     #plot_mips_with_labels(df)
     #create_mips(df, load_location = "uw_labels_v2_nifti", image_path_name = "images_coronal_mip_uw_v2", label_path_name = "labels_coronal_mip_uw_v2")
     #create_mips(df, load_location = "labels_v13_nifti_test_3", image_path_name = "images_coronal_mip_v13", label_path_name = "labels_coronal_mip_v13")
