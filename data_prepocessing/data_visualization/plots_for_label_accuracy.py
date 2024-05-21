@@ -147,9 +147,12 @@ def plot_for_label_accuracy_assessment(df):
             nib.save(ct_label, '/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/resampled_labels/' + row["Label_Name"] + '.nii.gz')
         """
 
-        # loads in the label as a numpy array
-        nii_label = nib.load(label_path)
-        label = nii_label.get_fdata()  # the label data
+        if os.path.exists(label_path):
+            # loads in the label as a numpy array
+            nii_label = nib.load(label_path)
+            label = nii_label.get_fdata()  # the label data
+        else:
+            continue
 
         # Checking if the resampled label file already exists
         resampled_path = '/mnt/Bradshaw/UW_PET_Data/resampled_labels/' + row["Label_Name"] + '.nii.gz'
@@ -228,12 +231,16 @@ def plot_for_label_accuracy_assessment(df):
         ax3.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9, aspect=voxel_dims[0]/voxel_dims[1])
         ax3.set_title('Sagittal')
 
+        # Flip the image data horizontally
+        mip_axial = np.fliplr(mip_axial)
+        label_axial = np.fliplr(label_axial)
+
         ax4 = plt.subplot(1, 5, 4)
-        ax4.imshow(mip_axial, cmap='gray_r', vmax=600, vmin=-300)
+        ax4.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
         ax4.set_title(f'Axial Slice: {slice_num}')
 
         ax5 = plt.subplot(1, 5, 5)
-        ax5.imshow(mip_axial, cmap='gray_r', vmax=600, vmin = -300)
+        ax5.imshow(mip_axial, cmap='gray', vmax=600, vmin = -300)
         ax5.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
         #plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
         ax5.set_title(f'Axial Slice: {slice_num} With Label')
