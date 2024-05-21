@@ -21,5 +21,6 @@ def template_removal(df):
         if contains_target_phrases(sent):
             petlymph_to_remove.append(row["Petlymph"])
 
+    print(f"petlymph removed: {petlymph_to_remove}")
     df = df[~df["Petlymph"].isin(petlymph_to_remove)]
     return df
