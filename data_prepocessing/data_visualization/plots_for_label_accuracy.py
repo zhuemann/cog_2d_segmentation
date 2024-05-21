@@ -180,6 +180,7 @@ def plot_for_label_accuracy_assessment(df):
             # Handle the case where no CT file is found
             ct_image_path = None
             print("No CT file found in the directory.")
+            continue
 
         ct_image = nib.load(ct_image_path)
         ct_volume = ct_image.get_fdata()
