@@ -187,25 +187,25 @@ def plot_for_label_accuracy_assessment(df):
         plt.figure(figsize=(24, 10))
 
         ax1 = plt.subplot(1, 5, 1)
-        ax1.imshow(mip_coronal, cmap='gray', vmax=10)
+        ax1.imshow(mip_coronal, cmap='gray_r', vmax=10)
         ax1.set_title('MIP')
 
         ax2 = plt.subplot(1, 5, 2)
-        ax2.imshow(mip_coronal, cmap='gray', vmax=10)
+        ax2.imshow(mip_coronal, cmap='gray_r', vmax=10)
         ax2.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9)
         ax2.set_title('Coronal')
 
         ax3 = plt.subplot(1, 5, 3)
-        ax3.imshow(mip_sagittal, cmap='gray', vmax=10)
+        ax3.imshow(mip_sagittal, cmap='gray_r', vmax=10)
         ax3.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9)
         ax3.set_title('Sagittal')
 
         ax4 = plt.subplot(1, 5, 4)
-        ax4.imshow(mip_axial, cmap='gray', vmax=500, vmin=-200)
+        ax4.imshow(mip_axial, cmap='gray_r', vmax=500, vmin=-200)
         ax4.set_title(f'Axial Slice: {slice_num}')
 
         ax5 = plt.subplot(1, 5, 5)
-        ax5.imshow(mip_axial, cmap='gray', vmax=500, vmin = -200)
+        ax5.imshow(mip_axial, cmap='gray_r', vmax=500, vmin = -200)
         ax5.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
         #plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
         ax5.set_title(f'Axial Slice: {slice_num}')
