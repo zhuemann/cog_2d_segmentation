@@ -12,15 +12,14 @@ def contains_target_phrases(sentence):
 
 def template_removal(df):
 
-    petlymph_to_remove = []
+    labels_to_remove = []
     for index, row in df.iterrows():
 
-        #sent = row["Extracted Sentences"]
         sent = row["sentence"]
 
         if contains_target_phrases(sent):
-            petlymph_to_remove.append(row["Petlymph"])
+            labels_to_remove.append(row["Label_Name"])
 
-    print(f"petlymph removed: {petlymph_to_remove}")
-    df = df[~df["Petlymph"].isin(petlymph_to_remove)]
+    print(f"Label name removed: {labels_to_remove}")
+    df = df[~df["Label_Name"].isin(labels_to_remove)]
     return df
