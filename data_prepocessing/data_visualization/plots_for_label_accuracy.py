@@ -92,8 +92,8 @@ def plot_for_label_accuracy_assessment(df):
 
         print(f"index: {index}")
 
-        if i > 25:
-            break
+        #if i > 25:
+        #    break
         i += 1
 
         petlymph = row["Petlymph"]
