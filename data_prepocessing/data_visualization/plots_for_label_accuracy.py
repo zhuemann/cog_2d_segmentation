@@ -226,7 +226,8 @@ def plot_for_label_accuracy_assessment(df):
         label_coronal = np.max(label, axis=1)
         label_sagittal = np.max(label, axis=0)
         #label_axial = np.max(label, axis=2)
-        label_axial = np.max(ct_label[:, :, slice_num], axis=2)
+        #label_axial = np.max(ct_label[:, :, slice_num])
+        label_axial = np.max(ct_label, axis=2)
 
         #mip_coronal = np.rot90(mip_coronal)
         #label_coronal = np.rot90(label_coronal) #label_coronal.T
