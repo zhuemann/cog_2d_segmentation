@@ -236,8 +236,8 @@ def plot_for_label_accuracy_assessment(df):
         label_coronal = np.rot90(label_coronal)
         mip_sagittal = np.rot90(mip_sagittal)
         label_sagittal = np.rot90(label_sagittal)
-        mip_axial = np.rot90(mip_axial)
-        label_axial = np.rot90(label_axial)
+        mip_axial = np.rot90(mip_axial, k=-1)
+        label_axial = np.rot90(label_axial, k=-1)
 
         plt.figure(figsize=(24, 10))
         plt.subplot(1, 4, 1)  # 1 row, 2 columns, first subplot
@@ -273,7 +273,7 @@ def plot_for_label_accuracy_assessment(df):
         ax3.set_title('Sagittal')
 
         ax4 = plt.subplot(1, 4, 4)
-        ax4.imshow(mip_axial, cmap='gray', vmax=400, vmin = 0)
+        ax4.imshow(mip_axial, cmap='gray', vmax=400, vmin = -100)
         ax4.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
         ax4.set_title(f'Axial Slice: {slice_num}')
 
