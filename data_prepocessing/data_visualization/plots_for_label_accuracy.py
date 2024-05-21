@@ -156,8 +156,9 @@ def plot_for_label_accuracy_assessment(df):
         if os.path.exists(resampled_path):
             ct_label = nib.load(resampled_path)
         else:
+            ct_label = resample_image(label, ct_volume.shape)
             # If it doesn't exist, create a new NIfTI image using the label array, affine, and header from the original label image
-            ct_label = nib.Nifti1Image(label, affine=nii_label.affine, header=nii_label.header)
+            ct_label = nib.Nifti1Image(ct_label, affine=nii_label.affine, header=nii_label.header)
             # Optionally, save it if needed
             nib.save(ct_label, resampled_path)
 
@@ -225,11 +226,11 @@ def plot_for_label_accuracy_assessment(df):
         ax3.set_title('Sagittal')
 
         ax4 = plt.subplot(1, 5, 4)
-        ax4.imshow(mip_axial, cmap='gray_r', vmax=500, vmin=-200)
+        ax4.imshow(mip_axial, cmap='gray_r', vmax=600, vmin=-300)
         ax4.set_title(f'Axial Slice: {slice_num}')
 
         ax5 = plt.subplot(1, 5, 5)
-        ax5.imshow(mip_axial, cmap='gray_r', vmax=500, vmin = -200)
+        ax5.imshow(mip_axial, cmap='gray_r', vmax=600, vmin = -300)
         ax5.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
         #plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
         ax5.set_title(f'Axial Slice: {slice_num}')
