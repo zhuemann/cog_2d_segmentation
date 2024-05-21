@@ -147,12 +147,14 @@ def plot_for_label_accuracy_assessment(df):
                       "PETWB_012579_01_label_2", "PETWB_003190_01_label_3",
                       "PETWB_011401_02_label_3"]
 
+    i = 0
     for index, row in df.iterrows():
 
         print(f"index: {index}")
 
-        if index > 200:
+        if i > 25:
             break
+        i += 1
 
         petlymph = row["Petlymph"]
         if row["Label_Name"] in labels_to_skip:
