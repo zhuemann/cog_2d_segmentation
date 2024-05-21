@@ -5,6 +5,7 @@ import numpy as np
 import os
 import nibabel as nib
 import matplotlib.pyplot as plt
+from scipy.ndimage import zoom
 
 
 def insert_newlines(text, word_limit=15):
