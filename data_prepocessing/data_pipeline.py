@@ -113,6 +113,7 @@ def run_data_pipeline():
 
     #df = pd.read_excel(save_base_final + "uw_final_df_9_all.xlsx")
     print(f"length before template removal: {len(df)}")
+    df = df.rename(columns={'Extracted Sentences': 'sentence'})
     df = template_removal(df)
     print(f"length after template removal: {len(df)}")
 
