@@ -184,6 +184,7 @@ def plot_for_label_accuracy_assessment(df):
 
         ct_image = nib.load(ct_image_path)
         ct_volume = ct_image.get_fdata()
+        print(f"ct dimensions: {ct_volume.shape}")
         slice_num = row["Slice"]
         transaxial_slice = ct_volume[:, :, slice_num]
 
