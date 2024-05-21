@@ -199,18 +199,23 @@ def plot_for_label_accuracy_assessment(df):
         ax3.imshow(mip_sagittal, cmap='gray', vmax=10)
         ax3.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9)
         ax3.set_title('Sagittal')
-        """
-        ax4 = plt.subplot(1, 4, 4)
-        ax4.imshow(mip_axial, cmap='gray', vmax=800, vmin = -500)
-        ax4.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
-        #plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
-        ax4.set_title(f'Axial Slice: {slice_num}')
-        """
+
         ax4 = plt.subplot(1, 5, 4)
         ax4.imshow(mip_axial, cmap='gray', vmax=500, vmin=-200)
+
+        ax5 = plt.subplot(1, 4, 4)
+        ax5.imshow(mip_axial, cmap='gray', vmax=500, vmin = -200)
+        ax5.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
+        #plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
+        ax5.set_title(f'Axial Slice: {slice_num}')
+
+
+
+        """
         # Plotting the fourth subplot for the axial view with contour overlay
         ax5 = plt.subplot(1, 5, 5)
         ax5.imshow(mip_axial, cmap='gray', vmax=500, vmin=-200)
+        
         # Generate and plot contours from the label
         contours = measure.find_contours(label_axial, level=0.5)  # Use your predefined function or this direct call
         for contour in contours:
@@ -219,7 +224,7 @@ def plot_for_label_accuracy_assessment(df):
         # Plot contours
         for contour in contours:
             ax5.plot(contour[:, 1], contour[:, 0], linewidth=2, color='red')  # contour[:, 1] is x, contour[:, 0] is y
-
+        """
         ax4.set_title(f'Axial Slice: {slice_num}')
         plt.suptitle(row["sentence"] + " pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
 
