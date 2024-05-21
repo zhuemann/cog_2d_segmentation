@@ -204,7 +204,7 @@ def plot_for_label_accuracy_assessment(df):
         ax4.imshow(mip_axial, cmap='gray', vmax=500, vmin=-200)
         ax4.set_title(f'Axial Slice: {slice_num}')
 
-        ax5 = plt.subplot(1, 4, 4)
+        ax5 = plt.subplot(1, 5, 5)
         ax5.imshow(mip_axial, cmap='gray', vmax=500, vmin = -200)
         ax5.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
         #plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
