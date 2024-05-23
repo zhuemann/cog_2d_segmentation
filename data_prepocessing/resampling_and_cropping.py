@@ -136,6 +136,7 @@ def resampling_and_cropping(df):
             nib.save(ct_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images/", f'{petlymph}_ct_cropped.nii.gz'))
             nib.save(suv_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images/", f'{petlymph}_suv_cropped.nii.gz'))
             nib.save(label_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels/", f'{row["Label_Name"]}.nii.gz'))
+            processed_images[petlymph] = 1
         else:
             label_cropped_out += 1
 
