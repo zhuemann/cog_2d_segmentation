@@ -4,6 +4,10 @@ import nibabel as nib
 from nilearn.image import resample_img, crop_img
 import numpy as np
 
+import warnings
+warnings.filterwarnings('ignore', category=UserWarning, message='Casting data from int16 to float32')
+
+
 def resampling_and_cropping(df):
 
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
