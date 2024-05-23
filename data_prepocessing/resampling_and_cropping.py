@@ -54,7 +54,7 @@ def resampling_and_cropping(df):
         target_affine = np.diag([3, 3, 3])
         ct_resampled = resample_img(ct_image, target_affine=target_affine)
         suv_resampled = resample_img(suv_image, target_affine=target_affine)
-        label_resampled = resample_img(label_image, target_affine=target_affine)
+        label_resampled = resample_img(label_image, target_affine=target_affine, interpolation='nearest')
 
         # Crop the images to 60cm x 60cm in x and y, and last 350 slices in z
         def crop_center(img):
