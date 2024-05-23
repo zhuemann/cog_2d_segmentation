@@ -21,8 +21,9 @@ def resampling_and_cropping(df):
         petlymph = row["Petlymph"]
         image_path = os.path.join(image_path_base, petlymph)
 
-        label_path_base = os.path.join(label_path_base, row["Label_Name"])
-        label_path = str(label_path_base) + ".nii.gz"
+
+        label_path = os.path.join(label_path_base, row["Label_Name"])
+        label_path = str(label_path) + ".nii.gz"
 
         file_names = os.listdir(image_path)
         index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
