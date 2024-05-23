@@ -106,9 +106,16 @@ def resampling_and_cropping(df):
             number_of_missing_ct += 1
             continue
 
-        ct_image = nib.load(ct_image_path)
-        suv_image = nib.load(suv_path)
-        label_image = nib.load(label_path)
+        try:
+            ct_image = nib.load(ct_image_path)
+            suv_image = nib.load(suv_path)
+            label_image = nib.load(label_path)
+        except FileNotFoundError:
+            print("One of the files does not exist: CT, SUV, or label image.")
+            continue
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+            continue
 
         # Resample images to 3mm x 3mm x 3mm
         target_affine = np.diag([3, 3, 3])
