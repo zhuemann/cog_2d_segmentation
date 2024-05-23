@@ -85,6 +85,9 @@ def resampling_and_cropping(df):
                 label_image = nib.load(label_path)
                 label_resampled = resample_img(label_image, target_affine=np.diag([3, 3, 3]), interpolation='nearest')
                 label_cropped = crop_center(label_resampled)
+                if np.any(label_cropped.get_fdata() == 0):
+                    label_cropped_out += 1
+                    continue
                 nib.save(label_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels/", f'{row["Label_Name"]}.nii.gz'))
                 resampling_saved += 1
             continue
