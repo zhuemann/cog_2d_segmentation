@@ -62,9 +62,10 @@ def resampling_and_cropping(df):
     label_cropped_out = 0
     resampling_saved = 0
     i = 0
+    already_processed = 0
     for index, row in df.iterrows():
 
-        print(f"i: {i} labels cropped out: {label_cropped_out} missing ct: {number_of_missing_ct} resampling saved: {resampling_saved}")
+        print(f"i: {i} labels cropped out: {label_cropped_out} missing ct: {number_of_missing_ct} resampling saved: {resampling_saved} already processed: { already_processed}")
         i += 1
 
         petlymph = row["Petlymph"]
@@ -77,11 +78,15 @@ def resampling_and_cropping(df):
         # Check if this PET/CT pair has already been processed
         if petlymph in processed_images:
             print(f"{petlymph} PET/CT images already processed. Checking label...")
-            label_image = nib.load(label_path)
-            label_resampled = resample_img(label_image, target_affine=np.diag([3, 3, 3]), interpolation='nearest')
-            label_cropped = crop_center(label_resampled)
-            nib.save(label_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels/", f'{row["Label_Name"]}.nii.gz'))
-            resampling_saved += 1
+            if os.path.exists(os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels/", f'{row["Label_Name"]}.nii.gz')):
+                already_processed += 1
+                continue
+            else:
+                label_image = nib.load(label_path)
+                label_resampled = resample_img(label_image, target_affine=np.diag([3, 3, 3]), interpolation='nearest')
+                label_cropped = crop_center(label_resampled)
+                nib.save(label_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels/", f'{row["Label_Name"]}.nii.gz'))
+                resampling_saved += 1
             continue
 
         file_names = os.listdir(image_path)
