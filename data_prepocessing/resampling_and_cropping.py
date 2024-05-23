@@ -77,7 +77,7 @@ def resampling_and_cropping(df):
         # Check if this PET/CT pair has already been processed
         if petlymph in processed_images:
             print(f"{petlymph} PET/CT images already processed. Checking label...")
-            label_image = nib.load(label_path, ".nii.gz")
+            label_image = nib.load(label_path)
             label_resampled = resample_img(label_image, target_affine=np.diag([3, 3, 3]), interpolation='nearest')
             label_cropped = crop_center(label_resampled)
             nib.save(label_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels/", f'{row["Label_Name"]}.nii.gz'))
