@@ -12,7 +12,11 @@ def resampling_and_cropping(df):
 
     number_of_missing_ct = 0
     label_cropped_out = 0
+    i = 0
     for index, row in df.iterrows():
+
+        print(f"i: {i} labels cropped out: {label_cropped_out} missing ct: {number_of_missing_ct}")
+        i += 1
 
         petlymph = row["Petlymph"]
         image_path = os.path.join(image_path_base, petlymph)
