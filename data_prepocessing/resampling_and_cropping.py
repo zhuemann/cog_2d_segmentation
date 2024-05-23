@@ -55,7 +55,7 @@ def resampling_and_cropping(df):
     print("hi")
 
     save_path = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/"
-    #processed_images = generate_processed_images_dict(save_path + str("images"))
+    processed_images = generate_processed_images_dict(save_path + str("images"))
 
     #print(processed_images)
     number_of_missing_ct = 0
