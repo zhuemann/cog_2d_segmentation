@@ -54,11 +54,16 @@ def resampling_and_cropping(df):
 
         # Crop the images to 60cm x 60cm in x and y, and last 350 slices in z
         def crop_center(img):
-            # Calculate the cropping sizes
             x, y, z = img.shape
-            start_x = (x - 200) // 2  # 60cm/3mm = 200 voxels
-            start_y = (y - 200) // 2
-            cropped_img = img.slicer[start_x:start_x + 200, start_y:start_y + 200, -350:]
+            crop_x = min(200, x)
+            crop_y = min(200, y)
+            crop_z = min(350, z)
+
+            start_x = max((x - crop_x) // 2, 0)
+            start_y = max((y - crop_y) // 2, 0)
+            start_z = max(z - crop_z, 0)
+
+            cropped_img = img.slicer[start_x:start_x + crop_x, start_y:start_y + crop_y, start_z:start_z + crop_z]
             return cropped_img
 
         ct_cropped = crop_center(ct_resampled)
