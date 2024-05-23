@@ -82,7 +82,11 @@ def resampling_and_cropping(df):
                 already_processed += 1
                 continue
             else:
-                label_image = nib.load(label_path)
+                try:
+                    label_image = nib.load(label_path)
+                except FileNotFoundError:
+                    print("One of the files does not exist: CT, SUV, or label image.")
+                    continue
                 label_resampled = resample_img(label_image, target_affine=np.diag([3, 3, 3]), interpolation='nearest')
                 label_cropped = crop_center(label_resampled)
                 if np.any(label_cropped.get_fdata() != 0):
