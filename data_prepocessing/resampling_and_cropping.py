@@ -55,18 +55,15 @@ def resampling_and_cropping(df):
     print("hi")
 
     save_path = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/"
-    processed_images = generate_processed_images_dict(save_path + str("images"))
+    #processed_images = generate_processed_images_dict(save_path + str("images"))
 
-    print(processed_images)
+    #print(processed_images)
     number_of_missing_ct = 0
     label_cropped_out = 0
     resampling_saved = 0
     i = 0
     already_processed = 0
     for index, row in df.iterrows():
-
-        if index == 1:
-            break
 
         print(f"i: {i} labels cropped out: {label_cropped_out} missing ct: {number_of_missing_ct} resampling saved: {resampling_saved} already processed: { already_processed}")
         i += 1
