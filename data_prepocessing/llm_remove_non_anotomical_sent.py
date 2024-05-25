@@ -54,33 +54,43 @@ def llm_remove_non_anatomical_sent(df):
 
 
     instruction = """<s> [INST] 
-You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize it within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
+You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize the measurement to a specific anatomical region within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
 Sentence: Several mildly enlarged scattered small lymph nodes in the right level 2 and 3 cervical nodal regions, largest most prominent being a 1.1 x 0.8 cm mild enlarged right level III cervical node with mild FDG uptake with SUV max 3.0 (PET/CT axial slice 90).
 [/INST]
 Indication: 1
 [INST] 
-You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize it within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
+You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize the measurement to a specific anatomical region within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
 Sentence: There is intense FDG uptake at this resection bed measuring SUV max of 8.6 (PET/CT axial slice 60), which fuses to an area of ill-defined amorphus soft tissue/scarring.
 [/INST]
 Indication: 0
 [INST] 
-You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize it within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
+You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize the measurement to a specific anatomical region within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
 Sentence: There is also increasing FDG activity associated with a small cutaneous/subcutaneous nodularity of the anterior right chest overlying the sternum, now with max SUV of 3.6 (axial slice 134) compared 1.9 previously.
 [/INST]
 Indication: 1
 [INST] 
-You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize it within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
+You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize the measurement to a specific anatomical region within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
 Sentence: This measures SUV max of 6.6 and the soft tissue approximates 3.3 cm x 2.5 cm in maximal transverse dimensions (PET/CT axial slice 214).
 [/INST]
 Indication: 0
 [INST] 
-You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize it within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
+You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize the measurement to a specific anatomical region within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
 Sentence: There is a small focus of moderately increased FDG uptake within the lower right thyroid lobe (slice 67 SUV max 5.4) with no CT correlate.
 [/INST]
 Indication: 1
+[INST] 
+You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize the measurement to a specific anatomical region within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
+Sentence: Adjacent subpleural cluster of hypermetabolic nodules demonstrate SUV max 8.2, PET/CT axial slice 129, favored to be metastatic disease.
+[/INST]
+Indication: 0
+[INST] 
+You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize the measurement to a specific anatomical region within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
+Sentence: An intensely FDG avid soft tissue mass measuring approximately 7.0 x 6.7 cm in size, and also contains some areas of photopenia in the lateral component of this mass compatible with tumor necrosis (PET/CT axial slice 118, SUV max 22.1).
+[/INST]
+Indication: 0
 </s>
 [INST]
-You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize it within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
+You are a helpful assistant tasked indicating if the sentence contains enough anatomical information to localize the measurement to a specific anatomical region within the human body. You should return a 1 if it contains enough information to localize the described SUV measurement and a 0 if it does not contain enough information to localize the descirbed SUV measurement.
 Sentence: """
 
 
@@ -92,8 +102,8 @@ Sentence: """
         accession = []
         for index, row in df.iterrows():
             print(f"index: {index}")
-            #if index == 1000:
-            #    break
+            if index == 1000:
+                break
             #if index < 1000:
             #if index > 2500:
             #if index > 10:
