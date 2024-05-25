@@ -98,6 +98,7 @@ def get_max_pixel_step3(df):
     found_pixels_df = []
     below_suv_threshold = 0
     dups_found = 0
+    slice_diff_exceeded = 0
 
     for index, row in uw_100.iterrows():
         print(f"index: {index} mathces_found: {found_noted_lesion} duplicates: {dups_found} missing pet: {sentences_not_evalued_missing_pet}")
@@ -190,6 +191,11 @@ def get_max_pixel_step3(df):
                     #print(f"slice range: {slice_ref - slice_tolerance} to {slice_ref + slice_tolerance}")
                     #print(f"Real SUVmax: {suv_ref} slice range passed slice_min: {slice_min} slice_max: {slice_max} suv_max: {suv_max}")
                     if abs(suv_max - suv_ref) <= suv_tolerance:
+                        # catch long initial contours that are clearly not lesions
+                        if slice_max - slice_min > 50 and suv_ref < 5:
+                            slice_diff_exceeded += 1
+                            continue
+
                         found_noted_lesion += 1
                         # print(row)
                         pixel_i, pixel_j, pixel_k = pixel
@@ -214,4 +220,5 @@ def get_max_pixel_step3(df):
     print(f"lesions succesfully located: {found_noted_lesion}")
     print(f"not evaluaged sentences missing pet: {sentences_not_evalued_missing_pet}")
     print(f"no suv but does have pet: {no_suv_file_but_does_have_mac}")
+    print(f"number of lesions lost slice dif exceeded 50: {slice_diff_exceeded}")
     return new_df

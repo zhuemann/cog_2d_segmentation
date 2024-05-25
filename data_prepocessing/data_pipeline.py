@@ -14,6 +14,7 @@ from data_prepocessing.data_visualization.plot_mips_with_labels import plot_mips
 from data_prepocessing.template_removal import template_removal
 from data_prepocessing.data_visualization.plots_for_label_accuracy import plot_for_label_accuracy_assessment
 from data_prepocessing.resampling_and_cropping import resampling_and_cropping
+from data_prepocessing.llm_remove_non_anotomical_sent import llm_remove_non_anatomical_sent
 import pandas as pd
 def run_data_pipeline():
 
@@ -133,8 +134,10 @@ def run_data_pipeline():
     #print("before plotting")
     #plot_for_label_accuracy_assessment(sampled_df)
     #print(df)
+    llm_remove_non_anatomical_sent(df)
+    print(df)
 
-    resampling_and_cropping(df)
+    #resampling_and_cropping(df)
 
     #plot_mips_with_labels(df)
     #create_mips(df, load_location = "uw_labels_v2_nifti", image_path_name = "images_coronal_mip_uw_v2", label_path_name = "labels_coronal_mip_uw_v2")
