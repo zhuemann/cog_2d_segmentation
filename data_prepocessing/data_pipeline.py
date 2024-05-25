@@ -134,8 +134,9 @@ def run_data_pipeline():
     #print("before plotting")
     #plot_for_label_accuracy_assessment(sampled_df)
     #print(df)
-    llm_remove_non_anatomical_sent(df)
+    df = llm_remove_non_anatomical_sent(df)
     print(df)
+    df.to_excel(save_base + "test_remove_non_anatomical_sent.xlsx", index=False)
 
     #resampling_and_cropping(df)
 
