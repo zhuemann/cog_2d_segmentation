@@ -102,8 +102,8 @@ Sentence: """
         accession = []
         for index, row in df.iterrows():
             print(f"index: {index}")
-            if index == 1000:
-                break
+            #if index == 1000:
+            #    break
             #if index < 1000:
             #if index > 2500:
             #if index > 10:
