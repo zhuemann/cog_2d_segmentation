@@ -15,6 +15,7 @@ from data_prepocessing.template_removal import template_removal
 from data_prepocessing.data_visualization.plots_for_label_accuracy import plot_for_label_accuracy_assessment
 from data_prepocessing.resampling_and_cropping import resampling_and_cropping
 from data_prepocessing.llm_remove_non_anotomical_sent import llm_remove_non_anatomical_sent
+from data_prepocessing.dataframe_to_json import dataframe_to_json
 import pandas as pd
 def run_data_pipeline():
 
@@ -128,15 +129,16 @@ def run_data_pipeline():
     #df.to_excel(save_base + "uw_label_wrong_side_removed_test.xlsx", index=False)
 
     df = pd.read_excel(save_base + "uw_label_wrong_side_removed_test.xlsx")
+    dataframe_to_json(df)
     #df = pd.read_excel(save_base + "cases_for_labeling_accuracy_accessment_250.xlsx")
     #sampled_df = df.sample(n=250, random_state=1)
     #sampled_df.to_excel(save_base + "cases_for_labeling_accuracy_accessment_250.xlsx", index=False)
     #print("before plotting")
     #plot_for_label_accuracy_assessment(sampled_df)
     #print(df)
-    df = llm_remove_non_anatomical_sent(df)
-    print(df)
-    df.to_excel(save_base + "test_remove_non_anatomical_sent.xlsx", index=False)
+    #df = llm_remove_non_anatomical_sent(df)
+    #print(df)
+    #df.to_excel(save_base + "test_remove_non_anatomical_sent.xlsx", index=False)
 
     #resampling_and_cropping(df)
 
