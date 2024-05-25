@@ -40,8 +40,8 @@ def dataframe_to_json(df):
         if os.path.exists(pet_path) and os.path.exists(ct_path) and os.path.exists(label_path):
             # Decide the data split based on PetlympID
             entry = {
-                "pet_image": pet_path,
-                "ct_image": ct_path,
+                "image": pet_path,
+                "image2": ct_path,
                 "label": label_path,
                 "report": row["sentence"],
                 "slice_num": row["Slice"],
