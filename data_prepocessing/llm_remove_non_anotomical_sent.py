@@ -96,8 +96,8 @@ Sentence: """
             #    break
             #if index < 1000:
             #if index > 2500:
-            if index > 10:
-                break
+            #if index > 10:
+            #    break
             #    break
             #    continue
             #accession.append(row["Accession Number"])
@@ -134,7 +134,7 @@ Sentence: """
 
 
         # Convert lists to a DataFrame
-        new_df = pd.DataFrame({model + 'AI_Slice': ai_indication})
+        new_df = pd.DataFrame({model + 'AI_Indication': ai_indication})
         if "df_suv_slice" in locals():
             # If df exists, add new columns
             df_suv_slice[new_df.columns[0]] = new_df[new_df.columns[0]]

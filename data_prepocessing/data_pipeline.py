@@ -128,7 +128,7 @@ def run_data_pipeline():
     #df.to_excel(save_base + "uw_label_wrong_side_removed_test.xlsx", index=False)
 
 
-    df = pd.read_excel(save_base + "uw_label_wrong_side_removed_test.xlsx")
+    df = pd.read_excel(save_base + "cases_for_labeling_accuracy_accessment_250.xlsx")
     #sampled_df = df.sample(n=250, random_state=1)
     #sampled_df.to_excel(save_base + "cases_for_labeling_accuracy_accessment_250.xlsx", index=False)
     #print("before plotting")
