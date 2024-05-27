@@ -146,7 +146,7 @@ if __name__ == '__main__':
     save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v1/"
 
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
-    df = pd.read_excel(save_base + "remove_multiple_suv_and_slice_2_test.xlsx")
+    df = pd.read_excel(save_base + "test_anatomical_removal.xlsx.xlsx")
     #num_patients = 442
     #data_files = './uw_pet_lymphoma_next_and_previous_sentence.xlsx'
     #df = pd.read_excel(data_files)
