@@ -11,6 +11,38 @@ nltk.download('punkt')
 import re
 import numpy as np
 
+
+def remove_terms(sentence, terms):
+    # Create a pattern that matches any of the terms in the list
+    # The pattern uses \b for word boundary to ensure it matches whole words only
+    pattern = r'\b(' + '|'.join(map(re.escape, terms)) + r')\b'
+
+    # Use re.sub to replace these terms with an empty string
+    cleaned_sentence = re.sub(pattern, '', sentence, flags=re.IGNORECASE)
+
+    # Strip extra spaces that might be left after removal
+    cleaned_sentence = re.sub(r'\s+', ' ', cleaned_sentence).strip()
+
+    return cleaned_sentence
+
+
+# List of terms to remove
+terms_to_remove = [
+    "cm", "omental", "soft tissue", "right", "left", "adjacent",
+    "transverse", "lateral", "component", "posterior", "subcutaneous", "nodal",
+    "inferior", "axis", "posterior", "medial", "size", "FDG", "Right", "Left"
+]
+
+def contains_key_terms(sentence):
+    # This regex pattern looks for words that start with 'para', or contain 'level' or 'ap window'
+    pattern = r'\bpara\w*|\blevel\b|ap window'
+
+    # Search for the pattern in the sentence, case insensitive
+    if re.search(pattern, sentence, re.IGNORECASE):
+        return True
+    else:
+        return False
+
 def remove_non_anontomical_sent(df):
 
     # throw out the sentence if multiple label points were extracted
@@ -114,7 +146,7 @@ if __name__ == '__main__':
     save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v1/"
 
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
-    df = pd.read_excel(save_base + "remove_multiple_suv_and_slice_2.xlsx")
+    df = pd.read_excel(save_base + "remove_multiple_suv_and_slice_2_test.xlsx")
     #num_patients = 442
     #data_files = './uw_pet_lymphoma_next_and_previous_sentence.xlsx'
     #df = pd.read_excel(data_files)
@@ -180,5 +212,5 @@ if __name__ == '__main__':
     #df['anatomy_available_previous'] = anatomy_available_previous
     #df['anatomy_available_next'] = anatomy_available_next
 
-    df.to_excel(save_base + 'uw_pet_annotated.xlsx', index=False)
+    df.to_excel(save_base + 'uw_pet_annotated_test_dummy_sentences.xlsx', index=False)
     #return df
