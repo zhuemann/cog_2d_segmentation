@@ -48,7 +48,7 @@ def remove_non_anatomical_sent_v2(df):
     # updated remove non anatomical info which includes better filtering of non anatomical infor and includes
     # ap window and level as valid sentences
 
-    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v1/uw_pet_annotated.xlsx"
+    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v1/uw_pet_annotated_v2.xlsx"
     df_anotomical_info = pd.read_excel(df_path)
 
     # Merge the two DataFrames on 'Petlymph' and 'Extracted sentences'
