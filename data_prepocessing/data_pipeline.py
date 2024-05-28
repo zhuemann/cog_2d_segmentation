@@ -130,9 +130,9 @@ def run_data_pipeline():
     #df.to_excel(save_base + "uw_label_wrong_side_removed_test.xlsx", index=False)
 
     df = pd.read_excel(save_base + "uw_label_wrong_side_removed_test.xlsx")
-
+    print(f"lenth after loading: {len(df)}")
     df = remove_non_anatomical_sent_v2(df)
-
+    print(f"length after dropping: {len(df)}")
     df.to_excel(save_base + "test_remove_non_anatomical_sent_v2.xlsx", index=False)
     sampled_df = df.sample(n=250, random_state=42)
     sampled_df.to_excel(save_base + "for_daniel_250_round_2.xlsx", index=False)
