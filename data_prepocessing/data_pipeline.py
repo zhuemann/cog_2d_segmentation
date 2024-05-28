@@ -129,6 +129,7 @@ def run_data_pipeline():
     #df = df[~df["Label_Name"].isin(labels_to_skip)]
     #df.to_excel(save_base + "uw_label_wrong_side_removed_test.xlsx", index=False)
 
+    """
     df = pd.read_excel(save_base + "uw_label_wrong_side_removed_test.xlsx")
     print(f"lenth after loading: {len(df)}")
     df = remove_non_anatomical_sent_v2(df)
@@ -137,12 +138,12 @@ def run_data_pipeline():
     sampled_df = df.sample(n=250, random_state=42)
     sampled_df.to_excel(save_base + "for_daniel_250_round_2.xlsx", index=False)
     #dataframe_to_json(df)
-
-    #df = pd.read_excel(save_base + "cases_for_labeling_accuracy_accessment_250.xlsx")
+    """
+    sampled_df = pd.read_excel(save_base + "cases_for_labeling_accuracy_accessment_250.xlsx")
     #sampled_df = df.sample(n=250, random_state=1)
     #sampled_df.to_excel(save_base + "cases_for_labeling_accuracy_accessment_250.xlsx", index=False)
     #print("before plotting")
-    #plot_for_label_accuracy_assessment(sampled_df)
+    plot_for_label_accuracy_assessment(sampled_df)
     #print(df)
     #df = llm_remove_non_anatomical_sent(df)
     #print(df)
