@@ -10,6 +10,7 @@ from data_prepocessing.make_labels_from_point import make_labels_from_suv_max_po
 from data_prepocessing.create_sentence_mips_and_labels import create_mips
 from data_prepocessing.utility import count_left_right_sided
 #from data_prepocessing.remove_dups_non_anontomical_sent import get_anatomical_dataframe
+from data_prepocessing.remove_non_anontomical_sent import remove_non_anatomical_sent_v2
 from data_prepocessing.data_visualization.plot_mips_with_labels import plot_mips_with_labels
 from data_prepocessing.template_removal import template_removal
 from data_prepocessing.data_visualization.plots_for_label_accuracy import plot_for_label_accuracy_assessment
@@ -128,7 +129,11 @@ def run_data_pipeline():
     #df = df[~df["Label_Name"].isin(labels_to_skip)]
     #df.to_excel(save_base + "uw_label_wrong_side_removed_test.xlsx", index=False)
 
-    #df = pd.read_excel(save_base + "uw_label_wrong_side_removed_test.xlsx")
+    df = pd.read_excel(save_base + "uw_label_wrong_side_removed_test.xlsx")
+
+    df = remove_non_anatomical_sent_v2(df)
+
+
     #dataframe_to_json(df)
 
     #df = pd.read_excel(save_base + "cases_for_labeling_accuracy_accessment_250.xlsx")

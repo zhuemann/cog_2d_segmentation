@@ -43,6 +43,30 @@ def contains_key_terms(sentence):
     else:
         return False
 
+
+def remove_non_anatomical_sent_v2(df):
+    # updated remove non anatomical info which includes better filtering of non anatomical infor and includes
+    # ap window and level as valid sentences
+
+    df_path = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v1/uw_pet_annotated.xlsx"
+    df_anotomical_info = pd.read_excel(df_path)
+
+    # Merge the two DataFrames on 'Petlymph' and 'Extracted sentences'
+    merged_df = pd.merge(df, df_anotomical_info, on=['Extracted Sentences'])
+    filtered_df = merged_df[merged_df['anatomy_available'] != 0]
+
+    df_dropped = filtered_df.drop(
+        columns=['Unnamed: 0', 'Petlymph_y', 'Findings_y', 'Impression_y', 'Slice_y', 'SUV_y',
+                 'annotation', 'anatomy', 'anatomy_available'])
+
+    df_dropped.rename(columns={'Slice_x': 'Slice'}, inplace=True)
+    df_dropped.rename(columns={'SUV_x': 'SUV'}, inplace=True)
+    df_dropped.rename(columns={'Petlymph_x': 'Petlymph'}, inplace=True)
+    df_dropped.rename(columns={'Findings_x': 'Findings'}, inplace=True)
+    df_dropped.rename(columns={'Impression_x': 'Impression'}, inplace=True)
+    print(f"final df length: {len(df_dropped)}")
+    return df_dropped
+
 def remove_non_anontomical_sent(df):
 
     # throw out the sentence if multiple label points were extracted
