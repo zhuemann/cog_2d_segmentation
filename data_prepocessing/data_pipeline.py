@@ -133,7 +133,9 @@ def run_data_pipeline():
 
     df = remove_non_anatomical_sent_v2(df)
 
-
+    df.to_excel(save_base + "test_remove_non_anatomical_sent_v2.xlsx", index=False)
+    sampled_df = df.sample(n=250, random_state=42)
+    sampled_df.to_excel(save_base + "for_daniel_250_round_2.xlsx", index=False)
     #dataframe_to_json(df)
 
     #df = pd.read_excel(save_base + "cases_for_labeling_accuracy_accessment_250.xlsx")
