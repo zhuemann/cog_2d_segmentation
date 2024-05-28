@@ -216,7 +216,7 @@ if __name__ == '__main__':
         # if the length is zero than we know there is no anatomical information
         if len(anatomy) == 0:
             # do a check for level or ap window or para as radgraph doesn't catch these
-            if check_substrings(sent):
+            if check_substrings(sent, words_to_include):
                 anatomy_available.append(1)
             else:
                 # if does not contain general anatomy or level or ap window then append 0 and it will be dropped
