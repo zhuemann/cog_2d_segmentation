@@ -137,7 +137,33 @@ def find_surrounding_sentences(report, extracted_sentence):
 
 
 #def get_anatomical_dataframe(df):
+def remove_words(input_string, words_list):
+    # Create a regular expression pattern with all the words to be removed
+    # The pattern will match any of these words in a case-insensitive way
+    pattern = r'\b(?:' + '|'.join(map(re.escape, words_list)) + r')\b'
 
+    # Use re.sub to replace these patterns with an empty string
+    # re.I is used to make the pattern case insensitive
+    cleaned_string = re.sub(pattern, '', input_string, flags=re.I)
+
+    # Remove any excess whitespace created by word removals
+    cleaned_string = re.sub(r'\s+', ' ', cleaned_string).strip()
+
+    return cleaned_string
+
+
+def check_substrings(input_string, substrings):
+    # Convert input string to lower case for case-insensitive matching
+    input_string = input_string.lower()
+
+    # Check each substring in the list
+    for substring in substrings:
+        # If the substring is found in the input string, return True
+        if substring.lower() in input_string:
+            return True
+
+    # If no substrings are found, return False
+    return False
 
 if __name__ == '__main__':
 
@@ -146,7 +172,7 @@ if __name__ == '__main__':
     save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v1/"
 
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
-    df = pd.read_excel(save_base + "test_anatomical_removal.xlsx")
+    df = pd.read_excel(save_base + "remove_multiple_suv_and_slice_2.xlsx")
     #num_patients = 442
     #data_files = './uw_pet_lymphoma_next_and_previous_sentence.xlsx'
     #df = pd.read_excel(data_files)
@@ -159,7 +185,17 @@ if __name__ == '__main__':
     # Save the modified DataFrame back to an Excel file
     #df.to_excel('modified_excel_file.xlsx', index=False)
 
+    words_to_remove = [
+    "cm", "omental", "soft tissue", "right", "left", "adjacent", "peripheral", "transverse", "lateral", "component",
+    "posterior", "subcutaneous", "nodal", "inferior", "axis", "periphery", "medial", "size", "FDG", "Right", "Left",
+    "superior", "anterior", "bed", "blood", "posteriorly", "central", "margins", "apex", "inferiorly", "SUV", "blood pool",
+    "posterior margin", "upper", "short axis", "Anterior", "Posterior", "circumferential", "laterally", "medially",
+    "inferomedially", "posterolaterally", "rim", "center", "greatest", "anteromedially", "region", "Superolateral",
+    "pool", "peripherally", "Adjacent", "anteroinferior", "portion", "anteriorly", "lower", "Bilateral", "anteroinferiorly",
+    "inferior part", "internal", "subcentimeter", "maximal"
+    ]
 
+    words_to_include = ["level", "ap window", "para"]
     #radgraph.
     #f1radgraph = GenRadGraph(reward_level="partial")
     f1radgraph = GenRadGraph(reward_level="partial")
@@ -173,11 +209,18 @@ if __name__ == '__main__':
 
     for ii in tqdm(range(num_patients)):
         sent = df['Extracted Sentences'][ii]
+        sent = remove_words(sent, words_to_remove)
         annotation, anatomy = find_anatomical_entities(sent, f1radgraph)
         annotation_list.append(annotation)
         anatomy_list.append(anatomy)
+        # if the length is zero than we know there is no anatomical information
         if len(anatomy) == 0:
-            anatomy_available.append(0)
+            # do a check for level or ap window or para as radgraph doesn't catch these
+            if check_substrings(sent):
+                anatomy_available.append(1)
+            else:
+                # if does not contain general anatomy or level or ap window then append 0 and it will be dropped
+                anatomy_available.append(0)
         else:
             anatomy_available.append(1)
 
@@ -212,5 +255,5 @@ if __name__ == '__main__':
     #df['anatomy_available_previous'] = anatomy_available_previous
     #df['anatomy_available_next'] = anatomy_available_next
 
-    df.to_excel(save_base + 'uw_pet_annotated_test_dummy_sentences.xlsx', index=False)
+    df.to_excel(save_base + 'uw_pet_annotated_sentences_v2.xlsx', index=False)
     #return df
