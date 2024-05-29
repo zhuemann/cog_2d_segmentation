@@ -1045,7 +1045,8 @@ def uw_pet_suv_conversion_v2():
     for file in files_in_directory:
         print(f"index: {index} found pet images: {found_pet_images} file: {file}")
         index += 1
-
+        if index < 24200:
+            continue
         folder_name_exists = os.path.join(top_nifti_folder, file)
         if os.path.exists(folder_name_exists):
             if any('SUV' in filename for filename in os.listdir(folder_name_exists)):
