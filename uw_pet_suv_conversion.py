@@ -784,9 +784,9 @@ def file_exploration_analysis_ct():
 def uw_pet_suv_conversion():
 
     #file_exploration_analysis_pet()
-    file_exploration_analysis_ct()
+    #file_exploration_analysis_ct()
     #get_voxel_dimensions("/mnt/Bradshaw/UW_PET_Data/SUV_images/")
-    print(fail)
+    #print(fail)
     #files_transfer_analysis()
     #print(fail)
 
@@ -811,8 +811,10 @@ def uw_pet_suv_conversion():
     potential_suv_images = 0
     skip_files = set([])
     no_pt_files = set(["PETWB_015788_01"])
+    no_pt_files = set()
     time_data_skip = set([])
     dicom_error = set(["PETWB_005434_01", "PETWB_004604_04"]) #PETWB_004604_04
+    dicom_error = set([])
     weird_path_names = []
     time_errors = []
     for file in files_in_directory:
@@ -868,6 +870,23 @@ def uw_pet_suv_conversion():
         else:
             folder_name = type_exam[0]
         """
+        recon_types = os.listdir(directory)
+        substrings_to_check = ["CT_MAR", "CTAC", "WB_CT_SLICES", "CT_IMAGES", "WB_Standard"]
+        # Iterate over each substring and check if it's present in any element of recon_types
+        for substring in substrings_to_check:
+            # Normalize to lower case for case-insensitive comparison
+            matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
+            if matched_recon:
+                # If a match is found, build the path
+                top_dicom_folder = os.path.join(directory, matched_recon)
+                #z = len(os.listdir(top_dicom_folder))
+                # checks if slices line up other wise don't convert and keep searching
+                #if z == suv_dims[2]:
+                    # Perform your additional logic or function calls here
+                try:
+                    found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts)
+                except:
+                    continue  # If an error occurs, continue with the next substring
 
         #print(f"directory before recon checks: {directory} with contents: {os.listdir(directory)}")
         test_directory = directory
@@ -1005,3 +1024,74 @@ def uw_pet_suv_conversion():
             except Exception:
                 found_pet_images -= 1
                 continue
+
+
+
+def uw_pet_suv_conversion_v2():
+
+
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+
+    files_in_directory = os.listdir(dir_path)
+
+    no_pt_files_list = []
+    index = 0
+    found_pet_images = 0
+
+    dicom_error = set([])
+
+    for file in files_in_directory:
+        print(f"index: {index} found pet images: {found_pet_images} file: {file}")
+        index += 1
+
+        folder_name_exists = os.path.exists(os.path.join(top_nifti_folder, file))
+        if os.path.exists(folder_name_exists):
+            if any('SUV' in filename for filename in os.listdir(folder_name_exists)):
+                found_pet_images += 1
+            print("already found this image with SUV")
+            continue
+        if index > 10:
+            break
+
+        if file in dicom_error:
+            continue
+        directory = os.path.join(dir_path, file)
+        date = os.listdir(directory)
+        if len(date) == 1:
+            directory = os.path.join(directory, date[0])
+        else:
+            print(f"multiple date files in this folder: {directory}")
+        modality = os.listdir(directory)
+        if "PT" in modality:
+            #directory = os.path.join(dir_path, file, "PT")
+            directory = os.path.join(directory, "PT")
+        else:
+            print(f"file: {file} does not have Pet scan")
+            continue
+        #print(directory)
+        ref_num = os.listdir(directory)
+        if len(ref_num) == 0:
+            print(f"something funny: {file}")
+            no_pt_files_list.append(file)
+            continue
+        directory = os.path.join(directory, ref_num[0])
+        # print(test_directory)
+        type_exam = os.listdir(directory)
+        # print(modality)
+        # print(test)
+
+        recon_types = os.listdir(directory)
+        substrings_to_check = ["wb_3d_mac", "WB_MAC", "wb_ac_3d", "PET_AC_3D", "WB_IRCTAC"]
+        # Iterate over each substring and check if it's present in any element of recon_types
+        for substring in substrings_to_check:
+            # Normalize to lower case for case-insensitive comparison
+            matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
+            if matched_recon:
+                # If a match is found, build the path
+                top_dicom_folder = os.path.join(directory, matched_recon)
+                try:
+                    found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
+                except:
+                    continue  # If an error occurs, continue with the next substring

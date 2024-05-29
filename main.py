@@ -26,6 +26,7 @@ from uw_pet_suv_conversion import file_conversion_ct
 from data_prepocessing.data_visualization.plot_ct_head_projections import plot_ct_head_projections
 from data_prepocessing.utility import generate_data_sheet_on_uw_pet_dataset
 # Press the green button in the gutter to run the script.
+from uw_pet_suv_conversion import uw_pet_suv_conversion_v2
 if __name__ == '__main__':
 
     #generate_data_sheet_on_uw_pet_dataset()
@@ -34,18 +35,19 @@ if __name__ == '__main__':
     #df = pd.read_excel(df)
     #get_suv_file_names(df)
     #uw_pet_suv_conversion()
-
+    uw_pet_suv_conversion_v2()
+    print(fail)
     #ct_series_count = analyze_ct_series_when_pt_matches(root_dir="/mnt/Bradshaw/UW_PET_Data/dsb2b/",  pt_substring="WB_IRCTAC")
     #print(ct_series_count)
     #ct_series_count = analyze_matching_ct_series_for_pt_substring(root_dir="/mnt/Bradshaw/UW_PET_Data/dsb2b/",  pt_substring="WB_IRCTAC")
     #print(ct_series_count)
-    finding_missing_images()
+    #finding_missing_images()
     #file_conversion_ct()
     #plot_ct_head_projections()
-    print(fail)
+    #print(fail)
 
-    run_data_pipeline()
-    print(fail)
+    #run_data_pipeline()
+    #print(fail)
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
     #create_mips()
