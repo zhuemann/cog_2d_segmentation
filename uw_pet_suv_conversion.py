@@ -1032,7 +1032,9 @@ def uw_pet_suv_conversion_v2():
 
     top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
 
-    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+    #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb3/"
+
 
     files_in_directory = os.listdir(dir_path)
 
