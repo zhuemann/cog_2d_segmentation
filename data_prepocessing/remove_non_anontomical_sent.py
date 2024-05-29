@@ -196,6 +196,16 @@ def check_substrings(input_string, substrings):
     # If no substrings are found, return False
     return False
 
+
+def filter_list(items):
+    # This regex matches any string that contains a digit or the substrings 'cm' or 'mm'
+    pattern = re.compile(r'\d|cm|mm')
+
+    # Use a list comprehension to filter the items
+    filtered_items = [item for item in items if not pattern.search(item)]
+
+    return filtered_items
+
 if __name__ == '__main__':
 
     #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v3/"
@@ -244,6 +254,10 @@ if __name__ == '__main__':
         annotation, anatomy = find_anatomical_entities(sent, f1radgraph)
         annotation_list.append(annotation)
         anatomy_list.append(anatomy)
+
+        # filter for numbers or cm/mm
+        anatomy = filter_list(anatomy)
+
         # if the length is zero than we know there is no anatomical information
         if len(anatomy) == 0:
             # do a check for level or ap window or para as radgraph doesn't catch these

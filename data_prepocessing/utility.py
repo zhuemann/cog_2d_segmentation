@@ -163,6 +163,7 @@ def finding_missing_images():
     df = pd.read_excel(df_path)
 
     dicom_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+    dicom_path = "/mnt/Bradshaw/UW_PET_Data/dsb3/"
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
 
     key_substrings_pt = ["wb_3d_mac", "WB_MAC", "wb_ac_3d", "PET_AC_3D", "WB_IRCTAC"]
@@ -224,7 +225,7 @@ def finding_missing_images():
     df[['PET_Found', 'CT_Found']] = pd.DataFrame(df['Findings'].tolist(), index=df.index)
     df.drop('Findings', axis=1, inplace=True)
     """
-    file_path = "/UserData/UW_PET_Data/full_accounting_of_pet_ct_found.xlsx"
+    file_path = "/UserData/UW_PET_Data/full_accounting_of_pet_ct_found_dsb3.xlsx"
     df = pd.DataFrame.from_dict(results, orient='index', columns=['PET_Found', 'CT_Found', 'PT_Path', 'CT_Path'])
     # Write the DataFrame to an Excel file
     df.reset_index(inplace=True)
