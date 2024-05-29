@@ -1052,8 +1052,6 @@ def uw_pet_suv_conversion_v2():
                 found_pet_images += 1
             print("already found this image with SUV")
             continue
-        if index > 10:
-            break
 
         if file in dicom_error:
             continue
