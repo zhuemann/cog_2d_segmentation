@@ -1090,6 +1090,6 @@ def uw_pet_suv_conversion_v2():
                 # If a match is found, build the path
                 top_dicom_folder = os.path.join(directory, matched_recon)
                 try:
-                    found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
+                    found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
                 except:
                     continue  # If an error occurs, continue with the next substring
