@@ -1046,7 +1046,7 @@ def uw_pet_suv_conversion_v2():
         print(f"index: {index} found pet images: {found_pet_images} file: {file}")
         index += 1
 
-        folder_name_exists = os.path.exists(os.path.join(top_nifti_folder, file))
+        folder_name_exists = os.path.join(top_nifti_folder, file)
         if os.path.exists(folder_name_exists):
             if any('SUV' in filename for filename in os.listdir(folder_name_exists)):
                 found_pet_images += 1
