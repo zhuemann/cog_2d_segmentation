@@ -1039,11 +1039,11 @@ def uw_pet_suv_conversion_v2():
     no_pt_files_list = []
     index = 0
     found_pet_images = 0
-
+    already_converted = 0
     dicom_error = set([])
 
     for file in files_in_directory:
-        print(f"index: {index} found pet images: {found_pet_images} file: {file}")
+        print(f"index: {index} already_converted: {already_converted }found pet images: {found_pet_images} file: {file}")
         index += 1
         #if index < 24200:
         #    continue
@@ -1051,6 +1051,7 @@ def uw_pet_suv_conversion_v2():
         if os.path.exists(folder_name_exists):
             if any('SUV' in filename for filename in os.listdir(folder_name_exists)):
                 found_pet_images += 1
+                already_converted += 1
             print("already found this image with SUV")
             continue
 
