@@ -1138,11 +1138,6 @@ def uw_ct_suv_conversion_v2():
         if os.path.exists(folder_name_exists):
             print(folder_name_exists)
             if any('CT' in filename for filename in os.listdir(folder_name_exists)):
-
-                for filename in os.listdir((folder_name_exists)):
-                    if "CT" in filename:
-                        print(filename)
-
                 found_cts += 1
                 already_found += 1
                 print("already found this image with CT")
