@@ -1163,6 +1163,8 @@ def uw_ct_suv_conversion_v2():
 
         # print(f"suv_dims: {suv_dims}")
         directory = os.path.join(dir_path, file)
+        if not os.path.exists(directory):
+            continue
         date = os.listdir(directory)
         if len(date) == 1:
             directory = os.path.join(directory, date[0])
