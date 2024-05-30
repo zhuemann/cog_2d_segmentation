@@ -1045,7 +1045,7 @@ def uw_pet_suv_conversion_v2():
     dicom_error = set([])
 
     for file in files_in_directory:
-        print(f"index: {index} already_converted: {already_converted }found pet images: {found_pet_images} file: {file}")
+        print(f"index: {index} already_converted: {already_converted } found pet images: {found_pet_images} file: {file}")
         index += 1
         #if index < 24200:
         #    continue
