@@ -1054,8 +1054,8 @@ def uw_pet_suv_conversion_v2():
             if any('SUV' in filename for filename in os.listdir(folder_name_exists)):
                 found_pet_images += 1
                 already_converted += 1
-            print("already found this image with SUV")
-            continue
+                print("already found this image with SUV")
+                continue
 
         if file in dicom_error:
             continue
