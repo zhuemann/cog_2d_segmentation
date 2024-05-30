@@ -1145,6 +1145,8 @@ def uw_ct_suv_conversion_v2():
 
         suv_dims = (0, 0, 0)
         suv_path = os.path.join(dir_path_suv, file)
+        if not os.path.exists(suv_path):
+            continue
         for filename in os.listdir(suv_path):
             if filename.endswith(".nii.gz") and "suv" in filename.lower():
                 filepath = os.path.join(suv_path, filename)
