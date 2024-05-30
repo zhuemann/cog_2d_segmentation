@@ -32,8 +32,8 @@ from data_prepocessing.data_pipeline import run_data_pipeline_final
 from data_prepocessing.utility import count_files_in_suv_folder
 if __name__ == '__main__':
 
-    count_files_in_suv_folder()
-    print(fail)
+    #count_files_in_suv_folder()
+    #print(fail)
     #generate_data_sheet_on_uw_pet_dataset()
     #print(fail)
     #df = "/UserData/Zach_Analysis/petlymph_image_data/uw_final_df_9.xlsx"
@@ -41,8 +41,8 @@ if __name__ == '__main__':
     #get_suv_file_names(df)
     #uw_pet_suv_conversion()
     #uw_pet_suv_conversion_v2()
-    #uw_ct_suv_conversion_v2()
-    #print(fail)
+    uw_ct_suv_conversion_v2()
+    print(fail)
     #ct_series_count = analyze_ct_series_when_pt_matches(root_dir="/mnt/Bradshaw/UW_PET_Data/dsb2b/",  pt_substring="WB_IRCTAC")
     #print(ct_series_count)
     #ct_series_count = analyze_matching_ct_series_for_pt_substring(root_dir="/mnt/Bradshaw/UW_PET_Data/dsb2b/",  pt_substring="WB_IRCTAC")

@@ -1135,6 +1135,11 @@ def uw_ct_suv_conversion_v2():
         folder_name_exists = os.path.join(top_nifti_folder, file)
         if os.path.exists(folder_name_exists):
             if any('CT' in filename for filename in os.listdir(folder_name_exists)):
+
+                for filename in os.listdir((folder_name_exists)):
+                    if "CT" in filename:
+                        print(filename)
+
                 found_cts += 1
                 already_found += 1
             print("already found this image with CT")
