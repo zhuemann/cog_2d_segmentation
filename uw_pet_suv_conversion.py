@@ -1143,8 +1143,8 @@ def uw_ct_suv_conversion_v2():
 
                 found_cts += 1
                 already_found += 1
-            print("already found this image with CT")
-            continue
+                print("already found this image with CT")
+                continue
 
         suv_dims = (0, 0, 0)
         suv_path = os.path.join(dir_path_suv, file)
