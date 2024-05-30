@@ -72,7 +72,7 @@ def remove_non_anatomical_sent_v2(df):
     df_dropped.rename(columns={'Petlymph_x': 'Petlymph'}, inplace=True)
     df_dropped.rename(columns={'Findings_x': 'Findings'}, inplace=True)
     df_dropped.rename(columns={'Impression_x': 'Impression'}, inplace=True)
-    df_dropped.rename(columns={'Extracted Sentences': 'sentence'}, inplace=True)
+    #df_dropped.rename(columns={'Extracted Sentences': 'sentence'}, inplace=True)
 
     print(f"final df length: {len(df_dropped)}")
     return df_dropped
