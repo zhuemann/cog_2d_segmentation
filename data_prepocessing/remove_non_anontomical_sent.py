@@ -210,7 +210,7 @@ if __name__ == '__main__':
 
     #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v3/"
     #save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v14/"
-    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v1/"
+    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v2/"
 
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
     df = pd.read_excel(save_base + "remove_multiple_suv_and_slice_2.xlsx")
