@@ -57,20 +57,23 @@ def remove_non_anatomical_sent_v2(df):
 
     # Merge the two DataFrames on 'Petlymph' from both DataFrames and
     # 'sentence' from df with 'Extracted Sentences' from df_anatomical_info
-    merged_df = pd.merge(df, df_anotomical_info, left_on='sentence', right_on='Extracted Sentences')
+    #merged_df = pd.merge(df, df_anotomical_info, left_on='sentence', right_on='Extracted Sentences')
+    merged_df = pd.merge(df, df_anotomical_info, left_on='Extracted Sentences', right_on='Extracted Sentences')
 
     # Filter out rows where 'anatomy_available' is not 0
     filtered_df = merged_df[merged_df['anatomy_available'] != 0]
 
     df_dropped = filtered_df.drop(
         columns=['Unnamed: 0', 'Petlymph_y', 'Findings_y', 'Impression_y', 'Slice_y', 'SUV_y',
-                 'annotation', 'anatomy', 'anatomy_available', "Extracted Sentences"])
+                 'annotation', 'anatomy', 'anatomy_available'])
 
     df_dropped.rename(columns={'Slice_x': 'Slice'}, inplace=True)
     df_dropped.rename(columns={'SUV_x': 'SUV'}, inplace=True)
     df_dropped.rename(columns={'Petlymph_x': 'Petlymph'}, inplace=True)
     df_dropped.rename(columns={'Findings_x': 'Findings'}, inplace=True)
     df_dropped.rename(columns={'Impression_x': 'Impression'}, inplace=True)
+    df_dropped.rename(columns={'Extracted Sentences': 'sentence'}, inplace=True)
+
     print(f"final df length: {len(df_dropped)}")
     return df_dropped
 
