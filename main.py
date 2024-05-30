@@ -29,8 +29,11 @@ from data_prepocessing.utility import generate_data_sheet_on_uw_pet_dataset
 from uw_pet_suv_conversion import uw_pet_suv_conversion_v2
 from uw_pet_suv_conversion import uw_ct_suv_conversion_v2
 from data_prepocessing.data_pipeline import run_data_pipeline_final
+from data_prepocessing.utility import count_files_in_suv_folder
 if __name__ == '__main__':
 
+    count_files_in_suv_folder()
+    print(fail)
     #generate_data_sheet_on_uw_pet_dataset()
     #print(fail)
     #df = "/UserData/Zach_Analysis/petlymph_image_data/uw_final_df_9.xlsx"
@@ -49,8 +52,8 @@ if __name__ == '__main__':
     #plot_ct_head_projections()
     #print(fail)
 
-    run_data_pipeline_final()
-    print(fail)
+    #run_data_pipeline_final()
+    #print(fail)
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
     #create_mips()

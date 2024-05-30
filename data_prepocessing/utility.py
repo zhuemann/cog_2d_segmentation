@@ -21,8 +21,46 @@ def get_suv_file_names(df):
     df = pd.DataFrame(image_path_df, columns=["SUV Names"])
 
     # Save the DataFrame to an Excel file
-    df.to_excel("full_suv_names.xlsx", index=False)
+    df.to_excel("/UserData/Zach_Analysis/suv_slice_text/full_suv_names.xlsx", index=False)
 
+
+def count_files_in_suv_folder():
+    # Define the base path for the image folders
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+
+    # Initialize counters
+    total_folders = 0
+    with_both_files = 0
+    missing_suv = 0
+    missing_ct = 0
+
+    # List all entries in the base directory
+    for entry in os.listdir(image_path_base):
+        # Construct full path to the entry
+        folder_path = os.path.join(image_path_base, entry)
+        # Check if this entry is a directory
+        if os.path.isdir(folder_path):
+            total_folders += 1
+            # List contents of the directory
+            contents = os.listdir(folder_path)
+            # Convert file names to lower case and check for 'suv' and 'ct'
+            contents_lower = [file.lower() for file in contents]
+            found_suv = any("suv" in file for file in contents_lower)
+            found_ct = any("ct" in file for file in contents_lower)
+
+            # Update counters based on findings
+            if found_suv and found_ct:
+                with_both_files += 1
+            if not found_suv:
+                missing_suv += 1
+            if not found_ct:
+                missing_ct += 1
+
+    # Print results
+    print("Total folders:", total_folders)
+    print("Folders with both 'SUV' and 'CT' files:", with_both_files)
+    print("Folders missing 'SUV' files:", missing_suv)
+    print("Folders missing 'CT' files:", missing_ct)
 
 def create_prediction_plots():
 
