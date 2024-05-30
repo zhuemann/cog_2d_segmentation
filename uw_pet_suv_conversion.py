@@ -1106,8 +1106,8 @@ def uw_ct_suv_conversion_v2():
     dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
 
-    files_in_directory = os.listdir(dir_path_suv)
-    #files_in_directory = os.listdir(dir_path)
+    #files_in_directory = os.listdir(dir_path_suv)
+    files_in_directory = os.listdir(dir_path)
 
     print(f"files in folder: {len(files_in_directory)}")
     no_pt_files_list = []
