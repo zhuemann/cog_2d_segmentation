@@ -53,6 +53,7 @@ if __name__ == '__main__':
     #print(fail)
 
     run_data_pipeline_final()
+
     print(fail)
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
