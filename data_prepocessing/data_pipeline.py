@@ -183,12 +183,13 @@ def run_data_pipeline_final():
     """
     df = pd.read_excel(save_base + "remove_non_anotomical_info_3_try3.xlsx")
     df = llm_slice_suv_extraction(df)
-    df.to_excel(save_base + "model_predictions_for_suv_slice_extraction_4.xlsx", index=False, sheet_name='Predictions')
+    df.to_excel(save_base + "model_predictions_for_suv_slice_extraction_4_250_test.xlsx", index=False, sheet_name='Predictions')
 
     # df = pd.read_excel(save_base + "model_predictions_for_suv_slice_extraction_2.xlsx")
     df = concenus_voting(df)
-    df.to_excel(save_base + "concenus_output_5.xlsx", index=False)
+    df.to_excel(save_base + "concenus_output_5_250_test.xlsx", index=False)
 
+    """
     df = threshold_suv_max(df)
     df.to_excel(save_base + "thresholded_concensus_outputs_6.xlsx")
 
@@ -197,4 +198,5 @@ def run_data_pipeline_final():
 
     df = get_max_pixel_step3(df)
     df.to_excel(save_base + "max_pixel_9.xlsx", index=False)
+    """
 

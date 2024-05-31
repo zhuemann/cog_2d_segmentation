@@ -216,6 +216,64 @@ Slice: 90
 SUV: 3.0
     """
 
+    instruction_v3 = '''<s> [INST] 
+You are a helpful assistant tasked with extracting values from a sentence. You should return the axial slice number and its associated suv value for the current scan. If there are multiple slice numbers return 0. 
+Sentence: Several mildly enlarged scattered small lymph nodes in the right level 2 and 3 cervical nodal regions, largest most prominent being a 1.1 x 0.8 cm mild enlarged right level III cervical node with mild FDG uptake with SUV max 3.0 (PET/CT axial slice 90).
+[/INST]
+Slice: 90
+SUV: 3.0
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the axial slice number and its associated suv value for the current scan. If there are multiple slice numbers return 0. 
+Sentence: Head/Neck: There is asymmetric intense FDG uptake within the left palatine tonsillar bed (slice 57) that fuses to soft tissue fullness and shows SUV max of 7.3 compared to 4.0 on the contralateral right side. 
+[/INST]
+Slice: 57
+SUV: 7.3
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the axial slice number and its associated suv value for the current scan. If there are multiple slice numbers return 0.
+Sentence: There is significant interval decrease of the metabolic activity fusing to the lateral right scapula located inferior to the right glenoid (currently SUV max is 3.3 on slice 94 compared to 6.3 on the prior PET/CT.
+[/INST]
+Slice: 94
+SUV: 3.3
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the axial slice number and its associated suv value for the current scan. If there are multiple slice numbers return 0. 
+Sentence: For example the largest and most hypermetabolic left axillary lymph node is noted on slice 104 that measures 2.1 x 1.1 cm and shows SUV max of 5.5. 
+[/INST]
+Slice: 104
+SUV: 5.5
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the axial slice number and its associated suv value for the current scan. If there are multiple slice numbers return 0. 
+Sentence: FINDINGS: The patient is imaged in the radiotherapy position, and in…the region of the cervix there is a focal region of moderately intense…tracer intense uptake (SUV max 13) on the left and is best seen in slice… 112 of the coronal IRCTAC and slice 42 in the axial WB IRCTAC.
+ [/INST]
+Slice: 42
+SUV: 13.0
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the axial slice number and its associated suv value for the current scan. If there are multiple slice numbers return 0. 
+Sentence: For example 6 mm and 8mm left retroperitoneal lymph nodes show SUV max of 2.7 and 3.5 respectively (series 2 slice 170 And 176 respectively). [/INST]
+Slice: 0
+SUV: 0
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the axial slice number and its associated suv value for the current scan. If there are multiple slice numbers return 0. 
+Sentence: Chest: There is interval reduction of hypermetabolic activity of the left axillary lymph nodes, the most FDG avid node (slice 95) measuring an SUV Max of 1.7 today (previously 2.8), which is similar to mediastinal background blood pool activity with an SUV Max of 1.9.
+[/INST]
+Slice: 95
+SUV: 1.7
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the axial slice number and its associated suv value for the current scan. If there are multiple slice numbers return 0. 
+Sentence: This again remains difficult to measure, but measures approximately 11.6 cm in maximum transverse dimension as compared to 23 cm previously and demonstrates heterogeneous mild FDG uptake with an SUV max of 6.0 (slice location 218).
+[/INST]
+Slice: 218
+SUV: 6.0
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the axial slice number and its associated suv value for the current scan. If there are multiple slice numbers return 0. 
+Sentence: For example: a right upper paratracheal node now measures SUV max of 1.5 and 0.8 cm in short axis diameter (PET/CT axial slice 95) compared to prior SUV max of 1.7 and 1.1 cm in short axis diameter.
+[/INST]
+Slice: 95
+SUV: 1.5
+</s>
+[INST]
+You are a helpful assistant tasked with extracting values from a sentence. You should return the axial slice number and its associated suv value for the current scan. If there are multiple slice numbers return 0.
+Sentence: '''
+
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     #models = ['dolphin-instruct']
     models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
@@ -228,13 +286,13 @@ SUV: 3.0
             #if index == 1000:
             #    break
             #if index < 1000:
-            #if index > 2500:
-            #    break
+            if index > 250:
+                break
             #    continue
             #accession.append(row["Accession Number"])
             accession.append(row["Petlymph"])
             sentence = row["Extracted Sentences"]
-            total_prompt = instruction + sentence + "\n[/INST]"
+            total_prompt = instruction_v3 + sentence + "\n[/INST]"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
             #response = generate_with_timeout(model, total_prompt)
 
