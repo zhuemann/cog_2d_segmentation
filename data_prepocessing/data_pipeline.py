@@ -19,6 +19,7 @@ from data_prepocessing.llm_remove_non_anotomical_sent import llm_remove_non_anat
 from data_prepocessing.dataframe_to_json import dataframe_to_json
 from data_prepocessing.suv_thresholding import threshold_suv_max
 from data_prepocessing.map_to_new_coded_id import map_to_new_coded_id
+from data_prepocessing.llm_remove_multiple_descriptions import llm_remove_multiple_descriptions
 
 import pandas as pd
 def run_data_pipeline():
@@ -182,12 +183,15 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "remove_non_anotomical_info_3_try3.xlsx", index=False)
     """
     df = pd.read_excel(save_base + "remove_non_anotomical_info_3_try3.xlsx")
-    df = llm_slice_suv_extraction(df)
-    df.to_excel(save_base + "model_predictions_for_suv_slice_extraction_4_250_test.xlsx", index=False, sheet_name='Predictions')
+    #df = llm_slice_suv_extraction(df)
+    #df.to_excel(save_base + "model_predictions_for_suv_slice_extraction_4_250_test.xlsx", index=False, sheet_name='Predictions')
+
+    df = llm_remove_multiple_descriptions(df)
+    df.to_excel(save_base + "llm_remove_multipled_descriptions_test_5_250_test.xlsx", index=False, sheet_name='Predictions')
 
     # df = pd.read_excel(save_base + "model_predictions_for_suv_slice_extraction_2.xlsx")
-    df = concenus_voting(df)
-    df.to_excel(save_base + "concenus_output_5_250_test.xlsx", index=False)
+    #df = concenus_voting(df)
+    #df.to_excel(save_base + "concenus_output_5_250_test.xlsx", index=False)
 
     """
     df = threshold_suv_max(df)
