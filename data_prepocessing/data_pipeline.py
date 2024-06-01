@@ -162,10 +162,10 @@ def run_data_pipeline():
 
 
 def run_data_pipeline_final():
-    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v2/"
+    save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v3/"
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
 
-    """
+
     df_path = "/UserData/Zach_Analysis/lymphoma_data/all_pet_reports_uw.xlsx"
     df = pd.read_excel(df_path)
     df.to_excel(save_base + "initial_data_0.xlsx", index=False)
@@ -180,14 +180,16 @@ def run_data_pipeline_final():
     #rint(fail) # rerun radgraph on previous suv and slice
     #df = pd.read_excel(save_base + "remove_multiple_suv_and_slice_2.xlsx")
     df = remove_non_anatomical_sent_v2(df)
-    df.to_excel(save_base + "remove_non_anotomical_info_3_try3.xlsx", index=False)
-    """
-    df = pd.read_excel(save_base + "remove_non_anotomical_info_3_try3.xlsx")
-    #df = llm_slice_suv_extraction(df)
-    #df.to_excel(save_base + "model_predictions_for_suv_slice_extraction_4_250_test.xlsx", index=False, sheet_name='Predictions')
+    df.to_excel(save_base + "remove_non_anotomical_info_3.xlsx", index=False)
 
     df = llm_remove_multiple_descriptions(df)
     df.to_excel(save_base + "llm_remove_multipled_descriptions_test_5_250_test.xlsx", index=False, sheet_name='Predictions')
+    #df = pd.read_excel(save_base + "remove_non_anotomical_info_3_try3.xlsx")
+    #df = llm_slice_suv_extraction(df)
+    #df.to_excel(save_base + "model_predictions_for_suv_slice_extraction_4_250_test.xlsx", index=False, sheet_name='Predictions')
+
+    #df = llm_remove_multiple_descriptions(df)
+    #df.to_excel(save_base + "llm_remove_multipled_descriptions_test_5_250_test.xlsx", index=False, sheet_name='Predictions')
 
     # df = pd.read_excel(save_base + "model_predictions_for_suv_slice_extraction_2.xlsx")
     #df = concenus_voting(df)

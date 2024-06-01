@@ -234,7 +234,7 @@ You are a helpful assistant tasked with evaluating sentences from radiologists. 
             #if index == 1000:
             #    break
             #if index < 1000:
-            if index > 50:
+            if index > 100:
                 break
             #    continue
             #accession.append(row["Accession Number"])

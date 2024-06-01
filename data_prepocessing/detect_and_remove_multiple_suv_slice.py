@@ -52,8 +52,9 @@ def detect_and_remove_multiple_suv_slice(df):
                 contains_previous_count += 1
             else:
                 does_not_contain_previous += 1
+                delete_list.append(row)
         # we cut all of them if they have slice count greater than 1
-        elif slice_count + suv_count > 2:
+        elif slice_count > 1:
             multiple_extractions += 1
             delete_list.append(row)
 
@@ -66,6 +67,8 @@ def detect_and_remove_multiple_suv_slice(df):
             # these might be able to be recovered but likely just want to drop them
             if slice_count != suv_count:
                 dropped += 1
+        elif suv_count > 2:
+            delete_list.append(row)
 
     print(f"starting length: {len(df)}")
     print(len(delete_list))
