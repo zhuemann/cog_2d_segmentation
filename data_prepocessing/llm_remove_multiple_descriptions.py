@@ -196,7 +196,7 @@ SUV: 1.5
 You are a helpful assistant tasked with extracting values from a sentence. You should return the axial slice number and its associated suv value for the current scan. If there are multiple slice numbers return 0.
 Sentence: '''
 
-instruction_v4 = '''<s> [INST]
+    instruction_v4 = '''<s> [INST]
 You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. 
 Sentence: In addition, a 6 mm hypermetabolic soft tissue nodule/mass is identified within the lateral portion of the left breast (slice 136), SUV max 2.5. 
 [/INST]
@@ -220,7 +220,7 @@ You are a helpful assistant tasked with evaluating sentences from radiologists. 
 Measurement number: 2
 </s>
 [INST]
-You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. Sentence: '''
+You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. Sentence:'''
 
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     #models = ['dolphin-instruct']
