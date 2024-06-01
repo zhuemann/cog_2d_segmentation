@@ -38,8 +38,10 @@ def detect_and_remove_multiple_suv_slice(df):
         sentence = row["Extracted Sentences"]
         slice_count, suv_count = count_occurrences(sentence)
 
+        if suv_count > 2:
+            delete_list.append(row)
         # single slice multiple
-        if slice_count == 1 and suv_count > 1:
+        elif slice_count == 1 and suv_count > 1:
             # print(f"slice_count: {slice_count} suv_count: {suv_count}")
 
             # likely has two descirptions
@@ -67,8 +69,6 @@ def detect_and_remove_multiple_suv_slice(df):
             # these might be able to be recovered but likely just want to drop them
             if slice_count != suv_count:
                 dropped += 1
-        elif suv_count > 2:
-            delete_list.append(row)
 
     print(f"starting length: {len(df)}")
     print(len(delete_list))
