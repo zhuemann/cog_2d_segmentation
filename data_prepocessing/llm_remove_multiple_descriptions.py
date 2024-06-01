@@ -222,6 +222,40 @@ Measurement number: 2
 [INST]
 You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. Sentence:'''
 
+    instruction_v5 = '''<s> [INST]
+You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. 
+Sentence: In addition, a 6 mm hypermetabolic soft tissue nodule/mass is identified within the lateral portion of the left breast (slice 136), SUV max 2.5. 
+[/INST]
+Measurement number: 1
+[INST] 
+You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. 
+Sentence: Interval increase in metabolic activity of nodal mass adjacent to the takeoff of superior mesenteric artery (SUVmax 11.5 versus 8.7 previously as well as multiple other para-aortic/retroperitoneal lymph nodes (aortic lymph node SUVmax 10.0 versus 7.4 previously) the common iliac lymph node (SUVmax 5.6 versus 5 previously), right parasacral lymph node (CT slice location 222; SUVmax 3.8 versus 2.3 on 5/6/2014 versus 4.9 on 2/5/2014). [/INST]
+Measurement number: 4
+[INST]
+You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. 
+Sentence: Abdomen/Pelvis:…There is a hypermetabolic 1.6 cm soft tissue mass located at the left lower…quadrant with a SUVmax of 12.6 (Slice 144 Series 2) just inferolateral to…the left kidney. 
+[/INST]
+Measurement number: 1
+[INST]
+You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. Sentence: A right level IB lymph node (slice 41) has slightly increased in size from 8 x 6 mm (SUV max 4.7) on prior examination to 10 x 8 mm (SUV max 4.5) on the current examination. 
+[/INST]
+Measurement number: 1
+[INST]
+You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. Sentence: Abdomen and pelvis: New hypermetabolic mesenteric lymph node is identified in the left lower abdomen (SUVmax 5.7) measuring 0.8 cm x 1 cm in size (CT slice location minus 595.14). 
+[/INST]
+Measurement number: 1
+[INST]
+You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. Sentence: Mild uptake (SUVmax 2.1, CT slice location 72) is noted in a small anterior mediastinal lymph node anterior to the left brachiocephalic vein, this is seen to better advantage on contrast-enhanced CT neck dated 4/18/2014.
+[/INST]
+Measurement number: 1
+[INST]
+You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. Sentence: For example, the includes a 1.9 cm aortic bifurcation lymph node that shows SUVmax of 46.9 ( CT series 2, slice 155) and a right external iliac 1.3 cm lymph node that shows SUVmax of 41.0 (CT series 2, slice 168.) No FDG avid mesenteric lymph nodes region are noted. 
+[/INST]
+Measurement number: 2
+</s>
+[INST]
+You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. Sentence: '''
+
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     #models = ['dolphin-instruct']
     models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
@@ -240,7 +274,7 @@ You are a helpful assistant tasked with evaluating sentences from radiologists. 
             #accession.append(row["Accession Number"])
             accession.append(row["Petlymph"])
             sentence = row["Extracted Sentences"]
-            total_prompt = instruction_v4 + sentence + "\n[/INST]"
+            total_prompt = instruction_v5 + sentence + "\n[/INST]"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
             #response = generate_with_timeout(model, total_prompt)
 
