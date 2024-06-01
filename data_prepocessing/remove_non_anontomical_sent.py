@@ -58,7 +58,7 @@ def remove_non_anatomical_sent_v2(df):
     # Merge the two DataFrames on 'Petlymph' from both DataFrames and
     # 'sentence' from df with 'Extracted Sentences' from df_anatomical_info
     #merged_df = pd.merge(df, df_anotomical_info, left_on='sentence', right_on='Extracted Sentences')
-    merged_df = pd.merge(df, df_anotomical_info)#, left_on='Extracted Sentences', right_on='Extracted Sentences')
+    merged_df = pd.merge(df, df_anotomical_info, on=['Extracted Sentences'])#, left_on='Extracted Sentences', right_on='Extracted Sentences')
 
     # Filter out rows where 'anatomy_available' is not 0
     filtered_df = merged_df[merged_df['anatomy_available'] != 0]
