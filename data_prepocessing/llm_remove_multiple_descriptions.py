@@ -234,7 +234,7 @@ You are a helpful assistant tasked with evaluating sentences from radiologists. 
             #if index == 1000:
             #    break
             #if index < 1000:
-            if index > 250:
+            if index > 50:
                 break
             #    continue
             #accession.append(row["Accession Number"])
@@ -252,30 +252,21 @@ You are a helpful assistant tasked with evaluating sentences from radiologists. 
             generated = ollama.generate(model=model, prompt = total_prompt)
             response = generated["response"]
 
-            slice_val, suv_val = extract_values(response)
+            slice_val = extract_values(response)
             #print(f"slice: {slice_val} suv: {suv_val}")
             #print(f"slice_val: {slice_val} and suv_val: {suv_val}")
-            if slice_val is not None and suv_val is not None:
+            if slice_val is not None:
                 ai_slice.append(slice_val)
-                ai_suv.append(suv_val)
-            elif slice_val is not None and suv_val is None:
-                ai_slice.append(slice_val)
-                ai_suv.append(0)
-            elif slice_val is None and suv_val is not None:
-                ai_slice.append(0)
-                ai_suv.append(suv_val)
             else:
                 ai_slice.append(0)
-                ai_suv.append(0)
 
 
 
         # Convert lists to a DataFrame
-        new_df = pd.DataFrame({model + 'AI_Slice': ai_slice, model + 'AI_SUV': ai_suv})
+        new_df = pd.DataFrame({model + 'AI_Slice': ai_slice})
         if "df_suv_slice" in locals():
             # If df exists, add new columns
             df_suv_slice[new_df.columns[0]] = new_df[new_df.columns[0]]
-            df_suv_slice[new_df.columns[1]] = new_df[new_df.columns[1]]
         else:
             # If df does not exist, create it from new_df
             df_suv_slice = new_df.copy()
