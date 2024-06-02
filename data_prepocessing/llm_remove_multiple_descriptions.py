@@ -414,7 +414,7 @@ Sentence: """
     [INST]
     Sentence:"""
 
-    prompt = "<s> [INST]\n"
+    prompt = "<s>"
     repeated_instruction = """Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
 Instructions:
 1. Read each sentence carefully.
@@ -425,6 +425,7 @@ Sentence: """
     df_prompt = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v3/prompt_examples.xlsx")
 
     for index, row in df_prompt.iterrows():
+        prompt += "[INST]\n"
         prompt += repeated_instruction
         prompt += row["Sentence"]
         prompt += "\n"
