@@ -324,6 +324,67 @@ Instructions:
 4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
 Sentence: 
 """
+    instruction_v7 = """instruction_v5 = '''<s> [INST]
+Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions:
+1. Read each sentence carefully.
+2. Determine if the sentence describes exactly one finding or multiple findings.
+3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
+4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+Sentence: Sentence: Abdomen and pelvis: New hypermetabolic mesenteric lymph node is identified in the left lower abdomen (SUVmax 5.7) measuring 0.8 cm x 1 cm in size (CT slice location minus 595.14). 
+[/INST]
+Single Finding
+[INST]
+Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions:
+1. Read each sentence carefully.
+2. Determine if the sentence describes exactly one finding or multiple findings.
+3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
+4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+Sentence: Interval increase in metabolic activity of nodal mass adjacent to the takeoff of superior mesenteric artery (SUVmax 11.5 versus 8.7 previously as well as multiple other para-aortic/retroperitoneal lymph nodes (aortic lymph node SUVmax 10.0 versus 7.4 previously) the common iliac lymph node (SUVmax 5.6 versus 5 previously), right parasacral lymph node (CT slice location 222; SUVmax 3.8 versus 2.3 on versus 4.9 on.
+ [/INST]
+Multiple Findings
+[INST]
+Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions:
+1. Read each sentence carefully.
+2. Determine if the sentence describes exactly one finding or multiple findings.
+3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
+4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+Sentence For example, the includes a 1.9 cm aortic bifurcation lymph node that shows SUVmax of 46.9 ( CT series 2, slice 155) and a right external iliac 1.3 cm lymph node that shows SUVmax of 41.0 (CT series 2, slice 168.) No FDG avid mesenteric lymph nodes region are noted. 
+[/INST]
+Multiple Findings
+[INST]
+Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions:
+1. Read each sentence carefully.
+2. Determine if the sentence describes exactly one finding or multiple findings.
+3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
+4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+Sentence: In addition, a 6 mm hypermetabolic soft tissue nodule/mass is identified within the lateral portion of the left breast (slice 136), SUV max 2.5.
+[/INST]
+Single Finding
+[INST]
+Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions:
+1. Read each sentence carefully.
+2. Determine if the sentence describes exactly one finding or multiple findings.
+3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
+4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+Sentence: Head and Neck: The metabolic activity noticed in the midline at the base of the tongue is immediately adjacent to the vallecula with an SUVmax of 8.3…(PET AC slice number 205).
+ [/INST]
+Single Finding
+</s>
+[INST]
+Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions:
+1. Read each sentence carefully.
+2. Determine if the sentence describes exactly one finding or multiple findings.
+3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
+4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+Sentence: 
+
+    """
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     #models = ['dolphin-instruct']
     models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
