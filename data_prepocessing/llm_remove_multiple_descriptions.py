@@ -134,6 +134,23 @@ def extract_values(s):
 
     return slice_value
 
+
+def classify_findings(input_string):
+    # Normalize the string to lower case for case insensitive comparison
+    normalized_string = input_string.lower()
+
+    # Check for presence of both or neither keywords
+    has_single = "single finding" in normalized_string
+    has_multiple = "multiple finding" in normalized_string
+
+    if has_single and has_multiple:
+        return None
+    elif has_single:
+        return 0
+    elif has_multiple:
+        return 1
+    else:
+        return None
 def llm_remove_multiple_descriptions(df):
 
     print("hi")
@@ -256,6 +273,57 @@ Measurement number: 2
 [INST]
 You are a helpful assistant tasked with evaluating sentences from radiologists. You should return the number of distinct noted lesions. A noted lesion is any lesion which is given an anatomical location, and often a measurement like SUVmax. References to previous measurements do not count. Sentence: '''
 
+
+    instruction_v6 = """instruction_v5 = '''<s> [INST]
+Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions:
+1. Read each sentence carefully.
+2. Determine if the sentence describes exactly one finding or multiple findings.
+3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
+4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+Sentence: Sentence: Abdomen and pelvis: New hypermetabolic mesenteric lymph node is identified in the left lower abdomen (SUVmax 5.7) measuring 0.8 cm x 1 cm in size (CT slice location minus 595.14). 
+[/INST]
+Single Finding
+[INST]
+Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions:
+1. Read each sentence carefully.
+2. Determine if the sentence describes exactly one finding or multiple findings.
+3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
+4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+Sentence: Interval increase in metabolic activity of nodal mass adjacent to the takeoff of superior mesenteric artery (SUVmax 11.5 versus 8.7 previously as well as multiple other para-aortic/retroperitoneal lymph nodes (aortic lymph node SUVmax 10.0 versus 7.4 previously) the common iliac lymph node (SUVmax 5.6 versus 5 previously), right parasacral lymph node (CT slice location 222; SUVmax 3.8 versus 2.3 on 5/6/2014 versus 4.9 on 2/5/2014).
+ [/INST]
+Multiple Findings
+[INST]
+Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions:
+1. Read each sentence carefully.
+2. Determine if the sentence describes exactly one finding or multiple findings.
+3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
+4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+Sentence For example, the includes a 1.9 cm aortic bifurcation lymph node that shows SUVmax of 46.9 ( CT series 2, slice 155) and a right external iliac 1.3 cm lymph node that shows SUVmax of 41.0 (CT series 2, slice 168.) No FDG avid mesenteric lymph nodes region are noted. 
+[/INST]
+Multiple Findings
+[INST]
+Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions:
+1. Read each sentence carefully.
+2. Determine if the sentence describes exactly one finding or multiple findings.
+3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
+4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+Sentence: In addition, a 6 mm hypermetabolic soft tissue nodule/mass is identified within the lateral portion of the left breast (slice 136), SUV max 2.5.
+[/INST]
+Single Finding
+</s>
+[INST]
+Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions:
+1. Read each sentence carefully.
+2. Determine if the sentence describes exactly one finding or multiple findings.
+3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
+4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+Sentence: 
+"""
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     #models = ['dolphin-instruct']
     models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
@@ -276,7 +344,7 @@ You are a helpful assistant tasked with evaluating sentences from radiologists. 
             #accession.append(row["Accession Number"])
             accession.append(row["Petlymph"])
             sentence = row["Extracted Sentences"]
-            total_prompt = instruction_v5 + sentence + "\n[/INST]"
+            total_prompt = instruction_v6 + sentence + "\n[/INST]"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
             #response = generate_with_timeout(model, total_prompt)
 
@@ -288,13 +356,14 @@ You are a helpful assistant tasked with evaluating sentences from radiologists. 
             generated = ollama.generate(model=model, prompt = total_prompt)
             response = generated["response"]
 
-            slice_val = extract_values(response)
+            #slice_val = extract_values(response)
+            slice_val = classify_findings(response)
             #print(f"slice: {slice_val} suv: {suv_val}")
             #print(f"slice_val: {slice_val} and suv_val: {suv_val}")
             if slice_val is not None:
                 ai_slice.append(slice_val)
             else:
-                ai_slice.append(0)
+                ai_slice.append(None)
 
 
 
