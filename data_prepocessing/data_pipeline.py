@@ -187,7 +187,7 @@ def run_data_pipeline_final():
     #df.to_excel(save_base + "llm_remove_multipled_descriptions_test_5_1000_test_v5.xlsx", index=False, sheet_name='Predictions')
     #df = pd.read_excel(save_base + "remove_non_anotomical_info_3_try3.xlsx")
     df = llm_slice_suv_extraction(df)
-    df.to_excel(save_base + "model_predictions_for_suv_slice_extraction_4_test.xlsx", index=False, sheet_name='Predictions')
+    df.to_excel(save_base + "model_predictions_for_suv_slice_extraction_4.xlsx", index=False, sheet_name='Predictions')
 
     #df = llm_remove_multiple_descriptions(df)
     #df.to_excel(save_base + "llm_remove_multipled_descriptions_test_5_250_test.xlsx", index=False, sheet_name='Predictions')
