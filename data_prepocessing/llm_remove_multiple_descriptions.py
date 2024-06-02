@@ -431,12 +431,14 @@ Sentence: """
         prompt += "\n"
         prompt += "[/INST]\n"
         prompt += row["Label"]
+        prompt += "\n"
 
     prompt += "</s>\n"
     prompt += "[INST]\n"
     prompt += "Sentence "
 
     print(prompt)
+    print(fail)
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     #models = ['dolphin-instruct']
     models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
