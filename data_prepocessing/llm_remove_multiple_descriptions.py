@@ -424,8 +424,11 @@ Instructions:
 Sentence: """
 
     repeated_instruction = """Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
-    Instructions: Read each sentence carefully. Determine if the sentence describes exactly one finding or multiple findings where each finding is refering to a single location. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.Respond with "Multiple Findings" if the sentence describes more than one finding in multiple anatomical locations, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+    Instructions: Read each sentence carefully. Determine if the sentence describes exactly one finding or multiple findings where each finding is refering to a single anatomical location. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.Respond with "Multiple Findings" if the sentence describes more than one finding in multiple anatomical locations, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
     Sentence: """
+    repeated_instruction = """Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+        Instructions: Read each sentence carefully. Determine if the sentence describes exactly one finding or multiple findings where each finding is refering to a single anatomical location. A sentence should be classified as "Single Finding" if it describes findings all within the same anatomical location, even if multiple entities are mentioned. Classify as "Multiple Findings" only when the sentence clearly describes separate findings in different anatomical locations or distinctly different findings without emphasizing a primary one.
+        Sentence: """
     df_prompt = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v3/prompt_examples.xlsx")
 
     for index, row in df_prompt.iterrows():
