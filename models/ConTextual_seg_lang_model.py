@@ -64,6 +64,9 @@ class Attention_ConTEXTual_Lang_Seg_Model(torch.nn.Module):
         report_rep = lang_output[1]
         lang_rep = word_rep
 
+        # repeats the pooled output from roberta and uses it as the langauge output
+        lang_rep = report_rep.unsqueeze(1).repeat(1, word_rep.size(1), 1)
+
         # for t5
         #encoder_output = self.lang_encoder.encoder(input_ids=ids, attention_mask=mask, return_dict=True)
         #pooled_sentence = encoder_output.last_hidden_state

@@ -282,7 +282,7 @@ Sentence: '''
         ai_suv = []
         accession = []
         for index, row in df.iterrows():
-            print(f"index: {index}")
+            print(f"model: {model} index: {index}")
             #if index == 1000:
             #    break
             #if index < 1000:
