@@ -414,6 +414,28 @@ Sentence: """
     [INST]
     Sentence:"""
 
+    prompt = "<s> [INST]\n"
+    repeated_instruction = """Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions:
+1. Read each sentence carefully.
+2. Determine if the sentence describes exactly one finding or multiple findings.
+3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
+4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+Sentence: """
+    df_prompt = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v3/prompt_examples.xlsx")
+
+    for index, row in df_prompt.iterrows():
+        prompt += repeated_instruction
+        prompt += row["Sentence"]
+        prompt += "\n"
+        prompt += "[/INST]\n"
+        prompt += row["Label"]
+
+    prompt += "</s>\n"
+    prompt += "[INST]\n"
+    prompt += "Sentence "
+
+    print(prompt)
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     #models = ['dolphin-instruct']
     models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
@@ -428,7 +450,7 @@ Sentence: """
             #if index < 1000:
             #if index < 100:
             #    continue
-            if index > 50:
+            if index > 1:
                 break
             #    continue
             #accession.append(row["Accession Number"])
