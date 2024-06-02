@@ -424,7 +424,7 @@ Instructions:
 Sentence: """
 
     repeated_instruction = """Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
-    Instructions: Read each sentence carefully. Determine if the sentence describes exactly one finding or multiple findings. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+    Instructions: Read each sentence carefully. Determine if the sentence describes exactly one finding or multiple findings where each finding is refering to a single location. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.Respond with "Multiple Findings" if the sentence describes more than one finding in multiple anatomical locations, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
     Sentence: """
     df_prompt = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v3/prompt_examples.xlsx")
 
@@ -456,7 +456,7 @@ Sentence: """
             #if index < 1000:
             #if index < 100:
             #    continue
-            if index > 50:
+            if index > 100:
                 break
             #    continue
             #accession.append(row["Accession Number"])
