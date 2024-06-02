@@ -438,7 +438,6 @@ Sentence: """
     prompt += "Sentence "
 
     print(prompt)
-    print(fail)
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     #models = ['dolphin-instruct']
     models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
@@ -453,13 +452,13 @@ Sentence: """
             #if index < 1000:
             #if index < 100:
             #    continue
-            if index > 1:
+            if index > 50:
                 break
             #    continue
             #accession.append(row["Accession Number"])
             accession.append(row["Petlymph"])
             sentence = row["Extracted Sentences"]
-            total_prompt = instruction_v6 + sentence + "\n[/INST]"
+            total_prompt = prompt + sentence + "\n[/INST]"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
             #response = generate_with_timeout(model, total_prompt)
 
