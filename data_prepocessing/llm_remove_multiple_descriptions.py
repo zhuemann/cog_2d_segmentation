@@ -386,8 +386,8 @@ Sentence:
 
     """
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
-    #models = ['dolphin-instruct']
-    models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
+    models = ['dolphin-instruct']
+    #models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     for model in models:
         ai_slice = []
         ai_suv = []
@@ -416,7 +416,7 @@ Sentence:
             #response = process_single_prompt(model, total_prompt)
             generated = ollama.generate(model=model, prompt = total_prompt)
             response = generated["response"]
-
+            print(response)
             #slice_val = extract_values(response)
             slice_val = classify_findings(response)
             #print(f"slice: {slice_val} suv: {suv_val}")
