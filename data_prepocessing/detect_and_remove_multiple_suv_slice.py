@@ -9,9 +9,9 @@ def llm_sentence_splitting(df):
 
 def count_occurrences(sentence):
     # Regex for 'slice' followed by any words and then an integer
-    slice_pattern = re.compile(r'\bslice\b(?:\s+\w+)*\s+\d+\b', re.IGNORECASE)
+    slice_pattern = re.compile(r'slice(?:\s+\w+)*\s+\d+\b', re.IGNORECASE)
     # Regex for 'SUV' followed by any words and then a decimal
-    suv_pattern = re.compile(r'\bSUV\b(?:\s+\w+)*\s+\d+\.\d+\b', re.IGNORECASE)
+    suv_pattern = re.compile(r'SUV(?:\s+\w+)*\s+\d+\.\d+\b', re.IGNORECASE)
 
     # Find all matches and count them
     slice_count = len(slice_pattern.findall(sentence))
@@ -47,6 +47,7 @@ def detect_and_remove_multiple_suv_slice(df):
             # likely has two descirptions
             if suv_count > 2:
                 delete_list.append(row)
+                continue
 
             contains_previous_bool = contains_previous(sentence)
             # we will keep either way but want to track them
