@@ -336,9 +336,9 @@ Sentence:
             #if index == 1000:
             #    break
             #if index < 1000:
-            if index < 100:
-                continue
-            if index > 500:
+            #if index < 100:
+            #    continue
+            if index > 50:
                 break
             #    continue
             #accession.append(row["Accession Number"])
