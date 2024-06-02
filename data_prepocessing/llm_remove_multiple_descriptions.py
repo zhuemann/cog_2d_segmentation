@@ -459,7 +459,7 @@ Sentence: """
             #if index < 1000:
             #if index < 100:
             #    continue
-            if index > 100:
+            if index > 1000:
                 break
             #    continue
             #accession.append(row["Accession Number"])
