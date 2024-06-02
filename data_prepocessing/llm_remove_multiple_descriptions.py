@@ -422,6 +422,10 @@ Instructions:
 3. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.
 4. Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
 Sentence: """
+
+    repeated_instruction = """Objective: Classify the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+    Instructions: Read each sentence carefully. Determine if the sentence describes exactly one finding or multiple findings. Respond with "Single Finding" if the sentence only describes one finding, including its specific details and any changes compared to previous examinations.Respond with "Multiple Findings" if the sentence describes more than one finding, contains multiple data points about different nodes or tissues, or lists findings without connecting details.
+    Sentence: """
     df_prompt = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v3/prompt_examples.xlsx")
 
     for index, row in df_prompt.iterrows():
@@ -437,7 +441,7 @@ Sentence: """
     prompt += "[INST]\n"
     prompt += "Sentence "
 
-    print(prompt)
+    #print(prompt)
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     #models = ['dolphin-instruct']
     models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
