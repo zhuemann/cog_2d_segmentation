@@ -165,7 +165,6 @@ def run_data_pipeline_final():
     save_base = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/"
     save_base_final = "/UserData/Zach_Analysis/petlymph_image_data/"
 
-
     df_path = "/UserData/Zach_Analysis/lymphoma_data/all_pet_reports_uw.xlsx"
     df = pd.read_excel(df_path)
     df.to_excel(save_base + "initial_data_0.xlsx", index=False)
