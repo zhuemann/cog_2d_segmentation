@@ -403,7 +403,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
     train_params = {'batch_size': BATCH_SIZE,
                 'shuffle': True,
-                'num_workers': 8
+                'num_workers': 6
                 }
 
     test_params = {'batch_size': BATCH_SIZE,
