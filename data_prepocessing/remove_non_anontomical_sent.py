@@ -80,6 +80,7 @@ def remove_non_anatomical_sent_v2(df):
 
     print(f"final df length: {len(df_dropped)}")
     print(filtered_df.columns)
+    filtered_df.set_index("Petlymph", inplace=True)
     return df_dropped
 
 def remove_non_anontomical_sent(df):
