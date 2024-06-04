@@ -197,20 +197,18 @@ def run_data_pipeline_final():
 
     df = threshold_suv_max(df)
     df.to_excel(save_base + "thresholded_concensus_outputs_6.xlsx")
-    """
+    
     df = pd.read_excel(save_base + "thresholded_concensus_outputs_6.xlsx")
-    print(df.columns)
-    df = df.drop(df.columns[0], axis=1)
     df = map_to_new_coded_id(df)
     df.to_excel(save_base + "mapped_to_new_id_7.xlsx")
-
+    """
     #df = pd.read_excel(save_base + "max_pixel_7_all.xlsx")
-    #df = pd.read_excel(save_base + "mapped_to_new_id_7.xlsx")
+    df = pd.read_excel(save_base + "mapped_to_new_id_7.xlsx")
 
     #df = df.drop(df.columns[0], axis=1)
 
     #df.reset_index(drop=True, inplace=True)
     df = get_max_pixel_step3(df)
-    df.to_excel(save_base + "max_pixel_9.xlsx", index=False)
+    df.to_excel(save_base + "max_pixel_9_10000.xlsx", index=False)
 
 
