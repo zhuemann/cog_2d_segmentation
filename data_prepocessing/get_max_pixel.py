@@ -110,10 +110,10 @@ def get_max_pixel_step3(df):
         #    break
         # if index > 10:
         #    break
-        if index < 21000:
+        if index < 0:
             continue
-        #if index > 21000:
-        #    break
+        if index > 10000:
+            break
         """
         accession_num = row["Accession Number"]
         rows_with_value = patient_decoding[patient_decoding['Accession Number'] == accession_num]
@@ -192,7 +192,7 @@ def get_max_pixel_step3(df):
                     #print(f"Real SUVmax: {suv_ref} slice range passed slice_min: {slice_min} slice_max: {slice_max} suv_max: {suv_max}")
                     if abs(suv_max - suv_ref) <= suv_tolerance:
                         # catch long initial contours that are clearly not lesions
-                        if slice_max - slice_min > 50 and suv_ref < 5:
+                        if slice_max - slice_min > 100 and suv_ref < 5:
                             slice_diff_exceeded += 1
                             continue
 
