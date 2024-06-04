@@ -99,9 +99,10 @@ def get_max_pixel_step3(df):
     below_suv_threshold = 0
     dups_found = 0
     slice_diff_exceeded = 0
+    too_long_not_used = 0
 
     for index, row in uw_100.iterrows():
-        print(f"index: {index} mathces_found: {found_noted_lesion} duplicates: {dups_found} missing pet: {sentences_not_evalued_missing_pet}")
+        print(f"index: {index} mathces_found: {found_noted_lesion} duplicates: {dups_found} missing pet: {sentences_not_evalued_missing_pet} too long: {slice_diff_exceeded}")
         # if index < 3645:
         #    continue
         #if index > 500:
