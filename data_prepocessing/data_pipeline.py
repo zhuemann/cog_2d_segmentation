@@ -199,6 +199,7 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "thresholded_concensus_outputs_6.xlsx")
     """
     df = pd.read_excel(save_base + "thresholded_concensus_outputs_6.xlsx")
+    df = df.drop(df.columns[0], axis=1)
     df = map_to_new_coded_id(df)
     df.to_excel(save_base + "mapped_to_new_id_7.xlsx")
 
