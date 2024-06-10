@@ -203,12 +203,16 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "mapped_to_new_id_7.xlsx")
     """
     #df = pd.read_excel(save_base + "max_pixel_7_all.xlsx")
-    df = pd.read_excel(save_base + "mapped_to_new_id_7.xlsx")
+    #df = pd.read_excel(save_base + "mapped_to_new_id_7.xlsx")
+    #df = get_max_pixel_step3(df)
+    #df.to_excel(save_base + "max_pixel_9_30000.xlsx", index=False)
 
-    #df = df.drop(df.columns[0], axis=1)
+    df_1 = pd.read_excel(save_base + "max_pixel_9_10000.xlsx")
+    df_2 = pd.read_excel(save_base + "max_pixel_9_20000.xlsx")
+    df_3 = pd.read_excel(save_base + "max_pixel_9_30000.xlsx")
 
-    #df.reset_index(drop=True, inplace=True)
-    df = get_max_pixel_step3(df)
-    df.to_excel(save_base + "max_pixel_9_30000.xlsx", index=False)
+    df = pd.concat([df_1, df_2, df_3])
+    df.to_excel(save_base + "max_pixel_9_all.xlsx", index=False)
+    print(len(df))
 
 
