@@ -218,7 +218,7 @@ def run_data_pipeline_final():
 
     df = remove_duplicates(df)
     df = assign_label_numbers(df)
-
+    print(f"length after labesl are assigned")
     df.to_excel(save_base + "remove_duplicate_maxes_and_label_10.xlsx", index=False)
 
     df = make_labels_from_suv_max_points(df, save_location="uw_labels_v4_nifti")
