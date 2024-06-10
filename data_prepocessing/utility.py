@@ -101,10 +101,9 @@ def count_left_right_sided(df, label_path_base):
 
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     #label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v2_nifti/"
-    #labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
-    #                  "PETWB_012579_01_label_2", "PETWB_003190_01_label_3",
-    #                  "PETWB_011401_02_label_3"]
-    labels_to_skip = ["PETWB_011355_01_label_5", "PETWB_012579_01_label_2", "PETWB_003190_01_label_2"]
+    labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
+                      "PETWB_012579_01_label_2", "PETWB_003190_01_label_3", "PETWB_011401_02_label_3"]
+    #labels_to_skip = ["PETWB_011355_01_label_5", "PETWB_012579_01_label_2", "PETWB_003190_01_label_2", "PETWB_002466_01_label_1"]
     left_indices = []
     right_indices = []
     left_and_right_count = 0
@@ -123,6 +122,8 @@ def count_left_right_sided(df, label_path_base):
             continue
         #if index > 5000:
         #    break
+        #if index < 5000:
+        #    continue
         label_name = row["Label_Name"] + ".nii.gz"
         label_path = os.path.join(label_path_base, label_name)
         nii_label = nib.load(label_path)
