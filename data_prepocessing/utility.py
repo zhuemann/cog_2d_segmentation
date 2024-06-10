@@ -120,7 +120,7 @@ def count_left_right_sided(df, label_path_base):
         sentence = row["sentence"]
         if row["Label_Name"] in labels_to_skip:
             continue
-        if index > 10000:
+        if index < 10000:
             continue
         #if index < 5000:
         #    continue
