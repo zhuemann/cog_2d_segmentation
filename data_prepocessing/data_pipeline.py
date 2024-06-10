@@ -222,7 +222,7 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "remove_duplicate_maxes_and_label_10.xlsx", index=False)
 
     df = make_labels_from_suv_max_points(df, save_location="uw_labels_v4_nifti")
-    df.to_excel(save_base_final + "sentences_with_labels_df_11.xlsx", index=False)
+    df.to_excel(save_base + "sentences_with_labels_df_11.xlsx", index=False)
     """
     df = pd.read_excel(save_base_final + "sentences_with_labels_df_11.xlsx")
     df = count_left_right_sided(df, "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/")
