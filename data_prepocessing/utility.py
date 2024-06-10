@@ -104,6 +104,7 @@ def count_left_right_sided(df, label_path_base):
     #labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
     #                  "PETWB_012579_01_label_2", "PETWB_003190_01_label_3",
     #                  "PETWB_011401_02_label_3"]
+    labels_to_skip = ["PETWB_011355_01_label_5.nii.gz"]
     left_indices = []
     right_indices = []
     left_and_right_count = 0
@@ -118,8 +119,8 @@ def count_left_right_sided(df, label_path_base):
     for index, row in df.iterrows():
         print(f"index: {index}")
         sentence = row["sentence"]
-        #if row["Label_Name"] in labels_to_skip:
-        #    continue
+        if row["Label_Name"] in labels_to_skip:
+            continue
         #if index > 5000:
         #    break
         label_name = row["Label_Name"] + ".nii.gz"
