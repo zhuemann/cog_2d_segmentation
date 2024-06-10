@@ -97,13 +97,13 @@ def first_nonzero_plane(label):
             return i
     return None  # Return None if all elements are zero
 
-def count_left_right_sided(df):
+def count_left_right_sided(df, label_path_base):
 
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
-    label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v2_nifti/"
-    labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
-                      "PETWB_012579_01_label_2", "PETWB_003190_01_label_3",
-                      "PETWB_011401_02_label_3"]
+    #label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v2_nifti/"
+    #labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
+    #                  "PETWB_012579_01_label_2", "PETWB_003190_01_label_3",
+    #                  "PETWB_011401_02_label_3"]
     left_indices = []
     right_indices = []
     left_and_right_count = 0
@@ -118,8 +118,8 @@ def count_left_right_sided(df):
     for index, row in df.iterrows():
         print(f"index: {index}")
         sentence = row["sentence"]
-        if row["Label_Name"] in labels_to_skip:
-            continue
+        #if row["Label_Name"] in labels_to_skip:
+        #    continue
         #if index > 5000:
         #    break
         label_name = row["Label_Name"] + ".nii.gz"

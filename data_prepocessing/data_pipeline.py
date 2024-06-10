@@ -215,4 +215,15 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "max_pixel_9_all.xlsx", index=False)
     print(len(df))
 
+    df = remove_duplicates(df)
+    df = assign_label_numbers(df)
+
+    df.to_excel(save_base + "remove_duplicate_maxes_and_label_10.xlsx", index=False)
+
+    df = make_labels_from_suv_max_points(df, save_location="uw_labels_v4_nifti")
+    df.to_excel(save_base_final + "sentences_with_labels_df_11.xlsx", index=False)
+
+    df = count_left_right_sided(df, "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/")
+    df.to_excel(save_base_final + "uw_label_wrong_side_analysis_12.xlsx", index=False)
+
 
