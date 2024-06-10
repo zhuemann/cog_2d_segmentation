@@ -206,7 +206,7 @@ def run_data_pipeline_final():
     #df = pd.read_excel(save_base + "mapped_to_new_id_7.xlsx")
     #df = get_max_pixel_step3(df)
     #df.to_excel(save_base + "max_pixel_9_30000.xlsx", index=False)
-
+    """
     df_1 = pd.read_excel(save_base + "max_pixel_9_10000.xlsx")
     df_2 = pd.read_excel(save_base + "max_pixel_9_20000.xlsx")
     df_3 = pd.read_excel(save_base + "max_pixel_9_30000.xlsx")
@@ -223,8 +223,13 @@ def run_data_pipeline_final():
 
     df = make_labels_from_suv_max_points(df, save_location="uw_labels_v4_nifti")
     df.to_excel(save_base_final + "sentences_with_labels_df_11.xlsx", index=False)
-
+    """
+    df = pd.read_excel(save_base + "sentences_with_labels_df_11.xlsx")
     df = count_left_right_sided(df, "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/")
     df.to_excel(save_base_final + "uw_label_wrong_side_analysis_12.xlsx", index=False)
+
+    # add check for suv that matches the suv noted
+    # add check for slice range of label matches noted slice
+
 
 
