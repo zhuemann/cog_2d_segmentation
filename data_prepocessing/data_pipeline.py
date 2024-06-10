@@ -215,6 +215,7 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "max_pixel_9_all.xlsx", index=False)
     print(len(df))
 
+
     df = remove_duplicates(df)
     df = assign_label_numbers(df)
 
