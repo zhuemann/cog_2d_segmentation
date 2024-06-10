@@ -117,7 +117,7 @@ def count_left_right_sided(df, label_path_base):
     right_cross_midline = 0
     rows_to_return = []
     for index, row in df.iterrows():
-        print(f"index: {index}")
+        print(f"index: {index} id: {row['Label_Name']}")
         sentence = row["sentence"]
         if row["Label_Name"] in labels_to_skip:
             continue
