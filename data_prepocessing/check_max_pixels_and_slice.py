@@ -16,12 +16,13 @@ def max_pixel_where_label_is_one(image, label):
 
     return max_value
 
-def check_slice(label, slice_number, axis=0):
+def check_slice(label, slice_number, axis=2):
     # Check if the provided slice number is within the valid range for the specified axis
     if slice_number < 0 or slice_number >= label.shape[axis]:
         raise IndexError("Slice number is out of bounds for the given label dimensions.")
 
-
+    print(f"label shape: {label.shape}")
+    print(f"slice_num: {slice_number}")
     # Sum the values in the specified slice along the given axis
     slice_sum = np.sum(label.take(indices=slice_number, axis=axis))
 
@@ -58,7 +59,7 @@ def check_max_pixel_and_slice(df):
             print(f"max pixel: {max_pixel} text max: {text_max}")
             num_wrong_suv += 1
 
-        if check_slice(label, row["Slice"], axis=1) == False:
+        if check_slice(label, row["k"], axis=1) == False:
             wrong_slice += 1
 
     print(f"number of wrong suv_max: {num_wrong_suv}")
