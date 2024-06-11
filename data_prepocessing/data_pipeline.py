@@ -226,10 +226,11 @@ def run_data_pipeline_final():
     df = make_labels_from_suv_max_points(df, save_location="uw_labels_v4_nifti")
     df.to_excel(save_base + "sentences_with_labels_df_11.xlsx", index=False)
     """
-    #df = pd.read_excel(save_base_final + "sentences_with_labels_df_11.xlsx")
+    #df = pd.read_excel(save_base + "sentences_with_labels_df_11.xlsx")
     #df = count_left_right_sided(df, "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/")
     #df.to_excel(save_base + "wrong_side_need_to_drop_12.xlsx", index=False)
 
+    """
     df = pd.read_excel(save_base + "sentences_with_labels_df_11.xlsx")
     # add check for suv that matches the suv noted
     df_to_drop = pd.read_excel(save_base + "uw_label_wrong_side_analysis.xlsx")
@@ -245,6 +246,8 @@ def run_data_pipeline_final():
     # add check for slice range of label matches noted slice
 
     df.to_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx", index=False)
-
-
+    """
+    df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
+    df = llm_remove_multiple_descriptions(df)
+    df.to_excel(save_base + "remove_multiple_descriptions_test_llama3_14.xlsx", index=False)
 

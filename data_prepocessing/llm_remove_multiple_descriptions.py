@@ -444,10 +444,14 @@ Sentence: """
     prompt += "[INST]\n"
     prompt += "Sentence "
 
+
+
+
+
     #print(prompt)
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
-    #models = ['dolphin-instruct']
-    models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
+    models = ['llama3-8B-instruct']
+    #models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
     for model in models:
         ai_slice = []
         ai_suv = []
