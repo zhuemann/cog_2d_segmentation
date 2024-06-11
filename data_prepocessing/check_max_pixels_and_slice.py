@@ -20,6 +20,7 @@ def check_slice(label, slice_number, axis=3):
     print(f"label shape: {label.shape}")
     print(f"slice_num: {slice_number}")
     # Check if the provided slice number is within the valid range for the specified axis
+    print(f"axis: {label.shape[axis]}")
     if slice_number < 0 or slice_number >= label.shape[axis]:
         raise IndexError("Slice number is out of bounds for the given label dimensions.")
 
