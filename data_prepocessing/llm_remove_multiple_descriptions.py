@@ -445,6 +445,20 @@ Sentence: """
     prompt += "Sentence "
 
 
+    llama_prompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+    """
+
+    for index, row in df_prompt.iterrows():
+        llama_prompt += repeated_instruction
+        llama_prompt += row["Sentence"]
+        llama_prompt += "\n"
+        llama_prompt += row["Label"]
+        llama_prompt += "\n"
+
+
+
+    llama_prompt += "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
+    #llama_prompt =
 
 
 
@@ -471,9 +485,11 @@ Sentence: """
             #sentence = row["Extracted Sentences"]
             sentence = row["sentence"]
             total_prompt = prompt + sentence + "\n[/INST]"
+            if model == 'llama3-8B-instruct':
+                total_prompt = llama_prompt + repeated_instruction + sentence + "\n" + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
             #response = generate_with_timeout(model, total_prompt)
-
+            print(total_prompt)
             #if response == None:
             #    print("none response")
             #    response = ""
