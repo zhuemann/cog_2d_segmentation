@@ -20,7 +20,7 @@ def check_max_pixel_and_slice(df):
 
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
-
+    num_wrong_suv = 0
     for index, row in df.iterrows():
 
         print(f"index: {index}")
@@ -41,5 +41,9 @@ def check_max_pixel_and_slice(df):
 
         text_max = row["SUV"]
         max_pixel = max_pixel_where_label_is_one(image, label)
+        if abs(max_pixel - text_max) > .2:
 
-        print(f"max pixel: {max_pixel} text max: {text_max}")
+            print(f"max pixel: {max_pixel} text max: {text_max}")
+            num_wrong_suv += 1
+
+    print(f"number of wrong suv_max: {num_wrong_suv}")
