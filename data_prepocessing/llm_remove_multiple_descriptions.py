@@ -455,17 +455,15 @@ Sentence: """
         llama_prompt += row["Label"]
         llama_prompt += "\n"
 
-
-
     llama_prompt += "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
     #llama_prompt =
 
-
-
     #print(prompt)
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
-    models = ['llama3-8B-instruct']
+    #models = ['llama3-8B-instruct']
     #models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
+    models = ['llama3-8B-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
+
     for model in models:
         ai_slice = []
         ai_suv = []
@@ -477,7 +475,7 @@ Sentence: """
             #if index < 1000:
             #if index < 100:
             #    continue
-            if index > 1000:
+            if index > 500:
                 break
             #    continue
             #accession.append(row["Accession Number"])
@@ -497,8 +495,8 @@ Sentence: """
             #response = process_single_prompt(model, total_prompt)
             generated = ollama.generate(model=model, prompt = total_prompt)
             response = generated["response"]
-            print(sentence)
-            print(response)
+            #print(sentence)
+            #print(response)
             #slice_val = extract_values(response)
             slice_val = classify_findings(response)
             #print(f"slice: {slice_val} suv: {suv_val}")
