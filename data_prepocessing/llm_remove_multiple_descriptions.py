@@ -489,7 +489,7 @@ Sentence: """
                 total_prompt = llama_prompt + repeated_instruction + sentence + "\n" + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
             #response = generate_with_timeout(model, total_prompt)
-            print(total_prompt)
+            #print(total_prompt)
             #if response == None:
             #    print("none response")
             #    response = ""
