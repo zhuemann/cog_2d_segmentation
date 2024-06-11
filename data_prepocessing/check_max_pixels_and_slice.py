@@ -17,13 +17,9 @@ def max_pixel_where_label_is_one(image, label):
     return max_value
 
 def check_slice(label, slice_number, axis=2):
-    #print(f"label shape: {label.shape}")
-    #print(f"slice_num: {slice_number}")
     # Check if the provided slice number is within the valid range for the specified axis
-    #print(f"axis: {label.shape[axis]}")
     if slice_number < 0 or slice_number >= label.shape[axis]:
         raise IndexError("Slice number is out of bounds for the given label dimensions.")
-
 
     # Sum the values in the specified slice along the given axis
     slice_sum = np.sum(label.take(indices=slice_number, axis=axis))
@@ -36,6 +32,7 @@ def check_max_pixel_and_slice(df):
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
     num_wrong_suv = 0
     wrong_slice = 0
+    rows_to_drop = []
     for index, row in df.iterrows():
 
         print(f"index: {index} num_wrong_suv: {num_wrong_suv} num wrong slice: {wrong_slice}")
@@ -60,9 +57,19 @@ def check_max_pixel_and_slice(df):
 
             print(f"max pixel: {max_pixel} text max: {text_max}")
             num_wrong_suv += 1
+            rows_to_drop.append(row["Label_Name"])
 
         if check_slice(label, row["k"], axis=2) == False:
             wrong_slice += 1
+            rows_to_drop.append(row["Label_Name"])
+
+    # Drop rows where 'Label_Name' is in the 'rows_to_drop' list
+    df_filtered = df[~df['Label_Name'].isin(rows_to_drop)]
+
+    # Reset the index of the DataFrame and drop the old index
+    df_filtered.reset_index(drop=True, inplace=True)
 
     print(f"number of wrong suv_max: {num_wrong_suv}")
     print(f"number of wrong slice: {wrong_slice}")
+
+    return df_filtered
