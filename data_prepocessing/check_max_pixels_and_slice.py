@@ -16,7 +16,7 @@ def max_pixel_where_label_is_one(image, label):
 
     return max_value
 
-def check_slice(label, slice_number, axis=3):
+def check_slice(label, slice_number, axis=2):
     print(f"label shape: {label.shape}")
     print(f"slice_num: {slice_number}")
     # Check if the provided slice number is within the valid range for the specified axis
@@ -61,7 +61,7 @@ def check_max_pixel_and_slice(df):
             print(f"max pixel: {max_pixel} text max: {text_max}")
             num_wrong_suv += 1
 
-        if check_slice(label, row["k"], axis=1) == False:
+        if check_slice(label, row["k"], axis=2) == False:
             wrong_slice += 1
 
     print(f"number of wrong suv_max: {num_wrong_suv}")
