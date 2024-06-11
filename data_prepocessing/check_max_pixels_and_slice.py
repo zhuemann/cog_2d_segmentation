@@ -16,7 +16,7 @@ def max_pixel_where_label_is_one(image, label):
 
     return max_value
 
-def check_slice(label, slice_number, axis=2):
+def check_slice(label, slice_number, axis=1):
     # Check if the provided slice number is within the valid range for the specified axis
     if slice_number < 0 or slice_number >= label.shape[axis]:
         raise IndexError("Slice number is out of bounds for the given label dimensions.")
