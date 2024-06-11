@@ -16,14 +16,26 @@ def max_pixel_where_label_is_one(image, label):
 
     return max_value
 
+def check_slice(label, slice_number, axis=2):
+    # Check if the provided slice number is within the valid range for the specified axis
+    if slice_number < 0 or slice_number >= label.shape[axis]:
+        raise IndexError("Slice number is out of bounds for the given label dimensions.")
+
+
+    # Sum the values in the specified slice along the given axis
+    slice_sum = np.sum(label.take(indices=slice_number, axis=axis))
+
+    # Check if the sum is greater than 1
+    return slice_sum > 1
 def check_max_pixel_and_slice(df):
 
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
     num_wrong_suv = 0
+    wrong_slice = 0
     for index, row in df.iterrows():
 
-        print(f"index: {index}")
+        print(f"index: {index} num_wrong_suv: {num_wrong_suv} num wrong slice: {wrong_slice}")
 
         label_path = os.path.join(label_path_base, row["Label_Name"] + ".nii.gz")
 
@@ -46,4 +58,8 @@ def check_max_pixel_and_slice(df):
             print(f"max pixel: {max_pixel} text max: {text_max}")
             num_wrong_suv += 1
 
+        if check_slice(label, row["Slice"], axis=1) == False:
+            wrong_slice += 1
+
     print(f"number of wrong suv_max: {num_wrong_suv}")
+    print(f"number of wrong slice: {wrong_slice}")
