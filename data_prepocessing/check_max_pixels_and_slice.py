@@ -30,11 +30,17 @@ def check_max_pixel_and_slice(df):
 
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
+
+    labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
+                      "PETWB_012579_01_label_2", "PETWB_011401_02_label_3", "PETWB_003190_01_label_2",
+                      "PETWB_011401_02_label_2"]
     num_wrong_suv = 0
     wrong_slice = 0
     rows_to_drop = []
     for index, row in df.iterrows():
 
+        if row["Label_Name"] in labels_to_skip:
+            continue
         print(f"index: {index} num_wrong_suv: {num_wrong_suv} num wrong slice: {wrong_slice}")
 
         label_path = os.path.join(label_path_base, row["Label_Name"] + ".nii.gz")
