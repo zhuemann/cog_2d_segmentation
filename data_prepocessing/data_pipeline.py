@@ -231,7 +231,7 @@ def run_data_pipeline_final():
     #df.to_excel(save_base + "uw_label_wrong_side_analysis_12.xlsx", index=False)
 
     # add check for suv that matches the suv noted
-    df = pd.read_excel(save_base_final + "uw_label_wrong_side_analysis_12.xlsx")
+    df = pd.read_excel(save_base + "uw_label_wrong_side_analysis_12.xlsx")
     check_max_pixel_and_slice(df)
     # add check for slice range of label matches noted slice
 
