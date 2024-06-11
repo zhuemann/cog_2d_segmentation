@@ -497,7 +497,7 @@ Sentence: """
             #response = process_single_prompt(model, total_prompt)
             generated = ollama.generate(model=model, prompt = total_prompt)
             response = generated["response"]
-            #print(response)
+            print(response)
             #slice_val = extract_values(response)
             slice_val = classify_findings(response)
             #print(f"slice: {slice_val} suv: {suv_val}")
