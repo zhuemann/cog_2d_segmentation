@@ -17,12 +17,13 @@ def max_pixel_where_label_is_one(image, label):
     return max_value
 
 def check_slice(label, slice_number, axis=2):
+    print(f"label shape: {label.shape}")
+    print(f"slice_num: {slice_number}")
     # Check if the provided slice number is within the valid range for the specified axis
     if slice_number < 0 or slice_number >= label.shape[axis]:
         raise IndexError("Slice number is out of bounds for the given label dimensions.")
 
-    print(f"label shape: {label.shape}")
-    print(f"slice_num: {slice_number}")
+
     # Sum the values in the specified slice along the given axis
     slice_sum = np.sum(label.take(indices=slice_number, axis=axis))
 
