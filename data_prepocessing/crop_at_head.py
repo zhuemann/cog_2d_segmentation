@@ -68,6 +68,8 @@ def crop_at_head_calculation(df):
     index = 0
     images_created = 0
     cropped_frames = 0
+    fdg_images = 0
+    non_fdg_images = 0
     #for folder in folder_list:
     for index, row in df.iterrows():
         print(f"index: {index} total frames cropped: {cropped_frames}")
@@ -89,8 +91,13 @@ def crop_at_head_calculation(df):
         #print(suv_dicom.iloc[0])
         radiotracer = get_radiotracer_info(suv_dicom)
         print(radiotracer)
-        if True:
-            break
+        if "FDG" in radiotracer:
+            fdg_images += 1
+        else:
+            non_fdg_images += 1
+        #if True:
+        #    break
+        """
         ct_path_final = None
         suv_path_final = None
 
@@ -163,5 +170,5 @@ def crop_at_head_calculation(df):
             images_created += 1
         else:
             print(f'No z-plane with a value above 1000 found along the midpoint line for folder: {folder}')
-
+    """
     print(f"total cropped frames: {cropped_frames}")
