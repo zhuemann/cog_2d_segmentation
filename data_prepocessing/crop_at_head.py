@@ -81,8 +81,10 @@ def crop_at_head_calculation(df):
         print(f"folder: {folder}")
         current_path = os.path.join(base_folder, folder)
 
-        suv_dicom = dicom_locations[dicom_locations['Patient_Coding'] == folder]["PT_Path"][0]
+        suv_dicom = dicom_locations[dicom_locations['Patient_Coding'] == folder]["PT_Path"]
         print(suv_dicom)
+        print(type(suv_dicom))
+        print(suv_dicom[0])
         radiotracer = get_radiotracer_info(suv_dicom)
         print(radiotracer)
         if True:
