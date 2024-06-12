@@ -144,9 +144,9 @@ def crop_at_head_calculation(df):
         #suv_data = suv_nifti_image.get_fdata()
 
 
-        z_plane = find_z_plane_above_threshold(1000, ct_data)
-        crop_offset = ct_data.shape[2] - z_plane
-        cropped_frames += crop_offset
+        #z_plane = find_z_plane_above_threshold(1000, ct_data)
+        #crop_offset = ct_data.shape[2] - z_plane
+        #cropped_frames += crop_offset
         # Check if a z-plane was found
         if z_plane is not None:
             # Create a 2D maximum intensity projection along axis 1 for CT
