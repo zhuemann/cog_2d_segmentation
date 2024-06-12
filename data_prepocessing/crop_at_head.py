@@ -73,6 +73,13 @@ def crop_at_head_calculation(df):
     non_fdg_images = 0
     #for folder in folder_list:
     modality_used = ""
+
+    id = []
+    crop_list = []
+    crop_type = []
+    pet_path_list = []
+    ct_path_list = []
+
     for index, row in df.iterrows():
         print(f"index: {index} total frames cropped: {cropped_frames} fdg images: {fdg_images} non fdg images: {non_fdg_images}")
         #index += 1
@@ -136,6 +143,11 @@ def crop_at_head_calculation(df):
             crop_offset = ct_data.shape[2] - z_plane
             modality_used = "ct"
 
+        id.append(row["Petlymph"])
+        crop_list.append(crop_offset)
+        crop_type.append(modality_used)
+        pet_path_list.append(suv_path_final)
+        ct_path_list.append(ct_path_final)
 
         save_destination = os.path.join(save_base, str(folder) + ".png")
         print(save_destination)
@@ -153,7 +165,10 @@ def crop_at_head_calculation(df):
         #crop_offset = ct_data.shape[2] - z_plane
         #cropped_frames += crop_offset
         # Check if a z-plane was found
-        if z_plane is not None:
+
+        #if z_plane is not None:
+        make_plot = False
+        if make_plot:
             # Create a 2D maximum intensity projection along axis 1 for CT
             ct_max_projection_2d = np.max(ct_data, axis=1)
 
@@ -201,3 +216,13 @@ def crop_at_head_calculation(df):
             print(f'No z-plane with a value above 1000 found along the midpoint line for folder: {folder}')
 
     print(f"total cropped frames: {cropped_frames}")
+
+    df = pd.DataFrame({
+        'id': id,
+        'crop_offset': crop_list,
+        'croped_type': crop_type,
+        'pet_path': pet_path_list,
+        'ct_path': ct_path_list
+    })
+
+    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/crop_offset_lookup.xlsx', index=False)
