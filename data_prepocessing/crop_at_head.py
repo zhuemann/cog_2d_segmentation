@@ -87,10 +87,10 @@ def crop_at_head_calculation(df):
         #    continue
         #if index > 1100 and index < 7000:
         #    continue
-        if index < 10000:
-            continue
-        if index > 11000:
-            break
+        #if index < 10000:
+        #    continue
+        #if index > 11000:
+        #    break
 
         #if images_created == 500:
         #    break
