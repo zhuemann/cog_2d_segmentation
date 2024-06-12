@@ -51,12 +51,14 @@ def get_radiotracer_info(path_to_dicom):
         radiopharm_info = dicom_data.RadiopharmaceuticalInformationSequence[0]
         if 'Radiopharmaceutical' in radiopharm_info:
             radiotracer = radiopharm_info.Radiopharmaceutical
-            print(f"Radiotracer used: {radiotracer}")
+            #print(f"Radiotracer used: {radiotracer}")
             return radiotracer
         else:
-            print("Radiopharmaceutical information does not contain the radiotracer.")
+            #print("Radiopharmaceutical information does not contain the radiotracer.")
+            return None
     else:
-        print("No Radiopharmaceutical Information Sequence found in this DICOM file.")
+        #print("No Radiopharmaceutical Information Sequence found in this DICOM file.")
+        return None
 
 def crop_at_head_calculation(df):
 
@@ -72,7 +74,7 @@ def crop_at_head_calculation(df):
     non_fdg_images = 0
     #for folder in folder_list:
     for index, row in df.iterrows():
-        print(f"index: {index} total frames cropped: {cropped_frames}")
+        print(f"index: {index} total frames cropped: {cropped_frames} fdg images: {fdg_images} non fdg images: {non_fdg_images}")
         index += 1
         #if index < 1000:
         #    continue
