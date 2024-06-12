@@ -3,6 +3,8 @@ import nibabel as nib
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+import pydicom
+
 
 
 def find_z_plane_above_threshold_v1(threshold, data):
