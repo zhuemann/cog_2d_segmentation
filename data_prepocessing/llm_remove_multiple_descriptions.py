@@ -446,23 +446,25 @@ Sentence: """
 
 
     llama_prompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-    """
+Objective: You are a radiologist tasked with classifying the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
+Instructions: Read each sentence carefully. Determine if the sentence describes exactly one finding or multiple findings where each finding is refering to a single anatomical location. A sentence should be classified as "Single Finding" if it describes findings all within the same anatomical location, even if multiple entities are mentioned. Classify as "Multiple Findings" only when the sentence clearly describes separate findings in different anatomical locations or distinctly different findings without emphasizing a primary one. 
+"""
 
     for index, row in df_prompt.iterrows():
-        llama_prompt += repeated_instruction
+        llama_prompt += "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
         llama_prompt += row["Sentence"]
-        llama_prompt += "\n"
+        llama_prompt += "\n" + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
         llama_prompt += row["Label"]
         llama_prompt += "\n"
 
-    llama_prompt += "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
+    #llama_prompt += "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
     #llama_prompt =
 
     #print(prompt)
     #models = ['llama2-7b-instruct_v2', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
-    #models = ['llama3-8B-instruct']
+    models = ['llama3-8B-instruct']
     #models = ['dolphin-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
-    models = ['llama3-8B-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
+    #models = ['llama3-8B-instruct', 'mistral-7b-instruct', 'mixstral-8x7b-instruct']
 
     for model in models:
         ai_slice = []
@@ -484,7 +486,7 @@ Sentence: """
             sentence = row["sentence"]
             total_prompt = prompt + sentence + "\n[/INST]"
             if model == 'llama3-8B-instruct':
-                total_prompt = llama_prompt + repeated_instruction + sentence + "\n" + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+                total_prompt = llama_prompt + "<|eot_id|><|start_header_id|>user<|end_header_id|>\n" + sentence + "\n" + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
             #response = generate_with_timeout(model, total_prompt)
             #print(total_prompt)
@@ -495,8 +497,8 @@ Sentence: """
             #response = process_single_prompt(model, total_prompt)
             generated = ollama.generate(model=model, prompt = total_prompt)
             response = generated["response"]
-            #print(sentence)
-            #print(response)
+            print(sentence)
+            print(response)
             #slice_val = extract_values(response)
             slice_val = classify_findings(response)
             #print(f"slice: {slice_val} suv: {suv_val}")

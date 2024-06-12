@@ -249,5 +249,5 @@ def run_data_pipeline_final():
     """
     df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
     df = llm_remove_multiple_descriptions(df)
-    df.to_excel(save_base + "remove_multiple_descriptions_test_llama3_14.xlsx", index=False)
+    df.to_excel(save_base + "remove_multiple_descriptions_test_llama3_v2_14.xlsx", index=False)
 
