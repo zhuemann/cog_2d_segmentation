@@ -72,6 +72,7 @@ def crop_at_head_calculation(df):
     fdg_images = 0
     non_fdg_images = 0
     #for folder in folder_list:
+    modality_used = ""
     for index, row in df.iterrows():
         print(f"index: {index} total frames cropped: {cropped_frames} fdg images: {fdg_images} non fdg images: {non_fdg_images}")
         #index += 1
@@ -121,15 +122,17 @@ def crop_at_head_calculation(df):
             fdg_images += 1
             #suv_nifti_image = nib.load(suv_path_final)
             #suv_data = suv_nifti_image.get_fdata()
-            z_plane = find_z_plane_above_threshold(4, suv_data)
+            z_plane = find_z_plane_above_threshold(10, suv_data)
             crop_offset = suv_data.shape[2] - z_plane
             print(f"offset from pet: {crop_offset}")
+            modality_used = "pet"
         else:
             non_fdg_images += 1
             #ct_nifti_image = nib.load(ct_path_final)
             #ct_data = ct_nifti_image.get_fdata()
             z_plane = find_z_plane_above_threshold(1000, ct_data)
             crop_offset = ct_data.shape[2] - z_plane
+            modality_used = "ct"
 
 
         save_destination = os.path.join(save_base, str(folder) + ".png")
@@ -162,8 +165,8 @@ def crop_at_head_calculation(df):
             fig, axes = plt.subplots(1, 3, figsize=(30, 10))
 
             # Plot the CT projection
-            axes[0].imshow(ct_max_projection_2d.T, cmap='jet', origin='lower', vmax=3000, vmin=-1000)
-            axes[0].set_title('CT Maximum Intensity Projection (Axis 1)')
+            axes[0].imshow(ct_max_projection_2d.T, cmap='jet', origin='lower', vmax=1000, vmin=-1000)
+            axes[0].set_title(f'CT Maximum Intensity Projection (Axis 1) used: {modality_used}')
             axes[0].set_xlabel('X-axis')
             axes[0].set_ylabel('Z-axis')
             axes[0].axhline(y=z_plane, color='r', linestyle='--', label=f'z-plane {z_plane}')
@@ -179,7 +182,7 @@ def crop_at_head_calculation(df):
             axes[1].axhline(y=z_plane, color='r', linestyle='--', label=f'z-plane {z_plane}')
 
             # Plot the CT projection on axis 0
-            axes[2].imshow(ct_max_projection_2d_axis0.T, cmap='jet', origin='lower', vmax=3000, vmin=-1000)
+            axes[2].imshow(ct_max_projection_2d_axis0.T, cmap='jet', origin='lower', vmax=1000, vmin=-1000)
             axes[2].set_title('CT Maximum Intensity Projection (Axis 0)')
             axes[2].set_xlabel('Y-axis')
             axes[2].set_ylabel('Z-axis')
