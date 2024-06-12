@@ -449,10 +449,14 @@ Sentence: """
 Objective: You are a radiologist tasked with classifying the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients. Answer briefly with no explanation. 
 Instructions: Read each sentence carefully. Determine if the sentence describes exactly one finding or multiple findings where each finding is refering to a single anatomical location. A sentence should be classified as "Single Finding" if it describes findings all within the same anatomical location, even if multiple entities are mentioned. Classify as "Multiple Findings" only when the sentence clearly describes separate findings in different anatomical locations or distinctly different findings without emphasizing a primary one. Do not explain the reasoning.  
 """
+    llama_prompt_repeat = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+    Objective: You are a radiologist tasked with classifying the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients. Answer briefly with no explanation. 
+    Instructions: Read each sentence carefully. Determine if the sentence describes exactly one finding or multiple findings where each finding is refering to a single anatomical location. A sentence should be classified as "Single Finding" if it describes findings all within the same anatomical location, even if multiple entities are mentioned. Classify as "Multiple Findings" only when the sentence clearly describes separate findings in different anatomical locations or distinctly different findings without emphasizing a primary one. Do not explain the reasoning.  
+"""
 
     for index, row in df_prompt.iterrows():
         llama_prompt += "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
-        llama_prompt += row["Sentence"]
+        llama_prompt += "Sentence:" + row["Sentence"]
         llama_prompt += "\n" + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>" + "\n"
         llama_prompt += row["Label"]
         llama_prompt += "\n"
