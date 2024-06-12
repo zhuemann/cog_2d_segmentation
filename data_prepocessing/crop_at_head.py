@@ -32,6 +32,29 @@ def find_z_plane_above_threshold(threshold, data):
             return z
     return None
 
+def get_radiotracer_info(path_to_dicom):
+    # Get a list of all files in the folder
+    dicom_files = [f for f in os.listdir(path_to_dicom) if f.endswith('.dcm')]
+
+    # Check if there are any DICOM files in the folder
+    if not dicom_files:
+        return None
+
+    # Load the first DICOM file
+    first_dicom_path = os.path.join(path_to_dicom, dicom_files[0])
+    dicom_data = pydicom.dcmread(first_dicom_path)
+
+    # Check if the "Radiopharmaceutical Information Sequence" is present
+    if 'RadiopharmaceuticalInformationSequence' in dicom_data:
+        radiopharm_info = dicom_data.RadiopharmaceuticalInformationSequence[0]
+        if 'Radiopharmaceutical' in radiopharm_info:
+            radiotracer = radiopharm_info.Radiopharmaceutical
+            print(f"Radiotracer used: {radiotracer}")
+            return radiotracer
+        else:
+            print("Radiopharmaceutical information does not contain the radiotracer.")
+    else:
+        print("No Radiopharmaceutical Information Sequence found in this DICOM file.")
 
 def crop_at_head_calculation(df):
 
@@ -60,7 +83,8 @@ def crop_at_head_calculation(df):
 
         suv_dicom = dicom_locations[dicom_locations['Patient_Coding'] == folder]["PT_Path"]
         print(suv_dicom)
-
+        radiotracer = get_radiotracer_info(suv_dicom)
+        print(radiotracer)
         if True:
             break
         ct_path_final = None
