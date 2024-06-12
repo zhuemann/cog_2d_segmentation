@@ -489,7 +489,7 @@ Instructions: Read each sentence carefully. Determine if the sentence describes 
                 total_prompt = llama_prompt + "<|eot_id|><|start_header_id|>user<|end_header_id|>\n" + sentence + "\n" + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
             #generated = ollama.generate(model='mixtral-instuct', prompt=total_prompt)
             #response = generate_with_timeout(model, total_prompt)
-            #print(total_prompt)
+            print(total_prompt)
             #if response == None:
             #    print("none response")
             #    response = ""
@@ -497,8 +497,8 @@ Instructions: Read each sentence carefully. Determine if the sentence describes 
             #response = process_single_prompt(model, total_prompt)
             generated = ollama.generate(model=model, prompt = total_prompt)
             response = generated["response"]
-            print(sentence)
-            print(response)
+            #print(sentence)
+            #print(response)
             #slice_val = extract_values(response)
             slice_val = classify_findings(response)
             #print(f"slice: {slice_val} suv: {suv_val}")
