@@ -446,8 +446,8 @@ Sentence: """
 
 
     llama_prompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-Objective: You are a radiologist tasked with classifying the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients.
-Instructions: Read each sentence carefully. Determine if the sentence describes exactly one finding or multiple findings where each finding is refering to a single anatomical location. A sentence should be classified as "Single Finding" if it describes findings all within the same anatomical location, even if multiple entities are mentioned. Classify as "Multiple Findings" only when the sentence clearly describes separate findings in different anatomical locations or distinctly different findings without emphasizing a primary one. 
+Objective: You are a radiologist tasked with classifying the sentence below based on whether they describe a single finding or multiple findings from PET/CT scans in cancer patients. Answer briefly with no explanation. 
+Instructions: Read each sentence carefully. Determine if the sentence describes exactly one finding or multiple findings where each finding is refering to a single anatomical location. A sentence should be classified as "Single Finding" if it describes findings all within the same anatomical location, even if multiple entities are mentioned. Classify as "Multiple Findings" only when the sentence clearly describes separate findings in different anatomical locations or distinctly different findings without emphasizing a primary one. Do not explain the reasoning.  
 """
 
     for index, row in df_prompt.iterrows():
