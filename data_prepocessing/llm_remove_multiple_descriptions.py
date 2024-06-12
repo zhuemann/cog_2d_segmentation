@@ -474,8 +474,9 @@ Instructions: Read each sentence carefully. Determine if the sentence describes 
         ai_slice = []
         ai_suv = []
         accession = []
+        positive_predictions = 0
         for index, row in df.iterrows():
-            print(f"index: {index}")
+            print(f"index: {index} pos predictions: {positive_predictions}")
             #if index == 1000:
             #    break
             #if index < 1000:
@@ -505,6 +506,8 @@ Instructions: Read each sentence carefully. Determine if the sentence describes 
             #print(response)
             #slice_val = extract_values(response)
             slice_val = classify_findings(response)
+            if slice_val == 1:
+                positive_predictions += 1
             #print(f"slice: {slice_val} suv: {suv_val}")
             #print(f"slice_val: {slice_val} and suv_val: {suv_val}")
             if slice_val is not None:
