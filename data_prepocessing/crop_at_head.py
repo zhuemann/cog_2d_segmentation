@@ -175,14 +175,14 @@ def crop_at_head_calculation(df):
             axes[0].legend()
 
             # Plot the SUV projection
-            axes[1].imshow(suv_max_projection_2d.T, cmap='jet', origin='lower', vmax=10, vmin=0)
+            axes[1].imshow(suv_max_projection_2d.T, cmap='bone', origin='lower', vmax=10, vmin=0)
             axes[1].set_title(f'SUV Maximum Intensity Projection (Axis 1) offset: {crop_offset}')
             axes[1].set_xlabel('X-axis')
             axes[1].set_ylabel('Z-axis')
             axes[1].axhline(y=z_plane, color='r', linestyle='--', label=f'z-plane {z_plane}')
 
             # Plot the CT projection on axis 0
-            axes[2].imshow(ct_max_projection_2d_axis0.T, cmap='jet', origin='lower')#, vmax=1000, vmin=-1000)
+            axes[2].imshow(ct_max_projection_2d_axis0.T, cmap='bone', origin='lower')#, vmax=1000, vmin=-1000)
             axes[2].set_title(f'CT Maximum Intensity Projection (Axis 0) max: {np.max(ct_max_projection_2d_axis0)}')
             axes[2].set_xlabel('Y-axis')
             axes[2].set_ylabel('Z-axis')
