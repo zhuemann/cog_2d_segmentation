@@ -212,8 +212,8 @@ def crop_at_head_calculation(df):
             plt.savefig(save_destination)
             plt.close()
             images_created += 1
-        else:
-            print(f'No z-plane with a value above 1000 found along the midpoint line for folder: {folder}')
+        #else:
+            #print(f'No z-plane with a value above 1000 found along the midpoint line for folder: {folder}')
 
     print(f"total cropped frames: {cropped_frames}")
 
