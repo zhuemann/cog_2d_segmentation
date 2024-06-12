@@ -182,7 +182,7 @@ def crop_at_head_calculation(df):
             axes[1].axhline(y=z_plane, color='r', linestyle='--', label=f'z-plane {z_plane}')
 
             # Plot the CT projection on axis 0
-            axes[2].imshow(ct_max_projection_2d_axis0.T, cmap='gray', origin='lower', vmax=100, vmin=-100)
+            axes[2].imshow(ct_max_projection_2d_axis0.T, cmap='bone', origin='lower', vmax=100, vmin=-100)
             axes[2].set_title(f'CT Maximum Intensity Projection (Axis 0) max: {np.max(ct_max_projection_2d_axis0)}')
             axes[2].set_xlabel('Y-axis')
             axes[2].set_ylabel('Z-axis')
