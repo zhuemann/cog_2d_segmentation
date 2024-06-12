@@ -58,7 +58,7 @@ def crop_at_head_calculation(df):
         print(f"folder: {folder}")
         current_path = os.path.join(base_folder, folder)
 
-        suv_dicom = master_dicom_location[master_dicom_location['Petlymph'] == folder]["PT_Path"]
+        suv_dicom = master_dicom_location[master_dicom_location['Petlymph'] == folder] #["PT_Path"]
         print(suv_dicom)
 
         if True:
