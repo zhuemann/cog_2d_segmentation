@@ -67,7 +67,6 @@ def crop_at_head_calculation(df):
     save_base = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/crop_at_head_v1/"
     master_dicom_location = "/UserData/UW_PET_Data/full_accounting_of_pet_ct_found_merged.xlsx"
     dicom_locations = pd.read_excel(master_dicom_location)
-    index = 0
     images_created = 0
     cropped_frames = 0
     fdg_images = 0
@@ -75,11 +74,13 @@ def crop_at_head_calculation(df):
     #for folder in folder_list:
     for index, row in df.iterrows():
         print(f"index: {index} total frames cropped: {cropped_frames} fdg images: {fdg_images} non fdg images: {non_fdg_images}")
-        index += 1
+        #index += 1
         #if index < 1000:
         #    continue
         #if index > 1100 and index < 7000:
         #    continue
+        if index > 1000:
+            break
 
         #if images_created == 500:
         #    break
@@ -93,13 +94,9 @@ def crop_at_head_calculation(df):
         #print(suv_dicom.iloc[0])
         radiotracer = get_radiotracer_info(suv_dicom)
         #print(radiotracer)
-        if "FDG" in radiotracer:
-            fdg_images += 1
-        else:
-            non_fdg_images += 1
         #if True:
         #    break
-        """
+
         ct_path_final = None
         suv_path_final = None
 
@@ -112,8 +109,24 @@ def crop_at_head_calculation(df):
         if ct_path_final is None or suv_path_final is None:
             continue
 
+        if "FDG" in radiotracer:
+            fdg_images += 1
+            suv_nifti_image = nib.load(suv_path_final)
+            suv_data = suv_nifti_image.get_fdata()
+            z_plane = find_z_plane_above_threshold(4, suv_data)
+            crop_offset = ct_data.shape[2] - z_plane
+            print(f"offset from pet: {crop_offset}")
+        else:
+            non_fdg_images += 1
+            ct_nifti_image = nib.load(ct_path_final)
+            ct_data = ct_nifti_image.get_fdata()
+            z_plane = find_z_plane_above_threshold(1000, ct_data)
+            crop_offset = ct_data.shape[2] - z_plane
+
+
         save_destination = os.path.join(save_base, str(folder) + ".png")
         print(save_destination)
+        """
         # Load the NIfTI files
         ct_nifti_image = nib.load(ct_path_final)
         suv_nifti_image = nib.load(suv_path_final)
@@ -121,6 +134,7 @@ def crop_at_head_calculation(df):
         # Get the data arrays from the NIfTI images
         ct_data = ct_nifti_image.get_fdata()
         suv_data = suv_nifti_image.get_fdata()
+        """
 
         z_plane = find_z_plane_above_threshold(1000, ct_data)
         crop_offset = ct_data.shape[2] - z_plane
@@ -172,5 +186,5 @@ def crop_at_head_calculation(df):
             images_created += 1
         else:
             print(f'No z-plane with a value above 1000 found along the midpoint line for folder: {folder}')
-    """
+
     print(f"total cropped frames: {cropped_frames}")
