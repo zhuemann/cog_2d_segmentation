@@ -109,24 +109,6 @@ def crop_at_head_calculation(df):
         if ct_path_final is None or suv_path_final is None:
             continue
 
-        if "FDG" in radiotracer:
-            fdg_images += 1
-            suv_nifti_image = nib.load(suv_path_final)
-            suv_data = suv_nifti_image.get_fdata()
-            z_plane = find_z_plane_above_threshold(4, suv_data)
-            crop_offset = suv_data.shape[2] - z_plane
-            print(f"offset from pet: {crop_offset}")
-        else:
-            non_fdg_images += 1
-            ct_nifti_image = nib.load(ct_path_final)
-            ct_data = ct_nifti_image.get_fdata()
-            z_plane = find_z_plane_above_threshold(1000, ct_data)
-            crop_offset = ct_data.shape[2] - z_plane
-
-
-        save_destination = os.path.join(save_base, str(folder) + ".png")
-        print(save_destination)
-        """
         # Load the NIfTI files
         ct_nifti_image = nib.load(ct_path_final)
         suv_nifti_image = nib.load(suv_path_final)
@@ -134,7 +116,33 @@ def crop_at_head_calculation(df):
         # Get the data arrays from the NIfTI images
         ct_data = ct_nifti_image.get_fdata()
         suv_data = suv_nifti_image.get_fdata()
-        """
+
+        if "FDG" in radiotracer:
+            fdg_images += 1
+            #suv_nifti_image = nib.load(suv_path_final)
+            #suv_data = suv_nifti_image.get_fdata()
+            z_plane = find_z_plane_above_threshold(4, suv_data)
+            crop_offset = suv_data.shape[2] - z_plane
+            print(f"offset from pet: {crop_offset}")
+        else:
+            non_fdg_images += 1
+            #ct_nifti_image = nib.load(ct_path_final)
+            #ct_data = ct_nifti_image.get_fdata()
+            z_plane = find_z_plane_above_threshold(1000, ct_data)
+            crop_offset = ct_data.shape[2] - z_plane
+
+
+        save_destination = os.path.join(save_base, str(folder) + ".png")
+        print(save_destination)
+
+        # Load the NIfTI files
+        #ct_nifti_image = nib.load(ct_path_final)
+        #suv_nifti_image = nib.load(suv_path_final)
+
+        # Get the data arrays from the NIfTI images
+        #ct_data = ct_nifti_image.get_fdata()
+        #suv_data = suv_nifti_image.get_fdata()
+
 
         z_plane = find_z_plane_above_threshold(1000, ct_data)
         crop_offset = ct_data.shape[2] - z_plane
