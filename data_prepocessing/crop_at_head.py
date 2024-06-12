@@ -133,7 +133,7 @@ def crop_at_head_calculation(df):
             #suv_data = suv_nifti_image.get_fdata()
             z_plane = find_z_plane_above_threshold(5, suv_data)
             crop_offset = suv_data.shape[2] - z_plane
-            print(f"offset from pet: {crop_offset}")
+            #print(f"offset from pet: {crop_offset}")
             modality_used = "pet"
         else:
             non_fdg_images += 1
@@ -150,7 +150,7 @@ def crop_at_head_calculation(df):
         ct_path_list.append(ct_path_final)
 
         save_destination = os.path.join(save_base, str(folder) + ".png")
-        print(save_destination)
+        #print(save_destination)
 
         # Load the NIfTI files
         #ct_nifti_image = nib.load(ct_path_final)
