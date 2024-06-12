@@ -84,15 +84,15 @@ def crop_at_head_calculation(df):
         #if images_created == 500:
         #    break
         folder = row["Petlymph"]
-        print(f"folder: {folder}")
+        #print(f"folder: {folder}")
         current_path = os.path.join(base_folder, folder)
 
         suv_dicom = dicom_locations[dicom_locations['Patient_Coding'] == folder]["PT_Path"].iloc[0]
-        print(suv_dicom)
+        #print(suv_dicom)
         #print(type(suv_dicom))
         #print(suv_dicom.iloc[0])
         radiotracer = get_radiotracer_info(suv_dicom)
-        print(radiotracer)
+        #print(radiotracer)
         if "FDG" in radiotracer:
             fdg_images += 1
         else:
