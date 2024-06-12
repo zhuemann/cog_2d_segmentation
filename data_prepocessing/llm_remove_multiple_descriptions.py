@@ -453,7 +453,7 @@ Instructions: Read each sentence carefully. Determine if the sentence describes 
     for index, row in df_prompt.iterrows():
         llama_prompt += "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
         llama_prompt += row["Sentence"]
-        llama_prompt += "\n" + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+        llama_prompt += "\n" + "<|eot_id|><|start_header_id|>assistant<|end_header_id|>" + "\n"
         llama_prompt += row["Label"]
         llama_prompt += "\n"
 
