@@ -251,6 +251,7 @@ def run_data_pipeline_final():
     """
     df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
 
+    df = df.drop_duplicates(subset="Petlymph", keep="first")
     crop_at_head_calculation(df)
 
     #df = llm_remove_multiple_descriptions(df)
