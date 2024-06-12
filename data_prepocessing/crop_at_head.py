@@ -114,7 +114,7 @@ def crop_at_head_calculation(df):
             suv_nifti_image = nib.load(suv_path_final)
             suv_data = suv_nifti_image.get_fdata()
             z_plane = find_z_plane_above_threshold(4, suv_data)
-            crop_offset = ct_data.shape[2] - z_plane
+            crop_offset = suv_data.shape[2] - z_plane
             print(f"offset from pet: {crop_offset}")
         else:
             non_fdg_images += 1
