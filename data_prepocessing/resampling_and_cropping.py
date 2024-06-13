@@ -59,7 +59,7 @@ def crop_center_with_offset(img, z_offset=0):
     start_y = max((y - crop_y) // 2, 0)
     start_z = max(z - crop_z - z_offset, 0)  # Subtract the z_offset here
 
-    cropped_img = img[start_x:start_x + crop_x, start_y:start_y + crop_y, start_z:start_z + crop_z]
+    cropped_img = img.slicer[start_x:start_x + crop_x, start_y:start_y + crop_y, start_z:start_z + crop_z]
     return cropped_img
 def resampling_and_cropping(df):
 
@@ -98,8 +98,6 @@ def resampling_and_cropping(df):
         if not matched_row.empty:
             # Extract the 'crop_offset' value from the matched row
             crop_offset = int(matched_row['crop_offset'].iloc[0]) - 1
-            print(type(crop_offset))
-            print(crop_offset)
         else:
             crop_offset = 0
 
