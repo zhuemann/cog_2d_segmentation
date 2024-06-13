@@ -96,8 +96,8 @@ def resampling_and_cropping(df):
 
         # Check if the filtered DataFrame is not empty
         if not matched_row.empty:
-            # Extract the 'crop_outset' value from the matched row
-            crop_offset = int(matched_row['crop_outset'].iloc[0]) - 1
+            # Extract the 'crop_offset' value from the matched row
+            crop_offset = int(matched_row['crop_offset'].iloc[0]) - 1
         else:
             crop_offset = 0
 
