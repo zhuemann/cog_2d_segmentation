@@ -1,6 +1,7 @@
 
 import os
 import nibabel as nib
+import pandas as pd
 from nilearn.image import resample_img, crop_img
 import numpy as np
 
@@ -48,15 +49,31 @@ def crop_center(img):
     cropped_img = img.slicer[start_x:start_x + crop_x, start_y:start_y + crop_y, start_z:start_z + crop_z]
     return cropped_img
 
+def crop_center_with_offset(img, z_offset=0):
+    x, y, z = img.shape
+    crop_x = min(200, x)
+    crop_y = min(200, y)
+    crop_z = min(350, z)
+
+    start_x = max((x - crop_x) // 2, 0)
+    start_y = max((y - crop_y) // 2, 0)
+    start_z = max(z - crop_z - z_offset, 0)  # Subtract the z_offset here
+
+    cropped_img = img[start_x:start_x + crop_x, start_y:start_y + crop_y, start_z:start_z + crop_z]
+    return cropped_img
 def resampling_and_cropping(df):
 
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
-    label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v2_nifti/"
+    label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
     print("hi")
 
-    save_path = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/"
-    processed_images = generate_processed_images_dict(save_path + str("images"))
+    images_folder = "images4"
+    label_folder = "label4"
 
+    save_path = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/"
+    processed_images = generate_processed_images_dict(save_path + images_folder)
+
+    crop_lookup = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/crop_offset_lookup.xlsx")
     #print(processed_images)
     number_of_missing_ct = 0
     label_cropped_out = 0
@@ -71,14 +88,23 @@ def resampling_and_cropping(df):
         petlymph = row["Petlymph"]
         image_path = os.path.join(image_path_base, petlymph)
 
-
         label_path = os.path.join(label_path_base, row["Label_Name"])
         label_path = str(label_path) + ".nii.gz"
+
+        # gets the crop offset for all images matching this petlymph
+        matched_row = crop_lookup[crop_lookup['id'] == petlymph]
+
+        # Check if the filtered DataFrame is not empty
+        if not matched_row.empty:
+            # Extract the 'crop_outset' value from the matched row
+            crop_offset = int(matched_row['crop_outset'].iloc[0]) - 1
+        else:
+            crop_offset = 0
 
         # Check if this PET/CT pair has already been processed
         if petlymph in processed_images:
             print(f"{petlymph} PET/CT images already processed. Checking label...")
-            if os.path.exists(os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels/", f'{row["Label_Name"]}.nii.gz')):
+            if os.path.exists(os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/", str(label_folder), f'{row["Label_Name"]}.nii.gz')):
                 already_processed += 1
                 continue
             else:
@@ -88,10 +114,10 @@ def resampling_and_cropping(df):
                     print("One of the files does not exist: CT, SUV, or label image.")
                     continue
                 label_resampled = resample_img(label_image, target_affine=np.diag([3, 3, 3]), interpolation='nearest')
-                label_cropped = crop_center(label_resampled)
+                label_cropped = crop_center_with_offset(label_resampled, crop_offset)
                 if np.any(label_cropped.get_fdata() != 0):
                     nib.save(label_cropped,
-                             os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels/",
+                             os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/", str(label_folder),
                                           f'{row["Label_Name"]}.nii.gz'))
                     resampling_saved += 1
                 else:
@@ -133,16 +159,16 @@ def resampling_and_cropping(df):
         suv_resampled = resample_img(suv_image, target_affine=target_affine)
         label_resampled = resample_img(label_image, target_affine=target_affine, interpolation='nearest')
 
-        ct_cropped = crop_center(ct_resampled)
-        suv_cropped = crop_center(suv_resampled)
-        label_cropped = crop_center(label_resampled)
+        ct_cropped = crop_center_with_offset(ct_resampled, crop_offset)
+        suv_cropped = crop_center_with_offset(suv_resampled, crop_offset)
+        label_cropped = crop_center_with_offset(label_resampled, crop_offset)
 
         # Check if any label is still in the image
         if np.any(label_cropped.get_fdata() != 0):
             # Save the cropped images
-            nib.save(ct_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images/", f'{petlymph}_ct_cropped.nii.gz'))
-            nib.save(suv_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images/", f'{petlymph}_suv_cropped.nii.gz'))
-            nib.save(label_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels/", f'{row["Label_Name"]}.nii.gz'))
+            nib.save(ct_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/", str(images_folder), f'{petlymph}_ct_cropped.nii.gz'))
+            nib.save(suv_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/", str(images_folder), f'{petlymph}_suv_cropped.nii.gz'))
+            nib.save(label_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/", str(label_folder), f'{row["Label_Name"]}.nii.gz'))
             processed_images[petlymph] = 1
         else:
             label_cropped_out += 1
