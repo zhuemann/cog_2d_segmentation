@@ -58,19 +58,19 @@ def plot_3d_predictions():
         fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
         # Plot 1: Label MIP overlayed on SUV MIP
-        axes[0].imshow(suv_mip.T, cmap='gray', aspect='auto', origin='lower')
+        axes[0].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
         axes[0].imshow(label_mip.T, cmap='autumn', alpha=norm(label_mip.T), aspect='auto', origin='lower')
         axes[0].set_title('Label Overlay on SUV MIP')
         axes[0].axis('off')  # Turn off axis
 
         # Plot 2: Prediction MIP overlayed on SUV MIP
-        axes[1].imshow(suv_mip.T, cmap='gray', aspect='auto', origin='lower')
+        axes[1].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
         axes[1].imshow(prediction_mip.T, cmap='autumn', alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
         axes[1].set_title('Prediction Overlay on SUV MIP')
         axes[1].axis('off')
 
         # Plot 3: Both Prediction and Label MIP overlayed on SUV MIP
-        axes[2].imshow(suv_mip.T, cmap='gray', aspect='auto', origin='lower')
+        axes[2].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
         axes[2].imshow(label_mip.T, cmap='autumn', alpha=norm(label_mip.T), aspect='auto', origin='lower')
         axes[2].imshow(prediction_mip.T, cmap='winter', alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
         axes[2].set_title('Prediction and Label Overlay on SUV MIP')
