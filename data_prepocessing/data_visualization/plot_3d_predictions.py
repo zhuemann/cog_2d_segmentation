@@ -35,9 +35,11 @@ def plot_3d_predictions():
 
     prediction_list = os.listdir(prediction_location)
     all_images = os.listdir(image_base)
-
+    number_correct = 0
+    index = 0
     for label in prediction_list:
-
+        index += 1
+        print(f"index: {index} number that are correct: {number_correct} accuracy: {index/number_correct}")
         image_name = label[:-15]
         print(f"image name: {image_name}")
         label_name = label[:-7]
@@ -45,6 +47,7 @@ def plot_3d_predictions():
 
 
         suv_path_final = os.path.join(image_base, image_name + "_suv_cropped.nii.gz")
+        print(suv_path_final)
         ct_path_final = os.path.join(image_base, image_name + "_ct_cropped.nii.gz")
         full_label_path = os.path.join(prediction_location, label)
         label_full_path = os.path.join(label_base, label)
@@ -75,6 +78,7 @@ def plot_3d_predictions():
         correct = False
         if label_suv_max == prediction_suv_max:
             correct = True
+            number_correct += 1
 
         print(f"suv mip size: {suv_mip.shape}")
         print(f"pred mip size: {prediction_mip.shape}")
@@ -108,4 +112,5 @@ def plot_3d_predictions():
         plt.tight_layout()
         plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/3d_predictions_v1/" + label_name + ".png")
         plt.close()
+
 
