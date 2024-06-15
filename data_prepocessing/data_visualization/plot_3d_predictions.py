@@ -6,6 +6,22 @@ from matplotlib.colors import Normalize
 import pandas as pd
 import json
 
+def insert_newlines(text, word_limit=15):
+    words = text.split()
+    lines = []
+    current_line = []
+
+    for word in words:
+        current_line.append(word)
+        if len(current_line) == word_limit:
+            lines.append(' '.join(current_line))
+            current_line = []
+
+    # Add the last line if there are any remaining words
+    if current_line:
+        lines.append(' '.join(current_line))
+
+    return '\n'.join(lines)
 
 def max_suv_in_positive_region(suv_volume, label_volume):
     """
@@ -127,7 +143,8 @@ def plot_3d_predictions():
         axes[2].set_title(f'Prediction and Label Overlay on SUV MIP is correct: {correct}')
         axes[2].axis('off')
 
-        fig.suptitle(sent, fontsize=16)
+        sent = insert_newlines(sent, word_limit=25)
+        fig.suptitle(sent, fontsize=14)
 
         # Save the figure
         plt.tight_layout()
