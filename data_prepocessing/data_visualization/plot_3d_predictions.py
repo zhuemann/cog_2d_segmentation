@@ -36,6 +36,8 @@ def plot_3d_predictions():
         # load in the prediciton data
         nii_prediction = nib.load(full_label_path)
         prediction_data = nii_prediction.get_fdata()
+        print(f"pred data size: {prediction_data.shape}")
+
         # load in label data
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
