@@ -94,5 +94,5 @@ def make_json_file_for_3d_training(df):
             data['testing'].append(entry)
 
     # Write the JSON data to a file
-    with open('UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000.json', 'w') as json_file:
+    with open('/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000.json', 'w') as json_file:
         json.dump(data, json_file, indent=4)  # Use indent=4 for pretty printing
