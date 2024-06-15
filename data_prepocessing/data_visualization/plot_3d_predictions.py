@@ -3,7 +3,7 @@ import nibabel as nib
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
-
+import pandas as pd
 def max_suv_in_positive_region(suv_volume, label_volume):
     """
     Load SUV and label volumes, compute the maximum SUV value where label is 1.
@@ -26,8 +26,9 @@ def max_suv_in_positive_region(suv_volume, label_volume):
 
 
 
-def plot_3d_predictions(df):
+def plot_3d_predictions():
 
+    df = pd.read_excel("/UserData/Zach_Analysis/petlymph_image_data/" + "uw_final_df_9.xlsx")
     prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_forked2/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/prediction_trash_v2testing/"
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images/"
