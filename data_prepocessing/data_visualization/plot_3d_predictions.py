@@ -116,6 +116,8 @@ def plot_3d_predictions(df):
         axes[2].set_title(f'Prediction and Label Overlay on SUV MIP is correct: {correct}')
         axes[2].axis('off')
 
+        fig.suptitle(sent, fontsize=16)
+
         # Save the figure
         plt.tight_layout()
         plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/3d_predictions_v1/" + label_name + ".png")
