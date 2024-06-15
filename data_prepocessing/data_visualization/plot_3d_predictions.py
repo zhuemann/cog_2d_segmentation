@@ -26,7 +26,7 @@ def max_suv_in_positive_region(suv_volume, label_volume):
 
 
 
-def plot_3d_predictions():
+def plot_3d_predictions(df):
 
     prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_forked2/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/prediction_trash_v2testing/"
 
@@ -50,7 +50,9 @@ def plot_3d_predictions():
         print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
         print(label_name)
-
+        row = df[df["Label_Name"] == label_name].iloc[0]
+        sent = row["sentence"]
+        print(sent)
 
         suv_path_final = os.path.join(image_base, image_name + "_suv_cropped.nii.gz")
         print(suv_path_final)
