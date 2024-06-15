@@ -38,21 +38,6 @@ def filter_dataframe_for_images_in_folder(df):
     df_filtered.reset_index(drop=True, inplace=True)
     return df_filtered
 
-def filter_dataframe_for_labels_in_folder(df):
-    # Define your target folder
-    target_folder = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/"
-
-    # Get a list of all files in the target folder
-    files = os.listdir(target_folder)
-
-    # Filter the dataframe to keep only rows where the ID in 'Petlymph' is found in any file name in the folder
-    df_filtered = df[df['Label_Name'].apply(lambda id: any(id in file for file in files))]
-
-    # Reset the index of the filtered dataframe
-    df_filtered.reset_index(drop=True, inplace=True)
-    return df_filtered
-
-
 def filter_dataframe_based_on_files(df, column):
     """Filter a DataFrame to only include rows where the column matches label names in a specified folder."""
     # Hardcoded directory

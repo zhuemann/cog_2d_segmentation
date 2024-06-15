@@ -249,8 +249,12 @@ def run_data_pipeline_final():
 
     df.to_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx", index=False)
     """
-    df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
-    make_json_file_for_3d_training(df)
+
+    #df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
+    #make_json_file_for_3d_training(df)
+
+
+
     #df = df.drop_duplicates(subset="Petlymph", keep="first")
     #print(f"unique images: {len(df)}")
     #crop_at_head_calculation(df)
@@ -260,4 +264,4 @@ def run_data_pipeline_final():
     #df = llm_remove_multiple_descriptions(df)
     #df.to_excel(save_base + "remove_multiple_descriptions_test_llama3_v2_14.xlsx", index=False)
 
-    #plot_3d_predictions()
+    plot_3d_predictions()
