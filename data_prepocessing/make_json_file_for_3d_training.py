@@ -40,7 +40,7 @@ def filter_dataframe_for_images_in_folder(df):
 
 def filter_dataframe_for_labels_in_folder(df):
     # Define your target folder
-    target_folder = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
+    target_folder = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/"
 
     # Get a list of all files in the target folder
     files = os.listdir(target_folder)
@@ -52,6 +52,18 @@ def filter_dataframe_for_labels_in_folder(df):
     df_filtered.reset_index(drop=True, inplace=True)
     return df_filtered
 
+
+def filter_dataframe_based_on_files(df, column):
+    """Filter a DataFrame to only include rows where the column matches label names in a specified folder."""
+    # Hardcoded directory
+    target_folder = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/"
+
+    # Retrieve label names from files in the specified directory, stripping the '.nii.gz'.
+    labels = [file.replace(".nii.gz", "") for file in os.listdir(target_folder) if file.endswith(".nii.gz")]
+
+    # Filter the DataFrame to only include rows where the column matches one of the labels.
+    return df[df[column].isin(labels)]
+
 def make_json_file_for_3d_training(df):
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/"
@@ -59,7 +71,7 @@ def make_json_file_for_3d_training(df):
     print(f"length of dataframe before: {len(df)}")
     df = filter_dataframe_for_images_in_folder(df)
     print(f"after image filtering: {len(df)}")
-    df = filter_dataframe_for_labels_in_folder(df)
+    df = filter_dataframe_based_on_files(df, column = "Label_Name")
     print(f"after label filtering: {len(df)}")
     labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
                       "PETWB_012579_01_label_2", "PETWB_003190_01_label_3", "PETWB_013006_03_label_2"]
