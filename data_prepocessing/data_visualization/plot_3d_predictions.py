@@ -45,6 +45,10 @@ def plot_3d_predictions():
         prediction_mip = np.max(prediction_data, axis=1)
         label_mip = np.max(label_data, axis=1)
 
+        print(f"suv mip size: {suv_mip.shape}")
+        print(f"pred mip size: {prediction_mip.shape}")
+        print(f"label mip size: {label_mip.shape}")
+
         # Setup the plot with 3 subplots
         fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
