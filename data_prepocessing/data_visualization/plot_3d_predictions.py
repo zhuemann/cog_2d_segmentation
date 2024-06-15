@@ -4,6 +4,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 import pandas as pd
+import json
+
+
 def max_suv_in_positive_region(suv_volume, label_volume):
     """
     Load SUV and label volumes, compute the maximum SUV value where label is 1.
@@ -29,6 +32,10 @@ def max_suv_in_positive_region(suv_volume, label_volume):
 def plot_3d_predictions():
 
     df = pd.read_excel("/UserData/Zach_Analysis/petlymph_image_data/" + "uw_final_df_9.xlsx")
+    json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled.json"
+    with open(json_file_path, 'r') as file:
+        data = json.load(file)
+
     prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_forked2/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/prediction_trash_v2testing/"
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images/"
@@ -50,11 +57,14 @@ def plot_3d_predictions():
         image_name = label[:15]
         print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
-        print(label_name)
-        row = df[df["Label_Name"] == label_name].iloc[0]
-        sent = row["sentence"]
+        #print(label_name)
+        #row = df[df["Label_Name"] == label_name].iloc[0]
+        #sent = row["sentence"]
+        #print(sent)
+        for entry in data["testing"]:
+            if entry.get('label_name') == label_name:
+                sent = entry.get('report')  # Return the report if label name matches
         print(sent)
-
         suv_path_final = os.path.join(image_base, image_name + "_suv_cropped.nii.gz")
         print(suv_path_final)
         ct_path_final = os.path.join(image_base, image_name + "_ct_cropped.nii.gz")
