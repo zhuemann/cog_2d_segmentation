@@ -62,7 +62,7 @@ def plot_3d_predictions():
         #sent = row["sentence"]
         #print(sent)
         for entry in data["testing"]:
-            if entry.get('label_name') == label_name:
+            if label_name in entry.get('label'):
                 sent = entry.get('report')  # Return the report if label name matches
         print(sent)
         suv_path_final = os.path.join(image_base, image_name + "_suv_cropped.nii.gz")
