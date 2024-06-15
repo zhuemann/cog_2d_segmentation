@@ -44,7 +44,12 @@ def make_json_file_for_3d_training(df):
 
     print(f"length of dataframe before: {len(df)}")
     df = filter_dataframe_for_images_in_folder(df)
-    print(f"length of dataframe after: {len(df)}")
+    print(f"after inital filtering: {len(df)}")
+    labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
+                      "PETWB_012579_01_label_2", "PETWB_003190_01_label_3", "PETWB_013006_03_label_2"]
+    df = df[~df["Label_Name"].isin(labels_to_skip)]
+
+    print(f"length of dataframe final: {len(df)}")
 
     # Assuming df_2d is your main DataFrame and image_base, label_path_base, image_list are defined
     np.random.seed(42)  # For reproducibility
