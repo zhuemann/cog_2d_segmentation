@@ -6,7 +6,6 @@ import numpy as np
 def get_suv_file_names(df):
 
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
-
     image_path_df = []
     for index, row in df.iterrows():
         petlymph = row["Petlymph"]
@@ -21,7 +20,7 @@ def get_suv_file_names(df):
     df = pd.DataFrame(image_path_df, columns=["SUV Names"])
 
     # Save the DataFrame to an Excel file
-    df.to_excel("/UserData/Zach_Analysis/suv_slice_text/full_suv_names.xlsx", index=False)
+    df.to_excel("/UserData/Zach_Analysis/suv_slice_text/full_suv_names_uw_pet_4.xlsx", index=False)
 
 
 def count_files_in_suv_folder():

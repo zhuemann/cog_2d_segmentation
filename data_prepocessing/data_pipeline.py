@@ -20,9 +20,9 @@ from data_prepocessing.dataframe_to_json import dataframe_to_json
 from data_prepocessing.suv_thresholding import threshold_suv_max
 from data_prepocessing.map_to_new_coded_id import map_to_new_coded_id
 from data_prepocessing.llm_remove_multiple_descriptions import llm_remove_multiple_descriptions
-
+from data_prepocessing.data_visualization.plot_3d_predictions import plot_3d_predictions
 from data_prepocessing.crop_at_head import crop_at_head_calculation
-
+from data_prepocessing.make_json_file_for_3d_training import make_json_file_for_3d_training
 from data_prepocessing.check_max_pixels_and_slice import check_max_pixel_and_slice
 
 import pandas as pd
@@ -250,13 +250,14 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx", index=False)
     """
     df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
-
+    make_json_file_for_3d_training(df)
     #df = df.drop_duplicates(subset="Petlymph", keep="first")
     #print(f"unique images: {len(df)}")
     #crop_at_head_calculation(df)
 
-    resampling_and_cropping(df)
+    #resampling_and_cropping(df)
 
     #df = llm_remove_multiple_descriptions(df)
     #df.to_excel(save_base + "remove_multiple_descriptions_test_llama3_v2_14.xlsx", index=False)
 
+    #plot_3d_predictions()
