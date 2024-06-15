@@ -39,7 +39,10 @@ def plot_3d_predictions():
     index = 0
     for label in prediction_list:
         index += 1
-        print(f"index: {index} number that are correct: {number_correct} accuracy: {index/number_correct}")
+        if number_correct > 1:
+            print(f"index: {index} number that are correct: {number_correct} accuracy: {index/number_correct}")
+        else:
+            print(f"index: {index} number that are correct: {number_correct}")
         image_name = label[:-15]
         print(f"image name: {image_name}")
         label_name = label[:-7]
