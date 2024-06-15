@@ -36,13 +36,15 @@ def filter_dataframe_for_images_in_folder(df):
 
     # Reset the index of the filtered dataframe
     df_filtered.reset_index(drop=True, inplace=True)
-    return df
+    return df_filtered
 
 def make_json_file_for_3d_training(df):
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/imagesv4/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labelsv4/"
 
+    print(f"length of dataframe before: {len(df)}")
     df = filter_dataframe_for_images_in_folder(df)
+    print(f"length of dataframe after: {len(df)}")
 
     # Assuming df_2d is your main DataFrame and image_base, label_path_base, image_list are defined
     np.random.seed(42)  # For reproducibility
