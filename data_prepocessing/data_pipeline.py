@@ -264,4 +264,4 @@ def run_data_pipeline_final():
     #df = llm_remove_multiple_descriptions(df)
     #df.to_excel(save_base + "remove_multiple_descriptions_test_llama3_v2_14.xlsx", index=False)
 
-    plot_3d_predictions(df)
+    plot_3d_predictions()
