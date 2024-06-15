@@ -39,8 +39,8 @@ def filter_dataframe_for_images_in_folder(df):
     return df_filtered
 
 def make_json_file_for_3d_training(df):
-    image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/imagesv4/"
-    label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labelsv4/"
+    image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
+    label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/"
 
     print(f"length of dataframe before: {len(df)}")
     df = filter_dataframe_for_images_in_folder(df)
