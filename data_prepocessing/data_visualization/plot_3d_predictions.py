@@ -45,9 +45,10 @@ def plot_3d_predictions():
             print(f"index: {index} number that are correct: {number_correct}")
 
         print(f"label name: {label}")
-        image_name = label[:-15]
+        #image_name = label[:-15]
+        image_name = label[:15]
         print(f"image name: {image_name}")
-        label_name = label[:-7]
+        label_name = label.strip(".nii.gz")
         print(label_name)
 
 
@@ -85,9 +86,9 @@ def plot_3d_predictions():
             correct = True
             number_correct += 1
 
-        print(f"suv mip size: {suv_mip.shape}")
-        print(f"pred mip size: {prediction_mip.shape}")
-        print(f"label mip size: {label_mip.shape}")
+        #print(f"suv mip size: {suv_mip.shape}")
+        #print(f"pred mip size: {prediction_mip.shape}")
+        #print(f"label mip size: {label_mip.shape}")
 
         norm = Normalize(vmin=0.01, clip=True)  # vmin set slightly above zero to make zeros transparent
 
