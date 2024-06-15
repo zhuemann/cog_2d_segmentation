@@ -4,6 +4,28 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 
+def max_suv_in_positive_region(suv_volume, label_volume):
+    """
+    Load SUV and label volumes, compute the maximum SUV value where label is 1.
+
+    Args:
+    - suv_path (str): Path to the SUV .nii.gz file.
+    - label_path (str): Path to the label .nii.gz file, where 1 indicates a positive label.
+
+    Returns:
+    - float: The maximum SUV value in regions marked as positive by the label.
+    """
+
+    # Element-wise multiplication to mask out negative regions
+    positive_suv = suv_volume * (label_volume == 1)
+
+    # Retrieve the maximum SUV value in the masked volume
+    max_suv_value = np.max(positive_suv)
+
+    return max_suv_value
+
+
+
 def plot_3d_predictions():
 
     prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_forked2/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/prediction_trash_v2testing/"
@@ -48,6 +70,12 @@ def plot_3d_predictions():
         prediction_mip = np.max(prediction_data, axis=1)
         label_mip = np.max(label_data, axis=1)
 
+        label_suv_max = max_suv_in_positive_region(suv_data, label_data)
+        prediction_suv_max = max_suv_in_positive_region(suv_data, prediction_data)
+        correct = False
+        if label_suv_max == prediction_suv_max:
+            correct = True
+
         print(f"suv mip size: {suv_mip.shape}")
         print(f"pred mip size: {prediction_mip.shape}")
         print(f"label mip size: {label_mip.shape}")
@@ -60,20 +88,20 @@ def plot_3d_predictions():
         # Plot 1: Label MIP overlayed on SUV MIP
         axes[0].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
         axes[0].imshow(label_mip.T, cmap='Greens', alpha=norm(label_mip.T), aspect='auto', origin='lower')
-        axes[0].set_title('Label Overlay on SUV MIP')
+        axes[0].set_title(f'Label Overlay on SUV MIP suv_max: {label_suv_max}')
         axes[0].axis('off')  # Turn off axis
 
         # Plot 2: Prediction MIP overlayed on SUV MIP
         axes[1].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
         axes[1].imshow(prediction_mip.T, cmap='Blues', alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
-        axes[1].set_title('Prediction Overlay on SUV MIP')
+        axes[1].set_title(f'Prediction Overlay on SUV MIP predicted suv_max: {prediction_suv_max}')
         axes[1].axis('off')
 
         # Plot 3: Both Prediction and Label MIP overlayed on SUV MIP
         axes[2].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
         axes[2].imshow(label_mip.T, cmap='Greens', alpha=norm(label_mip.T), aspect='auto', origin='lower')
         axes[2].imshow(prediction_mip.T, cmap='Blues', alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
-        axes[2].set_title('Prediction and Label Overlay on SUV MIP')
+        axes[2].set_title(f'Prediction and Label Overlay on SUV MIP is correct: {correct}')
         axes[2].axis('off')
 
         # Save the figure
