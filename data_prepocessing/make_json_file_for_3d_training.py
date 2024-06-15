@@ -59,7 +59,7 @@ def make_json_file_for_3d_training(df):
     print(f"length of dataframe before: {len(df)}")
     df = filter_dataframe_for_images_in_folder(df)
     print(f"after image filtering: {len(df)}")
-    df = filter_dataframe_for_images_in_folder(df, target_folder="/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/")
+    df = filter_dataframe_for_labels_in_folder(df)
     print(f"after label filtering: {len(df)}")
     labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
                       "PETWB_012579_01_label_2", "PETWB_003190_01_label_3", "PETWB_013006_03_label_2"]
