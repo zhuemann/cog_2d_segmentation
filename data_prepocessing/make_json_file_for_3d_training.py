@@ -24,9 +24,9 @@ def get_suv_images_list(df):
     df.to_excel("/UserData/Zach_Analysis/suv_slice_text/full_suv_names_uw_pet_4.xlsx", index=False)
     return df
 
-def filter_dataframe_for_images_in_folder(df, target_folder):
+def filter_dataframe_for_images_in_folder(df):
     # Define your target folder
-    #target_folder = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
+    target_folder = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
 
     # Get a list of all files in the target folder
     files = os.listdir(target_folder)
@@ -38,12 +38,26 @@ def filter_dataframe_for_images_in_folder(df, target_folder):
     df_filtered.reset_index(drop=True, inplace=True)
     return df_filtered
 
+def filter_dataframe_for_labels_in_folder(df):
+    # Define your target folder
+    target_folder = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
+
+    # Get a list of all files in the target folder
+    files = os.listdir(target_folder)
+
+    # Filter the dataframe to keep only rows where the ID in 'Petlymph' is found in any file name in the folder
+    df_filtered = df[df['Label_Name'].apply(lambda id: any(id in file for file in files))]
+
+    # Reset the index of the filtered dataframe
+    df_filtered.reset_index(drop=True, inplace=True)
+    return df_filtered
+
 def make_json_file_for_3d_training(df):
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/"
 
     print(f"length of dataframe before: {len(df)}")
-    df = filter_dataframe_for_images_in_folder(df, target_folder="/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/")
+    df = filter_dataframe_for_images_in_folder(df)
     print(f"after image filtering: {len(df)}")
     df = filter_dataframe_for_images_in_folder(df, target_folder="/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/")
     print(f"after label filtering: {len(df)}")
