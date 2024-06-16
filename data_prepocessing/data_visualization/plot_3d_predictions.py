@@ -84,7 +84,7 @@ def plot_3d_predictions():
         suv_path_final = os.path.join(image_base, image_name + "_suv_cropped.nii.gz")
         print(suv_path_final)
         ct_path_final = os.path.join(image_base, image_name + "_ct_cropped.nii.gz")
-        full_label_path = os.path.join(prediction_location, label)
+        full_pred_path = os.path.join(prediction_location, label)
         label_full_path = os.path.join(label_base, label)
 
         # load in the suv data
@@ -94,7 +94,7 @@ def plot_3d_predictions():
         nii_ct = nib.load(ct_path_final)
         ct_data = nii_ct.get_fdata()
         # load in the prediciton data
-        nii_prediction = nib.load(full_label_path)
+        nii_prediction = nib.load(full_pred_path)
         prediction_data = nii_prediction.get_fdata()
         prediction_data = np.squeeze(prediction_data, axis=(0, 1))
         print(f"pred data size: {prediction_data.shape}")
@@ -147,8 +147,8 @@ def plot_3d_predictions():
         fig.suptitle(sent, fontsize=14)
 
         # Save the figure
-        plt.tight_layout()
-        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/3d_predictions_v1/" + label_name + ".png")
+        #plt.tight_layout()
+        #plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/3d_predictions_v1/" + label_name + ".png")
         plt.close()
 
 

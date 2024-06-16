@@ -71,6 +71,7 @@ def make_json_file_for_3d_training(df):
     unique_petlymps = df['Petlymph'].unique()
     np.random.shuffle(unique_petlymps)  # Shuffle the array
 
+    """
     # Split the IDs into training, validation, and test sets
     train_split = int(len(unique_petlymps) * 0.7)
     val_split = int(len(unique_petlymps) * 0.9)
@@ -78,9 +79,20 @@ def make_json_file_for_3d_training(df):
     train_ids = unique_petlymps[:train_split]
     val_ids = unique_petlymps[train_split:val_split]
     test_ids = unique_petlymps[val_split:]
-
+    
     # Initialize the storage dictionary
     data = {'training': [], 'validation': [], 'testing': []}
+    """
+    # Split the IDs into training, validation, and test sets
+    train_split = int(len(unique_petlymps) * 0.8)
+    val_split = int(len(unique_petlymps) * 0.9)
+
+    train_ids = unique_petlymps[:train_split]
+    #val_ids = unique_petlymps[train_split:val_split]
+    test_ids = unique_petlymps[val_split:]
+
+    # Initialize the storage dictionary
+    data = {'training': [], 'testing': []}
 
     # Now iterate through the DataFrame
     for index, row in df.iterrows():
@@ -108,11 +120,11 @@ def make_json_file_for_3d_training(df):
             # Optionally randomize folds within training data
             entry['fold'] = random.randint(0, 5)
             data['training'].append(entry)
-        elif petlymph in val_ids:
-            data['validation'].append(entry)
+        #elif petlymph in val_ids:
+        #    data['validation'].append(entry)
         else:
             data['testing'].append(entry)
 
     # Write the JSON data to a file
-    with open('/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000.json', 'w') as json_file:
+    with open('/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000_no_validation.json', 'w') as json_file:
         json.dump(data, json_file, indent=4)  # Use indent=4 for pretty printing
