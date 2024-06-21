@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 import pandas as pd
 import json
-
+import cc3d
 def insert_newlines(text, word_limit=15):
     words = text.split()
     lines = []
@@ -115,6 +115,9 @@ def plot_3d_predictions():
             correct = True
             number_correct += 1
 
+        prediction_components = cc3d.connected_components(prediction_data, connectivity=26)
+        print(f"number of componets in prediction: {prediction_components}")
+        continue
         #print(f"suv mip size: {suv_mip.shape}")
         #print(f"pred mip size: {prediction_mip.shape}")
         #print(f"label mip size: {label_mip.shape}")
