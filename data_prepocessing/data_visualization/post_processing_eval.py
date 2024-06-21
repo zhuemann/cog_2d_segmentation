@@ -103,7 +103,8 @@ def pos_processing_eval():
             print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct / index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
         else:
             print(f"index: {index} number that are correct: {number_correct}")
-
+        print(
+            f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
         #print(f"label name: {label}")
         # image_name = label[:-15]
         image_name = label[:15]
