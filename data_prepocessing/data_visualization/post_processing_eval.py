@@ -140,9 +140,9 @@ def pos_processing_eval():
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
 
-        TP, FP, FN = TPFPFNHelper(prediction_data, label_data)
-        TP_sum += TP
-        FP_sum += FP
-        FN_sum += FN
+        TP_sum, FP_sum, FN_sum = TPFPFNHelper(prediction_data, label_data)
+        #TP_sum += TP
+        #FP_sum += FP
+        #FN_sum += FN
 
     print(f"True positive: {TP_sum} False Positive: {FP_sum} False Negative sum: {FN}")
