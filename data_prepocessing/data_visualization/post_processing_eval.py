@@ -19,7 +19,7 @@ def false_pos_pix(gt_array, pred_array, pred_array_baseline=None):
     false_pos = 0
     false_pos_num = 0
     for idx in range(1, pred_conn_comp.max() + 1): # min(pred_conn_comp.max() + 1, 50)):
-        print(f"idx in false pos pix: {idx}")
+        print(f"idx in false pos pix: {idx} max: {pred_conn_comp.max()}")
         comp_mask = np.isin(pred_conn_comp, idx)
         #if comp_mask.sum() <= 8:  # ignore small connected components (0.64 ml)
         #    print("less than 8")
