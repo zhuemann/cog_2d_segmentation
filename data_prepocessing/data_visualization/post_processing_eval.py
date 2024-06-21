@@ -63,8 +63,8 @@ def TPFPFNHelper(y_pred, y):
         TP_sum = 0
         FP_sum = 0
         FN_sum = 0
-        y_copy = copy.deepcopy(y).detach().cpu().numpy().squeeze()
-        y_pred_copy = copy.deepcopy(y_pred).detach().cpu().numpy().squeeze()
+        y_copy = copy.deepcopy(y).squeeze()
+        y_pred_copy = copy.deepcopy(y_pred).squeeze()
         if y_copy.ndim == 3:  # if batch dim is reduced
             y_copy = y_copy[np.newaxis, ...]
             y_pred_copy = y_pred_copy[np.newaxis, ...]
