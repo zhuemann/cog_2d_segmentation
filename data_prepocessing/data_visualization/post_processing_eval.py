@@ -1,7 +1,6 @@
 
 import copy
 import cc3d
-import torch
 import os
 import nibabel as nib
 import numpy as np
@@ -52,13 +51,13 @@ def false_neg_pix(gt_array, pred_array):
 def TPFPFNHelper(y_pred, y):
         n_pred_ch = y_pred.shape[1]
         if n_pred_ch > 1:
-            y_pred = torch.argmax(y_pred, dim=1, keepdim=True)
+            y_pred = np.argmax(y_pred, dim=1, keepdim=True)
         else:
             raise ValueError("y_pred must have more than 1 channel, use softmax instead")
 
         n_gt_ch = y.shape[1]
         if n_gt_ch > 1:
-            y = torch.argmax(y, dim=1, keepdim=True)
+            y = np.argmax(y, dim=1, keepdim=True)
 
         # reducing only spatial dimensions (not batch nor channels)
         TP_sum = 0
