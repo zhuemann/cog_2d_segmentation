@@ -115,7 +115,7 @@ def plot_3d_predictions():
             correct = True
             number_correct += 1
 
-        prediction_components = cc3d.connected_components(prediction_data, connectivity=26)
+        prediction_components = cc3d.connected_components(prediction_data, connectivity=26).max()
         print(f"number of componets in prediction: {prediction_components}")
         continue
         #print(f"suv mip size: {suv_mip.shape}")
