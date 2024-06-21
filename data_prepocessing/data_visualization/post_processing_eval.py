@@ -56,6 +56,7 @@ def false_neg_pix(gt_array, pred_array):
 def TPFPFNHelper(y_pred, y):
         n_pred_ch = y_pred.shape[1]
         print(y_pred.shape)
+        print(y_pred)
         """
         if n_pred_ch > 1:
             y_pred = np.argmax(y_pred, axis=1, keepdims=True)

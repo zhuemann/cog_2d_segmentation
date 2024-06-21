@@ -115,9 +115,9 @@ def plot_3d_predictions():
             correct = True
             number_correct += 1
 
-        prediction_components = np.max(cc3d.connected_components(label_data, connectivity=26))
-        print(f"number of componets in prediction: {prediction_components}")
-        continue
+        #prediction_components = np.max(cc3d.connected_components(label_data, connectivity=26))
+        #print(f"number of componets in prediction: {prediction_components}")
+        #continue
         #print(f"suv mip size: {suv_mip.shape}")
         #print(f"pred mip size: {prediction_mip.shape}")
         #print(f"label mip size: {label_mip.shape}")
