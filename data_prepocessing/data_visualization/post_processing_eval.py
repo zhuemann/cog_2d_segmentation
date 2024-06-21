@@ -100,14 +100,14 @@ def pos_processing_eval():
     for label in prediction_list:
         index += 1
         if number_correct > 1:
-            print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct / index}")
+            print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct / index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
         else:
             print(f"index: {index} number that are correct: {number_correct}")
 
-        print(f"label name: {label}")
+        #print(f"label name: {label}")
         # image_name = label[:-15]
         image_name = label[:15]
-        print(f"image name: {image_name}")
+        #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
         # print(label_name)
         # row = df[df["Label_Name"] == label_name].iloc[0]
@@ -116,9 +116,9 @@ def pos_processing_eval():
         for entry in data["testing"]:
             if label_name in entry.get('label'):
                 sent = entry.get('report')  # Return the report if label name matches
-        print(sent)
+        #print(sent)
         suv_path_final = os.path.join(image_base, image_name + "_suv_cropped.nii.gz")
-        print(suv_path_final)
+        #print(suv_path_final)
         ct_path_final = os.path.join(image_base, image_name + "_ct_cropped.nii.gz")
         full_pred_path = os.path.join(prediction_location, label)
         label_full_path = os.path.join(label_base, label)
@@ -133,7 +133,7 @@ def pos_processing_eval():
         nii_prediction = nib.load(full_pred_path)
         prediction_data = nii_prediction.get_fdata()
         prediction_data = np.squeeze(prediction_data, axis=(0, 1))
-        print(f"pred data size: {prediction_data.shape}")
+        #print(f"pred data size: {prediction_data.shape}")
 
         # load in label data
         nii_label = nib.load(label_full_path)
