@@ -57,8 +57,10 @@ def TPFPFNHelper(y_pred, y):
         n_pred_ch = y_pred.shape[1]
         #print(y_pred.shape)
         #print(y_pred)
-        print(f"max: {np.max(y_pred)}")
-        print(f"min: {np.min(y_pred)}")
+        #print(f"max: {np.max(y_pred)}")
+        #print(f"min: {np.min(y_pred)}")
+        y_pred = np.where(y_pred < 0.5, 0, 1)
+
         """
         if n_pred_ch > 1:
             y_pred = np.argmax(y_pred, axis=1, keepdims=True)
