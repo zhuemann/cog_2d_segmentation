@@ -24,7 +24,7 @@ from data_prepocessing.data_visualization.plot_3d_predictions import plot_3d_pre
 from data_prepocessing.crop_at_head import crop_at_head_calculation
 from data_prepocessing.make_json_file_for_3d_training import make_json_file_for_3d_training
 from data_prepocessing.check_max_pixels_and_slice import check_max_pixel_and_slice
-
+from data_prepocessing.data_visualization.post_processing_eval import pos_processing_eval
 import pandas as pd
 def run_data_pipeline():
 
@@ -250,8 +250,9 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx", index=False)
     """
 
-    df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
-    make_json_file_for_3d_training(df)
+    pos_processing_eval()
+    #df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
+    #make_json_file_for_3d_training(df)
 
 
 

@@ -85,11 +85,11 @@ def make_json_file_for_3d_training(df):
     """
     # Split the IDs into training, validation, and test sets
     train_split = int(len(unique_petlymps) * 0.8)
-    val_split = int(len(unique_petlymps) * 0.9)
+    #val_split = int(len(unique_petlymps) * 0.9)
 
     train_ids = unique_petlymps[:train_split]
     #val_ids = unique_petlymps[train_split:val_split]
-    test_ids = unique_petlymps[val_split:]
+    test_ids = unique_petlymps[train_split:]
 
     # Initialize the storage dictionary
     data = {'training': [], 'testing': []}

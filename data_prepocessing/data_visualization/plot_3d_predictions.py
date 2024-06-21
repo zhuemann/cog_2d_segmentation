@@ -150,5 +150,3 @@ def plot_3d_predictions():
         #plt.tight_layout()
         #plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/3d_predictions_v1/" + label_name + ".png")
         plt.close()
-
-
