@@ -99,13 +99,15 @@ def pos_processing_eval():
     all_images = os.listdir(image_base)
     number_correct = 0
     index = 0
-    TP_sum, FP_sum, FN_sum = (0, 0, 0)
+    TP_sum = 0
+    FP_sum = 0
+    FN_sum = 0
     for label in prediction_list:
         index += 1
         if number_correct > 1:
             print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct / index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
-        else:
-            print(f"index: {index} number that are correct: {number_correct}")
+        #else:
+        #    print(f"index: {index} number that are correct: {number_correct}")
         print(
             f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
         #print(f"label name: {label}")
