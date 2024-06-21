@@ -23,7 +23,7 @@ def false_pos_pix(gt_array, pred_array, pred_array_baseline=None):
         #if comp_mask.sum() <= 8:  # ignore small connected components (0.64 ml)
         #    print("less than 8")
         #    continue
-        if comp_mask.sum() <= 3:  # ignore small connected components (0.64 ml)
+        if comp_mask.sum() <= 3:  # ignore small connected components (0.81 ml)
             print("less than 3")
             continue
         if (comp_mask * gt_array).sum() == 0:
