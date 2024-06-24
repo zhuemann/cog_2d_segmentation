@@ -258,7 +258,7 @@ def pos_processing_eval():
         FP_sum += FP
         FN_sum += FN
 
-        print(f"f1 score: {calculate_f1_score(TP, FP, FN)}")
+    print(f"f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)}")
         #analyze_volume(prediction_data)
 
     print(f"True positive: {TP_sum} False Positive: {FP_sum} False Negative sum: {FN_sum}")
