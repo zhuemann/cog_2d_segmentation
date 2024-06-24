@@ -234,6 +234,8 @@ def pos_processing_eval():
         #print(suv_path_final)
         ct_path_final = os.path.join(image_base, image_name + "_ct_cropped.nii.gz")
         full_pred_path = os.path.join(prediction_location, label)
+        if ".gz" not in label:
+            label += ".gz"
         label_full_path = os.path.join(label_base, label)
         print(label)
         # load in the suv data
