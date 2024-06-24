@@ -114,6 +114,34 @@ def analyze_volume(volume):
         print(f"Max value for component {component_id}: {max_value}")
 
 
+def analyze_and_filter_volume(volume):
+    # Threshold the volume
+    thresholded_volume = np.where(volume > 0.5, 1, 0)
+
+    # Compute connected components
+    connectivity = 26  # You can choose 6, 18, or 26 for 3D connectivity
+    components = cc3d.connected_components(thresholded_volume, connectivity=connectivity)
+
+    # Find the component with the maximum value in the original volume
+    max_component_id = None
+    max_value = -np.inf  # Start with the lowest possible value
+    for component_id in np.unique(components):
+        if component_id == 0:
+            continue  # Skip the background component
+        component_mask = components == component_id
+        component_max_value = np.max(volume[component_mask])
+        if component_max_value > max_value:
+            max_value = component_max_value
+            max_component_id = component_id
+
+    # Create a new volume where only the component with the highest max is retained
+    filtered_volume = np.zeros_like(volume)
+    if max_component_id is not None:
+        filtered_volume[components == max_component_id] = volume[components == max_component_id]
+
+    return filtered_volume
+
+
 def pos_processing_eval():
     json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled.json"
     with open(json_file_path, 'r') as file:
@@ -169,7 +197,7 @@ def pos_processing_eval():
         prediction_data = nii_prediction.get_fdata()
         prediction_data = np.squeeze(prediction_data, axis=(0, 1))
         #print(f"pred data size: {prediction_data.shape}")
-
+        prediction_data = analyze_and_filter_volume(prediction_data)
         # load in label data
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
@@ -179,6 +207,6 @@ def pos_processing_eval():
         FP_sum += FP
         FN_sum += FN
 
-        analyze_volume(prediction_data)
+        #analyze_volume(prediction_data)
 
     print(f"True positive: {TP_sum} False Positive: {FP_sum} False Negative sum: {FN}")
