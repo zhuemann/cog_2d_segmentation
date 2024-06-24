@@ -235,7 +235,7 @@ def pos_processing_eval():
         ct_path_final = os.path.join(image_base, image_name + "_ct_cropped.nii.gz")
         full_pred_path = os.path.join(prediction_location, label)
         label_full_path = os.path.join(label_base, label)
-
+        print(label)
         # load in the suv data
         #nii_suv = nib.load(suv_path_final)
         #suv_data = nii_suv.get_fdata()
