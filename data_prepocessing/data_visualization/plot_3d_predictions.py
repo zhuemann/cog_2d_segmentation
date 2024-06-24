@@ -48,7 +48,8 @@ def max_suv_in_positive_region(suv_volume, label_volume):
 def plot_3d_predictions():
 
     df = pd.read_excel("/UserData/Zach_Analysis/petlymph_image_data/" + "uw_final_df_9.xlsx")
-    json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled.json"
+    #json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled.json"
+    json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000_no_validation.json"
     with open(json_file_path, 'r') as file:
         data = json.load(file)
 
