@@ -95,6 +95,25 @@ def TPFPFNHelper(y_pred, y):
 
         return TP_sum, FP_sum, FN_sum  # all are volumes
 
+def analyze_volume(volume):
+    # Threshold the volume
+    thresholded_volume = np.where(volume > 0.5, 1, 0)
+
+    # Compute connected components
+    connectivity = 26  # You can choose 6, 18, or 26 for 3D connectivity
+    components = cc3d.connected_components(thresholded_volume, connectivity=connectivity)
+
+    # Find maximum value in the original volume for each component
+    max_values = {}
+    for component_id in np.unique(components):
+        if component_id == 0:
+            continue  # Skip the background component
+        component_mask = components == component_id
+        max_value = np.max(volume[component_mask])
+        max_values[component_id] = max_value
+        print(f"Max value for component {component_id}: {max_value}")
+
+
 def pos_processing_eval():
     json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled.json"
     with open(json_file_path, 'r') as file:
@@ -159,5 +178,7 @@ def pos_processing_eval():
         TP_sum += TP
         FP_sum += FP
         FN_sum += FN
+
+        analyze_volume(nii_prediction)
 
     print(f"True positive: {TP_sum} False Positive: {FP_sum} False Negative sum: {FN}")
