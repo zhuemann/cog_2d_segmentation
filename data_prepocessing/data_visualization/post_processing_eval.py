@@ -237,7 +237,7 @@ def pos_processing_eval():
         if ".gz" not in label:
             label += ".gz"
         label_full_path = os.path.join(label_base, label)
-        print(label)
+        #print(label)
         # load in the suv data
         #nii_suv = nib.load(suv_path_final)
         #suv_data = nii_suv.get_fdata()
