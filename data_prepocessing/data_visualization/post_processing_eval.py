@@ -142,6 +142,56 @@ def analyze_and_filter_volume(volume):
     return filtered_volume
 
 
+def calculate_f1_score(true_positives, false_positives, false_negatives):
+    # Calculate precision
+    if true_positives + false_positives == 0:
+        precision = 0  # Prevent division by zero
+    else:
+        precision = true_positives / (true_positives + false_positives)
+
+    # Calculate recall
+    if true_positives + false_negatives == 0:
+        recall = 0  # Prevent division by zero
+    else:
+        recall = true_positives / (true_positives + false_negatives)
+
+    # Calculate F1 score
+    if precision + recall == 0:
+        f1_score = 0  # Prevent division by zero
+    else:
+        f1_score = 2 * (precision * recall) / (precision + recall)
+
+    return f1_score
+
+def filter_prediction_by_average(volume):
+    # Threshold the volume
+    thresholded_volume = np.where(volume > 0.5, 1, 0)
+
+    # Compute connected components
+    connectivity = 26  # You can choose 6, 18, or 26 for 3D connectivity
+    components = cc3d.connected_components(thresholded_volume, connectivity=connectivity)
+
+    # Find the component with the highest average value in the original volume
+    max_avg_component_id = None
+    max_average = -np.inf  # Start with the lowest possible value
+    for component_id in np.unique(components):
+        if component_id == 0:
+            continue  # Skip the background component
+        component_mask = components == component_id
+        component_values = volume[component_mask]
+        component_average = np.mean(component_values)
+        if component_average > max_average:
+            max_average = component_average
+            max_avg_component_id = component_id
+
+    # Create a new volume where only the component with the highest average is retained
+    filtered_volume = np.zeros_like(volume)
+    if max_avg_component_id is not None:
+        filtered_volume[components == max_avg_component_id] = volume[components == max_avg_component_id]
+
+    return filtered_volume
+
+
 def pos_processing_eval():
     json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled.json"
     with open(json_file_path, 'r') as file:
@@ -197,7 +247,8 @@ def pos_processing_eval():
         prediction_data = nii_prediction.get_fdata()
         prediction_data = np.squeeze(prediction_data, axis=(0, 1))
         #print(f"pred data size: {prediction_data.shape}")
-        prediction_data = analyze_and_filter_volume(prediction_data)
+        #prediction_data = analyze_and_filter_volume(prediction_data)
+        prediction_data = filter_prediction_by_average(prediction_data)
         # load in label data
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
@@ -207,6 +258,7 @@ def pos_processing_eval():
         FP_sum += FP
         FN_sum += FN
 
+        print(f"f1 score: {calculate_f1_score(TP, FP, FN)}")
         #analyze_volume(prediction_data)
 
-    print(f"True positive: {TP_sum} False Positive: {FP_sum} False Negative sum: {FN}")
+    print(f"True positive: {TP_sum} False Positive: {FP_sum} False Negative sum: {FN_sum}")
