@@ -1,30 +1,7 @@
-from data_prepocessing.split_sentences import split_sentences
-from data_prepocessing.llm_slice_suv_extraction import llm_slice_suv_extraction
-from data_prepocessing.concenus_voting import concenus_voting
-from data_prepocessing.get_max_pixel import get_max_pixel_step3
-from data_prepocessing.detect_and_remove_multiple_suv_slice import detect_and_remove_multiple_suv_slice
-from data_prepocessing.remove_non_anontomical_sent import remove_non_anontomical_sent
-from data_prepocessing.remove_duplicates import remove_duplicates
-from data_prepocessing.remove_duplicates import assign_label_numbers
-from data_prepocessing.make_labels_from_point import make_labels_from_suv_max_points
-from data_prepocessing.create_sentence_mips_and_labels import create_mips
-from data_prepocessing.utility import count_left_right_sided
 #from data_prepocessing.remove_dups_non_anontomical_sent import get_anatomical_dataframe
 from data_prepocessing.remove_non_anontomical_sent import remove_non_anatomical_sent_v2
-from data_prepocessing.data_visualization.plot_mips_with_labels import plot_mips_with_labels
-from data_prepocessing.template_removal import template_removal
 from data_prepocessing.data_visualization.plots_for_label_accuracy import plot_for_label_accuracy_assessment
-from data_prepocessing.resampling_and_cropping import resampling_and_cropping
-from data_prepocessing.llm_remove_non_anotomical_sent import llm_remove_non_anatomical_sent
-from data_prepocessing.dataframe_to_json import dataframe_to_json
-from data_prepocessing.suv_thresholding import threshold_suv_max
-from data_prepocessing.map_to_new_coded_id import map_to_new_coded_id
-from data_prepocessing.llm_remove_multiple_descriptions import llm_remove_multiple_descriptions
-from data_prepocessing.data_visualization.plot_3d_predictions import plot_3d_predictions
-from data_prepocessing.crop_at_head import crop_at_head_calculation
-from data_prepocessing.make_json_file_for_3d_training import make_json_file_for_3d_training
-from data_prepocessing.check_max_pixels_and_slice import check_max_pixel_and_slice
-from data_prepocessing.data_visualization.post_processing_eval import pos_processing_eval
+from data_prepocessing.utility.select_250_images_from_json import select_250_images_from_json
 import pandas as pd
 def run_data_pipeline():
 
@@ -250,11 +227,12 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx", index=False)
     """
 
-    pos_processing_eval()
+    #pos_processing_eval()
     #df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
     #make_json_file_for_3d_training(df)
 
-
+    sampled_df = select_250_images_from_json()
+    sampled_df.to_excel(save_base + "for_daniel_250_round_3_final_testset.xlsx", index=False)
 
     #df = df.drop_duplicates(subset="Petlymph", keep="first")
     #print(f"unique images: {len(df)}")
