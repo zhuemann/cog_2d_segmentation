@@ -4,7 +4,7 @@ import pandas as pd
 
 def select_250_images_from_json():
 
-    input_file = "Z:/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000_no_validation.json"
+    input_file = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000_no_validation.json"
     # Read the existing data from the JSON file
     with open(input_file, 'r') as file:
         data = json.load(file)
