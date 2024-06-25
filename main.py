@@ -18,18 +18,18 @@ from train_segmentation import train_image_text_segmentation
 #from create_sentence_mips_and_labels import create_mips
 from data_prepocessing.data_pipeline import run_data_pipeline
 from uw_pet_suv_conversion import uw_pet_suv_conversion
-from data_prepocessing.utility import get_suv_file_names
-from data_prepocessing.utility import finding_missing_images
-from data_prepocessing.utility import analyze_ct_series_when_pt_matches
-from data_prepocessing.utility import analyze_matching_ct_series_for_pt_substring
+from data_prepocessing.utility.utility import get_suv_file_names
+from data_prepocessing.utility.utility import finding_missing_images
+from data_prepocessing.utility.utility import analyze_ct_series_when_pt_matches
+from data_prepocessing.utility.utility import analyze_matching_ct_series_for_pt_substring
 from uw_pet_suv_conversion import file_conversion_ct
 from data_prepocessing.data_visualization.plot_ct_head_projections import plot_ct_head_projections
-from data_prepocessing.utility import generate_data_sheet_on_uw_pet_dataset
+from data_prepocessing.utility.utility import generate_data_sheet_on_uw_pet_dataset
 # Press the green button in the gutter to run the script.
 from uw_pet_suv_conversion import uw_pet_suv_conversion_v2
 from uw_pet_suv_conversion import uw_ct_suv_conversion_v2
 from data_prepocessing.data_pipeline import run_data_pipeline_final
-from data_prepocessing.utility import count_files_in_suv_folder
+from data_prepocessing.utility.utility import count_files_in_suv_folder
 if __name__ == '__main__':
 
     #count_files_in_suv_folder()
