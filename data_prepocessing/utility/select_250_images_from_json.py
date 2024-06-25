@@ -2,6 +2,11 @@ import random
 import json
 import pandas as pd
 
+# Function to extract the image ID from the path
+def extract_image_id(path):
+    # Extract the part of the filename before '_suv_cropped.nii.gz'
+    return path.split('/')[-1].split('_suv_cropped')[0]
+
 def select_250_images_from_json():
 
     input_file = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000_no_validation.json"
@@ -11,21 +16,21 @@ def select_250_images_from_json():
     # Assuming 'data' is your JSON data loaded into a dictionary
     testing_data = data["testing"]
 
-    # Group data by 'Petlymph'
-    patient_groups = {}
+    # Group data by image ID extracted from the 'image' path
+    image_groups = {}
     for entry in testing_data:
-        patient_id = entry['Petlymph']
-        if patient_id not in patient_groups:
-            patient_groups[patient_id] = []
-        patient_groups[patient_id].append(entry)
+        image_id = extract_image_id(entry['image'])
+        if image_id not in image_groups:
+            image_groups[image_id] = []
+        image_groups[image_id].append(entry)
 
     # Randomly select groups until we have at least 250 images
     selected_entries = []
-    patient_ids = list(patient_groups.keys())
-    random.shuffle(patient_ids)  # Shuffle patient ID list for random selection
+    image_ids = list(image_groups.keys())
+    random.shuffle(image_ids)  # Shuffle image ID list for random selection
 
-    for pid in patient_ids:
-        selected_entries.extend(patient_groups[pid])
+    for img_id in image_ids:
+        selected_entries.extend(image_groups[img_id])
         if len(selected_entries) >= 250:
             break
 
