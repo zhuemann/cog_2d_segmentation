@@ -9,7 +9,7 @@ def select_250_images_from_json():
     with open(input_file, 'r') as file:
         data = json.load(file)
     # Assuming 'data' is your JSON data loaded into a dictionary
-    testing_data = data["Testing"]
+    testing_data = data["testing"]
 
     # Group data by 'Petlymph'
     patient_groups = {}
