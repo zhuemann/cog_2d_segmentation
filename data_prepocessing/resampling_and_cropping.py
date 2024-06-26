@@ -67,8 +67,8 @@ def resampling_and_cropping(df):
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
     print("hi")
 
-    images_folder = "images4"
-    label_folder = "labels4"
+    images_folder = "images4_v2"
+    label_folder = "labels4_v2"
 
     save_path = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/"
     processed_images = generate_processed_images_dict(save_path + images_folder)
@@ -100,6 +100,7 @@ def resampling_and_cropping(df):
             crop_offset = int(matched_row['crop_offset'].iloc[0]) - 1
         else:
             crop_offset = 0
+            print("no offset, it was missing")
 
         # Check if this PET/CT pair has already been processed
         if petlymph in processed_images:
