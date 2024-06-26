@@ -127,6 +127,7 @@ def plot_final_testset(df):
         #print(f"crop offset: {crop_offset}")
         #k_num = original_row["k"]
         k_num = -1*slice_num + crop_offset - 1
+        slice_estimation = (slice_num - (crop_offset - 1))*(dims[2]/3)
         #print(f"k num:{k_num}")
         # transaxial_slice = ct_volume[:, :, slice_num]
 
@@ -169,7 +170,7 @@ def plot_final_testset(df):
             # Optionally, save it if needed
             nib.save(ct_label, resampled_path)
         """
-
+        k_num = -1*np.round(slice_estimation)
         ct_label = label
         #ct_label = ct_label.get_fdata()
         #ct_label = np.round(ct_label).astype(int)
@@ -271,7 +272,7 @@ def plot_final_testset(df):
         #print(sentence)
         #print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
-        plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) +" Slice:" + str(slice_num) + " SUV: " + str(
+        plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) +" Slice estimation:" + str(slice_estimation) + " SUV: " + str(
             original_row["SUV"].iloc[0]), fontsize=12, color='black')
 
         plt.savefig(
