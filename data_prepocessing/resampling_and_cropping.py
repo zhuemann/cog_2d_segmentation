@@ -160,9 +160,10 @@ def resampling_and_cropping(df):
             print(f"An unexpected error occurred: {e}")
             continue
 
-        ct_image = crop_z_axis(ct_image, crop_offset)
-        suv_image = crop_z_axis(suv_image, crop_offset)
-        label_image = crop_z_axis(label_image, crop_offset)
+        if crop_offset > 0:
+            ct_image = crop_z_axis(ct_image, crop_offset)
+            suv_image = crop_z_axis(suv_image, crop_offset)
+            label_image = crop_z_axis(label_image, crop_offset)
         # crop from the back end first then do the resmpaling and final crop
         # Resample images to 3mm x 3mm x 3mm
         target_affine = np.diag([3, 3, 3])
