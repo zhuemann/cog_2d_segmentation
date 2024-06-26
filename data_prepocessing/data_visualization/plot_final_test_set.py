@@ -249,7 +249,8 @@ def plot_final_testset(df):
             ax5.plot(contour[:, 1], contour[:, 0], linewidth=2, color='red')  # contour[:, 1] is x, contour[:, 0] is y
         """
         print(original_row)
-        sentence = original_row["sentence"][0]
+        sentence = original_row["sentence"]
+        print(sentence)
         print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
         plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) +" Slice:" + str(slice_num) + " SUV: " + str(
