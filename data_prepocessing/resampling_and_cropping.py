@@ -217,7 +217,7 @@ def resampling_and_cropping(df):
         label_cropped = crop_center_with_offset(label_resampled, z_offset=0)
 
         if ct_cropped.get_fdata().shape[0] < 200 or ct_cropped.get_fdata().shape[1] < 200:
-            ct_cropped = pad_ct_scan_symetrically(ct_image, target_size=200)
+            ct_cropped = pad_ct_scan_symetrically(ct_cropped, target_size=200)
 
         # Check if any label is still in the image
         if np.any(label_cropped.get_fdata() != 0):
