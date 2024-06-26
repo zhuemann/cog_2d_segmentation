@@ -63,7 +63,10 @@ def crop_center_with_offset(img, z_offset=0):
     return cropped_img
 
 def crop_z_axis(img, crop_offset):
-    return img.slicer[:,:,:-crop_offset]
+    if crop_offset == 0:
+        return img
+    else:
+        return img.slicer[:,:,:-crop_offset]
 
 def resampling_and_cropping(df):
 
@@ -120,6 +123,7 @@ def resampling_and_cropping(df):
                 except FileNotFoundError:
                     print("One of the files does not exist: CT, SUV, or label image.")
                     continue
+                label_image = crop_z_axis(label_image, crop_offset)
                 label_resampled = resample_img(label_image, target_affine=np.diag([3, 3, 3]), interpolation='nearest')
                 label_cropped = crop_center_with_offset(label_resampled, crop_offset)
                 if np.any(label_cropped.get_fdata() != 0):
@@ -160,10 +164,10 @@ def resampling_and_cropping(df):
             print(f"An unexpected error occurred: {e}")
             continue
 
-        if crop_offset > 0:
-            ct_image = crop_z_axis(ct_image, crop_offset)
-            suv_image = crop_z_axis(suv_image, crop_offset)
-            label_image = crop_z_axis(label_image, crop_offset)
+
+        ct_image = crop_z_axis(ct_image, crop_offset)
+        suv_image = crop_z_axis(suv_image, crop_offset)
+        label_image = crop_z_axis(label_image, crop_offset)
         # crop from the back end first then do the resmpaling and final crop
         # Resample images to 3mm x 3mm x 3mm
         target_affine = np.diag([3, 3, 3])
@@ -171,9 +175,9 @@ def resampling_and_cropping(df):
         suv_resampled = resample_img(suv_image, target_affine=target_affine)
         label_resampled = resample_img(label_image, target_affine=target_affine, interpolation='nearest')
         print(f"crop_offset: {crop_offset}")
-        ct_cropped = crop_center_with_offset(ct_resampled, crop_offset=0)
-        suv_cropped = crop_center_with_offset(suv_resampled, crop_offset=0)
-        label_cropped = crop_center_with_offset(label_resampled, crop_offset=0)
+        ct_cropped = crop_center_with_offset(ct_resampled, z_offset=0)
+        suv_cropped = crop_center_with_offset(suv_resampled, z_offset=0)
+        label_cropped = crop_center_with_offset(label_resampled, z_offset=0)
 
         # Check if any label is still in the image
         if np.any(label_cropped.get_fdata() != 0):
