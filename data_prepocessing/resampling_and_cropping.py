@@ -63,7 +63,7 @@ def crop_center_with_offset(img, z_offset=0):
     return cropped_img
 
 def crop_z_axis(img, crop_offset):
-    return img.slicer[:,:,-crop_offset]
+    return img.slicer[:,:,:-crop_offset]
 
 def resampling_and_cropping(df):
 
