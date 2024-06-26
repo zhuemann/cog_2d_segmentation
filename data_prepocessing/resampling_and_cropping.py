@@ -86,6 +86,7 @@ def resampling_and_cropping(df):
         i += 1
 
         petlymph = row["Petlymph"]
+        print(petlymph)
         image_path = os.path.join(image_path_base, petlymph)
 
         label_path = os.path.join(label_path_base, row["Label_Name"])
@@ -98,6 +99,7 @@ def resampling_and_cropping(df):
         if not matched_row.empty:
             # Extract the 'crop_offset' value from the matched row
             crop_offset = int(matched_row['crop_offset'].iloc[0]) - 1
+            print(f"initial crop offset: {crop_offset}")
         else:
             crop_offset = 0
             print("no offset, it was missing")
