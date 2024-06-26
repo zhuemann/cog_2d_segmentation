@@ -242,8 +242,9 @@ def run_data_pipeline_final():
     #print(f"unique images: {len(df)}")
     #crop_at_head_calculation(df)
 
+    df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_standard.xlsx")
+    resampling_and_cropping(df)
     df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_json.xlsx")
-    #resampling_and_cropping(df)
     plot_final_testset(df)
     #df = llm_remove_multiple_descriptions(df)
     #df.to_excel(save_base + "remove_multiple_descriptions_test_llama3_v2_14.xlsx", index=False)
