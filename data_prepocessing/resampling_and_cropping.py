@@ -87,6 +87,12 @@ def resampling_and_cropping(df):
     resampling_saved = 0
     i = 0
     already_processed = 0
+
+    pet_used = []
+    ct_used = []
+    label_used = []
+    id = []
+
     for index, row in df.iterrows():
 
         petlymph = row["Petlymph"]
@@ -122,9 +128,9 @@ def resampling_and_cropping(df):
                 except FileNotFoundError:
                     print("One of the files does not exist: CT, SUV, or label image.")
                     continue
-                label_image = crop_z_axis(label_image, crop_offset)
-                label_resampled = resample_img(label_image, target_affine=np.diag([3, 3, 3]), interpolation='nearest')
-                label_cropped = crop_center_with_offset(label_resampled, crop_offset)
+                label_cropped = crop_z_axis(label_image, crop_offset)
+                label_resampled = resample_img(label_cropped, target_affine=np.diag([3, 3, 3]), interpolation='nearest')
+                label_cropped = crop_center_with_offset(label_resampled, z_offset=0)
                 if np.any(label_cropped.get_fdata() != 0):
                     nib.save(label_cropped,
                              os.path.join("/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/", str(label_folder),
@@ -163,6 +169,10 @@ def resampling_and_cropping(df):
             print(f"An unexpected error occurred: {e}")
             continue
 
+        ct_used.append(ct_image_path)
+        pet_used.append(suv_path)
+        label_used.append(label_path)
+        id.append(petlymph)
 
         ct_image = crop_z_axis(ct_image, crop_offset)
         suv_image = crop_z_axis(suv_image, crop_offset)
@@ -170,8 +180,8 @@ def resampling_and_cropping(df):
         # crop from the back end first then do the resmpaling and final crop
         # Resample images to 3mm x 3mm x 3mm
         target_affine = np.diag([3, 3, 3])
-        ct_resampled = resample_img(ct_image, target_affine=target_affine)
-        suv_resampled = resample_img(suv_image, target_affine=target_affine)
+        ct_resampled = resample_img(ct_image, target_affine=target_affine, interpolation = "linear")
+        suv_resampled = resample_img(suv_image, target_affine=target_affine, interpolation = "linear")
         label_resampled = resample_img(label_image, target_affine=target_affine, interpolation='nearest')
         ct_cropped = crop_center_with_offset(ct_resampled, z_offset=0)
         suv_cropped = crop_center_with_offset(suv_resampled, z_offset=0)
@@ -189,5 +199,11 @@ def resampling_and_cropping(df):
 
     print(f"Total missing CT scans: {number_of_missing_ct}")
     print(f"Total labels cropped out: {label_cropped_out}")
-
+    df_images_used = pd.DataFrame({
+        'ID': id,
+        'PET_Used': pet_used,
+        'CT_Used': ct_used,
+        'Label_Used': label_used,
+    })
+    return df_images_used
 
