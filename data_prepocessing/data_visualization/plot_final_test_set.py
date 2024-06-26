@@ -88,6 +88,7 @@ def plot_final_testset(df):
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/"
 
+    original_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx")
     i = 0
 
     for index, row in df.iterrows():
@@ -107,7 +108,8 @@ def plot_final_testset(df):
         print(f"ct dimensions: {ct_volume.shape}")
         slice_num = row["slice_num"]
         #k_num = row["k"]
-        k_num = 350 - slice_num
+        original_row = original_df.loc[original_df['Label_Name'] == label_name]
+        k_num = original_row["k"]
         # transaxial_slice = ct_volume[:, :, slice_num]
 
         # loads in the image as a numpy array
@@ -151,8 +153,8 @@ def plot_final_testset(df):
         """
 
         ct_label = label
-        ct_label = ct_label.get_fdata()
-        ct_label = np.round(ct_label).astype(int)
+        #ct_label = ct_label.get_fdata()
+        #ct_label = np.round(ct_label).astype(int)
         print(f"ct label dimensions: {ct_label.shape} sum: {np.sum(ct_label)}")
         transaxial_slice = ct_volume[:, :, k_num]
 
