@@ -35,6 +35,35 @@ def generate_processed_images_dict(save_path):
     return processed_images
 
 
+def pad_ct_scan_symetrically(ct_image, target_size=200):
+    # Get the data as a numpy array
+    data = ct_image.get_fdata()
+
+    # Calculate the padding needed for the first two dimensions
+    padding = []
+    for dim in data.shape[:2]:
+        if dim < target_size:
+            # Calculate total padding required to reach the target size
+            total_pad = target_size - dim
+            # Distribute padding on both sides
+            pad_before = total_pad // 2
+            pad_after = total_pad - pad_before
+            padding.append((pad_before, pad_after))
+        else:
+            padding.append((0, 0))
+
+    # No padding for the third dimension
+    padding.append((0, 0))
+
+    # Apply the padding with constant value of -1000 for air in CT
+    padded_data = np.pad(data, padding, mode='constant', constant_values=-1000)
+
+    # Create a new NIfTI image from the padded data with the same affine and header as the original
+    padded_ct_image = nib.Nifti1Image(padded_data, ct_image.affine, ct_image.header)
+
+    return padded_ct_image
+
+
 # Crop the images to 60cm x 60cm in x and y, and last 350 slices in z
 def crop_center(img):
     x, y, z = img.shape
@@ -186,6 +215,9 @@ def resampling_and_cropping(df):
         ct_cropped = crop_center_with_offset(ct_resampled, z_offset=0)
         suv_cropped = crop_center_with_offset(suv_resampled, z_offset=0)
         label_cropped = crop_center_with_offset(label_resampled, z_offset=0)
+
+        if ct_cropped.get_fdata().shape[0] < 200 or ct_cropped.get_fdata().shape[1] < 200:
+            ct_cropped = pad_ct_scan_symetrically(ct_image, target_size=200)
 
         # Check if any label is still in the image
         if np.any(label_cropped.get_fdata() != 0):
