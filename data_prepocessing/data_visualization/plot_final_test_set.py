@@ -105,8 +105,9 @@ def plot_final_testset(df):
         ct_image = nib.load(ct_image_path)
         ct_volume = ct_image.get_fdata()
         print(f"ct dimensions: {ct_volume.shape}")
-        slice_num = row["Slice"]
-        k_num = row["k"]
+        slice_num = row["slice_num"]
+        #k_num = row["k"]
+        k_num = 350 - slice_num
         # transaxial_slice = ct_volume[:, :, slice_num]
 
         # loads in the image as a numpy array
