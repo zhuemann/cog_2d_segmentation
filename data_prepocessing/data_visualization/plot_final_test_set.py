@@ -127,7 +127,7 @@ def plot_final_testset(df):
         #print(f"crop offset: {crop_offset}")
         #k_num = original_row["k"]
         k_num = -1*slice_num + crop_offset - 1
-        slice_estimation = (slice_num - (crop_offset - 1))*(dims[2]/3)
+        slice_estimation = ((slice_num - (crop_offset - 1))*(dims[2]/3)).iloc[0]
         #print(f"k num:{k_num}")
         # transaxial_slice = ct_volume[:, :, slice_num]
 
