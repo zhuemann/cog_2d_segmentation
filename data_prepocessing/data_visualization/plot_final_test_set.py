@@ -112,10 +112,10 @@ def plot_final_testset(df):
         original_row = original_df.loc[original_df['Label_Name'] == label_name]
         crop_row = crop_df.loc[crop_df['id'] == petlymph]
         crop_offset = crop_row['crop_offset']
-        print(f"crop offset: {crop_offset}")
+        #print(f"crop offset: {crop_offset}")
         #k_num = original_row["k"]
         k_num = -1*slice_num + crop_offset - 1
-        print(f"k num:{k_num}")
+        #print(f"k num:{k_num}")
         # transaxial_slice = ct_volume[:, :, slice_num]
 
         # loads in the image as a numpy array
@@ -161,7 +161,7 @@ def plot_final_testset(df):
         ct_label = label
         #ct_label = ct_label.get_fdata()
         #ct_label = np.round(ct_label).astype(int)
-        print(f"ct label dimensions: {ct_label.shape} sum: {np.sum(ct_label)}")
+        #print(f"ct label dimensions: {ct_label.shape} sum: {np.sum(ct_label)}")
         transaxial_slice = ct_volume[:, :, k_num]
 
         mip_coronal = np.max(img, axis=1)
@@ -254,10 +254,10 @@ def plot_final_testset(df):
         for contour in contours:
             ax5.plot(contour[:, 1], contour[:, 0], linewidth=2, color='red')  # contour[:, 1] is x, contour[:, 0] is y
         """
-        print(original_row)
+        #print(original_row)
         sentence = original_row["sentence"].iloc[0]
-        print(sentence)
-        print(type(sentence))
+        #print(sentence)
+        #print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
         plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) +" Slice:" + str(slice_num) + " SUV: " + str(
             original_row["SUV"]), fontsize=12, color='black')
