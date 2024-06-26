@@ -159,9 +159,9 @@ def plot_final_testset(df):
             continue
 
         # flip data
-        label = np.flip(label, axis=1)
-        ct_volume = np.flip(ct_volume, axis=1)
-        img = np.flip(img, axis=1)
+        label = np.flip(label, axis=0)
+        ct_volume = np.flip(ct_volume, axis=0)
+        img = np.flip(img, axis=0)
         """
         # Checking if the resampled label file already exists
         resampled_path = '/mnt/Bradshaw/UW_PET_Data/resampled_labels_final_test_set/' + row["Label_Name"] + '.nii.gz'
