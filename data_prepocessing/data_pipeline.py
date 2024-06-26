@@ -2,6 +2,7 @@
 from data_prepocessing.remove_non_anontomical_sent import remove_non_anatomical_sent_v2
 from data_prepocessing.data_visualization.plots_for_label_accuracy import plot_for_label_accuracy_assessment
 from data_prepocessing.utility.select_250_images_from_json import select_250_images_from_json
+from data_prepocessing.data_visualization.plot_final_test_set import plot_final_testset
 import pandas as pd
 def run_data_pipeline():
 
@@ -233,7 +234,7 @@ def run_data_pipeline_final():
 
     sampled_df = select_250_images_from_json()
     sampled_df.to_excel(save_base + "for_daniel_250_round_3_final_testset.xlsx", index=False)
-
+    plot_final_testset(sampled_df)
     #df = df.drop_duplicates(subset="Petlymph", keep="first")
     #print(f"unique images: {len(df)}")
     #crop_at_head_calculation(df)
