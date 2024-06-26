@@ -159,7 +159,7 @@ def resampling_and_cropping(df):
         ct_resampled = resample_img(ct_image, target_affine=target_affine)
         suv_resampled = resample_img(suv_image, target_affine=target_affine)
         label_resampled = resample_img(label_image, target_affine=target_affine, interpolation='nearest')
-
+        print(f"crop_offset: {crop_offset}")
         ct_cropped = crop_center_with_offset(ct_resampled, crop_offset)
         suv_cropped = crop_center_with_offset(suv_resampled, crop_offset)
         label_cropped = crop_center_with_offset(label_resampled, crop_offset)
