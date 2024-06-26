@@ -103,8 +103,8 @@ def resampling_and_cropping(df):
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
     print("hi")
 
-    images_folder = "images4_v2"
-    label_folder = "labels4_v2"
+    images_folder = "images5"
+    label_folder = "labels5"
 
     save_path = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/"
     processed_images = generate_processed_images_dict(save_path + images_folder)

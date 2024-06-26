@@ -230,7 +230,7 @@ def run_data_pipeline_final():
     """
 
     #pos_processing_eval()
-    #df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
+    df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
     #make_json_file_for_3d_training(df)
 
     #sampled_df, orig_df = select_250_images_from_json()
@@ -242,7 +242,7 @@ def run_data_pipeline_final():
     #print(f"unique images: {len(df)}")
     #crop_at_head_calculation(df)
 
-    df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_standard.xlsx")
+    #df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_standard.xlsx")
     df_metadata = resampling_and_cropping(df)
     df_metadata.to_excel(save_base + "pet_ct_images_used_metadata.xlsx", index=False)
     df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_json.xlsx")
