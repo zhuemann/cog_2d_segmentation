@@ -3,6 +3,7 @@ from data_prepocessing.remove_non_anontomical_sent import remove_non_anatomical_
 from data_prepocessing.data_visualization.plots_for_label_accuracy import plot_for_label_accuracy_assessment
 from data_prepocessing.utility.select_250_images_from_json import select_250_images_from_json
 from data_prepocessing.data_visualization.plot_final_test_set import plot_final_testset
+from data_prepocessing.resampling_and_cropping import resampling_and_cropping
 import pandas as pd
 def run_data_pipeline():
 
