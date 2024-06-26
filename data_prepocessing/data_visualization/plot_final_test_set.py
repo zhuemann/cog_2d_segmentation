@@ -251,7 +251,7 @@ def plot_final_testset(df):
         sentence = original_row["sentence"]
         sentence = insert_newlines(sentence, word_limit=25)
         plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) +" Slice:" + str(slice_num) + " SUV: " + str(
-            row["SUV"]), fontsize=12, color='black')
+            original_row["SUV"]), fontsize=12, color='black')
 
         plt.savefig(
             "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mips_final_test_set_3/" + label_name,
