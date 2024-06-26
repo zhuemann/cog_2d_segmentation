@@ -249,7 +249,7 @@ def plot_final_testset(df):
             ax5.plot(contour[:, 1], contour[:, 0], linewidth=2, color='red')  # contour[:, 1] is x, contour[:, 0] is y
         """
         print(original_row)
-        sentence = original_row["sentence"]
+        sentence = original_row["sentence"].iloc[0]
         print(sentence)
         print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
