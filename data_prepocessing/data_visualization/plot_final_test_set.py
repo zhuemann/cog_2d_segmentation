@@ -171,6 +171,7 @@ def plot_final_testset(df):
             nib.save(ct_label, resampled_path)
         """
         k_num = -1*np.round(slice_estimation)
+        print(k_num)
         ct_label = label
         #ct_label = ct_label.get_fdata()
         #ct_label = np.round(ct_label).astype(int)
