@@ -245,8 +245,8 @@ def run_data_pipeline_final():
     #df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_standard.xlsx")
     df_metadata = resampling_and_cropping(df)
     df_metadata.to_excel(save_base + "pet_ct_images_used_metadata.xlsx", index=False)
-    df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_json.xlsx")
-    plot_final_testset(df)
+    #df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_json.xlsx")
+    #plot_final_testset(df)
     #df = llm_remove_multiple_descriptions(df)
     #df.to_excel(save_base + "remove_multiple_descriptions_test_llama3_v2_14.xlsx", index=False)
 
