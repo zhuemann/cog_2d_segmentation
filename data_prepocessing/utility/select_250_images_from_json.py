@@ -45,7 +45,7 @@ def select_250_images_from_json():
 
     # Filter Excel DataFrame to only include rows where 'label_name' matches any 'label_name' in json_df
     label_names = json_df['label_name'].unique()
-    matching_excel_entries = excel_df[excel_df['label_name'].isin(label_names)]
+    matching_excel_entries = excel_df[excel_df['Label_Name'].isin(label_names)]
 
     # Combine the JSON DataFrame with the matching Excel DataFrame
     final_df = pd.concat([json_df, matching_excel_entries], ignore_index=True)
