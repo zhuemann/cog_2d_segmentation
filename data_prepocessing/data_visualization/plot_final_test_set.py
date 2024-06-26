@@ -158,6 +158,10 @@ def plot_final_testset(df):
         else:
             continue
 
+        # flip data
+        label = np.flip(label, axis=1)
+        ct_volume = np.flip(ct_volume, axis=1)
+        img = np.flip(img, axis=1)
         """
         # Checking if the resampled label file already exists
         resampled_path = '/mnt/Bradshaw/UW_PET_Data/resampled_labels_final_test_set/' + row["Label_Name"] + '.nii.gz'
@@ -279,7 +283,7 @@ def plot_final_testset(df):
             original_row["SUV"].iloc[0]), fontsize=12, color='black')
 
         plt.savefig(
-            "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mips_final_test_set_3/" + label_name,
+            "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mips_final_test_set_3_testing/" + label_name,
             dpi=300)
 
         plt.close()
