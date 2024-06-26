@@ -9,6 +9,7 @@ def extract_image_id(path):
 
 def select_250_images_from_json():
 
+    test_excel_file = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx"
     input_file = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000_no_validation.json"
     # Read the existing data from the JSON file
     with open(input_file, 'r') as file:
@@ -36,4 +37,17 @@ def select_250_images_from_json():
 
     df = pd.DataFrame(selected_entries)
 
-    return df
+    # Create DataFrame from selected entries
+    json_df = pd.DataFrame(selected_entries)
+
+    # Load data from Excel
+    excel_df = pd.read_excel(test_excel_file)
+
+    # Filter Excel DataFrame to only include rows where 'label_name' matches any 'label_name' in json_df
+    label_names = json_df['label_name'].unique()
+    matching_excel_entries = excel_df[excel_df['label_name'].isin(label_names)]
+
+    # Combine the JSON DataFrame with the matching Excel DataFrame
+    final_df = pd.concat([json_df, matching_excel_entries], ignore_index=True)
+
+    return json_df, final_df

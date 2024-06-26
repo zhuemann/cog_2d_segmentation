@@ -230,17 +230,19 @@ def run_data_pipeline_final():
     """
 
     #pos_processing_eval()
-    df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
+    #df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
     #make_json_file_for_3d_training(df)
 
-    #sampled_df = select_250_images_from_json()
-    #sampled_df.to_excel(save_base + "for_daniel_250_round_3_final_testset.xlsx", index=False)
+    sampled_df, orig_df = select_250_images_from_json()
+    sampled_df.to_excel(save_base + "for_daniel_250_round_3_final_testset_json.xlsx", index=False)
+    orig_df.to_excel(save_base + "for_daniel_250_round_3_final_testset_standard.xlsx", index=False)
     #plot_final_testset(sampled_df)
 
     #df = df.drop_duplicates(subset="Petlymph", keep="first")
     #print(f"unique images: {len(df)}")
     #crop_at_head_calculation(df)
 
+    df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_standard.xlsx")
     resampling_and_cropping(df)
 
     #df = llm_remove_multiple_descriptions(df)

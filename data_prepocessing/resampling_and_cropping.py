@@ -61,6 +61,10 @@ def crop_center_with_offset(img, z_offset=0):
 
     cropped_img = img.slicer[start_x:start_x + crop_x, start_y:start_y + crop_y, start_z:start_z + crop_z]
     return cropped_img
+
+def crop_z_axis(img, crop_offset):
+    return img[:,:,-crop_offset]
+
 def resampling_and_cropping(df):
 
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
@@ -156,15 +160,19 @@ def resampling_and_cropping(df):
             print(f"An unexpected error occurred: {e}")
             continue
 
+        ct_image = crop_z_axis(ct_image, crop_offset)
+        suv_image = crop_z_axis(suv_image, crop_offset)
+        label_image = crop_z_axis(label_image, crop_offset)
+        # crop from the back end first then do the resmpaling and final crop
         # Resample images to 3mm x 3mm x 3mm
         target_affine = np.diag([3, 3, 3])
         ct_resampled = resample_img(ct_image, target_affine=target_affine)
         suv_resampled = resample_img(suv_image, target_affine=target_affine)
         label_resampled = resample_img(label_image, target_affine=target_affine, interpolation='nearest')
         print(f"crop_offset: {crop_offset}")
-        ct_cropped = crop_center_with_offset(ct_resampled, crop_offset)
-        suv_cropped = crop_center_with_offset(suv_resampled, crop_offset)
-        label_cropped = crop_center_with_offset(label_resampled, crop_offset)
+        ct_cropped = crop_center_with_offset(ct_resampled, crop_offset=0)
+        suv_cropped = crop_center_with_offset(suv_resampled, crop_offset=0)
+        label_cropped = crop_center_with_offset(label_resampled, crop_offset=0)
 
         # Check if any label is still in the image
         if np.any(label_cropped.get_fdata() != 0):
