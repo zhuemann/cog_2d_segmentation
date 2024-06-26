@@ -89,11 +89,11 @@ def resampling_and_cropping(df):
     already_processed = 0
     for index, row in df.iterrows():
 
-        print(f"i: {i} labels cropped out: {label_cropped_out} missing ct: {number_of_missing_ct} resampling saved: {resampling_saved} already processed: { already_processed}")
+        petlymph = row["Petlymph"]
+
+        print(f"i: {i} Petlymph: {petlymph} labels cropped out: {label_cropped_out} missing ct: {number_of_missing_ct} resampling saved: {resampling_saved} already processed: { already_processed}")
         i += 1
 
-        petlymph = row["Petlymph"]
-        print(petlymph)
         image_path = os.path.join(image_path_base, petlymph)
 
         label_path = os.path.join(label_path_base, row["Label_Name"])
@@ -106,7 +106,6 @@ def resampling_and_cropping(df):
         if not matched_row.empty:
             # Extract the 'crop_offset' value from the matched row
             crop_offset = int(matched_row['crop_offset'].iloc[0]) - 1
-            print(f"initial crop offset: {crop_offset}")
         else:
             crop_offset = 0
             print("no offset, it was missing")
@@ -174,7 +173,6 @@ def resampling_and_cropping(df):
         ct_resampled = resample_img(ct_image, target_affine=target_affine)
         suv_resampled = resample_img(suv_image, target_affine=target_affine)
         label_resampled = resample_img(label_image, target_affine=target_affine, interpolation='nearest')
-        print(f"crop_offset: {crop_offset}")
         ct_cropped = crop_center_with_offset(ct_resampled, z_offset=0)
         suv_cropped = crop_center_with_offset(suv_resampled, z_offset=0)
         label_cropped = crop_center_with_offset(label_resampled, z_offset=0)
