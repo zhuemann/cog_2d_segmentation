@@ -7,7 +7,16 @@ import matplotlib.pyplot as plt
 from scipy.ndimage import zoom
 from scipy.ndimage import binary_erosion
 
-
+def get_slice_thickness(folder_name):
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+    image_path = os.path.join(image_path_base, folder_name)
+    file_names = os.listdir(image_path)
+    index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
+    image_path = os.path.join(image_path, file_names[index_of_suv[0]])
+    nii_image = nib.load(image_path)
+    header = nii_image.header
+    voxel_dims = header.get_zooms()
+    return voxel_dims
 def extract_image_id(path):
     # Extract the part of the filename before '_suv_cropped.nii.gz'
     return path.split('/')[-1].split('_suv_cropped')[0]
@@ -97,6 +106,9 @@ def plot_final_testset(df):
         i += 1
 
         petlymph = extract_image_id(row["image"])
+
+        dims = get_slice_thickness(petlymph)
+        print(f"dims: {dims}")
         image_path = os.path.join(image_path_base, petlymph + "_suv_cropped.nii.gz")
         ct_image_path = os.path.join(image_path_base,  petlymph + "_ct_cropped.nii.gz")
         print(f"image name: {petlymph}")
