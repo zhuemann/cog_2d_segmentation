@@ -89,6 +89,7 @@ def plot_final_testset(df):
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/"
 
     original_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx")
+    crop_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/crop+offset_lookup.xlsx")
     i = 0
 
     for index, row in df.iterrows():
@@ -109,6 +110,8 @@ def plot_final_testset(df):
         slice_num = row["slice_num"]
         #k_num = row["k"]
         original_row = original_df.loc[original_df['Label_Name'] == label_name]
+        crop_row = crop_df.loc[crop_df[id] == petlymph]
+        print(f"crop offset: {crop_row['crop_offset']}")
         k_num = original_row["k"]
         # transaxial_slice = ct_volume[:, :, slice_num]
 
