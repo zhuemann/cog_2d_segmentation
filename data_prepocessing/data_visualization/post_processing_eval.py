@@ -215,8 +215,7 @@ def post_processing_eval():
             print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct / index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
         #else:
         #    print(f"index: {index} number that are correct: {number_correct}")
-        print(
-            f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
+        print(f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
         #print(f"label name: {label}")
         # image_name = label[:-15]
         image_name = label[:15]
@@ -226,9 +225,9 @@ def post_processing_eval():
         # row = df[df["Label_Name"] == label_name].iloc[0]
         # sent = row["sentence"]
         # print(sent)
-        for entry in data["testing"]:
-            if label_name in entry.get('label'):
-                sent = entry.get('report')  # Return the report if label name matches
+        #for entry in data["testing"]:
+        #    if label_name in entry.get('label'):
+        #        sent = entry.get('report')  # Return the report if label name matches
         #print(sent)
         suv_path_final = os.path.join(image_base, image_name + "_suv_cropped.nii.gz")
         #print(suv_path_final)
