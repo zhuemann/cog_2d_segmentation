@@ -13,7 +13,10 @@ def ct_analysis():
     i = 0
     total_below = 0
     for ct_name in ct_list:
-        print(f"index: {i}")
+
+        if "suv" in ct_name:
+            continue
+
         i += 1
         ct_path = os.path.join(image_base, ct_name)
 
