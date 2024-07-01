@@ -15,7 +15,7 @@ def ct_analysis():
     for ct_name in ct_list:
         print(f"index: {i}")
         i += 1
-        ct_path = os.path.join(image_base, ct)
+        ct_path = os.path.join(image_base, ct_name)
 
         ct_nii = nib.load(ct_path)
         ct = ct_nii.get_fdata()
