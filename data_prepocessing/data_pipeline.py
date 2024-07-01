@@ -4,6 +4,7 @@ from data_prepocessing.data_visualization.plots_for_label_accuracy import plot_f
 from data_prepocessing.utility.select_250_images_from_json import select_250_images_from_json
 from data_prepocessing.data_visualization.plot_final_test_set import plot_final_testset
 from data_prepocessing.resampling_and_cropping import resampling_and_cropping
+from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
 import pandas as pd
 def run_data_pipeline():
 
@@ -229,7 +230,7 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx", index=False)
     """
 
-    #pos_processing_eval()
+    post_processing_eval()
     df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
     #make_json_file_for_3d_training(df)
 
@@ -246,8 +247,8 @@ def run_data_pipeline_final():
     #df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_standard.xlsx")
     #df_metadata = resampling_and_cropping(df)
     #df_metadata.to_excel(save_base + "pet_ct_images_used_metadata.xlsx", index=False)
-    df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_json.xlsx")
-    plot_final_testset(df)
+    #df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_json.xlsx")
+    #plot_final_testset(df)
     #df = llm_remove_multiple_descriptions(df)
     #df.to_excel(save_base + "remove_multiple_descriptions_test_llama3_v2_14.xlsx", index=False)
 

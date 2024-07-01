@@ -192,7 +192,7 @@ def filter_prediction_by_average(volume):
     return filtered_volume
 
 
-def pos_processing_eval():
+def post_processing_eval():
     json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000_no_validation.json"
     with open(json_file_path, 'r') as file:
         data = json.load(file)
