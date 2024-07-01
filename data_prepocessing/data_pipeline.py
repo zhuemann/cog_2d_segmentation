@@ -242,6 +242,7 @@ def run_data_pipeline_final():
     #print(f"unique images: {len(df)}")
     #crop_at_head_calculation(df)
 
+
     #df = pd.read_excel(save_base + "for_daniel_250_round_3_final_testset_standard.xlsx")
     #df_metadata = resampling_and_cropping(df)
     #df_metadata.to_excel(save_base + "pet_ct_images_used_metadata.xlsx", index=False)
