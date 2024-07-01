@@ -21,7 +21,7 @@ def ct_analysis():
         ct = ct_nii.get_fdata()
 
         max_ct = np.max(ct)
-        print(f"index: {i} max of: {max_ct}")
+        print(f"index: {i} max of: {max_ct} total number below: {total_below}")
         if max_ct < 200:
             total_below += 1
             print(ct)
