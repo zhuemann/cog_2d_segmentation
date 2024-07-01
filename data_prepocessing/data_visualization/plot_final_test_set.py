@@ -179,11 +179,11 @@ def plot_final_testset(df):
             nib.save(ct_label, resampled_path)
         """
         k_num = int(-1*np.round(slice_estimation))
-        print(k_num)
+        #print(k_num)
 
-        sums = np.sum(label, axis=(0, 1))
+        #sums = np.sum(label, axis=(0, 1))
         # Find the index of the slice with the maximum sum
-        k_num = np.argmax(sums)
+        #k_num = np.argmax(sums)
 
         ct_label = label
         #ct_label = ct_label.get_fdata()
