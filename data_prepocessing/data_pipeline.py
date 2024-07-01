@@ -5,6 +5,7 @@ from data_prepocessing.utility.select_250_images_from_json import select_250_ima
 from data_prepocessing.data_visualization.plot_final_test_set import plot_final_testset
 from data_prepocessing.resampling_and_cropping import resampling_and_cropping
 from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
+from data_prepocessing.utility.ct_analysis import ct_analysis
 import pandas as pd
 def run_data_pipeline():
 
@@ -230,8 +231,9 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx", index=False)
     """
 
-    post_processing_eval()
-    df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
+    ct_analysis()
+    #post_processing_eval()
+    #df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
     #make_json_file_for_3d_training(df)
 
     #sampled_df, orig_df = select_250_images_from_json()
