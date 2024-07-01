@@ -26,7 +26,7 @@ def ct_analysis():
 
         max_ct = np.max(ct)
         print(f"index: {i} max of: {max_ct} total number below: {total_below} total above: {total_above}")
-        if max_ct < 200:
+        if max_ct < 500:
             total_below += 1
             print(ct_name)
         if max_ct > 10000:
