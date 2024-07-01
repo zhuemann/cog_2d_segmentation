@@ -20,9 +20,9 @@ def ct_analysis():
         ct_nii = nib.load(ct_path)
         ct = ct_nii.get_fdata()
 
-        print(np.max(ct))
-
-        if max < 200:
+        max_ct = np.max(ct)
+        print(f"index: {i} max of: {max_ct}")
+        if max_ct < 200:
             total_below += 1
             print(ct)
 
