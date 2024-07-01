@@ -180,6 +180,11 @@ def plot_final_testset(df):
         """
         k_num = int(-1*np.round(slice_estimation))
         print(k_num)
+
+        sums = np.sum(label, axis=(0, 1))
+        # Find the index of the slice with the maximum sum
+        k_num = np.argmax(sums)
+
         ct_label = label
         #ct_label = ct_label.get_fdata()
         #ct_label = np.round(ct_label).astype(int)
