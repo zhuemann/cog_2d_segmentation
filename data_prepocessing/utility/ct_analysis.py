@@ -12,7 +12,7 @@ def ct_analysis():
     ct_list = os.listdir(image_base)
     i = 0
     total_below = 0
-    for ct in ct_list:
+    for ct_name in ct_list:
         print(f"index: {i}")
         i += 1
         ct_path = os.path.join(image_base, ct)
@@ -24,7 +24,7 @@ def ct_analysis():
         print(f"index: {i} max of: {max_ct} total number below: {total_below}")
         if max_ct < 200:
             total_below += 1
-            print(ct)
+            print(ct_name)
 
 
     print(f"total cts that are below thereshold: {total_below}")
