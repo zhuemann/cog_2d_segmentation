@@ -31,7 +31,7 @@ def ct_analysis():
             print(ct_name)
         if max_ct > 10000:
             total_above += 1
-            print(total_above)
+            print(ct_name)
 
 
     print(f"total cts that are below thereshold: {total_below}")
