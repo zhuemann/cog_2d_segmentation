@@ -12,6 +12,7 @@ def ct_analysis():
     ct_list = os.listdir(image_base)
     i = 0
     total_below = 0
+    total_above = 0
     for ct_name in ct_list:
 
         if "suv" in ct_name:
@@ -24,10 +25,13 @@ def ct_analysis():
         ct = ct_nii.get_fdata()
 
         max_ct = np.max(ct)
-        print(f"index: {i} max of: {max_ct} total number below: {total_below}")
+        print(f"index: {i} max of: {max_ct} total number below: {total_below} total above: {total_above}")
         if max_ct < 200:
             total_below += 1
             print(ct_name)
+        if max_ct > 10000:
+            total_above += 1
+            print(total_above)
 
 
     print(f"total cts that are below thereshold: {total_below}")
