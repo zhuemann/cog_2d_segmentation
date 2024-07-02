@@ -125,17 +125,47 @@ def plot_3d_predictions():
         #print(f"pred mip size: {prediction_mip.shape}")
         #print(f"label mip size: {label_mip.shape}")
 
-        # Assign light green color for correct predictions
-        prediction_mip[prediction_mip == 1] = [144, 238, 144]  # Light green in RGB
-
-        # Assign pink color for labels
-        label_mip[label_mip==1] = [255, 192, 203]  # Pink in RGB
-
         norm = Normalize(vmin=0.01, clip=True)  # vmin set slightly above zero to make zeros transparent
 
         # Setup the plot with 3 subplots
         fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
+        # Create overlays with the same shape as the original images
+        label_overlay = np.zeros((label_mip.shape[0], label_mip.shape[1], 3), dtype=np.uint8)
+        prediction_overlay = np.zeros((prediction_mip.shape[0], prediction_mip.shape[1], 3), dtype=np.uint8)
+
+        # Assign pink color for labels
+        label_overlay[label_mip.T == 1, 0] = 255  # Red channel
+        label_overlay[label_mip.T == 1, 1] = 192  # Green channel
+        label_overlay[label_mip.T == 1, 2] = 203  # Blue channel
+
+        # Assign light green color for predictions
+        prediction_overlay[prediction_mip.T == 1, 0] = 144  # Red channel
+        prediction_overlay[prediction_mip.T == 1, 1] = 238  # Green channel
+        prediction_overlay[prediction_mip.T == 1, 2] = 144  # Blue channel
+
+        fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+
+        # Plot 1: Label MIP overlayed on SUV MIP
+        axes[0].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin=0, vmax=10)
+        axes[0].imshow(label_overlay, alpha=norm(label_mip.T), aspect='auto', origin='lower')
+        axes[0].set_title(f'Label Overlay on SUV MIP suv_max: {label_suv_max}')
+        axes[0].axis('off')  # Turn off axis
+
+        # Plot 2: Prediction MIP overlayed on SUV MIP
+        axes[1].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin=0, vmax=10)
+        axes[1].imshow(prediction_overlay, alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
+        axes[1].set_title(f'Prediction Overlay on SUV MIP predicted suv_max: {prediction_suv_max}')
+        axes[1].axis('off')
+
+        # Plot 3: Both Prediction and Label MIP overlayed on SUV MIP
+        axes[2].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin=0, vmax=10)
+        axes[2].imshow(label_overlay, alpha=norm(label_mip.T), aspect='auto', origin='lower')
+        axes[2].imshow(prediction_overlay, alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
+        axes[2].set_title(f'Prediction and Label Overlay on SUV MIP is correct: {correct}')
+        axes[2].axis('off')
+
+        """
         # Plot 1: Label MIP overlayed on SUV MIP
         axes[0].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
         axes[0].imshow(label_mip.T, alpha=norm(label_mip.T), aspect='auto', origin='lower')
@@ -154,7 +184,7 @@ def plot_3d_predictions():
         axes[2].imshow(prediction_mip.T, alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
         axes[2].set_title(f'Prediction and Label Overlay on SUV MIP is correct: {correct}')
         axes[2].axis('off')
-
+        """
         sent = insert_newlines(sent, word_limit=25)
         fig.suptitle(sent, fontsize=14)
 
