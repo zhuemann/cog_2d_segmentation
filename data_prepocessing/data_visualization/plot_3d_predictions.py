@@ -142,7 +142,7 @@ def plot_3d_predictions():
 
         # Plot 2: Prediction MIP overlayed on SUV MIP
         axes[1].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
-        axes[1].imshow(prediction_mip.T, color="spring" alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
+        axes[1].imshow(prediction_mip.T, color="spring", alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
         axes[1].set_title(f'Prediction Overlay on SUV MIP predicted suv_max: {prediction_suv_max}')
         axes[1].axis('off')
 
