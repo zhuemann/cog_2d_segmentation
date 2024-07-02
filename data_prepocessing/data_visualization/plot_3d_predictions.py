@@ -133,7 +133,7 @@ def plot_3d_predictions():
         # Create overlays with the same shape as the original images
         label_overlay = np.zeros((label_mip.shape[0], label_mip.shape[1], 3), dtype=np.uint8)
         prediction_overlay = np.zeros((prediction_mip.shape[0], prediction_mip.shape[1], 3), dtype=np.uint8)
-
+        label_overlay = label_overlay.T
         # Assign pink color for labels
         label_overlay[label_mip.T == 1, 0] = 255  # Red channel
         label_overlay[label_mip.T == 1, 1] = 192  # Green channel
