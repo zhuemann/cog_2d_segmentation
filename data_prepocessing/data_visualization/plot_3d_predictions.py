@@ -149,7 +149,7 @@ def plot_3d_predictions():
         # Plot 3: Both Prediction and Label MIP overlayed on SUV MIP
         axes[2].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
         axes[2].imshow(label_mip.T, alpha=norm(label_mip.T), aspect='auto', origin='lower')
-        axes[2].imshow(prediction_mip.T, cmap="spinrg", alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
+        axes[2].imshow(prediction_mip.T, cmap="spring", alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
         axes[2].set_title(f'Prediction and Label Overlay on SUV MIP is correct: {correct}')
         axes[2].axis('off')
 
