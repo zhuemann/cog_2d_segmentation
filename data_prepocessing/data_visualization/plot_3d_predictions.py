@@ -125,6 +125,12 @@ def plot_3d_predictions():
         #print(f"pred mip size: {prediction_mip.shape}")
         #print(f"label mip size: {label_mip.shape}")
 
+        # Assign light green color for correct predictions
+        overlay[predictions == 1] = [144, 238, 144]  # Light green in RGB
+
+        # Assign pink color for labels
+        label_mip[label_mip==1] = [255, 192, 203]  # Pink in RGB
+
         norm = Normalize(vmin=0.01, clip=True)  # vmin set slightly above zero to make zeros transparent
 
         # Setup the plot with 3 subplots
@@ -132,7 +138,7 @@ def plot_3d_predictions():
 
         # Plot 1: Label MIP overlayed on SUV MIP
         axes[0].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
-        axes[0].imshow(label_mip.T, cmap='Greens', alpha=norm(label_mip.T), aspect='auto', origin='lower')
+        axes[0].imshow(label_mip.T, alpha=norm(label_mip.T), aspect='auto', origin='lower')
         axes[0].set_title(f'Label Overlay on SUV MIP suv_max: {label_suv_max}')
         axes[0].axis('off')  # Turn off axis
 
