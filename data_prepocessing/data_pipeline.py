@@ -7,6 +7,7 @@ from data_prepocessing.resampling_and_cropping import resampling_and_cropping
 from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
 from data_prepocessing.utility.ct_analysis import ct_analysis
 from data_prepocessing.data_visualization.plot_3d_predictions import plot_3d_predictions
+from data_prepocessing.utility.get_entries_to_remove import get_entries_to_remove
 import pandas as pd
 def run_data_pipeline():
 
@@ -254,5 +255,6 @@ def run_data_pipeline_final():
     #plot_final_testset(df)
     #df = llm_remove_multiple_descriptions(df)
     #df.to_excel(save_base + "remove_multiple_descriptions_test_llama3_v2_14.xlsx", index=False)
-
-    plot_3d_predictions()
+    entries = get_entries_to_remove()
+    print(entries)
+    #plot_3d_predictions()
