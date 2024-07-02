@@ -93,12 +93,13 @@ def plot_3d_predictions():
         suv_data = nii_suv.get_fdata()
         # load in the ct data
         nii_ct = nib.load(ct_path_final)
-        ct_data = nii_ct.get_fdata()
+        #ct_data = nii_ct.get_fdata()
         # load in the prediciton data
         nii_prediction = nib.load(full_pred_path)
         prediction_data = nii_prediction.get_fdata()
+
         prediction_data = np.squeeze(prediction_data, axis=(0, 1))
-        print(f"pred data size: {prediction_data.shape}")
+        #print(f"pred data size: {prediction_data.shape}")
 
         # load in label data
         nii_label = nib.load(label_full_path + ".gz")
@@ -107,6 +108,7 @@ def plot_3d_predictions():
         # Compute maximum intensity projection along axis 1
         suv_mip = np.max(suv_data, axis=1)
         prediction_mip = np.max(prediction_data, axis=1)
+        prediction_mip = np.where(prediction_mip < 0.5, 0, 1)
         label_mip = np.max(label_data, axis=1)
 
         label_suv_max = max_suv_in_positive_region(suv_data, label_data)
