@@ -109,10 +109,10 @@ def plot_3d_predictions():
         suv_mip = np.max(suv_data, axis=1)
         prediction_data = np.where(prediction_data < 0.5, 0, 1)
         prediction_mip = np.max(prediction_data, axis=1)
-        print(f"prediction max: {np.max(prediction_mip)}")
-        print(f"prediction sum: {np.sum(prediction_mip)}")
+        #print(f"prediction max: {np.max(prediction_mip)}")
+        #print(f"prediction sum: {np.sum(prediction_mip)}")
         label_mip = np.max(label_data, axis=1)
-        print(f"label sum: {np.sum(label_mip)}")
+        #print(f"label sum: {np.sum(label_mip)}")
 
         label_suv_max = max_suv_in_positive_region(suv_data, label_data)
         prediction_suv_max = max_suv_in_positive_region(suv_data, prediction_data)
@@ -142,14 +142,14 @@ def plot_3d_predictions():
 
         # Plot 2: Prediction MIP overlayed on SUV MIP
         axes[1].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
-        axes[1].imshow(prediction_mip.T, cmap="pink", alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
+        axes[1].imshow(prediction_mip.T, cmap="cool", alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
         axes[1].set_title(f'Prediction Overlay on SUV MIP predicted suv_max: {prediction_suv_max:.3f}')
         axes[1].axis('off')
 
         # Plot 3: Both Prediction and Label MIP overlayed on SUV MIP
         axes[2].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
         axes[2].imshow(label_mip.T, alpha=norm(label_mip.T), aspect='auto', origin='lower')
-        axes[2].imshow(prediction_mip.T, cmap="spring", alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
+        axes[2].imshow(prediction_mip.T, cmap="cool", alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
         axes[2].set_title(f'Prediction and Label Overlay on SUV MIP is correct: {correct}')
         axes[2].axis('off')
 
