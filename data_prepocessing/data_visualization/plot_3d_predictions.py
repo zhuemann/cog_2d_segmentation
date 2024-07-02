@@ -107,8 +107,9 @@ def plot_3d_predictions():
 
         # Compute maximum intensity projection along axis 1
         suv_mip = np.max(suv_data, axis=1)
+        prediction_data = np.where(prediction_data < 0.5, 0, 1)
         prediction_mip = np.max(prediction_data, axis=1)
-        prediction_mip = np.where(prediction_mip < 0.5, 0, 1)
+        print(f"prediction max: {np.max(prediction_mip)}")
         label_mip = np.max(label_data, axis=1)
 
         label_suv_max = max_suv_in_positive_region(suv_data, label_data)
