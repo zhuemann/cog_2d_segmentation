@@ -69,10 +69,10 @@ def plot_3d_predictions():
         else:
             print(f"index: {index} number that are correct: {number_correct}")
 
-        print(f"label name: {label}")
+        #print(f"label name: {label}")
         #image_name = label[:-15]
         image_name = label[:15]
-        print(f"image name: {image_name}")
+        #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
         #print(label_name)
         #row = df[df["Label_Name"] == label_name].iloc[0]
@@ -81,9 +81,9 @@ def plot_3d_predictions():
         for entry in data["testing"]:
             if label_name in entry.get('label'):
                 sent = entry.get('report')  # Return the report if label name matches
-        print(sent)
+        #print(sent)
         suv_path_final = os.path.join(image_base, image_name + "_suv_cropped.nii.gz")
-        print(suv_path_final)
+        #print(suv_path_final)
         ct_path_final = os.path.join(image_base, image_name + "_ct_cropped.nii.gz")
         full_pred_path = os.path.join(prediction_location, label)
         label_full_path = os.path.join(label_base, label)
