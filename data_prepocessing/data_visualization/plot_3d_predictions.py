@@ -110,7 +110,9 @@ def plot_3d_predictions():
         prediction_data = np.where(prediction_data < 0.5, 0, 1)
         prediction_mip = np.max(prediction_data, axis=1)
         print(f"prediction max: {np.max(prediction_mip)}")
+        print(f"prediction sum: {np.sum(prediction_mip)}")
         label_mip = np.max(label_data, axis=1)
+        print(f"label sum: {np.sum(label_mip)}")
 
         label_suv_max = max_suv_in_positive_region(suv_data, label_data)
         prediction_suv_max = max_suv_in_positive_region(suv_data, prediction_data)
