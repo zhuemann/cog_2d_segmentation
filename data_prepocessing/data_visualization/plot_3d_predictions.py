@@ -101,7 +101,7 @@ def plot_3d_predictions():
         print(f"pred data size: {prediction_data.shape}")
 
         # load in label data
-        nii_label = nib.load(label_full_path)
+        nii_label = nib.load(label_full_path + ".gz")
         label_data = nii_label.get_fdata()
 
         # Compute maximum intensity projection along axis 1
