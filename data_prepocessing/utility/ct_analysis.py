@@ -13,6 +13,7 @@ def ct_analysis():
     i = 0
     total_below = 0
     total_above = 0
+    ct_list = []
     for ct_name in ct_list:
 
         if "suv" in ct_name:
@@ -32,9 +33,11 @@ def ct_analysis():
         if max_ct > 10000:
             total_above += 1
             print(ct_name)
+            ct_list.append(ct_name)
 
 
     print(f"total cts that are below thereshold: {total_below}")
+    print(ct_list)
 
 
 def ct_analysis_1():
