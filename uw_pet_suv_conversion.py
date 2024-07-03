@@ -1245,7 +1245,8 @@ def uw_ct_check():
             # print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
             # if index > 10:
             #    continue
-            print(f"index: {index} already found: {already_found} found cts: {found_cts} filename: {file}")
+            if index % 500 == 0:
+                print(f"index: {index} already found: {already_found} found cts: {found_cts} filename: {file} path: {dir_path}")
             # print(file)
             index += 1
 
