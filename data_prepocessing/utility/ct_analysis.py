@@ -4,7 +4,7 @@ import numpy as np
 import nibabel as nib
 
 
-def ct_analysis():
+def ct_analysis_1():
 
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
@@ -35,3 +35,12 @@ def ct_analysis():
 
 
     print(f"total cts that are below thereshold: {total_below}")
+
+
+def ct_analysis_1():
+
+    image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
+
+    ct_list = os.listdir(image_base)
+
+
