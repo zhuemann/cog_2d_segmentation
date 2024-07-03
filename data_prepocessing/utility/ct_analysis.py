@@ -15,7 +15,7 @@ def ct_analysis():
     total_above = 0
     ct_list = []
     for ct_name in ct_list:
-
+        print(ct_name)
         if "suv" in ct_name:
             continue
 
