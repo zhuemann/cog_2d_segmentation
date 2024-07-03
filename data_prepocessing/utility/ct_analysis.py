@@ -7,7 +7,7 @@ import nibabel as nib
 def ct_analysis():
 
 
-    image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
+    image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
 
     ct_list = os.listdir(image_base)
     i = 0
