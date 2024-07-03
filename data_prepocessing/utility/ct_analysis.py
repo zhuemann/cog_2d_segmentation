@@ -4,7 +4,7 @@ import numpy as np
 import nibabel as nib
 
 
-def ct_analysis_1():
+def ct_analysis():
 
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
