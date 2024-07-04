@@ -51,8 +51,8 @@ if __name__ == '__main__':
     #file_conversion_ct()
     #plot_ct_head_projections()
     #print(fail)
-    uw_ct_suv_conversion_v2()
-    #run_data_pipeline_final()
+    #uw_ct_suv_conversion_v2()
+    run_data_pipeline_final()
 
     print(fail)
     #make_connected_component_labels_for_all_subregions()

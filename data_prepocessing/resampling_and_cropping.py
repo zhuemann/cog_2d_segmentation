@@ -103,8 +103,8 @@ def resampling_and_cropping(df):
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
     print("hi")
 
-    images_folder = "images5"
-    label_folder = "labels5"
+    images_folder = "images6"
+    label_folder = "labels6"
 
     save_path = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/"
     processed_images = generate_processed_images_dict(save_path + images_folder)
@@ -155,7 +155,7 @@ def resampling_and_cropping(df):
                 try:
                     label_image = nib.load(label_path)
                 except FileNotFoundError:
-                    print("One of the files does not exist: CT, SUV, or label image.")
+                    print("One of the files does not exist: label image.")
                     continue
                 label_cropped = crop_z_axis(label_image, crop_offset)
                 label_resampled = resample_img(label_cropped, target_affine=np.diag([3, 3, 3]), interpolation='nearest')
@@ -174,8 +174,8 @@ def resampling_and_cropping(df):
         index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
         suv_path = os.path.join(image_path, file_names[index_of_suv[0]])
 
-
-        index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
+        index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower() and "irctac" not in element.lower()]
+        #index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
         # Check if any file was found that contains "CT"
         if index_of_ct:
             # Update image_path to include the file name of the CT image
