@@ -1102,6 +1102,8 @@ def uw_pet_suv_conversion_v2():
 def uw_ct_suv_conversion_v2():
 
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+    #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+
     dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb3/"
     dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
@@ -1137,7 +1139,8 @@ def uw_ct_suv_conversion_v2():
         folder_name_exists = os.path.join(top_nifti_folder, file)
         if os.path.exists(folder_name_exists):
             print(folder_name_exists)
-            if any('CT' in filename for filename in os.listdir(folder_name_exists)):
+            list_of_folders = os.listdir(folder_name_exists)
+            if any('CT' in filename for filename in list_of_folders) and not any("IRCTAC" in filename for filename in list_of_folders):
                 found_cts += 1
                 already_found += 1
                 print("already found this image with CT")
