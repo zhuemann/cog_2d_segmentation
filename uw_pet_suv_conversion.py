@@ -1102,9 +1102,8 @@ def uw_pet_suv_conversion_v2():
 def uw_ct_suv_conversion_v2():
 
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
-    #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
-
-    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb3/"
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+    #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb3/"
     dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
 
