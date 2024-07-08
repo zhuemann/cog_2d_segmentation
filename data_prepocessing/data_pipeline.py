@@ -234,11 +234,11 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx", index=False)
     """
 
-    #ct_analysis()
+    ct_analysis()
     #post_processing_eval()
-    df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
-    df_used_images = resampling_and_cropping(df)
-    df_used_images.to_excel(save_base + "id_pet_used_ct_used.xlsx", index=False)
+    #df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
+    #df_used_images = resampling_and_cropping(df)
+    #df_used_images.to_excel(save_base + "id_pet_used_ct_used.xlsx", index=False)
     #make_json_file_for_3d_training(df)
 
     #sampled_df, orig_df = select_250_images_from_json()
