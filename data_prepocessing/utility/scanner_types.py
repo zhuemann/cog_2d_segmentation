@@ -1,5 +1,7 @@
 
 import os
+
+import pandas as pd
 import pydicom
 
 def get_scanner_type(path):
@@ -20,9 +22,12 @@ def scanner_types():
 
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
     dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
-
-
     files_in_directory = os.listdir(dir_path)
+
+
+    files_used = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/id_pet_used_ct_used.xlsx")
+    files_in_dataset = []
+
 
     no_pt_files_list = []
     index = 0
@@ -30,7 +35,11 @@ def scanner_types():
     already_converted = 0
     dicom_error = set([])
 
-    for file in files_in_directory:
+    #for file in files_in_directory:
+    for _, row in files_used.iterrows():
+        path = row["PET_Used"]
+        path_parts = path.split(os.sep)
+        file = path_parts[-2]
         print(f"index: {index} already_converted: {already_converted } found pet images: {found_pet_images} file: {file}")
         index += 1
         #if index < 24200:
