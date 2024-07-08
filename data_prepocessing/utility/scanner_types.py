@@ -53,6 +53,9 @@ def scanner_types():
                 print("already found this image with SUV")
                 continue
         """
+        files_in_dir = os.listdir(dir_path)
+        if file not in files_in_dir:
+            continue
 
         if file in dicom_error:
             continue
