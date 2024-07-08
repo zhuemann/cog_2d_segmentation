@@ -34,6 +34,7 @@ def scanner_types():
     found_pet_images = 0
     already_converted = 0
     dicom_error = set([])
+    skipped_files = 0
 
     #for file in files_in_directory:
     for _, row in files_used.iterrows():
@@ -55,6 +56,7 @@ def scanner_types():
         """
         files_in_dir = os.listdir(dir_path)
         if file not in files_in_dir:
+            skipped_files += 1
             continue
 
         if file in dicom_error:
@@ -103,3 +105,4 @@ def scanner_types():
                     continue  # If an error occurs, continue with the next substring
 
     print(all_scans)
+    print(f"files skipped because not in dsb2b: {skipped_files}")
