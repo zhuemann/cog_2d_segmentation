@@ -197,7 +197,7 @@ def post_processing_eval():
     with open(json_file_path, 'r') as file:
         data = json.load(file)
 
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/prediction_trash_v4/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/prediction_trash_v5/"
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
     label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/"
@@ -211,11 +211,11 @@ def post_processing_eval():
     FN_sum = 0
     for label in prediction_list:
         index += 1
-        if number_correct > 1:
-            print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct / index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
+        #if number_correct > 1:
+        #    print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct / index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
         #else:
         #    print(f"index: {index} number that are correct: {number_correct}")
-        print(f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
+        print(f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum} f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)}")
         #print(f"label name: {label}")
         # image_name = label[:-15]
         image_name = label[:15]
