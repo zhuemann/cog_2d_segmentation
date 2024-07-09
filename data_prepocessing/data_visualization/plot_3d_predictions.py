@@ -257,18 +257,18 @@ def plot_3d_predictions_single_image():
 
         # Plot label only contours in green
         if np.any(label_only_mask):
-            norm_label = Normalize(vmin=0.01, vmax=np.max(label_only_mask), clip=True)
-            ax.imshow(label_only_mask, cmap='Greens', alpha=0.5, aspect='auto', origin='lower')
+            ax.imshow(np.ma.masked_where(~label_only_mask, label_mip), cmap='Greens', alpha=0.5, aspect='auto',
+                      origin='lower')
 
         # Plot prediction only contours in red
         if np.any(prediction_only_mask):
-            norm_pred = Normalize(vmin=0.01, vmax=np.max(prediction_only_mask), clip=True)
-            ax.imshow(prediction_only_mask, cmap='Reds', alpha=0.5, aspect='auto', origin='lower')
+            ax.imshow(np.ma.masked_where(~prediction_only_mask, prediction_mip), cmap='Reds', alpha=0.5, aspect='auto',
+                      origin='lower')
 
         # Plot overlapping contours in blue
         if np.any(overlap_mask):
-            norm_overlap = Normalize(vmin=0.01, vmax=np.max(overlap_mask), clip=True)
-            ax.imshow(overlap_mask, cmap='Blues', alpha=0.5, aspect='auto', origin='lower')
+            ax.imshow(np.ma.masked_where(~overlap_mask, overlap_mask), cmap='Blues', alpha=0.5, aspect='auto',
+                      origin='lower')
 
         # Title and axis off
         ax.set_title(f'Contours: Green (Label Only), Red (Prediction Only), Blue (Overlap)')
