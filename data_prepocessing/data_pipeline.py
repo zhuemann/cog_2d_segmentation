@@ -9,6 +9,7 @@ from data_prepocessing.utility.ct_analysis import ct_analysis
 from data_prepocessing.data_visualization.plot_3d_predictions import plot_3d_predictions
 from data_prepocessing.utility.get_entries_to_remove import get_entries_to_remove
 from uw_pet_suv_conversion import uw_ct_check
+from data_prepocessing.data_visualization.plot_3d_predictions import plot_3d_predictions_single_image
 import pandas as pd
 from data_prepocessing.utility.scanner_types import scanner_types
 def run_data_pipeline():
@@ -235,9 +236,10 @@ def run_data_pipeline_final():
     df.to_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx", index=False)
     """
 
+    plot_3d_predictions_single_image()
     #ct_analysis()
     #scanner_types()
-    post_processing_eval()
+    #post_processing_eval()
     #df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
     #df_used_images = resampling_and_cropping(df)
     #df_used_images.to_excel(save_base + "id_pet_used_ct_used.xlsx", index=False)

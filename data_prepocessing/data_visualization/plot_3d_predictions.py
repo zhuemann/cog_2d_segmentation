@@ -164,3 +164,111 @@ def plot_3d_predictions():
         #plt.tight_layout()
         plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/3d_predictions_v2_high_sensitivity/" + label_name + ".png")
         plt.close()
+
+
+def plot_3d_predictions_single_image():
+
+
+    df = pd.read_excel("/UserData/Zach_Analysis/petlymph_image_data/" + "uw_final_df_9.xlsx")
+    #json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled.json"
+    json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000_no_validation.json"
+    with open(json_file_path, 'r') as file:
+        data = json.load(file)
+
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/prediction_trash_v5/"
+
+    image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
+    label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/"
+
+    prediction_list = os.listdir(prediction_location)
+    all_images = os.listdir(image_base)
+    number_correct = 0
+    index = 0
+    for label in prediction_list:
+        index += 1
+        if number_correct > 1:
+            print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct/index}")
+        else:
+            print(f"index: {index} number that are correct: {number_correct}")
+
+        #print(f"label name: {label}")
+        #image_name = label[:-15]
+        image_name = label[:15]
+        #print(f"image name: {image_name}")
+        label_name = label.strip(".nii.gz")
+        #print(label_name)
+        #row = df[df["Label_Name"] == label_name].iloc[0]
+        #sent = row["sentence"]
+        #print(sent)
+        for entry in data["testing"]:
+            if label_name in entry.get('label'):
+                sent = entry.get('report')  # Return the report if label name matches
+        #print(sent)
+        suv_path_final = os.path.join(image_base, image_name + "_suv_cropped.nii.gz")
+        #print(suv_path_final)
+        ct_path_final = os.path.join(image_base, image_name + "_ct_cropped.nii.gz")
+        full_pred_path = os.path.join(prediction_location, label)
+        label_full_path = os.path.join(label_base, label)
+
+        # load in the suv data
+        nii_suv = nib.load(suv_path_final)
+        suv_data = nii_suv.get_fdata()
+        # load in the ct data
+        nii_ct = nib.load(ct_path_final)
+        #ct_data = nii_ct.get_fdata()
+        # load in the prediciton data
+        nii_prediction = nib.load(full_pred_path)
+        prediction_data = nii_prediction.get_fdata()
+
+        prediction_data = np.squeeze(prediction_data, axis=(0, 1))
+        #print(f"pred data size: {prediction_data.shape}")
+
+        # load in label data
+        nii_label = nib.load(label_full_path + ".gz")
+        label_data = nii_label.get_fdata()
+
+        # Compute maximum intensity projection along axis 1
+        suv_mip = np.max(suv_data, axis=1)
+        prediction_data = np.where(prediction_data < 0.5, 0, 1)
+        prediction_mip = np.max(prediction_data, axis=1)
+        label_mip = np.max(label_data, axis=1)
+
+        label_suv_max = max_suv_in_positive_region(suv_data, label_data)
+        prediction_suv_max = max_suv_in_positive_region(suv_data, prediction_data)
+        correct = label_suv_max == prediction_suv_max
+
+        norm = Normalize(vmin=0.01, clip=True)  # vmin set slightly above zero to make zeros transparent
+
+        # Reflect the data horizontally so the heart is on the left
+        suv_mip = np.fliplr(suv_mip)
+        label_mip = np.fliplr(label_mip)
+        prediction_mip = np.fliplr(prediction_mip)
+
+        # Create masks for overlapping and non-overlapping regions
+        overlap_mask = (label_mip > 0) & (prediction_mip > 0)
+        prediction_only_mask = (prediction_mip > 0) & ~overlap_mask
+        label_only_mask = (label_mip > 0) & ~overlap_mask
+
+        # Setup the plot
+        fig, ax = plt.subplots(figsize=(10, 10))
+
+        # Plot SUV MIP
+        ax.imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin=0, vmax=10)
+
+        # Plot label only contours in green
+        ax.imshow(label_mip.T, cmap='Greens', alpha=norm(label_only_mask.T), aspect='auto', origin='lower')
+
+        # Plot prediction only contours in red
+        ax.imshow(prediction_mip.T, cmap='Reds', alpha=norm(prediction_only_mask.T), aspect='auto', origin='lower')
+
+        # Plot overlapping contours in blue
+        ax.imshow(overlap_mask.T, cmap='Blues', alpha=norm(overlap_mask.T), aspect='auto', origin='lower')
+
+        # Title and axis off
+        ax.set_title(f'Contours: Green (Label Only), Red (Prediction Only), Blue (Overlap)')
+        ax.axis('off')
+
+        plt.show()
+        plt.savefig(
+            "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/3d_predictions_v2_single_image/" + label_name + ".png")
+        plt.close()
