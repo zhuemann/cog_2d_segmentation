@@ -134,6 +134,8 @@ def plot_3d_predictions():
         fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
         # Reflect the data horizontally so the heart is on the left
+
+
         suv_mip = np.fliplr(suv_mip)
         label_mip = np.fliplr(label_mip)
         prediction_mip = np.fliplr(prediction_mip)
@@ -247,6 +249,9 @@ def plot_3d_predictions_single_image():
         norm = Normalize(vmin=0.01, clip=True)  # vmin set slightly above zero to make zeros transparent
 
         # Reflect the data horizontally so the heart is on the left
+        suv_mip = suv_mip.T
+        label_mip = label_mip.T
+        prediction_mip = prediction_mip.T
         suv_mip = np.fliplr(suv_mip)
         label_mip = np.fliplr(label_mip)
         prediction_mip = np.fliplr(prediction_mip)
@@ -260,23 +265,23 @@ def plot_3d_predictions_single_image():
         fig, ax = plt.subplots(figsize=(10, 10))
 
         # Plot SUV MIP
-        ax.imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin=0, vmax=10)
+        ax.imshow(suv_mip, cmap='gray_r', aspect='auto', origin='lower', vmin=0, vmax=10)
 
         # Plot label only contours in green
         if np.any(label_only_mask):
             norm_label = Normalize(vmin=0.01, vmax=np.max(label_only_mask), clip=True)
-            ax.imshow(label_mip.T, cmap='Greens', alpha=norm_label(label_only_mask.T), aspect='auto', origin='lower')
+            ax.imshow(label_mip, cmap='Greens', alpha=norm_label(label_only_mask.T), aspect='auto', origin='lower')
 
         # Plot prediction only contours in red
         if np.any(prediction_only_mask):
             norm_pred = Normalize(vmin=0.01, vmax=np.max(prediction_only_mask), clip=True)
-            ax.imshow(prediction_mip.T, cmap='Reds', alpha=norm_pred(prediction_only_mask.T), aspect='auto',
+            ax.imshow(prediction_mip, cmap='Reds', alpha=norm_pred(prediction_only_mask.T), aspect='auto',
                       origin='lower')
 
         # Plot overlapping contours in blue
         if np.any(overlap_mask):
             norm_overlap = Normalize(vmin=0.01, vmax=np.max(overlap_mask), clip=True)
-            ax.imshow(overlap_mask.T, cmap='Blues', alpha=norm_overlap(overlap_mask.T), aspect='auto', origin='lower')
+            ax.imshow(overlap_mask, cmap='Blues', alpha=norm_overlap(overlap_mask.T), aspect='auto', origin='lower')
 
         # Title and axis off
         ax.set_title(f'Contours: Green (Label Only), Red (Prediction Only), Blue (Overlap)')
