@@ -168,7 +168,10 @@ def plot_3d_predictions():
 
 
 def max_suv_in_positive_region_v2(suv_data, mask_data):
-    return np.max(suv_data[mask_data > 0])
+    positive_region = suv_data[mask_data > 0]
+    if positive_region.size == 0:
+        return 0  # or return 0 if that makes more sense for your application
+    return np.max(positive_region)
 
 def plot_3d_predictions_single_image():
 
