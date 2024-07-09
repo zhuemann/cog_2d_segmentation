@@ -166,6 +166,10 @@ def plot_3d_predictions():
         plt.close()
 
 
+
+def max_suv_in_positive_region_v2(suv_data, mask_data):
+    return np.max(suv_data[mask_data > 0])
+
 def plot_3d_predictions_single_image():
 
 
@@ -233,8 +237,8 @@ def plot_3d_predictions_single_image():
         prediction_mip = np.max(prediction_data, axis=1)
         label_mip = np.max(label_data, axis=1)
 
-        label_suv_max = max_suv_in_positive_region(suv_data, label_data)
-        prediction_suv_max = max_suv_in_positive_region(suv_data, prediction_data)
+        label_suv_max = max_suv_in_positive_region_v2(suv_data, label_data)
+        prediction_suv_max = max_suv_in_positive_region_v2(suv_data, prediction_data)
         correct = label_suv_max == prediction_suv_max
 
         norm = Normalize(vmin=0.01, clip=True)  # vmin set slightly above zero to make zeros transparent
