@@ -193,28 +193,22 @@ def plot_3d_predictions_single_image():
     all_images = os.listdir(image_base)
     number_correct = 0
     index = 0
+
     for label in prediction_list:
         index += 1
         if number_correct > 1:
-            print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct/index}")
+            print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct / index}")
         else:
             print(f"index: {index} number that are correct: {number_correct}")
 
-        #print(f"label name: {label}")
-        #image_name = label[:-15]
         image_name = label[:15]
-        #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
-        #print(label_name)
-        #row = df[df["Label_Name"] == label_name].iloc[0]
-        #sent = row["sentence"]
-        #print(sent)
+
         for entry in data["testing"]:
             if label_name in entry.get('label'):
                 sent = entry.get('report')  # Return the report if label name matches
-        #print(sent)
+
         suv_path_final = os.path.join(image_base, image_name + "_suv_cropped.nii.gz")
-        #print(suv_path_final)
         ct_path_final = os.path.join(image_base, image_name + "_ct_cropped.nii.gz")
         full_pred_path = os.path.join(prediction_location, label)
         label_full_path = os.path.join(label_base, label)
@@ -224,13 +218,12 @@ def plot_3d_predictions_single_image():
         suv_data = nii_suv.get_fdata()
         # load in the ct data
         nii_ct = nib.load(ct_path_final)
-        #ct_data = nii_ct.get_fdata()
+        # ct_data = nii_ct.get_fdata()
         # load in the prediciton data
         nii_prediction = nib.load(full_pred_path)
         prediction_data = nii_prediction.get_fdata()
 
         prediction_data = np.squeeze(prediction_data, axis=(0, 1))
-        #print(f"pred data size: {prediction_data.shape}")
 
         # load in label data
         nii_label = nib.load(label_full_path + ".gz")
@@ -242,19 +235,14 @@ def plot_3d_predictions_single_image():
         prediction_mip = np.max(prediction_data, axis=1)
         label_mip = np.max(label_data, axis=1)
 
-        label_suv_max = max_suv_in_positive_region_v2(suv_data, label_data)
-        prediction_suv_max = max_suv_in_positive_region_v2(suv_data, prediction_data)
+        label_suv_max = max_suv_in_positive_region(suv_data, label_data)
+        prediction_suv_max = max_suv_in_positive_region(suv_data, prediction_data)
         correct = label_suv_max == prediction_suv_max
 
-        norm = Normalize(vmin=0.01, clip=True)  # vmin set slightly above zero to make zeros transparent
-
         # Reflect the data horizontally so the heart is on the left
-        suv_mip = suv_mip.T
-        label_mip = label_mip.T
-        prediction_mip = prediction_mip.T
-        suv_mip = np.fliplr(suv_mip)
-        label_mip = np.fliplr(label_mip)
-        prediction_mip = np.fliplr(prediction_mip)
+        suv_mip = np.fliplr(suv_mip.T)
+        label_mip = np.fliplr(label_mip.T)
+        prediction_mip = np.fliplr(prediction_mip.T)
 
         # Create masks for overlapping and non-overlapping regions
         overlap_mask = (label_mip > 0) & (prediction_mip > 0)
@@ -270,18 +258,17 @@ def plot_3d_predictions_single_image():
         # Plot label only contours in green
         if np.any(label_only_mask):
             norm_label = Normalize(vmin=0.01, vmax=np.max(label_only_mask), clip=True)
-            ax.imshow(label_mip, cmap='Greens', alpha=norm_label(label_only_mask.T), aspect='auto', origin='lower')
+            ax.imshow(label_only_mask, cmap='Greens', alpha=0.5, aspect='auto', origin='lower')
 
         # Plot prediction only contours in red
         if np.any(prediction_only_mask):
             norm_pred = Normalize(vmin=0.01, vmax=np.max(prediction_only_mask), clip=True)
-            ax.imshow(prediction_mip, cmap='Reds', alpha=norm_pred(prediction_only_mask.T), aspect='auto',
-                      origin='lower')
+            ax.imshow(prediction_only_mask, cmap='Reds', alpha=0.5, aspect='auto', origin='lower')
 
         # Plot overlapping contours in blue
         if np.any(overlap_mask):
             norm_overlap = Normalize(vmin=0.01, vmax=np.max(overlap_mask), clip=True)
-            ax.imshow(overlap_mask, cmap='Blues', alpha=norm_overlap(overlap_mask.T), aspect='auto', origin='lower')
+            ax.imshow(overlap_mask, cmap='Blues', alpha=0.5, aspect='auto', origin='lower')
 
         # Title and axis off
         ax.set_title(f'Contours: Green (Label Only), Red (Prediction Only), Blue (Overlap)')
