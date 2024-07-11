@@ -56,7 +56,8 @@ def plot_training_and_inference_images():
         # load in the prediciton data
         #nii_prediction = nib.load(full_pred_path)
         #prediction_data = nii_prediction.get_fdata()
-
+        suv_data = np.squeeze(suv_data)
+        ct_data = np.squeeze(ct_data)
         #prediction_data = np.squeeze(prediction_data, axis=(0, 1))
 
         # load in label data
