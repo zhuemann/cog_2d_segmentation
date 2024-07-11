@@ -61,7 +61,7 @@ def plot_training_and_inference_images():
         for i, data in enumerate([ct_data, suv_data]):
             # Axial slice
             axial_slice = data[data.shape[0] // 2, :, :]
-            vmin, vmax = (-1000, 2000) if i == 0 else (0, 10)  # Set intensity range
+            vmin, vmax = (0, 1) if i == 0 else (0, 1)  # Set intensity range
             axes[i, 0].imshow(axial_slice, cmap='gray', vmin=vmin, vmax=vmax)
             axes[i, 0].set_title(f'{types[i]} - {titles[0]}')
             axes[i, 0].axis('off')
