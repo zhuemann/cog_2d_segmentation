@@ -33,7 +33,8 @@ def plot_training_and_inference_images():
             print(f"index: {index} number that are correct: {number_correct}")
 
         label_name = label.strip(".nii.gz")
-
+        if "label_1" not in label_name:
+            continue
         # these are swapped on purpose I saved them off with the wrong names
         ct_path = os.path.join(image_location, label_name + "_pet.nii")
         pet_path = os.path.join(image_location, label_name + "_ct.nii")
