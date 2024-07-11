@@ -30,6 +30,7 @@ from uw_pet_suv_conversion import uw_pet_suv_conversion_v2
 from uw_pet_suv_conversion import uw_ct_suv_conversion_v2
 from data_prepocessing.data_pipeline import run_data_pipeline_final
 from data_prepocessing.utility.utility import count_files_in_suv_folder
+from data_prepocessing.data_visualization.plot_training_and_inference_images import plot_training_and_inference_images
 if __name__ == '__main__':
 
     #count_files_in_suv_folder()
@@ -52,8 +53,8 @@ if __name__ == '__main__':
     #plot_ct_head_projections()
     #print(fail)
     #uw_ct_suv_conversion_v2()
-    run_data_pipeline_final()
-
+    #run_data_pipeline_final()
+    plot_training_and_inference_images()
     print(fail)
     #make_connected_component_labels_for_all_subregions()
     #make_mips_from_3d_data()
