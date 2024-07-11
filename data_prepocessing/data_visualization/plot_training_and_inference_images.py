@@ -54,27 +54,34 @@ def plot_training_and_inference_images():
         fig, axes = plt.subplots(2, 3, figsize=(15, 10))
 
         # Define titles for ease of identification
-        titles = [ 'Sagittal View', 'Coronal View', 'Axial View']
+        titles = ['Sagittal View', 'Coronal View', 'Axial View']
         types = ['CT', 'PET']
 
         # Display each type of view
         for i, data in enumerate([ct_data, suv_data]):
             # Axial slice
             axial_slice = data[data.shape[0] // 2, :, :]
+            #vmin, vmax = (-1000, 2000) if i == 0 else (0, 10)  # Set intensity range
             vmin, vmax = (0, 1) if i == 0 else (0, 1)  # Set intensity range
             axes[i, 0].imshow(axial_slice, cmap='gray', vmin=vmin, vmax=vmax)
+            axes[i, 0].axhline(y=axial_slice.shape[0] // 2, color='r', linestyle='--')  # Horizontal line
+            axes[i, 0].axvline(x=axial_slice.shape[1] // 2, color='r', linestyle='--')  # Vertical line
             axes[i, 0].set_title(f'{types[i]} - {titles[0]}')
             axes[i, 0].axis('off')
 
             # Coronal slice
             coronal_slice = data[:, data.shape[1] // 2, :]
             axes[i, 1].imshow(coronal_slice, cmap='gray', vmin=vmin, vmax=vmax)
+            axes[i, 1].axhline(y=coronal_slice.shape[0] // 2, color='r', linestyle='--')  # Horizontal line
+            axes[i, 1].axvline(x=coronal_slice.shape[1] // 2, color='r', linestyle='--')  # Vertical line
             axes[i, 1].set_title(f'{types[i]} - {titles[1]}')
             axes[i, 1].axis('off')
 
             # Sagittal slice
             sagittal_slice = data[:, :, data.shape[2] // 2]
             axes[i, 2].imshow(sagittal_slice, cmap='gray', vmin=vmin, vmax=vmax)
+            axes[i, 2].axhline(y=sagittal_slice.shape[0] // 2, color='r', linestyle='--')  # Horizontal line
+            axes[i, 2].axvline(x=sagittal_slice.shape[1] // 2, color='r', linestyle='--')  # Vertical line
             axes[i, 2].set_title(f'{types[i]} - {titles[2]}')
             axes[i, 2].axis('off')
 
