@@ -34,8 +34,9 @@ def plot_training_and_inference_images():
 
         label_name = label.strip(".nii.gz")
 
-        pet_path = os.path.join(image_location, label_name + "_pet.nii")
-        ct_path = os.path.join(image_location, label_name + "_ct.nii")
+        # these are swapped on purpose I saved them off with the wrong names
+        ct_path = os.path.join(image_location, label_name + "_pet.nii")
+        pet_path = os.path.join(image_location, label_name + "_ct.nii")
 
 
         # load in the suv data
