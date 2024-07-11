@@ -47,12 +47,14 @@ def plot_training_and_inference_images():
 
         suv_data = np.squeeze(suv_data)
         ct_data = np.squeeze(ct_data)
+        print(f"max pet: {np.max(suv_data)} min pet: {np.min(suv_data)}")
+        print(f"max ct: {np.max(ct_data)} min ct: {np.min(ct_data)}")
 
         # Set up the figure and axes
         fig, axes = plt.subplots(2, 3, figsize=(15, 10))
 
         # Define titles for ease of identification
-        titles = ['Axial View', 'Coronal View', 'Sagittal View']
+        titles = [ 'Sagittal View', 'Coronal View', 'Axial View']
         types = ['CT', 'PET']
 
         # Display each type of view
