@@ -52,8 +52,9 @@ def plot_training_and_inference_images():
         print(f"max pet: {np.max(suv_data)} min pet: {np.min(suv_data)}")
         print(f"max ct: {np.max(ct_data)} min ct: {np.min(ct_data)}")
 
+        """
         # Set up the figure and axes
-        fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+        fig, axes = plt.subplots(2, 3, figsize=(20, 10))
 
         # Define titles for ease of identification
         titles = ['Sagittal View', 'Coronal View', 'Axial View']
@@ -86,6 +87,51 @@ def plot_training_and_inference_images():
             axes[i, 2].axvline(x=sagittal_slice.shape[1] // 2, color='r', linestyle='--')  # Vertical line
             axes[i, 2].set_title(f'{types[i]} - {titles[2]}')
             axes[i, 2].axis('off')
+        """
+        # Set up the figure and axes
+        fig, axes = plt.subplots(2, 4, figsize=(20, 10))  # Updated for additional subplot
+
+        # Define titles
+        titles = ['Axial View', 'Coronal View', 'Sagittal View', 'Combined Axial View']
+        types = ['CT', 'PET']
+
+        # Processing images for each view
+        for i, data in enumerate([ct_data, suv_data]):
+            # Axial, Coronal, Sagittal
+            for j in range(3):
+                slice = None
+                if j == 0:  # Axial
+                    slice = data[data.shape[0] // 2, :, :]
+                elif j == 1:  # Coronal
+                    slice = data[:, data.shape[1] // 2, :]
+                elif j == 2:  # Sagittal
+                    slice = data[:, :, data.shape[2] // 2]
+
+                vmin, vmax = (0, 1) if i == 0 else (0, 1)
+                axes[i, j].imshow(slice, cmap='gray', vmin=vmin, vmax=vmax)
+                axes[i, j].axhline(y=slice.shape[0] // 2, color='r', linestyle='--')
+                axes[i, j].axvline(x=slice.shape[1] // 2, color='r', linestyle='--')
+                axes[i, j].set_title(f'{types[i]} - {titles[j]}')
+                axes[i, j].axis('off')
+
+        # Combined Axial View
+        axial_ct = ct_data[ct_data.shape[0] // 2, :, :]
+        axial_suv = suv_data[suv_data.shape[0] // 2, :, :]
+
+        # Normalize images for display
+        axial_ct_norm = (axial_ct - axial_ct.min()) / (axial_ct.max() - axial_ct.min())
+        axial_suv_norm = (axial_suv - axial_suv.min()) / (axial_suv.max() - axial_suv.min())
+
+        # Create an RGB image with CT in blue and PET in red
+        combined_image = np.zeros((axial_ct.shape[0], axial_ct.shape[1], 3))
+        combined_image[..., 0] = axial_suv_norm  # Red channel
+        combined_image[..., 2] = axial_ct_norm  # Blue channel
+
+        axes[0, 3].imshow(combined_image)
+        axes[0, 3].set_title('Combined Axial View - PET (Red) & CT (Blue)')
+        axes[0, 3].axis('off')
+
+        axes[1, 3].axis('off')  # Turn off the unused subplot
 
         # Show the plots
         plt.tight_layout()
