@@ -7,6 +7,30 @@ import numpy as np
 
 import json
 
+
+def pad_and_crop(prediction, label):
+    # Get the shapes of the prediction and label arrays
+    pred_shape = prediction.shape
+    label_shape = label.shape
+
+    # Calculate the padding for the first two dimensions
+    pad1 = (label_shape[0] - pred_shape[0]) // 2
+    pad2 = (label_shape[1] - pred_shape[1]) // 2
+
+    # Calculate the cropping for the third dimension
+    crop_start = 0
+    crop_end = label_shape[2]
+
+    # Pad the first two dimensions of the prediction array
+    padded_prediction = np.pad(prediction, ((pad1, label_shape[0] - pred_shape[0] - pad1),
+                                            (pad2, label_shape[1] - pred_shape[1] - pad2),
+                                            (0, 0)), mode='constant', constant_values=0)
+
+    # Crop the third dimension of the prediction array
+    cropped_prediction = padded_prediction[:, :, crop_start:crop_end]
+
+    return cropped_prediction
+
 def con_comp(seg_array):
     # input: a binary segmentation array output: an array with seperated (indexed) connected components of the segmentation array
     connectivity = 26  # 18 or 26
@@ -254,6 +278,7 @@ def post_processing_eval():
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
 
+        prediction_data, label_data = pad_and_crop(prediction_data, label_data)
         TP, FP, FN = TPFPFNHelper(prediction_data, label_data)
         TP_sum += TP
         FP_sum += FP
