@@ -221,7 +221,7 @@ def post_processing_eval():
     with open(json_file_path, 'r') as file:
         data = json.load(file)
 
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/predictions_v5_f1_.65/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/predictions_v5_f1_.65_v2/"
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
     label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels5/"
@@ -278,7 +278,7 @@ def post_processing_eval():
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
 
-        prediction_data = pad_and_crop(prediction_data, label_data)
+        #prediction_data = pad_and_crop(prediction_data, label_data)
         TP, FP, FN = TPFPFNHelper(prediction_data, label_data)
         TP_sum += TP
         FP_sum += FP
