@@ -27,7 +27,7 @@ def pad_and_crop(prediction, label):
                                             (0, 0)), mode='constant', constant_values=0)
 
     # Crop the third dimension of the prediction array
-    cropped_prediction = padded_prediction[:, :, crop_start:crop_end]
+    cropped_prediction = padded_prediction[:, :, -1*crop_end:]
 
     return cropped_prediction
 
