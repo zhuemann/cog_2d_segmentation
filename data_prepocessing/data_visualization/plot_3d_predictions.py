@@ -135,10 +135,15 @@ def plot_3d_predictions():
 
         # Reflect the data horizontally so the heart is on the left
 
+        # Rotate the images 90 degrees counterclockwise
+        suv_mip = np.rot90(suv_mip, k=3)
+        label_mip = np.rot90(label_mip, k=3)
+        prediction_mip = np.rot90(prediction_mip, k=3)
 
         suv_mip = np.fliplr(suv_mip)
         label_mip = np.fliplr(label_mip)
         prediction_mip = np.fliplr(prediction_mip)
+
 
         # Plot 1: Label MIP overlayed on SUV MIP
         axes[0].imshow(suv_mip, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
