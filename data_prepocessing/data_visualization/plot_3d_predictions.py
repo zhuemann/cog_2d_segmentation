@@ -139,26 +139,23 @@ def plot_3d_predictions():
         suv_mip = np.fliplr(suv_mip)
         label_mip = np.fliplr(label_mip)
         prediction_mip = np.fliplr(prediction_mip)
-        suv_mip = np.flipud(suv_mip)
-        label_mip = np.flipud(label_mip)
-        prediction_mip = np.flipud(prediction_mip)
 
         # Plot 1: Label MIP overlayed on SUV MIP
-        axes[0].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
-        axes[0].imshow(label_mip.T, alpha=norm(label_mip.T), aspect='auto', origin='lower')
+        axes[0].imshow(suv_mip, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
+        axes[0].imshow(label_mip, alpha=norm(label_mip), aspect='auto', origin='lower')
         axes[0].set_title(f'Label Overlay on SUV MIP suv_max: {label_suv_max:.3f}')
         axes[0].axis('off')  # Turn off axis
 
         # Plot 2: Prediction MIP overlayed on SUV MIP
-        axes[1].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
-        axes[1].imshow(prediction_mip.T, cmap="cool", alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
+        axes[1].imshow(suv_mip, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
+        axes[1].imshow(prediction_mip, cmap="cool", alpha=norm(prediction_mip), aspect='auto', origin='lower')
         axes[1].set_title(f'Prediction Overlay on SUV MIP predicted suv_max: {prediction_suv_max:.3f}')
         axes[1].axis('off')
 
         # Plot 3: Both Prediction and Label MIP overlayed on SUV MIP
-        axes[2].imshow(suv_mip.T, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
-        axes[2].imshow(label_mip.T, alpha=norm(label_mip.T), aspect='auto', origin='lower')
-        axes[2].imshow(prediction_mip.T, cmap="cool", alpha=norm(prediction_mip.T), aspect='auto', origin='lower')
+        axes[2].imshow(suv_mip, cmap='gray_r', aspect='auto', origin='lower', vmin = 0, vmax = 10)
+        axes[2].imshow(label_mip, alpha=norm(label_mip), aspect='auto', origin='lower')
+        axes[2].imshow(prediction_mip, cmap="cool", alpha=norm(prediction_mip), aspect='auto', origin='lower')
         axes[2].set_title(f'Prediction and Label Overlay on SUV MIP is correct: {correct}')
         axes[2].axis('off')
 
