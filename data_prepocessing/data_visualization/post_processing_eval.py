@@ -278,7 +278,7 @@ def post_processing_eval():
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
 
-        prediction_data, label_data = pad_and_crop(prediction_data, label_data)
+        prediction_data = pad_and_crop(prediction_data, label_data)
         TP, FP, FN = TPFPFNHelper(prediction_data, label_data)
         TP_sum += TP
         FP_sum += FP
