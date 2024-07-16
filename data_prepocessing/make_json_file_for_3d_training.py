@@ -114,28 +114,28 @@ def make_json_file_for_3d_training(df):
 
         if os.path.exists(image_path) and os.path.exists(image2_path) and os.path.exists(label_path):
 
-        # Decide the data split based on PetlympID
-        entry = {
-            "image": image_path,
-            "image2": image2_path,
-            "label": label_path,
-            "report": row["sentence"],
-            "slice_num": row["Slice"],
-            "suv_num": row["SUV"],
-            "label_name": label_name,
-            "patient_id": patient_id
-        }
+            # Decide the data split based on PetlympID
+            entry = {
+                "image": image_path,
+                "image2": image2_path,
+                "label": label_path,
+                "report": row["sentence"],
+                "slice_num": row["Slice"],
+                "suv_num": row["SUV"],
+                "label_name": label_name,
+                "patient_id": patient_id
+            }
 
-        if patient_id in train_ids:
-            # Optionally randomize folds within training data
-            entry['fold'] = random.randint(1, 5)
-            data['training'].append(entry)
-        elif patient_id in val_ids:
-            # makes the validation set fold 0 which is the validation fold in current training
-            entry['fold'] = 0
-            data['training'].append(entry)
-        else:
-            data['testing'].append(entry)
+            if patient_id in train_ids:
+                # Optionally randomize folds within training data
+                entry['fold'] = random.randint(1, 5)
+                data['training'].append(entry)
+            elif patient_id in val_ids:
+                # makes the validation set fold 0 which is the validation fold in current training
+                entry['fold'] = 0
+                data['training'].append(entry)
+            else:
+                data['testing'].append(entry)
 
 
     # Write the JSON data to a file
