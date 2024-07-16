@@ -2,6 +2,7 @@
 from data_prepocessing.remove_non_anontomical_sent import remove_non_anatomical_sent_v2
 from data_prepocessing.data_visualization.plots_for_label_accuracy import plot_for_label_accuracy_assessment
 from data_prepocessing.utility.select_250_images_from_json import select_250_images_from_json
+from data_prepocessing.make_json_file_for_3d_training import make_json_file_for_3d_training
 from data_prepocessing.data_visualization.plot_final_test_set import plot_final_testset
 from data_prepocessing.resampling_and_cropping import resampling_and_cropping
 from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
@@ -239,11 +240,11 @@ def run_data_pipeline_final():
     #plot_3d_predictions_single_image()
     #ct_analysis()
     #scanner_types()
-    post_processing_eval()
-    #df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
+    #post_processing_eval()
+    df = pd.read_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx")
     #df_used_images = resampling_and_cropping(df)
     #df_used_images.to_excel(save_base + "id_pet_used_ct_used.xlsx", index=False)
-    #make_json_file_for_3d_training(df)
+    make_json_file_for_3d_training(df)
 
     #sampled_df, orig_df = select_250_images_from_json()
     #sampled_df.to_excel(save_base + "for_daniel_250_round_3_final_testset_json.xlsx", index=False)

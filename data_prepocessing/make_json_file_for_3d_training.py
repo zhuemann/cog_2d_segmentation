@@ -6,7 +6,7 @@ import pandas as pd
 
 def get_suv_images_list(df):
 
-    image_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
     image_path_df = []
     for index, row in df.iterrows():
         petlymph = row["Petlymph"]
@@ -26,7 +26,7 @@ def get_suv_images_list(df):
 
 def filter_dataframe_for_images_in_folder(df):
     # Define your target folder
-    target_folder = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
+    target_folder = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
 
     # Get a list of all files in the target folder
     files = os.listdir(target_folder)
@@ -41,7 +41,7 @@ def filter_dataframe_for_images_in_folder(df):
 def filter_dataframe_based_on_files(df, column):
     """Filter a DataFrame to only include rows where the column matches label names in a specified folder."""
     # Hardcoded directory
-    target_folder = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/"
+    target_folder = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
 
     # Retrieve label names from files in the specified directory, stripping the '.nii.gz'.
     labels = [file.replace(".nii.gz", "") for file in os.listdir(target_folder) if file.endswith(".nii.gz")]
@@ -50,8 +50,8 @@ def filter_dataframe_based_on_files(df, column):
     return df[df[column].isin(labels)]
 
 def make_json_file_for_3d_training(df):
-    image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4/"
-    label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4/"
+    image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
+    label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
 
     print(f"length of dataframe before: {len(df)}")
     df = filter_dataframe_for_images_in_folder(df)
@@ -60,7 +60,11 @@ def make_json_file_for_3d_training(df):
     print(f"after label filtering: {len(df)}")
     labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1",
                       "PETWB_012579_01_label_2", "PETWB_003190_01_label_3", "PETWB_013006_03_label_2"]
+
     df = df[~df["Label_Name"].isin(labels_to_skip)]
+
+    # add patient id so we can split patient wise
+    df['PatientID'] = df['Petlymph'].apply(lambda x: x.split('_')[1])
 
     print(f"length of dataframe final: {len(df)}")
 
@@ -68,7 +72,7 @@ def make_json_file_for_3d_training(df):
     np.random.seed(42)  # For reproducibility
 
     # Unique list of PetlympIDs
-    unique_petlymps = df['Petlymph'].unique()
+    unique_petlymps = df['PatientID'].unique()
     np.random.shuffle(unique_petlymps)  # Shuffle the array
 
     """
@@ -85,17 +89,19 @@ def make_json_file_for_3d_training(df):
     """
     # Split the IDs into training, validation, and test sets
     train_split = int(len(unique_petlymps) * 0.8)
-    #val_split = int(len(unique_petlymps) * 0.9)
+    val_split = int(len(unique_petlymps) * 0.9)
 
     train_ids = unique_petlymps[:train_split]
-    #val_ids = unique_petlymps[train_split:val_split]
-    test_ids = unique_petlymps[train_split:]
+    val_ids = unique_petlymps[train_split:val_split]
+    test_ids = unique_petlymps[val_split:]
+
 
     # Initialize the storage dictionary
     data = {'training': [], 'testing': []}
 
     # Now iterate through the DataFrame
     for index, row in df.iterrows():
+        patient_id = row['PatientID']
         petlymph = row["Petlymph"]
         folder_name = str(petlymph)  # .lower() #+ "_" + str(petlymph).lower()
 
@@ -106,6 +112,8 @@ def make_json_file_for_3d_training(df):
         label_name = row["Label_Name"]
         label_path = os.path.join(label_path_base, label_name + ".nii.gz")
 
+        if os.path.exists(image_path) and os.path.exists(image2_path) and os.path.exists(label_path):
+
         # Decide the data split based on PetlympID
         entry = {
             "image": image_path,
@@ -114,17 +122,22 @@ def make_json_file_for_3d_training(df):
             "report": row["sentence"],
             "slice_num": row["Slice"],
             "suv_num": row["SUV"],
-            "label_name": label_name
+            "label_name": label_name,
+            "patient_id": patient_id
         }
-        if petlymph in train_ids:
+
+        if patient_id in train_ids:
             # Optionally randomize folds within training data
-            entry['fold'] = random.randint(0, 5)
+            entry['fold'] = random.randint(1, 5)
             data['training'].append(entry)
-        #elif petlymph in val_ids:
-        #    data['validation'].append(entry)
+        elif patient_id in val_ids:
+            # makes the validation set fold 0 which is the validation fold in current training
+            entry['fold'] = 0
+            data['training'].append(entry)
         else:
             data['testing'].append(entry)
 
+
     # Write the JSON data to a file
-    with open('/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000_no_validation.json', 'w') as json_file:
+    with open('/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json', 'w') as json_file:
         json.dump(data, json_file, indent=4)  # Use indent=4 for pretty printing

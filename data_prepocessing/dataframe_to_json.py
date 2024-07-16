@@ -6,6 +6,7 @@ import numpy as np
 
 def dataframe_to_json(df):
 
+    print(fail use the other make json file for 3d training)
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images/"
     label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels/"
     dropped_missing_files = 0
@@ -30,6 +31,7 @@ def dataframe_to_json(df):
 
     # Initialize the storage dictionary
     data = {'training': [], 'validation': [], 'testing': []}
+
 
     # Now iterate through the DataFrame
     for index, row in df_2d.iterrows():
