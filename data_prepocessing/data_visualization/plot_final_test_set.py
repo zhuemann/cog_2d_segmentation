@@ -301,7 +301,7 @@ def plot_final_testset_v2(df):
     #image_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
     #label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels5/"
 
-    image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+    image_path_root = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
 
 
@@ -319,7 +319,7 @@ def plot_final_testset_v2(df):
 
         dims = get_slice_thickness(petlymph)
         print(f"dims: {dims}")
-        image_path_base = os.path.join(image_path_base, petlymph)
+        image_path_base = os.path.join(image_path_root, petlymph)
 
         file_names = os.listdir(image_path_base)
         index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
@@ -380,6 +380,7 @@ def plot_final_testset_v2(df):
         label = np.flip(label, axis=0)
         ct_volume = np.flip(ct_volume, axis=0)
         img = np.flip(img, axis=0)
+
         """
         # Checking if the resampled label file already exists
         resampled_path = '/mnt/Bradshaw/UW_PET_Data/resampled_labels_final_test_set/' + row["Label_Name"] + '.nii.gz'
@@ -430,6 +431,8 @@ def plot_final_testset_v2(df):
         mip_axial = np.rot90(mip_axial, k=-1)
         label_axial = np.rot90(label_axial, k=-1)
         # outline = create_label_outline(label_axial)
+
+        mip_coronal = np.fliplr(mip_coronal)
 
         plt.figure(figsize=(24, 10))
         plt.subplot(1, 5, 1)  # 1 row, 2 columns, first subplot
