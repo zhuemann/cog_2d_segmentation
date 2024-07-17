@@ -433,6 +433,7 @@ def plot_final_testset_v2(df):
         # outline = create_label_outline(label_axial)
 
         mip_coronal = np.fliplr(mip_coronal)
+        label_coronal = np.fliplr(label_coronal)
 
         plt.figure(figsize=(24, 10))
         plt.subplot(1, 5, 1)  # 1 row, 2 columns, first subplot
