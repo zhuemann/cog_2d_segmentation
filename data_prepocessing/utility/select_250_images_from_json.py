@@ -10,7 +10,7 @@ def extract_image_id(path):
 def select_250_images_from_json():
 
     test_excel_file = "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx"
-    input_file = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/output_resampled_13000_no_validation.json"
+    input_file = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json"
     # Read the existing data from the JSON file
     with open(input_file, 'r') as file:
         data = json.load(file)
@@ -35,8 +35,6 @@ def select_250_images_from_json():
         if len(selected_entries) >= 250:
             break
 
-    df = pd.DataFrame(selected_entries)
-
     # Create DataFrame from selected entries
     json_df = pd.DataFrame(selected_entries)
 
@@ -50,4 +48,4 @@ def select_250_images_from_json():
     # Combine the JSON DataFrame with the matching Excel DataFrame
     #final_df = pd.concat([json_df, matching_excel_entries], ignore_index=True)
 
-    return json_df, matching_excel_entries
+    return json_df , matching_excel_entries
