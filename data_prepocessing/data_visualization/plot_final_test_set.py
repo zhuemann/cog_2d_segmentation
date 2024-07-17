@@ -477,7 +477,6 @@ def plot_final_testset_v2(df):
         mip_axial = np.fliplr(mip_axial)
         label_axial = np.fliplr(label_axial)
 
-
         ax4 = plt.subplot(1, 5, 4)
         ax4.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
         ax4.set_title(f'Axial Slice: {slice_num}')
