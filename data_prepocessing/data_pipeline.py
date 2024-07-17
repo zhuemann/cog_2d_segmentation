@@ -3,7 +3,7 @@ from data_prepocessing.remove_non_anontomical_sent import remove_non_anatomical_
 from data_prepocessing.data_visualization.plots_for_label_accuracy import plot_for_label_accuracy_assessment
 from data_prepocessing.utility.select_250_images_from_json import select_250_images_from_json
 from data_prepocessing.make_json_file_for_3d_training import make_json_file_for_3d_training
-from data_prepocessing.data_visualization.plot_final_test_set import plot_final_testset
+from data_prepocessing.data_visualization.plot_final_test_set import plot_final_testset_v2
 from data_prepocessing.resampling_and_cropping import resampling_and_cropping
 from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
 from data_prepocessing.utility.ct_analysis import ct_analysis
@@ -246,10 +246,11 @@ def run_data_pipeline_final():
     #df_used_images.to_excel(save_base + "id_pet_used_ct_used.xlsx", index=False)
     #make_json_file_for_3d_training(df)
 
-    sampled_df, orig_df = select_250_images_from_json()
-    sampled_df.to_excel(save_base + "/final_250_testset/for_daniel_250_round_3_final_testset_json.xlsx", index=False)
-    orig_df.to_excel(save_base + "/final_250_testset/for_daniel_250_round_3_final_testset_standard.xlsx", index=False)
-    #plot_final_testset(sampled_df)
+    #sampled_df, orig_df = select_250_images_from_json()
+    #sampled_df.to_excel(save_base + "/final_250_testset/for_daniel_250_round_3_final_testset_json.xlsx", index=False)
+    #orig_df.to_excel(save_base + "/final_250_testset/for_daniel_250_round_3_final_testset_standard.xlsx", index=False)
+    sampled_df = pd.read_excel(save_base + "/final_250_testset/for_daniel_250_round_3_final_testset_json.xlsx")
+    plot_final_testset_v2(sampled_df)
 
     #df = df.drop_duplicates(subset="Petlymph", keep="first")
     #print(f"unique images: {len(df)}")
