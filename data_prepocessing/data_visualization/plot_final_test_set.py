@@ -477,6 +477,11 @@ def plot_final_testset_v2(df):
         mip_axial = np.fliplr(mip_axial)
         label_axial = np.fliplr(label_axial)
 
+        # Assuming label_axial needs to be the same size as mip_axial
+        scale_x = mip_axial.shape[0] / label_axial.shape[0]
+        scale_y = mip_axial.shape[1] / label_axial.shape[1]
+        label_axial_resized = zoom(label_axial, (scale_x, scale_y), order=0)  # order=0 for nearest-neighbor interpolation
+        label_axial = label_axial_resized
         print(mip_axial.shape, label_axial.shape)
         print(mip_axial.dtype, label_axial.dtype)
 
@@ -486,7 +491,7 @@ def plot_final_testset_v2(df):
 
         ax5 = plt.subplot(1, 5, 5)
         ax5.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
-        ax5.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
+        ax5.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9, aspect=voxel_dims[0] / voxel_dims[1])
         # plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
         ax5.set_title(f'Axial Slice: {slice_num} With Label')
 
