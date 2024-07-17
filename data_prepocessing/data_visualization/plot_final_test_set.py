@@ -483,7 +483,7 @@ def plot_final_testset_v2(df):
 
         ax5 = plt.subplot(1, 5, 5)
         ax5.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
-        ax5.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
+        #ax5.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
         # plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
         ax5.set_title(f'Axial Slice: {slice_num} With Label')
 
