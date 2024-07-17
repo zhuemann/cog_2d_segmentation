@@ -503,8 +503,7 @@ def plot_final_testset_v2(df):
         # print(sentence)
         # print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
-        plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) + " Slice estimation:" + str(
-            slice_estimation) + " SUV: " + str(
+        plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) + " SUV: " + str(
             original_row["SUV"].iloc[0]), fontsize=12, color='black')
 
         plt.savefig(
