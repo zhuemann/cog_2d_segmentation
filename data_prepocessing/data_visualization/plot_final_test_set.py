@@ -477,13 +477,16 @@ def plot_final_testset_v2(df):
         mip_axial = np.fliplr(mip_axial)
         label_axial = np.fliplr(label_axial)
 
+        print(mip_axial.shape, label_axial.shape)
+        print(mip_axial.dtype, label_axial.dtype)
+
         ax4 = plt.subplot(1, 5, 4)
         ax4.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
         ax4.set_title(f'Axial Slice: {slice_num}')
 
         ax5 = plt.subplot(1, 5, 5)
         ax5.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
-        ax5.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.2)
+        ax5.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9)
         # plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
         ax5.set_title(f'Axial Slice: {slice_num} With Label')
 
