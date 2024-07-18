@@ -519,7 +519,7 @@ def plot_final_testset_v2(df):
             original_row["SUV"].iloc[0]), fontsize=12, color='black')
 
         plt.savefig(
-            "/UserData/Zach_Analysis/final_testset_evaluation_vg/mips_final_test_set_3_testing_v2/" + label_name,
+            "/UserData/Zach_Analysis/final_testset_evaluation_vg/mips_final_test_set_3_v2/" + label_name,
             dpi=300)
 
         plt.close()
