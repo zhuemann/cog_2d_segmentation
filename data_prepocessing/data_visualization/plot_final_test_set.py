@@ -475,8 +475,8 @@ def plot_final_testset_v2(df):
         ax3.set_title('Sagittal')
 
         # Flip the image data horizontally
-        mip_axial = np.fliplr(mip_axial)
-        label_axial = np.fliplr(label_axial)
+        #mip_axial = np.fliplr(mip_axial)
+        #label_axial = np.fliplr(label_axial)
 
         # Assuming label_axial needs to be the same size as mip_axial
         scale_x = mip_axial.shape[0] / label_axial.shape[0]
@@ -519,7 +519,7 @@ def plot_final_testset_v2(df):
             original_row["SUV"].iloc[0]), fontsize=12, color='black')
 
         plt.savefig(
-            "/UserData/Zach_Analysis/final_testset_evaluation_vg/mips_final_test_set_3_testing/" + label_name,
+            "/UserData/Zach_Analysis/final_testset_evaluation_vg/mips_final_test_set_3_testing_v2/" + label_name,
             dpi=300)
 
         plt.close()
