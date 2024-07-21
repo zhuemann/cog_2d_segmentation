@@ -225,19 +225,19 @@ def plot_final_testset_for_josh_v3(df):
         plt.figure(figsize=(24, 12))
 
         ax1 = plt.subplot(1, 7, 1)
-        ax1.imshow(mip_coronal, cmap='gray_r', vmax=10, aspect=voxel_dims[0] / voxel_dims[1])
+        ax1.imshow(mip_coronal, cmap='gray_r', vmax=10, aspect=voxel_dims[2] / voxel_dims[1])
         ax1.set_title('MIP')
 
         ax2 = plt.subplot(1, 7, 2)
-        ax2.imshow(mip_coronal, cmap='gray_r', vmax=10, aspect=voxel_dims[0] / voxel_dims[1])
+        ax2.imshow(mip_coronal, cmap='gray_r', vmax=10, aspect=voxel_dims[2] / voxel_dims[1])
         ax2.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9,
-                   aspect=voxel_dims[0] / voxel_dims[1])
+                   aspect=voxel_dims[2] / voxel_dims[1])
         ax2.set_title('Coronal')
 
         ax3 = plt.subplot(1, 7, 3)
         ax3.imshow(mip_sagittal, cmap='gray_r', vmax=10, aspect=voxel_dims[0] / voxel_dims[1])
         ax3.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9,
-                   aspect=voxel_dims[0] / voxel_dims[1])
+                   aspect=voxel_dims[2] / voxel_dims[1])
         ax3.set_title('Sagittal')
 
         # Flip the image data horizontally
