@@ -262,6 +262,28 @@ def plot_final_testset_for_josh_v3(df):
         # plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
         ax5.set_title(f'Axial Slice: {slice_num} With Label')
 
+        # Rescale label_coronal and label_sagittal to match ct_mip_coronal and ct_mip_sagittal
+        rescale_factor_coronal = [ct_mip_coronal.shape[0] / label_coronal.shape[0],
+                                  ct_mip_coronal.shape[1] / label_coronal.shape[1]]
+        rescale_factor_sagittal = [ct_mip_sagittal.shape[0] / label_sagittal.shape[0],
+                                   ct_mip_sagittal.shape[1] / label_sagittal.shape[1]]
+
+        label_coronal_rescaled = zoom(label_coronal, rescale_factor_coronal, order=1)
+        label_sagittal_rescaled = zoom(label_sagittal, rescale_factor_sagittal, order=1)
+
+        # Plot the rescaled images
+        fig, (ax6, ax7) = plt.subplots(1, 2, figsize=(12, 6))
+
+        ax6.imshow(ct_mip_coronal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
+        ax6.imshow(np.where(label_coronal_rescaled == 1, 250, np.nan), cmap='spring', alpha=0.9,
+                   aspect=ct_dims[2] / ct_dims[1])
+        ax6.set_title(f'Axial Slice: {slice_num} With Label')
+
+        ax7.imshow(ct_mip_sagittal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
+        ax7.imshow(np.where(label_sagittal_rescaled == 1, 250, np.nan), cmap='spring', alpha=0.9,
+                   aspect=ct_dims[2] / ct_dims[1])
+        ax7.set_title(f'Axial Slice: {slice_num} With Label')
+        """
         ax6 = plt.subplot(1, 7, 6)
         ax6.imshow(ct_mip_coronal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
         ax6.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9,
@@ -278,21 +300,8 @@ def plot_final_testset_for_josh_v3(df):
                    aspect=ct_dims[0] / voxel_dims[1])
         # plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
         ax7.set_title(f'Axial Slice: {slice_num} With Label')
-
         """
-        # Plotting the fourth subplot for the axial view with contour overlay
-        ax5 = plt.subplot(1, 5, 5)
-        ax5.imshow(mip_axial, cmap='gray', vmax=500, vmin=-200)
 
-        # Generate and plot contours from the label
-        contours = measure.find_contours(label_axial, level=0.5)  # Use your predefined function or this direct call
-        for contour in contours:
-            ax5.plot(contour[:, 1], contour[:, 0], linewidth=2, color='red')  # Plotting contours
-
-        # Plot contours
-        for contour in contours:
-            ax5.plot(contour[:, 1], contour[:, 0], linewidth=2, color='red')  # contour[:, 1] is x, contour[:, 0] is y
-        """
         # print(original_row)
         sentence = original_row["sentence"].iloc[0]
         # print(sentence)
