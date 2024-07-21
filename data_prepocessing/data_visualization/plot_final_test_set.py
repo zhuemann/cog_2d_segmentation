@@ -318,7 +318,7 @@ def plot_final_testset_v2(df):
         petlymph = extract_image_id(row["image"])
 
         dims = get_slice_thickness(petlymph)
-        print(f"dims: {dims}")
+        #print(f"dims: {dims}")
         image_path_base = os.path.join(image_path_root, petlymph)
 
         file_names = os.listdir(image_path_base)
@@ -329,14 +329,14 @@ def plot_final_testset_v2(df):
         ct_image_path = os.path.join(image_path_base, file_names[index_of_ct[0]])
         #image_path = os.path.join(image_path_base, petlymph, + "_suv_cropped.nii.gz")
         #ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
-        print(f"image name: {petlymph}")
+        #print(f"image name: {petlymph}")
         # gets location of label nifti
         label_name = row["label_name"]
         label_path = os.path.join(label_path_base, label_name + ".nii.gz")
 
         ct_image = nib.load(ct_image_path)
         ct_volume = ct_image.get_fdata()
-        print(f"ct dimensions: {ct_volume.shape}")
+        #print(f"ct dimensions: {ct_volume.shape}")
         slice_num = row["slice_num"]
         # k_num = row["k"]
         original_row = original_df.loc[original_df['Label_Name'] == label_name]
@@ -454,6 +454,7 @@ def plot_final_testset_v2(df):
 
         # Extract voxel dimensions (in mm)
         voxel_dims = nii_image.header.get_zooms()
+        print(f"pet voxel dims: {voxel_dims}")
 
         # Plotting
         plt.figure(figsize=(24, 10))
@@ -483,8 +484,8 @@ def plot_final_testset_v2(df):
         scale_y = mip_axial.shape[1] / label_axial.shape[1]
         label_axial_resized = zoom(label_axial, (scale_x, scale_y), order=0)  # order=0 for nearest-neighbor interpolation
         label_axial = label_axial_resized
-        print(mip_axial.shape, label_axial.shape)
-        print(mip_axial.dtype, label_axial.dtype)
+        #print(mip_axial.shape, label_axial.shape)
+        #print(mip_axial.dtype, label_axial.dtype)
 
         ax4 = plt.subplot(1, 5, 4)
         ax4.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
@@ -684,7 +685,9 @@ def plot_final_testset_for_josh_v3(df):
 
         # Extract voxel dimensions (in mm)
         voxel_dims = nii_image.header.get_zooms()
-
+        print(f'pet voxel dims: {voxel_dims}')
+        ct_dims = ct_image.header.get_zooms()
+        print(f"ct voxel dims: {ct_dims}")
         # Plotting
         plt.figure(figsize=(24, 12))
 
@@ -713,8 +716,8 @@ def plot_final_testset_for_josh_v3(df):
         scale_y = mip_axial.shape[1] / label_axial.shape[1]
         label_axial_resized = zoom(label_axial, (scale_x, scale_y), order=0)  # order=0 for nearest-neighbor interpolation
         label_axial = label_axial_resized
-        print(mip_axial.shape, label_axial.shape)
-        print(mip_axial.dtype, label_axial.dtype)
+        #print(mip_axial.shape, label_axial.shape)
+        #print(mip_axial.dtype, label_axial.dtype)
 
         ax4 = plt.subplot(1, 7, 4)
         ax4.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
