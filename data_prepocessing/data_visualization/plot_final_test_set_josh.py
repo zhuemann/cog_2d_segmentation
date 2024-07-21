@@ -271,14 +271,13 @@ def plot_final_testset_for_josh_v3(df):
         label_coronal_rescaled = zoom(label_coronal, rescale_factor_coronal, order=1)
         label_sagittal_rescaled = zoom(label_sagittal, rescale_factor_sagittal, order=1)
 
-        # Plot the rescaled images
-        fig, (ax6, ax7) = plt.subplots(1, 2, figsize=(12, 6))
-
+        ax6 = plt.subplot(1, 7, 6)
         ax6.imshow(ct_mip_coronal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
         ax6.imshow(np.where(label_coronal_rescaled == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=ct_dims[2] / ct_dims[1])
         ax6.set_title(f'Axial Slice: {slice_num} With Label')
 
+        ax7 = plt.subplot(1, 7, 7)
         ax7.imshow(ct_mip_sagittal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
         ax7.imshow(np.where(label_sagittal_rescaled == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=ct_dims[2] / ct_dims[1])
