@@ -192,6 +192,9 @@ def plot_final_testset_for_josh_v3(df):
         mip_axial = np.rot90(mip_axial, k=-1)
         label_axial = np.rot90(label_axial, k=-1)
         # outline = create_label_outline(label_axial)
+        ct_mip_coronal = np.rot90(ct_mip_coronal)
+        ct_mip_sagittal = np.rot90(ct_mip_sagittal)
+
 
         mip_coronal = np.fliplr(mip_coronal)
         label_coronal = np.fliplr(label_coronal)
