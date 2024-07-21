@@ -264,15 +264,15 @@ def plot_final_testset_for_josh_v3(df):
 
         ax6 = plt.subplot(1, 7, 6)
         ax6.imshow(ct_mip_coronal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[0] / ct_dims[1])
-        #ax6.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9,
-        #           aspect=ct_dims[0] / ct_dims[1])
+        ax6.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9,
+                   aspect=ct_dims[0] / ct_dims[1])
         # plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
         ax6.set_title(f'Axial Slice: {slice_num} With Label')
 
         ax7 = plt.subplot(1, 7, 7)
         ax7.imshow(ct_mip_sagittal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[0] / ct_dims[1])
-        #ax7.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9,
-        #           aspect=ct_dims[0] / ct_dims[1])
+        ax7.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9,
+                   aspect=ct_dims[0] / ct_dims[1])
         # plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
         ax7.set_title(f'Axial Slice: {slice_num} With Label')
 
