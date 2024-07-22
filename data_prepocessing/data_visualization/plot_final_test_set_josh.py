@@ -232,7 +232,7 @@ def plot_final_testset_for_josh_v3(df):
         ax1.imshow(mip_coronal, cmap='gray_r', vmax=10, aspect=voxel_dims[2] / voxel_dims[1])
         ax1.set_title('Original Image')
 
-        ax2 = plt.subplot(2, 4, 2)
+        ax2 = plt.subplot(2, 4, 4)
         ax2.imshow(mip_coronal, cmap='gray_r', vmax=10, aspect=voxel_dims[2] / voxel_dims[1])
         ax2.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=voxel_dims[2] / voxel_dims[1])
@@ -244,7 +244,7 @@ def plot_final_testset_for_josh_v3(df):
                    aspect=voxel_dims[2] / voxel_dims[1])
         ax3.set_title('MIP Sagittal')
 
-        ax8 = plt.subplot(2, 4, 4)
+        ax8 = plt.subplot(2, 4, 2)
         ax8.imshow(pet_transaxial_slice, cmap='gray_r', vmax=10, aspect=voxel_dims[0] / voxel_dims[1])
         ax8.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=voxel_dims[0] / voxel_dims[1])
