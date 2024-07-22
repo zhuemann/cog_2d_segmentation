@@ -163,11 +163,11 @@ def plot_final_testset_for_josh_v3(df):
 
         sums_other1 = np.sum(label, axis=(0, 2))
         # Find the index of the slice with the maximum sum
-        other1 = np.argmax(sums_other1)
+        other1 = int(np.argmax(sums_other1)*512/200)
         print(f"other1 index: {other1}")
         sums_other2 = np.sum(label, axis=(1, 2))
         # Find the index of the slice with the maximum sum
-        other2 = np.argmax(sums_other2)
+        other2 = int(np.argmax(sums_other2)*512/200)
         print(f"other2 index: {other2}")
 
         ct_label = label
