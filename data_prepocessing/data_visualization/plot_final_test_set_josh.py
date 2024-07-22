@@ -101,7 +101,9 @@ def plot_final_testset_for_josh_v3(df):
 
         # Flip the volume along the new depth axis to ensure slice 0 is at the top
         rotated_volume = np.flip(rotated_volume, axis=1)
-        rotated_volume = np.rot90(rotated_volume, axis=0)
+        rotated_volume = np.rot90(rotated_volume, axes=0)
+        #rotated_volume = np.rot90(rotated_volume, axes=)
+
         ct_volume = rotated_volume
 
         slice_num = row["slice_num"]
