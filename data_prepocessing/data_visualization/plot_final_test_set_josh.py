@@ -199,7 +199,7 @@ def plot_final_testset_for_josh_v3(df):
         mip_coronal = np.fliplr(mip_coronal)
         label_coronal = np.fliplr(label_coronal)
 
-        plt.figure(figsize=(24, 12))
+        plt.figure(figsize=(24, 24))
         plt.subplot(1, 7, 1)  # 1 row, 2 columns, first subplot
         plt.imshow(mip_coronal, cmap='gray',
                    vmax=10)  # 'viridis' is a colormap, you can choose others like 'gray', 'plasma', etc.
@@ -237,7 +237,7 @@ def plot_final_testset_for_josh_v3(df):
         ax3 = plt.subplot(1, 7, 3)
         ax3.imshow(mip_sagittal, cmap='gray_r', vmax=10, aspect=voxel_dims[0] / voxel_dims[1])
         ax3.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9,
-                   aspect=voxel_dims[2] / voxel_dims[1])
+                   aspect=voxel_dims[0] / voxel_dims[1])
         ax3.set_title('Sagittal')
 
         # Flip the image data horizontally
