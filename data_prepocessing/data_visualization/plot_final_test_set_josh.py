@@ -99,9 +99,15 @@ def plot_final_testset_for_josh_v3(df):
 
         rotated_volume = np.transpose(ct_volume, (1, 0, 2))
 
+        # Extract voxel dimensions (in mm)
+        voxel_dims = nii_image.header.get_zooms()
+        print(f'pet voxel dims: {voxel_dims}')
+        ct_dims = ct_image.header.get_zooms()
+        print(f"ct voxel dims: {ct_dims}")
+
         # Flip the volume along the new depth axis to ensure slice 0 is at the top
         rotated_volume = np.flip(rotated_volume, axis=1)
-        rotated_volume = np.rot90(rotated_volume, axes=(0,1))
+        rotated_volume = np.rot90(rotated_volume, axes=(0, 1))
         #rotated_volume = np.rot90(rotated_volume, axes=)
 
         ct_volume = rotated_volume
@@ -173,11 +179,11 @@ def plot_final_testset_for_josh_v3(df):
 
         sum_coronal = np.sum(label, axis=(0, 2))
         # Find the index of the slice with the maximum sum
-        coronal_slice = int(np.argmax(sum_coronal)*512/200)
+        coronal_slice = int(np.argmax(sum_coronal)*voxel_dims[1]/ct_dims[1])
         print(f"other1 index: {coronal_slice}")
         sums_sagital = np.sum(label, axis=(1, 2))
         # Find the index of the slice with the maximum sum
-        sagital_slice = int(np.argmax(sums_sagital)*512/200)
+        sagital_slice = int(np.argmax(sums_sagital)*voxel_dims[0]/ct_dims[0])
         print(f"other2 index: {sagital_slice}")
 
         ct_label = label
@@ -241,11 +247,6 @@ def plot_final_testset_for_josh_v3(df):
         label = np.where(label == 1, 250, label)
         array_label_nan = np.where(label == 0, np.nan, label)
 
-        # Extract voxel dimensions (in mm)
-        voxel_dims = nii_image.header.get_zooms()
-        print(f'pet voxel dims: {voxel_dims}')
-        ct_dims = ct_image.header.get_zooms()
-        print(f"ct voxel dims: {ct_dims}")
         # Plotting
         plt.figure(figsize=(24, 12))
 
