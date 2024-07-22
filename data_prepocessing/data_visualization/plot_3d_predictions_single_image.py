@@ -116,6 +116,8 @@ def plot_all_images():
         sentence = row["sentence"].iloc[0]
         sentence = insert_newlines(sentence, word_limit=10)
         print(sentence)
+        sentence = sentence.strip(row["SUV"].iloc[0])
+        sentence = sentence.strip(row["Slice"].iloc[0])
 
         image_name = pred[:15]
         PET_file = pet_images + image_name + "_suv_cropped.nii.gz"
