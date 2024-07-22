@@ -119,10 +119,10 @@ def plot_all_images():
         row = df[df['Label_Name'] == label_name]
 
         sentence = row["sentence"].iloc[0]
-        sentence = insert_newlines(sentence, word_limit=10)
-        print(f"index: {sentence}")
         sentence = sentence.strip(str(row["SUV"].iloc[0]))
         sentence = sentence.strip(str(row["Slice"].iloc[0]))
+        print(f"index: {index} sentence: {sentence}")
+        sentence = insert_newlines(sentence, word_limit=10)
 
         image_name = pred[:15]
         PET_file = pet_images + image_name + "_suv_cropped.nii.gz"
