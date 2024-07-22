@@ -1,6 +1,7 @@
 import numpy as np
 import nibabel as nib
 import matplotlib.pyplot as plt
+import pandas as pd
 from skimage import morphology, measure
 from scipy import ndimage as ndi
 
@@ -12,7 +13,7 @@ def extend(label):
                 label_squeezed, morphology.ball(radius=0))
     return dilated
 
-def plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save_file):
+def plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save_file, sent):
     # Get PET from ref_folder
     ref_img_PT = nib.load(PET_file).get_fdata().astype(np.float32)
     ref_label = nib.load(label_file).get_fdata().astype(np.int8)
@@ -71,7 +72,7 @@ def plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save
         if not np.any(np.logical_and(label_mask, ref_pred)):
             plot_contours(label_mask, 'blue')  # False negative
 
-    plt.title('PET Image with Contours')
+    plt.title(f'{sent}')
     plt.axis('off')
     plt.savefig(save_file)
     #plt.show()
@@ -88,7 +89,15 @@ def plot_all_images():
 
     save_location = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions/"
 
+    df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx")
+
     for pred in all_predictions:
+
+        label_name = pred.strip(".nii")
+
+        row = df[df['Label_Name'] == label_name]
+
+        sentence = row["sentence"]
 
         image_name = pred[:15]
         PET_file = pet_images + image_name + "_suv_cropped.nii.gz"
@@ -100,6 +109,6 @@ def plot_all_images():
         print(f"label_file: {label_file}")
         print(f"fpred file: {prediction_file}")
         print(f"save location: {save_file}")
-        plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save_file)
+        plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save_file, sentence)
 
 
