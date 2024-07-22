@@ -228,13 +228,13 @@ def plot_final_testset_for_josh_v3(df):
         ax1.imshow(mip_coronal, cmap='gray_r', vmax=10, aspect=voxel_dims[2] / voxel_dims[1])
         ax1.set_title('MIP')
 
-        ax2 = plt.subplot(1, 7, 2)
+        ax2 = plt.subplot(2, 4, 2)
         ax2.imshow(mip_coronal, cmap='gray_r', vmax=10, aspect=voxel_dims[2] / voxel_dims[1])
         ax2.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=voxel_dims[2] / voxel_dims[1])
         ax2.set_title('Coronal')
 
-        ax3 = plt.subplot(1, 7, 3)
+        ax3 = plt.subplot(2, 4, 3)
         ax3.imshow(mip_sagittal, cmap='gray_r', vmax=10, aspect=voxel_dims[2] / voxel_dims[1])
         ax3.imshow(np.where(label_sagittal == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=voxel_dims[2] / voxel_dims[1])
@@ -252,11 +252,11 @@ def plot_final_testset_for_josh_v3(df):
         #print(mip_axial.shape, label_axial.shape)
         #print(mip_axial.dtype, label_axial.dtype)
 
-        ax4 = plt.subplot(1, 7, 4)
+        ax4 = plt.subplot(2, 4, 5)
         ax4.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
         ax4.set_title(f'Axial Slice: {slice_num}')
 
-        ax5 = plt.subplot(1, 7, 5)
+        ax5 = plt.subplot(2, 4, 6)
         ax5.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
         ax5.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9, aspect=ct_dims[0] / ct_dims[1])
         # plt.imshow(np.where(outline == 1, 250, np.nan) , cmap='spring', alpha=0.9) # Overlay the outline in 'spring' colormap
@@ -271,13 +271,13 @@ def plot_final_testset_for_josh_v3(df):
         label_coronal_rescaled = zoom(label_coronal, rescale_factor_coronal, order=1)
         label_sagittal_rescaled = zoom(label_sagittal, rescale_factor_sagittal, order=1)
 
-        ax6 = plt.subplot(1, 7, 6)
+        ax6 = plt.subplot(2, 4, 7)
         ax6.imshow(ct_mip_coronal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
         ax6.imshow(np.where(label_coronal_rescaled == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=ct_dims[2] / ct_dims[1])
         ax6.set_title(f'Axial Slice: {slice_num} With Label')
 
-        ax7 = plt.subplot(1, 7, 7)
+        ax7 = plt.subplot(2, 4, 8)
         ax7.imshow(ct_mip_sagittal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
         ax7.imshow(np.where(label_sagittal_rescaled == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=ct_dims[2] / ct_dims[1])
