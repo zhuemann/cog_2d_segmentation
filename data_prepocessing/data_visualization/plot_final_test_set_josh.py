@@ -96,6 +96,13 @@ def plot_final_testset_for_josh_v3(df):
         ct_image = nib.load(ct_image_path)
         ct_volume = ct_image.get_fdata()
         print(f"ct dimensions: {ct_volume.shape}")
+
+        rotated_volume = np.transpose(ct_volume, (1, 0, 2))
+
+        # Flip the volume along the new depth axis to ensure slice 0 is at the top
+        rotated_volume = np.flip(rotated_volume, axis=1)
+        ct_volume = rotated_volume
+
         slice_num = row["slice_num"]
         # k_num = row["k"]
         original_row = original_df.loc[original_df['Label_Name'] == label_name]
