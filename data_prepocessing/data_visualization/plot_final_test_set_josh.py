@@ -232,7 +232,7 @@ def plot_final_testset_for_josh_v3(df):
         ax1.imshow(mip_coronal, cmap='gray_r', vmax=10, aspect=voxel_dims[2] / voxel_dims[1])
         ax1.set_title('Original Image')
 
-        ax2 = plt.subplot(2, 4, 4)
+        ax2 = plt.subplot(2, 4, 2)
         ax2.imshow(mip_coronal, cmap='gray_r', vmax=10, aspect=voxel_dims[2] / voxel_dims[1])
         ax2.imshow(np.where(label_coronal == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=voxel_dims[2] / voxel_dims[1])
@@ -244,11 +244,11 @@ def plot_final_testset_for_josh_v3(df):
                    aspect=voxel_dims[2] / voxel_dims[1])
         ax3.set_title('MIP Sagittal')
 
-        ax8 = plt.subplot(2, 4, 2)
+        ax8 = plt.subplot(2, 4, 4)
         ax8.imshow(pet_transaxial_slice, cmap='gray_r', vmax=10, aspect=voxel_dims[0] / voxel_dims[1])
         ax8.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=voxel_dims[0] / voxel_dims[1])
-        ax8.set_title('MIP Axial')
+        ax8.set_title(f'PET Axial slice: {k_num}')
 
         # Flip the image data horizontally
         #mip_axial = np.fliplr(mip_axial)
@@ -285,13 +285,13 @@ def plot_final_testset_for_josh_v3(df):
         ax6.imshow(ct_mip_coronal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
         ax6.imshow(np.where(label_coronal_rescaled == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=ct_dims[2] / ct_dims[1])
-        ax6.set_title(f'Axial Slice: {slice_num} With Label')
+        ax6.set_title(f'MIP CT Coronal: {slice_num} With Label')
 
         ax7 = plt.subplot(2, 4, 8)
         ax7.imshow(ct_mip_sagittal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
         ax7.imshow(np.where(label_sagittal_rescaled == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=ct_dims[2] / ct_dims[1])
-        ax7.set_title(f'Axial Slice: {slice_num} With Label')
+        ax7.set_title(f'MIP Sagittal Slice: {slice_num} With Label')
         """
         ax6 = plt.subplot(1, 7, 6)
         ax6.imshow(ct_mip_coronal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
