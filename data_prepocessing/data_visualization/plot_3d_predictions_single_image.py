@@ -77,6 +77,22 @@ def plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save
     plt.savefig(save_file)
     #plt.show()
 
+def insert_newlines(text, word_limit=15):
+    words = text.split()
+    lines = []
+    current_line = []
+
+    for word in words:
+        current_line.append(word)
+        if len(current_line) == word_limit:
+            lines.append(' '.join(current_line))
+            current_line = []
+
+    # Add the last line if there are any remaining words
+    if current_line:
+        lines.append(' '.join(current_line))
+
+    return '\n'.join(lines)
 import os
 def plot_all_images():
 
@@ -99,6 +115,7 @@ def plot_all_images():
 
         sentence = row["sentence"].iloc[0]
         print(sentence)
+        sentence = insert_newlines(sentence, word_limit=10)
 
         image_name = pred[:15]
         PET_file = pet_images + image_name + "_suv_cropped.nii.gz"
