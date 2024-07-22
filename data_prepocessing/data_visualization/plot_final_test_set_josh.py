@@ -161,14 +161,14 @@ def plot_final_testset_for_josh_v3(df):
         # Find the index of the slice with the maximum sum
         k_num = np.argmax(sums_axial)
 
-        sums_other1 = np.sum(label, axis=(0, 2))
+        sum_coronal = np.sum(label, axis=(0, 2))
         # Find the index of the slice with the maximum sum
-        other1 = int(np.argmax(sums_other1)*512/200)
-        print(f"other1 index: {other1}")
-        sums_other2 = np.sum(label, axis=(1, 2))
+        coronal_slice = int(np.argmax(sum_coronal)*512/200)
+        print(f"other1 index: {coronal_slice}")
+        sums_sagital = np.sum(label, axis=(1, 2))
         # Find the index of the slice with the maximum sum
-        other2 = int(np.argmax(sums_other2)*512/200)
-        print(f"other2 index: {other2}")
+        sagital_slice = int(np.argmax(sums_sagital)*512/200)
+        print(f"other2 index: {sagital_slice}")
 
         ct_label = label
         # ct_label = ct_label.get_fdata()
@@ -181,8 +181,10 @@ def plot_final_testset_for_josh_v3(df):
         # mip_axial = np.max(img, axis=2) # I think this axis is right
         mip_axial = transaxial_slice
         # mip_coronal = normalize_mip(mip_coronal)
-        ct_mip_coronal = np.max(ct_volume, axis = 1)
-        ct_mip_sagittal = np.max(ct_volume, axis = 0)
+        #ct_mip_coronal = np.max(ct_volume, axis = 1)
+        ct_mip_coronal = ct_volume[:, coronal_slice, :]
+        #ct_mip_sagittal = np.max(ct_volume, axis = 0)
+        ct_mip_sagittal = ct_volume[sagital_slice, :, :]
 
         label_coronal = np.max(label, axis=1)
         label_sagittal = np.max(label, axis=0)
