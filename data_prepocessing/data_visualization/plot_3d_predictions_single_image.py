@@ -38,6 +38,11 @@ def plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save
     ref_pred = np.max(ref_pred, axis=1)
     ref_pred = np.rot90(ref_pred)
 
+    #flip the right and left side of all datasources
+    PET_mip = np.fliplr(PET_mip)
+    ref_label = np.fliplr(ref_label)
+    ref_pred = np.fliplr(ref_pred)
+
     # Label connected components in the prediction and label images
     labeled_pred, num_pred = ndi.label(ref_pred)
     labeled_label, num_label = ndi.label(ref_label)
