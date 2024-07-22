@@ -264,7 +264,7 @@ def plot_final_testset_for_josh_v3(df):
 
         ax4 = plt.subplot(2, 4, 5)
         ax4.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
-        ax4.set_title(f'Axial Slice: {slice_num}')
+        ax4.set_title(f'Original Axial Slice: {slice_num}')
 
         ax5 = plt.subplot(2, 4, 8)
         ax5.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
