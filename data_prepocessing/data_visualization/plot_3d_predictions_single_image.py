@@ -120,8 +120,8 @@ def plot_all_images():
         row = df[df['Label_Name'] == label_name]
 
         sentence = row["sentence"].iloc[0]
-        sentence = re.sub(str(row["SUV"].iloc[0]), "",sentence)
-        sentence = re.sub(str(row["Slice"].iloc[0]), "",sentence)
+        sentence = re.sub(str(row["SUV"].iloc[0]), "", sentence)
+        sentence = re.sub(str(row["Slice"].iloc[0]), "", sentence)
         print(f"index: {index} sentence: {sentence}")
         sentence = insert_newlines(sentence, word_limit=10)
 
