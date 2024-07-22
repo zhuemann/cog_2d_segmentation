@@ -121,6 +121,8 @@ def plot_all_images():
         sentence = row["sentence"].iloc[0]
         sentence = insert_newlines(sentence, word_limit=10)
         print(sentence)
+        print(row["SUV"].iloc[0])
+        print(row["Slice"].iloc[0])
         sentence = sentence.strip(row["SUV"].iloc[0])
         sentence = sentence.strip(row["Slice"].iloc[0])
 
