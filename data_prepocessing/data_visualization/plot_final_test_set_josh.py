@@ -99,12 +99,6 @@ def plot_final_testset_for_josh_v3(df):
 
         rotated_volume = np.transpose(ct_volume, (1, 0, 2))
 
-        # Extract voxel dimensions (in mm)
-        voxel_dims = nii_image.header.get_zooms()
-        print(f'pet voxel dims: {voxel_dims}')
-        ct_dims = ct_image.header.get_zooms()
-        print(f"ct voxel dims: {ct_dims}")
-
         # Flip the volume along the new depth axis to ensure slice 0 is at the top
         rotated_volume = np.flip(rotated_volume, axis=1)
         rotated_volume = np.rot90(rotated_volume, axes=(0, 1))
@@ -130,7 +124,11 @@ def plot_final_testset_for_josh_v3(df):
         nii_image = nib.load(image_path)
         img = nii_image.get_fdata()
         # print(f"pet image dimensions: {img.shape}")
-
+        # Extract voxel dimensions (in mm)
+        voxel_dims = nii_image.header.get_zooms()
+        print(f'pet voxel dims: {voxel_dims}')
+        ct_dims = ct_image.header.get_zooms()
+        print(f"ct voxel dims: {ct_dims}")
         """
         # loads in the label as a numpy array
         nii_label = nib.load(label_path)
