@@ -181,7 +181,7 @@ def plot_final_testset_for_josh_v3(df):
         print(f"other1 index: {coronal_slice}")
         sums_sagital = np.sum(label, axis=(1, 2))
         # Find the index of the slice with the maximum sum
-        sagital_slice = int(np.argmax(sums_sagital)*voxel_dims[0]/ct_dims[0])
+        sagital_slice = 512 - int(np.argmax(sums_sagital)*voxel_dims[0]/ct_dims[0])
         print(f"other2 index: {sagital_slice}")
 
         ct_label = label
