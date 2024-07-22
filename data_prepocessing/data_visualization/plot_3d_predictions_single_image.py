@@ -97,7 +97,8 @@ def plot_all_images():
 
         row = df[df['Label_Name'] == label_name]
 
-        sentence = row["sentence"]
+        sentence = row["sentence"].iloc[0]
+        print(sentence)
 
         image_name = pred[:15]
         PET_file = pet_images + image_name + "_suv_cropped.nii.gz"
@@ -105,10 +106,10 @@ def plot_all_images():
         prediction_file = prediction_folder + pred
         save_file = save_location + pred[:-4] + ".png"
 
-        print(f"pet file: {PET_file}")
-        print(f"label_file: {label_file}")
-        print(f"fpred file: {prediction_file}")
-        print(f"save location: {save_file}")
+        #print(f"pet file: {PET_file}")
+        #print(f"label_file: {label_file}")
+        #print(f"fpred file: {prediction_file}")
+        #print(f"save location: {save_file}")
         plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save_file, sentence)
 
 
