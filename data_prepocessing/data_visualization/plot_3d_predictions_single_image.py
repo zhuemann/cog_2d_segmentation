@@ -99,6 +99,7 @@ def insert_newlines(text, word_limit=15):
 
     return '\n'.join(lines)
 import os
+import regex as re
 def plot_all_images():
 
     prediction_folder = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/predictions_v5_f1_.65_v2/"
@@ -119,8 +120,8 @@ def plot_all_images():
         row = df[df['Label_Name'] == label_name]
 
         sentence = row["sentence"].iloc[0]
-        sentence = sentence.strip(str(row["SUV"].iloc[0]))
-        sentence = sentence.strip(str(row["Slice"].iloc[0]))
+        sentence = re.sub(str(row["SUV"].iloc[0]), "",sentence)
+        sentence = re.sub(str(row["Slice"].iloc[0]), "",sentence)
         print(f"index: {index} sentence: {sentence}")
         sentence = insert_newlines(sentence, word_limit=10)
 
