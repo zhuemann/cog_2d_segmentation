@@ -72,7 +72,7 @@ def plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save
         if not np.any(np.logical_and(label_mask, ref_pred)):
             plot_contours(label_mask, 'blue')  # False negative
 
-    plt.title(f'{sent}')
+    plt.title(f'{sent}', fontsize=14)
     plt.axis('off')
     plt.savefig(save_file)
     #plt.show()
