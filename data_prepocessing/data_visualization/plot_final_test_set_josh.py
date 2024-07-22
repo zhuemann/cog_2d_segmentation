@@ -296,13 +296,13 @@ def plot_final_testset_for_josh_v3(df):
         ax6.imshow(ct_mip_coronal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
         ax6.imshow(np.where(label_coronal_rescaled == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=ct_dims[2] / ct_dims[1])
-        ax6.set_title(f'MIP CT Coronal: {slice_num} With Label')
+        ax6.set_title(f'CT Coronal: {coronal_slice} With Label')
 
         ax7 = plt.subplot(2, 4, 7)
         ax7.imshow(ct_mip_sagittal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
         ax7.imshow(np.where(label_sagittal_rescaled == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=ct_dims[2] / ct_dims[1])
-        ax7.set_title(f'MIP Sagittal Slice: {slice_num} With Label')
+        ax7.set_title(f'Sagittal Slice: {sagital_slice} With Label')
         """
         ax6 = plt.subplot(1, 7, 6)
         ax6.imshow(ct_mip_coronal, cmap='gray', vmax=600, vmin=-300, aspect=ct_dims[2] / ct_dims[1])
