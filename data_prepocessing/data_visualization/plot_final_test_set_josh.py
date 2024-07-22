@@ -246,7 +246,7 @@ def plot_final_testset_for_josh_v3(df):
 
         ax8 = plt.subplot(2, 4, 4)
         ax8.imshow(pet_transaxial_slice, cmap='gray_r', vmax=10, aspect=voxel_dims[0] / voxel_dims[1])
-        ax8.imshow(np.where(pet_transaxial_slice == 1, 250, np.nan), cmap='spring', alpha=0.9,
+        ax8.imshow(np.where(label_axial == 1, 250, np.nan), cmap='spring', alpha=0.9,
                    aspect=voxel_dims[0] / voxel_dims[1])
         ax8.set_title('MIP Axial')
 
