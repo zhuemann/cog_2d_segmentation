@@ -201,7 +201,7 @@ def plot_final_testset_for_josh_v3(df):
         mip_coronal = np.fliplr(mip_coronal)
         label_coronal = np.fliplr(label_coronal)
 
-        ct_mip_coronal = np.flipfr(ct_mip_coronal)
+        ct_mip_coronal = np.fliplr(ct_mip_coronal)
 
         plt.figure(figsize=(24, 24))
         plt.subplot(2, 4, 1)  # 1 row, 2 columns, first subplot
