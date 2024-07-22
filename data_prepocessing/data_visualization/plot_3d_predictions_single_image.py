@@ -111,20 +111,18 @@ def plot_all_images():
     save_location = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions_v2/"
 
     df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx")
-
+    index = -1
     for pred in all_predictions:
-
+        index += 1
         label_name = pred.strip(".nii")
 
         row = df[df['Label_Name'] == label_name]
 
         sentence = row["sentence"].iloc[0]
         sentence = insert_newlines(sentence, word_limit=10)
-        print(sentence)
-        print(row["SUV"].iloc[0])
-        print(row["Slice"].iloc[0])
-        sentence = sentence.strip(row["SUV"].iloc[0])
-        sentence = sentence.strip(row["Slice"].iloc[0])
+        print(f"index: {sentence}")
+        sentence = sentence.strip(str(row["SUV"].iloc[0]))
+        sentence = sentence.strip(str(row["Slice"].iloc[0]))
 
         image_name = pred[:15]
         PET_file = pet_images + image_name + "_suv_cropped.nii.gz"
