@@ -219,6 +219,8 @@ def files_transfer_analysis():
 
 def file_exploration_analysis_pet():
     dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/2024-07/"
+
 
     files_in_directory = os.listdir(dir_path)
     print(f"files in folder: {len(files_in_directory)}")
@@ -231,7 +233,7 @@ def file_exploration_analysis_pet():
     num_dates = {} # key is number of dates in folder value is how many folders have that value
     num_dates[1] = 0
     num_modality = {"PT": 0, "CT": 0, "extra": 0}
-    num_study_names = {1:0 , "extra": 0, 0:0}
+    num_study_names = {1:0 , "extra": 0, 0: 0}
     types_of_scans_ct = {}
     types_of_scans_pt = {}
     types_of_scans_pt["12__WB_MAC"] = 0
