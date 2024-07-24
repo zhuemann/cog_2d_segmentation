@@ -272,9 +272,9 @@ def file_exploration_analysis_pet():
             num_modality["extra"] += 1
         if "CT" in modality:
             num_modality["CT"] += 1
-        else:
+        #else:
             #print(f"file: {file} does not have ct scan modality: {modality}")
-            continue
+        #    continue
 
         if "PT" in modality:
             # directory = os.path.join(dir_path, file, "PT")
