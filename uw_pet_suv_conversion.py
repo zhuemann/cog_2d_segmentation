@@ -1226,7 +1226,9 @@ def uw_ct_check():
 
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb3/"
-    path_list = ["/mnt/Bradshaw/UW_PET_Data/dsb2b/", "/mnt/Bradshaw/UW_PET_Data/dsb2c/" ,"/mnt/Bradshaw/UW_PET_Data/dsb3/"]
+    #path_list = ["/mnt/Bradshaw/UW_PET_Data/dsb2b/", "/mnt/Bradshaw/UW_PET_Data/dsb2c/" ,"/mnt/Bradshaw/UW_PET_Data/dsb3/"]
+    path_list = ["/mnt/Bradshaw/UW_PET_Data/2024-07/"]
+
     master_dic = {}
     for dir_path in path_list:
         files_in_directory = os.listdir(dir_path)
@@ -1321,4 +1323,4 @@ def uw_ct_check():
     df.columns = columns
 
     # Save DataFrame to Excel file
-    df.to_excel('/UserData/Zach_Analysis/all_pets.xlsx', index=False)
+    df.to_excel('/UserData/Zach_Analysis/external_testset.xlsx', index=False)

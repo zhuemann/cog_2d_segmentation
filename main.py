@@ -31,8 +31,11 @@ from uw_pet_suv_conversion import uw_ct_suv_conversion_v2
 from data_prepocessing.data_pipeline import run_data_pipeline_final
 from data_prepocessing.utility.utility import count_files_in_suv_folder
 from data_prepocessing.data_visualization.plot_training_and_inference_images import plot_training_and_inference_images
+from uw_pet_suv_conversion import uw_ct_check
 if __name__ == '__main__':
 
+    uw_ct_check()
+    print(fail)
     #count_files_in_suv_folder()
     #print(fail)
     #generate_data_sheet_on_uw_pet_dataset()
