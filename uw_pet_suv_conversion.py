@@ -1439,7 +1439,7 @@ def uw_ct_conversion_external_dataset_v2():
 
         directory = os.path.join(directory, study_name[0])
         recon_types = os.listdir(directory)
-
+        print(f"recon types: {recon_types}")
         substrings_to_check = ["CTAC"]
         # Iterate over each substring and check if it's present in any element of recon_types
         for substring in substrings_to_check:
