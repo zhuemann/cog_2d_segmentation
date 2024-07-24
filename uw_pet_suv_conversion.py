@@ -1035,6 +1035,8 @@ def uw_pet_suv_conversion_v2():
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
     dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
 
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/2024-07/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset/"
 
     files_in_directory = os.listdir(dir_path)
 
