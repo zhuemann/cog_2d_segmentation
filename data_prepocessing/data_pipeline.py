@@ -240,7 +240,7 @@ def run_data_pipeline_final():
 
     df.to_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx", index=False)
     """
-    #plot_all_images()
+    plot_all_images()
     #plot_3d_predictions_single_image()
     #ct_analysis()
     #scanner_types()
@@ -253,13 +253,13 @@ def run_data_pipeline_final():
     #sampled_df, orig_df = select_250_images_from_json()
     #sampled_df.to_excel(save_base + "/final_250_testset/for_daniel_250_round_3_final_testset_json.xlsx", index=False)
     #orig_df.to_excel(save_base + "/final_250_testset/for_daniel_250_round_3_final_testset_standard.xlsx", index=False)
-    sampled_df = pd.read_excel(save_base + "/final_250_testset/for_daniel_250_round_3_final_testset_json.xlsx")
+    #sampled_df = pd.read_excel(save_base + "/final_250_testset/for_daniel_250_round_3_final_testset_json.xlsx")
 
     #sampled_df = sampled_df[sampled_df["patient_id"] == '017530']
-    print(sampled_df)
+    #print(sampled_df)
     #plot_final_testset_v2(sampled_df)
     #plot_final_testset_for_josh_v3(sampled_df)
-    plot_final_testset(sampled_df)
+    #plot_final_testset(sampled_df)
 
     #df = df.drop_duplicates(subset="Petlymph", keep="first")
     #print(f"unique images: {len(df)}")

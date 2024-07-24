@@ -69,13 +69,13 @@ def plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save
         if overlap:
             plot_contours(pred_mask, '#00FF00')  # Overlap # 'green'
         else:
-            plot_contours(pred_mask, 'red')  # False positive
+            plot_contours(pred_mask, '#FF0000')  # False positive
 
     # Loop over each label contour to find false negatives
     for label_id in range(1, num_label + 1):
         label_mask = labeled_label == label_id
         if not np.any(np.logical_and(label_mask, ref_pred)):
-            plot_contours(label_mask, 'blue')  # False negative
+            plot_contours(label_mask, '#0000FF')  # False negative
 
     plt.title(f'{sent}', fontsize=14)
     plt.axis('off')
@@ -109,7 +109,7 @@ def plot_all_images():
 
     pet_images = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
 
-    save_location = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions_v3/"
+    save_location = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions_v4/"
 
     df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx")
     index = -1
