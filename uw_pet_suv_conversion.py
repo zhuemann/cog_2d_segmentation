@@ -254,6 +254,7 @@ def file_exploration_analysis_pet():
         #    break
 
         directory = os.path.join(dir_path, file)
+        print(directory)
         date = os.listdir(directory)
         if len(date) == 1:
             directory = os.path.join(directory, date[0])
@@ -266,7 +267,7 @@ def file_exploration_analysis_pet():
                 num_dates[len(date)] += 1
 
         modality = os.listdir(directory)
-
+        print(f"modality: {modality}")
         if len(modality) > 2:
             num_modality["extra"] += 1
         if "CT" in modality:
