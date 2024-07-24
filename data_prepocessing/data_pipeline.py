@@ -255,7 +255,7 @@ def run_data_pipeline_final():
     #orig_df.to_excel(save_base + "/final_250_testset/for_daniel_250_round_3_final_testset_standard.xlsx", index=False)
     sampled_df = pd.read_excel(save_base + "/final_250_testset/for_daniel_250_round_3_final_testset_json.xlsx")
 
-    sampled_df = sampled_df[str(sampled_df["patient_id"]) == '017530']
+    #sampled_df = sampled_df[sampled_df["patient_id"] == '017530']
     print(sampled_df)
     #plot_final_testset_v2(sampled_df)
     #plot_final_testset_for_josh_v3(sampled_df)
