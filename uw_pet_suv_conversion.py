@@ -310,7 +310,7 @@ def file_exploration_analysis_pet():
 
         directory = os.path.join(directory, study_name[0])
         recon_types = os.listdir(directory)
-
+        print(f"recon types: {recon_types")
         if any("12__wb_3d_mac" in element.lower() for element in recon_types):
             types_of_scans_pt["12__WB_3d_MAC"] += 1
         elif any("wb_ac_3d" in element.lower() for element in recon_types):
