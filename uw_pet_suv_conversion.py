@@ -1422,7 +1422,7 @@ def uw_ct_conversion_external_dataset_v2():
         else:
             continue
         if "PT" in modality:
-            directory = os.path.join(directory, "CT")
+            directory = os.path.join(directory, "PT")
         else:
             print(f"file: {file} does not have Pet scan")
             continue
@@ -1440,7 +1440,7 @@ def uw_ct_conversion_external_dataset_v2():
         directory = os.path.join(directory, study_name[0])
         recon_types = os.listdir(directory)
 
-        substrings_to_check = ["WB_CTAC"]
+        substrings_to_check = ["CTAC"]
         # Iterate over each substring and check if it's present in any element of recon_types
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
@@ -1450,7 +1450,8 @@ def uw_ct_conversion_external_dataset_v2():
                 top_dicom_folder = os.path.join(directory, matched_recon)
                 z = len(os.listdir(top_dicom_folder))
                 # checks if slices line up other wise don't convert and keep searching
-                if z == suv_dims[2]:
+                #if z == suv_dims[2]:
+                if True:
                     # Perform your additional logic or function calls here
                     try:
                         found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts)
