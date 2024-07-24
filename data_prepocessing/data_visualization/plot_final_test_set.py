@@ -109,6 +109,8 @@ def plot_final_testset(df):
 
         petlymph = extract_image_id(row["image"])
 
+        if "017530" not in petlymph:
+            continue
         dims = get_slice_thickness(petlymph)
         print(f"dims: {dims}")
         image_path = os.path.join(image_path_base, petlymph + "_suv_cropped.nii.gz")
