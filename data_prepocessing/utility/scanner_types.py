@@ -203,7 +203,7 @@ def scanner_types_external_test_set():
             if matched_recon in study_names:
                 study_names[matched_recon] += 1
             else:
-                study_names[study_names] = 1
+                study_names[matched_recon] = 1
             try:
                 scanner_type = get_scanner_type(top_dicom_folder)
                 if scanner_type in all_scans:
