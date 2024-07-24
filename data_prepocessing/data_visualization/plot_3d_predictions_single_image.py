@@ -67,7 +67,7 @@ def plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save
                 overlap = True
                 break
         if overlap:
-            plot_contours(pred_mask, 'green')  # Overlap
+            plot_contours(pred_mask, '#00FF00')  # Overlap # 'green'
         else:
             plot_contours(pred_mask, 'red')  # False positive
 
@@ -109,7 +109,7 @@ def plot_all_images():
 
     pet_images = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
 
-    save_location = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions_v2/"
+    save_location = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions_v3/"
 
     df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx")
     index = -1
