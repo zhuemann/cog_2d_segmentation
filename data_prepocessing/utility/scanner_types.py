@@ -106,3 +106,108 @@ def scanner_types():
 
     print(all_scans)
     print(f"files skipped because not in dsb2b: {skipped_files}")
+
+
+def scanner_types_external_test_set():
+
+    all_scans = {}
+
+    #top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+
+    #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/2024-07/"
+    files_in_directory = os.listdir(dir_path)
+
+
+    files_used = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/id_pet_used_ct_used.xlsx")
+    files_in_dataset = []
+
+
+    no_pt_files_list = []
+    index = 0
+    found_pet_images = 0
+    already_converted = 0
+    dicom_error = set([])
+    skipped_files = 0
+
+    num_dates = {} # key is number of dates in folder value is how many folders have that value
+    num_dates[1] = 0
+    num_modality = {"PT": 0, "CT": 0, "extra": 0}
+    num_study_names = {1:0 , "extra": 0, 0: 0}
+    types_of_scans_ct = {}
+    types_of_scans_pt = {}
+
+    #for file in files_in_directory:
+    for file in files_in_directory:
+
+        directory = os.path.join(dir_path, file)
+        print(directory)
+        date = os.listdir(directory)
+        if len(date) == 1:
+            directory = os.path.join(directory, date[0])
+            num_dates[1] += 1
+        else:
+            print(f"multiple date files in this folder: {directory}")
+            if len(date) not in num_dates:
+                num_dates[len(date)] = 1
+            else:
+                num_dates[len(date)] += 1
+
+        modality = os.listdir(directory)
+        # print(f"modality: {modality}")
+        if len(modality) > 2:
+            num_modality["extra"] += 1
+        if "CT" in modality:
+            num_modality["CT"] += 1
+        # else:
+        # print(f"file: {file} does not have ct scan modality: {modality}")
+        #    continue
+
+        if "PT" in modality:
+            # directory = os.path.join(dir_path, file, "PT")
+            directory = os.path.join(directory, "PT")
+            num_modality["PT"] += 1
+        else:
+            # print(f"file: {file} does not have Pet scan modality: {modality}")
+            continue
+
+        """
+        if "CT" in modality:
+            # directory = os.path.join(dir_path, file, "PT")
+            directory = os.path.join(directory, "CT")
+            num_modality["CT"] += 1
+        else:
+            #print(f"file: {file} does not have Pet scan modality: {modality}")
+            continue
+        """
+
+        # print(directory)
+        study_name = os.listdir(directory)
+        # print(study_name)
+        if len(study_name) == 0:
+            print(f"something funny: {file}")
+            no_pt_files_list.append(file)
+            num_study_names[0] += 1
+            # continue
+        elif study_name == 1:
+            num_study_names[1] += 1
+        else:
+            num_study_names["extra"] += 1
+
+        directory = os.path.join(directory, study_name[0])
+        recon_types = os.listdir(directory)
+
+        for matched_recon in recon_types:
+            top_dicom_folder = os.path.join(directory, matched_recon)
+            try:
+                scanner_type = get_scanner_type(top_dicom_folder)
+                if scanner_type in all_scans:
+                    all_scans[scanner_type] += 1
+                else:
+                    all_scans[scanner_type] = 1
+            except:
+                print("contining")
+                continue
+
+    print(all_scans)
+    print(f"files skipped because not in dsb2b: {skipped_files}")
