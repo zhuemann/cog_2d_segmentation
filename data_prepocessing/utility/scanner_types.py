@@ -215,4 +215,5 @@ def scanner_types_external_test_set():
                 continue
 
     print(all_scans)
+    print(study_names)
     print(f"files skipped because not in dsb2b: {skipped_files}")
