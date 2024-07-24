@@ -254,8 +254,8 @@ def plot_final_testset(df):
         ax3.set_title('Sagittal')
 
         # Flip the image data horizontally
-        mip_axial = np.fliplr(mip_axial)
-        label_axial = np.fliplr(label_axial)
+        mip_axial = np.flipud(mip_axial)
+        label_axial = np.flipud(label_axial)
 
         ax4 = plt.subplot(1, 5, 4)
         ax4.imshow(mip_axial, cmap='gray', vmax=600, vmin=-300)
