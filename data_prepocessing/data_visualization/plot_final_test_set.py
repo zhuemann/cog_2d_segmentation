@@ -96,8 +96,8 @@ def plot_final_testset(df):
 
     #image_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4_v2/"
     #label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4_v2/"
-    image_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
-    label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels5/"
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
+    label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
 
     original_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx")
     crop_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/crop_offset_lookup.xlsx")
@@ -290,7 +290,7 @@ def plot_final_testset(df):
             original_row["SUV"].iloc[0]), fontsize=12, color='black')
 
         plt.savefig(
-            "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mips_final_test_set_3_testing_cropped/" + label_name,
+            "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/mips_final_test_set_3_testing_cropped_check_registration/" + label_name,
             dpi=300)
 
         plt.close()
