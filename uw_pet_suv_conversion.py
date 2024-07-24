@@ -1106,6 +1106,9 @@ def uw_ct_suv_conversion_v2():
     dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb3/"
     dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/2024-07/"
+    dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/external_testset/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset/"
 
     #files_in_directory = os.listdir(dir_path_suv)
     files_in_directory = os.listdir(dir_path)
