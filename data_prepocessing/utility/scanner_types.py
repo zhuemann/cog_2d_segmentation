@@ -136,10 +136,11 @@ def scanner_types_external_test_set():
     num_study_names = {1:0 , "extra": 0, 0: 0}
     types_of_scans_ct = {}
     types_of_scans_pt = {}
-
+    study_names = {}
     #for file in files_in_directory:
     for file in files_in_directory:
-
+        print(f"index: {index}")
+        index += 1
         directory = os.path.join(dir_path, file)
         print(directory)
         date = os.listdir(directory)
@@ -196,9 +197,13 @@ def scanner_types_external_test_set():
 
         directory = os.path.join(directory, study_name[0])
         recon_types = os.listdir(directory)
-
+        print(recon_types)
         for matched_recon in recon_types:
             top_dicom_folder = os.path.join(directory, matched_recon)
+            if matched_recon in study_names:
+                study_names[matched_recon] += 1
+            else:
+                study_names[study_names] = 1
             try:
                 scanner_type = get_scanner_type(top_dicom_folder)
                 if scanner_type in all_scans:
