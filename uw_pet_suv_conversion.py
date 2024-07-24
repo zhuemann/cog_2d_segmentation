@@ -296,6 +296,7 @@ def file_exploration_analysis_pet():
 
         # print(directory)
         study_name = os.listdir(directory)
+        print(study_name)
         if len(study_name) == 0:
             print(f"something funny: {file}")
             no_pt_files_list.append(file)
