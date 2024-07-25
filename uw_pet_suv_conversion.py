@@ -148,7 +148,8 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # type ('PT, 'CT', 'MR')
     files = glob.glob(top_dicom_folder + "/*.dcm")
 
-    print("after files glob")
+
+    print(f"after files glob len: {len(files)}")
     if len(files) < 1:
         print('Empty folder: ' + files)
         raise Exception("Fail to find DICOM files")
