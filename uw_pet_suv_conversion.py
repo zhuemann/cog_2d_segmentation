@@ -1462,6 +1462,7 @@ def uw_ct_conversion_external_dataset_v2():
         # if index > 100:
         #    break
 
+        """
         folder_name_exists = os.path.join(top_nifti_folder, file)
         if os.path.exists(folder_name_exists):
             print(folder_name_exists)
@@ -1471,6 +1472,7 @@ def uw_ct_conversion_external_dataset_v2():
                 already_found += 1
                 print("already found this image with CT")
                 continue
+        """
 
         suv_dims = (0, 0, 0)
         suv_path = os.path.join(dir_path_suv, file)
