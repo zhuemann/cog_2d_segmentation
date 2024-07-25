@@ -1298,11 +1298,11 @@ def uw_ct_check():
                 num_modality["CT"] += 1
             else:
                 continue
-            if "PT" in modality:
-                directory = os.path.join(directory, "PT")
-            else:
-                print(f"file: {file} does not have Pet scan")
-                continue
+            if "CT" in modality:
+                directory = os.path.join(directory, "CT")
+            #else:
+                #print(f"file: {file} does not have Pet scan")
+                #continue
 
             study_name = os.listdir(directory)
             if len(study_name) == 0:
