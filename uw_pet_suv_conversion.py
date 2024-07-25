@@ -1471,7 +1471,7 @@ def uw_ct_conversion_external_dataset_v2():
                 already_found += 1
                 print("already found this image with CT")
                 continue
-        """
+
         suv_dims = (0, 0, 0)
         suv_path = os.path.join(dir_path_suv, file)
         if not os.path.exists(suv_path):
@@ -1486,7 +1486,7 @@ def uw_ct_conversion_external_dataset_v2():
                 except:
 
                     print("can't get dimensions from suv")
-        """
+
 
         # print(f"suv_dims: {suv_dims}")
         directory = os.path.join(dir_path, file)
@@ -1540,8 +1540,8 @@ def uw_ct_conversion_external_dataset_v2():
                 top_dicom_folder = os.path.join(directory, matched_recon)
                 z = len(os.listdir(top_dicom_folder))
                 # checks if slices line up other wise don't convert and keep searching
-                #if z == suv_dims[2]:
-                if True:
+                if z == suv_dims[2]:
+                #if True:
                     # Perform your additional logic or function calls here
                     try:
                         found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts)
