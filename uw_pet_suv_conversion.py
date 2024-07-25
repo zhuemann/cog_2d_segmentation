@@ -1345,7 +1345,7 @@ def uw_ct_check():
     df.columns = columns
     #print(df)
     # Save DataFrame to Excel file
-    df.to_excel('/UserData/Zach_Analysis/external_testset_ct_v2.xlsx', index=False)
+    df.to_excel('/UserData/Zach_Analysis/external_testset_ct_v3.xlsx', index=False)
 
 
 
