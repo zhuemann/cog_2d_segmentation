@@ -153,15 +153,15 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     top_dicom_folder = Path(top_dicom_folder)
 
     # Search for .dcm files using Pathlib
-    dcm_files = list(top_dicom_folder.glob("*.dcm"))
-    print(f"Files matching pattern '*.dcm': {dcm_files}")
-    print(f"Number of matching files: {len(dcm_files)}")
+    #dcm_files = list(top_dicom_folder.glob("*.dcm"))
+    #print(f"Files matching pattern '*.dcm': {dcm_files}")
+    #print(f"Number of matching files: {len(dcm_files)}")
 
-    test_num = len(os.listdir(top_dicom_folder))
-    print(f"number of files: {test_num}")
+    #test_num = len(os.listdir(top_dicom_folder))
+    #print(f"number of files: {test_num}")
 
     # Ensure top_dicom_folder is a string
-    top_dicom_folder = str(top_dicom_folder)
+    #top_dicom_folder = str(top_dicom_folder)
 
     # Print the exact path pattern
     search_pattern = os.path.join(top_dicom_folder, "*.dcm")
