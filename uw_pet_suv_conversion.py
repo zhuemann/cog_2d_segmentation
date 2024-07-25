@@ -450,8 +450,10 @@ def get_voxel_dimensions(root_directory):
 
 def call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts):
     try:
+        print("trying suv helper")
         convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
     except Exception:
+        print("call suv helper exception")
         found_cts -= 1
     found_cts += 1
     return found_cts
@@ -1392,17 +1394,17 @@ def uw_pet_suv_conversion_external_v3():
 
         recon_types = os.listdir(directory)
         substrings_to_check = ["CTAC"]
-        print(f"recon_types: {recon_types}")
+        #print(f"recon_types: {recon_types}")
         # Iterate over each substring and check if it's present in any element of recon_types
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
             matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
-            print(f"matched: {matched_recon}")
+            #print(f"matched: {matched_recon}")
             if matched_recon:
                 # If a match is found, build the path
                 top_dicom_folder = os.path.join(directory, matched_recon)
                 #top_dicom_folder = directory + "/" + str(matched_recon) + ""
-                print(f"top dicom folder: {top_dicom_folder}")
+                #print(f"top dicom folder: {top_dicom_folder}")
                 try:
                     found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
                 except Exception as e:
