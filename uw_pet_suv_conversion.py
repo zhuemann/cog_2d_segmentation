@@ -1404,7 +1404,8 @@ def uw_pet_suv_conversion_external_v3():
                 print(f"top dicom folder: {top_dicom_folder}")
                 try:
                     found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
-                except:
+                except Exception as e:
+                    print(f"error: {e}")
                     continue  # If an error occurs, continue with the next substring
 
 
