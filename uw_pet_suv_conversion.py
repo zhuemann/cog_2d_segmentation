@@ -9,7 +9,7 @@ import glob
 import pydicom
 
 from nilearn.image import resample_img
-
+from pathlib import Path
 class missing_injection_time(Exception):
     pass
 
@@ -147,32 +147,14 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # modality of interest is the modality that will be the reference size for the RTSTRUCT contours, defined by DICOM
     # type ('PT, 'CT', 'MR')
 
-    from pathlib import Path
-
     # Ensure the path is correct
     top_dicom_folder = Path(top_dicom_folder)
 
     # Search for .dcm files using Pathlib
-    #dcm_files = list(top_dicom_folder.glob("*.dcm"))
-    #print(f"Files matching pattern '*.dcm': {dcm_files}")
-    #print(f"Number of matching files: {len(dcm_files)}")
+    files = list(top_dicom_folder.glob("*.dcm"))
 
-    #test_num = len(os.listdir(top_dicom_folder))
-    #print(f"number of files: {test_num}")
 
-    # Ensure top_dicom_folder is a string
-    #top_dicom_folder = str(top_dicom_folder)
-
-    # Print the exact path pattern
-    search_pattern = os.path.join(top_dicom_folder, "*.dcm")
-    print(f"Search pattern: {search_pattern}")
-
-    # Use glob to find .dcm files
-    files = glob.glob(search_pattern)
-    print(f"Files matching pattern '*.dcm': {files}")
-    print(f"Number of matching files: {len(files)}")
-
-    files = glob.glob(top_dicom_folder + "/*.dcm")
+    #files = glob.glob(top_dicom_folder + "/*.dcm")
 
 
     print(f"after files glob len: {len(files)}")
