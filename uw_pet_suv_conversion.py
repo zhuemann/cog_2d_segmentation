@@ -1335,6 +1335,76 @@ def uw_ct_check():
     df.to_excel('/UserData/Zach_Analysis/external_testset.xlsx', index=False)
 
 
+
+def uw_pet_suv_conversion_external_v3():
+
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/2024-07/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset/"
+
+    files_in_directory = os.listdir(dir_path)
+
+    no_pt_files_list = []
+    index = 0
+    found_pet_images = 0
+    already_converted = 0
+    dicom_error = set([])
+
+    for file in files_in_directory:
+        print(f"index: {index} already_converted: {already_converted } found pet images: {found_pet_images} file: {file}")
+        index += 1
+        #if index < 24200:
+        #    continue
+        folder_name_exists = os.path.join(top_nifti_folder, file)
+        if os.path.exists(folder_name_exists):
+            if any('SUV' in filename for filename in os.listdir(folder_name_exists)):
+                found_pet_images += 1
+                already_converted += 1
+                print("already found this image with SUV")
+                continue
+
+        if file in dicom_error:
+            continue
+        directory = os.path.join(dir_path, file)
+        date = os.listdir(directory)
+        if len(date) == 1:
+            directory = os.path.join(directory, date[0])
+        else:
+            print(f"multiple date files in this folder: {directory}")
+        modality = os.listdir(directory)
+        if "PT" in modality:
+            #directory = os.path.join(dir_path, file, "PT")
+            directory = os.path.join(directory, "PT")
+        else:
+            print(f"file: {file} does not have Pet scan")
+            continue
+        #print(directory)
+        ref_num = os.listdir(directory)
+        if len(ref_num) == 0:
+            print(f"something funny: {file}")
+            no_pt_files_list.append(file)
+            continue
+        directory = os.path.join(directory, ref_num[0])
+        # print(test_directory)
+        type_exam = os.listdir(directory)
+        # print(modality)
+        # print(test)
+
+        recon_types = os.listdir(directory)
+        substrings_to_check = ["CTAC"]
+        # Iterate over each substring and check if it's present in any element of recon_types
+        for substring in substrings_to_check:
+            # Normalize to lower case for case-insensitive comparison
+            matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
+            if matched_recon:
+                # If a match is found, build the path
+                top_dicom_folder = os.path.join(directory, matched_recon)
+                try:
+                    found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
+                except:
+                    continue  # If an error occurs, continue with the next substring
+
+
+
 def uw_ct_conversion_external_dataset_v2():
 
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
