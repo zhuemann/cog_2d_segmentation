@@ -146,7 +146,15 @@ def convert_pet_nifti_to_suv_nifti(nifti_read_filename, test_dicom, nifti_save_f
 def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # modality of interest is the modality that will be the reference size for the RTSTRUCT contours, defined by DICOM
     # type ('PT, 'CT', 'MR')
-    files = glob.glob(str(top_dicom_folder) + "/*.dcm")
+    #files = glob.glob(str(top_dicom_folder) + "/*.dcm")
+
+    # Ensure top_dicom_folder is a string
+    top_dicom_folder = str(top_dicom_folder)
+
+    # Use os.path.join for proper path handling
+    search_pattern = os.path.join(top_dicom_folder, "*.dcm")
+    files = glob.glob(search_pattern)
+
     print("after files glob")
     if len(files) < 1:
         print('Empty folder: ' + files)
