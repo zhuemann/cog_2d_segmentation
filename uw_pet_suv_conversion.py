@@ -1400,6 +1400,7 @@ def uw_pet_suv_conversion_external_v3():
             if matched_recon:
                 # If a match is found, build the path
                 top_dicom_folder = os.path.join(directory, matched_recon)
+                print(f"top dicom folder: {top_dicom_folder}")
                 try:
                     found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
                 except:
