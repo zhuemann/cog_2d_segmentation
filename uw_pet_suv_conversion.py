@@ -156,16 +156,12 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # Convert PosixPath objects to strings
     files = [str(file) for file in dcm_files]
 
-
     #files = glob.glob(top_dicom_folder + "/*.dcm")
 
-
-    print(f"after files glob len: {len(files)}")
     if len(files) < 1:
         print('Empty folder: ' + files)
         raise Exception("Fail to find DICOM files")
 
-    print(f"inside conversion: {top_dicom_folder}")
     # get dicom info for saving
     test_dicom = pydicom.dcmread(files[0])
     dicom_modality = test_dicom['00080060'].value
@@ -464,16 +460,15 @@ def get_voxel_dimensions(root_directory):
 
 def call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts):
 
-    convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
 
-    """
+
     try:
         print("trying suv helper")
         convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
     except Exception:
         print("call suv helper exception")
         found_cts -= 1
-    """
+
     found_cts += 1
     return found_cts
 
@@ -1424,14 +1419,13 @@ def uw_pet_suv_conversion_external_v3():
                 top_dicom_folder = os.path.join(directory, matched_recon)
                 #top_dicom_folder = directory + "/" + str(matched_recon) + ""
                 #print(f"top dicom folder: {top_dicom_folder}")
-                found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
-                """
+
                 try:
                     found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
                 except Exception as e:
                     print(f"error: {e}")
                     continue  # If an error occurs, continue with the next substring
-                """
+
 
 
 
