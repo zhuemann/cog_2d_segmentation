@@ -1298,8 +1298,8 @@ def uw_ct_check():
                 num_modality["CT"] += 1
             else:
                 continue
-            if "PT" in modality:
-                directory = os.path.join(directory, "PT")
+            if "CT" in modality:
+                directory = os.path.join(directory, "CT")
             #else:
                 #print(f"file: {file} does not have Pet scan")
                 #continue
@@ -1345,7 +1345,7 @@ def uw_ct_check():
     df.columns = columns
     #print(df)
     # Save DataFrame to Excel file
-    df.to_excel('/UserData/Zach_Analysis/external_testset_pet_v2.xlsx', index=False)
+    df.to_excel('/UserData/Zach_Analysis/external_testset_ct_v2.xlsx', index=False)
 
 
 
