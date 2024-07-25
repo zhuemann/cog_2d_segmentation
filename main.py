@@ -38,8 +38,8 @@ from uw_pet_suv_conversion import uw_pet_suv_conversion_external_v3
 from uw_pet_suv_conversion import uw_ct_check
 if __name__ == '__main__':
 
-    uw_pet_suv_conversion_external_v3()
-    print(fail)
+    #uw_pet_suv_conversion_external_v3()
+    #print(fail)
     #uw_ct_check()
     #print(fail)
     #count_files_in_suv_folder()
