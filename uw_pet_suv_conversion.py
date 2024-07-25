@@ -1430,7 +1430,7 @@ def uw_ct_conversion_external_dataset_v2():
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2c/"
 
-    dir_path = "/mnt/Bradshaw/UW_PET_Data/2024-07/"
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/2024-07-CT/"
     dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/external_testset/"
     top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset/"
 
@@ -1511,8 +1511,8 @@ def uw_ct_conversion_external_dataset_v2():
             num_modality["CT"] += 1
         else:
             continue
-        if "PT" in modality:
-            directory = os.path.join(directory, "PT")
+        if "CT" in modality:
+            directory = os.path.join(directory, "CT")
         else:
             print(f"file: {file} does not have Pet scan")
             continue
@@ -1530,7 +1530,7 @@ def uw_ct_conversion_external_dataset_v2():
         directory = os.path.join(directory, study_name[0])
         recon_types = os.listdir(directory)
         print(f"recon types: {recon_types}")
-        substrings_to_check = ["CTAC"]
+        substrings_to_check = ["CT"]
         # Iterate over each substring and check if it's present in any element of recon_types
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
