@@ -148,6 +148,8 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # type ('PT, 'CT', 'MR')
     #files = glob.glob(str(top_dicom_folder) + "/*.dcm")
 
+    files_list = os.listdir(top_dicom_folder)
+    print(f"files list: {files_list}")
     # Ensure top_dicom_folder is a string
     top_dicom_folder = str(top_dicom_folder)
 
