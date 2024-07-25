@@ -1296,8 +1296,8 @@ def uw_ct_check():
                 num_modality["extra"] += 1
             if "CT" in modality:
                 num_modality["CT"] += 1
-            else:
-                continue
+            #else:
+            #    continue
             if "PT" in modality:
                 directory = os.path.join(directory, "PT")
             #else:
