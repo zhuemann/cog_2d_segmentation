@@ -151,6 +151,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
         print('Empty folder: ' + files)
         raise Exception("Fail to find DICOM files")
 
+    print(f"inside conversion: {top_dicom_folder}")
     # get dicom info for saving
     test_dicom = pydicom.dcmread(files[0])
     dicom_modality = test_dicom['00080060'].value
