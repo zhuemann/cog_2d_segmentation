@@ -147,6 +147,11 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # modality of interest is the modality that will be the reference size for the RTSTRUCT contours, defined by DICOM
     # type ('PT, 'CT', 'MR')
 
+    # Search for .dcm files using Pathlib
+    dcm_files = list(top_dicom_folder.glob("*.dcm"))
+    print(f"Files matching pattern '*.dcm': {dcm_files}")
+    print(f"Number of matching files: {len(dcm_files)}")
+
     test_num = len(os.listdir(top_dicom_folder))
     print(f"number of files: {test_num}")
 
