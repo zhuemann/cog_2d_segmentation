@@ -1249,7 +1249,7 @@ def uw_ct_check():
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb3/"
     #path_list = ["/mnt/Bradshaw/UW_PET_Data/dsb2b/", "/mnt/Bradshaw/UW_PET_Data/dsb2c/" ,"/mnt/Bradshaw/UW_PET_Data/dsb3/"]
-    path_list = ["/mnt/Bradshaw/UW_PET_Data/2024-07-CT/"]
+    path_list = ["/mnt/Bradshaw/UW_PET_Data/2024-07/"]
 
     master_dic = {}
     for dir_path in path_list:
@@ -1298,8 +1298,8 @@ def uw_ct_check():
                 num_modality["CT"] += 1
             else:
                 continue
-            if "CT" in modality:
-                directory = os.path.join(directory, "CT")
+            if "PT" in modality:
+                directory = os.path.join(directory, "PT")
             #else:
                 #print(f"file: {file} does not have Pet scan")
                 #continue
