@@ -1391,6 +1391,7 @@ def uw_pet_suv_conversion_external_v3():
 
         recon_types = os.listdir(directory)
         substrings_to_check = ["CTAC"]
+        print(f"recon_types: {recon_types}")
         # Iterate over each substring and check if it's present in any element of recon_types
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
