@@ -460,10 +460,7 @@ def get_voxel_dimensions(root_directory):
 
 def call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts):
 
-
-
     try:
-        print("trying suv helper")
         convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder)
     except Exception:
         print("call suv helper exception")
