@@ -1343,9 +1343,9 @@ def uw_ct_check():
     # Define the column names
     columns = ['File'] + [f'String {i + 1}' for i in range(max_len - 1)]
     df.columns = columns
-    print(df)
+    #print(df)
     # Save DataFrame to Excel file
-    #df.to_excel('/UserData/Zach_Analysis/external_testset.xlsx', index=False)
+    df.to_excel('/UserData/Zach_Analysis/external_testset.xlsx', index=False)
 
 
 
