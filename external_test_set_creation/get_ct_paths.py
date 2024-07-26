@@ -46,6 +46,11 @@ def ct_check():
             directory = os.path.join(dir_path, file)
             if not os.path.exists(directory):
                 continue
+
+            random_id = os.listdir(directory)
+            if len(random_id) == 1:
+                directory = os.path.join(directory, random_id[0])
+
             date = os.listdir(directory)
             if len(date) == 1:
                 directory = os.path.join(directory, date[0])
