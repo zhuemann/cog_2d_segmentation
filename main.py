@@ -36,9 +36,14 @@ from data_prepocessing.utility.utility import count_files_in_suv_folder
 from data_prepocessing.data_visualization.plot_training_and_inference_images import plot_training_and_inference_images
 from uw_pet_suv_conversion import uw_pet_suv_conversion_external_v3
 from uw_pet_suv_conversion import uw_ct_check
+
+from external_test_set_creation.get_ct_paths import ct_check
+
 if __name__ == '__main__':
 
     #uw_pet_suv_conversion_external_v3()
+    uw_ct_check()
+    print(fail)
     #print(fail)
     #uw_ct_check()
     #print(fail)
