@@ -42,7 +42,7 @@ from external_test_set_creation.get_ct_paths import ct_check
 if __name__ == '__main__':
 
     #uw_pet_suv_conversion_external_v3()
-    uw_ct_check()
+    ct_check()
     print(fail)
     #print(fail)
     #uw_ct_check()
