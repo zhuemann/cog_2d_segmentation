@@ -116,7 +116,7 @@ def ct_check():
     columns = ['File'] + [f'String {i + 1}' for i in range(max_len - 1)]
     df.columns = columns
     #print(df)
-    path = '/UserData/Zach_Analysis/visual_ground_file_lists/external_testset_ct_full.xlsx'
+    path = '/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/external_test_set_ct_full.xlsx'
     print(path)
     # Save DataFrame to Excel file
     df.to_excel(path, index=False)
