@@ -91,22 +91,24 @@ def pet_suv_conversion_external_v3():
         print(f"recon types: {recon_types}")
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
-            matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
-            print(f"matched recond: {matched_recon}")
-            if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
-                continue
-            print(f"matched: {matched_recon}")
-            if matched_recon:
-                # If a match is found, build the path
-                top_dicom_folder = os.path.join(directory, matched_recon, file)
-                #top_dicom_folder = os.path.join(directory, matched_recon)
+            #matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
+            for matched_recon in recon_types:
+                print(f"matched recond: {matched_recon}")
+                if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+                    continue
+                print(f"matched: {matched_recon}")
+                if matched_recon:
+                    # If a match is found, build the path
+                    top_dicom_folder = os.path.join(directory, matched_recon, file)
+                    #top_dicom_folder = os.path.join(directory, matched_recon)
 
-                #top_dicom_folder = directory + "/" + str(matched_recon) + ""
-                #print(f"top dicom folder: {top_dicom_folder}")
+                    #top_dicom_folder = directory + "/" + str(matched_recon) + ""
+                    #print(f"top dicom folder: {top_dicom_folder}")
 
-                try:
-                    print("called pet conversion")
-                    found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
-                except Exception as e:
-                    print(f"error: {e}")
-                    continue  # If an error occurs, continue with the next substring
+                    try:
+                        print("called pet conversion")
+                        found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
+                        break
+                    except Exception as e:
+                        print(f"error: {e}")
+                        continue  # If an error occurs, continue with the next substring
