@@ -38,11 +38,13 @@ from uw_pet_suv_conversion import uw_pet_suv_conversion_external_v3
 from uw_pet_suv_conversion import uw_ct_check
 
 from external_test_set_creation.get_ct_paths import ct_check
+from external_test_set_creation.external_pet_dicom_conversion import pet_suv_conversion_external_v3
 
 if __name__ == '__main__':
 
     #uw_pet_suv_conversion_external_v3()
-    ct_check()
+    #ct_check()
+    pet_suv_conversion_external_v3()
     print(fail)
     #print(fail)
     #uw_ct_check()
