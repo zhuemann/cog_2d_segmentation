@@ -153,7 +153,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
 
     # Search for .dcm files using Pathlib
     dcm_files = list(top_dicom_folder_path.glob("*.dcm"))
-
+    print(f"lengh: {len(dcm_files)}")
     # Convert PosixPath objects to strings
     files = [str(file) for file in dcm_files]
     print(len(files))
