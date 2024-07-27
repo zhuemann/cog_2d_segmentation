@@ -93,9 +93,8 @@ def pet_suv_conversion_external_v3():
             # Normalize to lower case for case-insensitive comparison
             #matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
             for matched_recon in recon_types:
-                print(f"matched recond: {matched_recon}")
 
-                if "wb_ctac" not in matched_recon or "pet_ac_2d" not in matched_recon:
+                if "wb_ctac" not in matched_recon.lower() or "pet_ac_2d" not in matched_recon.lower():
                     continue
 
                 if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
