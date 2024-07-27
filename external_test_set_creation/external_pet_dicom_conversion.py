@@ -59,6 +59,7 @@ def pet_suv_conversion_external_v3():
 
         print(directory)
         random_id = os.listdir(directory)
+        print(f"random id: {random_id}")
         if len(random_id) == 1:
             directory = os.path.join(directory, random_id[0])
 
@@ -67,6 +68,7 @@ def pet_suv_conversion_external_v3():
         else:
             print(f"multiple date files in this folder: {directory}")
         modality = os.listdir(directory)
+        print(f"modality: {modality}")
         if "PT" in modality:
             #directory = os.path.join(dir_path, file, "PT")
             directory = os.path.join(directory, "PT")
