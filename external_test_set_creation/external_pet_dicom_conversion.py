@@ -30,10 +30,12 @@ def pet_suv_conversion_external_v3():
     already_converted = 0
     dicom_error = set([])
 
+    missing_pet = 0
+
     # for file in files_in_directory:
     for index, row in df.iterrows():
         file = row["ID"]
-        print(f"index: {index} already_converted: {already_converted } found pet images: {found_pet_images} file: {file}")
+        print(f"index: {index} already_converted: {already_converted } found pet images: {found_pet_images} file: {file} missing pet: {missing_pet}")
         index += 1
         #if index < 24200:
         #    continue
@@ -44,6 +46,11 @@ def pet_suv_conversion_external_v3():
                 already_converted += 1
                 print("already found this image with SUV")
                 continue
+
+        if file not in os.listdir(dir_path):
+            print("don't have folder")
+            missing_pet += 1
+            continue
 
         if file in dicom_error:
             continue
