@@ -63,6 +63,8 @@ def pet_suv_conversion_external_v3():
         if len(random_id) == 1:
             directory = os.path.join(directory, random_id[0])
 
+        print(directory)
+
         if len(date) == 1:
             directory = os.path.join(directory, date[0])
         else:
