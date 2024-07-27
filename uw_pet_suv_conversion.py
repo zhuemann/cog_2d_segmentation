@@ -171,6 +171,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     dicom_series_description = test_dicom['0008103e'].value
     #print(f"top dicom folder: {top_dicom_folder}")
     folder_names = top_dicom_folder.split("/")
+    print(folder_names)
     indices_of_pet = [index for index, element in enumerate(folder_names) if "petwb_" in element.lower()]
     #print(f"indices: {indices_of_pet}")
     #print(f"test: {folder_names[indices_of_pet[0]]}")
