@@ -93,7 +93,7 @@ def pet_suv_conversion_external_v3():
             matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
             #print(f"matched: {matched_recon}")
 
-            if "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+            if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
                 continue
 
             if matched_recon:
