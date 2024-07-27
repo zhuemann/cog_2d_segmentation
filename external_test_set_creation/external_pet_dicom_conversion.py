@@ -94,7 +94,7 @@ def pet_suv_conversion_external_v3():
             #matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
             for matched_recon in recon_types:
 
-                if "wb_ctac" not in matched_recon.lower() or "pet_ac_2d" not in matched_recon.lower():
+                if "wb_ctac" not in matched_recon.lower() and "pet_ac_2d" not in matched_recon.lower():
                     continue
 
                 if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
