@@ -88,6 +88,7 @@ def pet_suv_conversion_external_v3():
         substrings_to_check = ["WB_CTAC"]
         #print(f"recon_types: {recon_types}")
         # Iterate over each substring and check if it's present in any element of recon_types
+        print(f"recon types: {recon_types}")
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
             matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
@@ -97,8 +98,8 @@ def pet_suv_conversion_external_v3():
             print(f"matched: {matched_recon}")
             if matched_recon:
                 # If a match is found, build the path
-                #top_dicom_folder = os.path.join(directory, matched_recon, file)
-                top_dicom_folder = os.path.join(directory, matched_recon)
+                top_dicom_folder = os.path.join(directory, matched_recon, file)
+                #top_dicom_folder = os.path.join(directory, matched_recon)
 
                 #top_dicom_folder = directory + "/" + str(matched_recon) + ""
                 #print(f"top dicom folder: {top_dicom_folder}")
