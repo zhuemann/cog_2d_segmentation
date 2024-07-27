@@ -55,7 +55,6 @@ def pet_suv_conversion_external_v3():
         if file in dicom_error:
             continue
         directory = os.path.join(dir_path, file)
-        date = os.listdir(directory)
 
         print(directory)
         random_id = os.listdir(directory)
@@ -64,7 +63,7 @@ def pet_suv_conversion_external_v3():
             directory = os.path.join(directory, random_id[0])
 
         print(directory)
-
+        date = os.listdir(directory)
         if len(date) == 1:
             directory = os.path.join(directory, date[0])
         else:
