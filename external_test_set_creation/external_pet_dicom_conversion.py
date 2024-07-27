@@ -17,7 +17,7 @@ from uw_pet_suv_conversion import call_suv_helper
 def pet_suv_conversion_external_v3():
 
     dir_path = "/mnt/dsb2/BRADSHAWtyler.20240716__201511/RefactoredBags/"
-    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
 
 
     df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/Swedish_sentences_with_uw_ids.xlsx")
@@ -50,10 +50,11 @@ def pet_suv_conversion_external_v3():
         directory = os.path.join(dir_path, file)
         date = os.listdir(directory)
 
+        """
         random_id = os.listdir(directory)
         if len(random_id) == 1:
             directory = os.path.join(directory, random_id[0])
-
+        """
         if len(date) == 1:
             directory = os.path.join(directory, date[0])
         else:
@@ -78,13 +79,17 @@ def pet_suv_conversion_external_v3():
         # print(test)
 
         recon_types = os.listdir(directory)
-        substrings_to_check = ["CTAC"]
+        substrings_to_check = ["WB_CTAC"]
         #print(f"recon_types: {recon_types}")
         # Iterate over each substring and check if it's present in any element of recon_types
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
             matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
             #print(f"matched: {matched_recon}")
+
+            if "fused" in substring.lower() or "mip" in substring.lower():
+                continue
+
             if matched_recon:
                 # If a match is found, build the path
                 top_dicom_folder = os.path.join(directory, matched_recon)
