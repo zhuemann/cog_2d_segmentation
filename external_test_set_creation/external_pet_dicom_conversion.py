@@ -91,11 +91,10 @@ def pet_suv_conversion_external_v3():
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
             matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
-            #print(f"matched: {matched_recon}")
 
             if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
                 continue
-
+            print(f"matched: {matched_recon}")
             if matched_recon:
                 # If a match is found, build the path
                 top_dicom_folder = os.path.join(directory, matched_recon)
