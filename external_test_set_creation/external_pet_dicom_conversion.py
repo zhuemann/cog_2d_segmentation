@@ -97,7 +97,7 @@ def pet_suv_conversion_external_v3():
             print(f"matched: {matched_recon}")
             if matched_recon:
                 # If a match is found, build the path
-                top_dicom_folder = os.path.join(directory, matched_recon)
+                top_dicom_folder = os.path.join(directory, matched_recon, file)
                 #top_dicom_folder = directory + "/" + str(matched_recon) + ""
                 #print(f"top dicom folder: {top_dicom_folder}")
 
