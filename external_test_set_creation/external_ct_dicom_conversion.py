@@ -142,8 +142,8 @@ def uw_ct_conversion_external_dataset_v2():
                 top_dicom_folder = os.path.join(directory, matched_recon)
                 z = len(os.listdir(top_dicom_folder))
                 # checks if slices line up other wise don't convert and keep searching
-                if z == suv_dims[2]:
-                #if True:
+                #if z == suv_dims[2]:
+                if True:
                     # Perform your additional logic or function calls here
                     try:
                         found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts)
