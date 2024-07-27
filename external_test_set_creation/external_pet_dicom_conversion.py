@@ -109,7 +109,6 @@ def pet_suv_conversion_external_v3():
                     #print(f"top dicom folder: {top_dicom_folder}")
 
                     try:
-                        print("called pet conversion")
                         found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
                         break
                     except Exception as e:

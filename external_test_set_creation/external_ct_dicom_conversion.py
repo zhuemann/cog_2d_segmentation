@@ -18,8 +18,14 @@ def uw_ct_conversion_external_dataset_v2():
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2c/"
 
     dir_path = "/mnt/Bradshaw/UW_PET_Data/2024-07-CT/"
-    dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/external_testset/"
+    dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
     top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset/"
+
+    dir_path = "/mnt/dsb2/BRADSHAWtyler.20240716__201511/RefactoredBags/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
+
+    df = pd.read_excel(
+        "/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/Swedish_sentences_with_uw_ids.xlsx")
 
     #files_in_directory = os.listdir(dir_path_suv)
     files_in_directory = os.listdir(dir_path)
@@ -39,7 +45,9 @@ def uw_ct_conversion_external_dataset_v2():
     found_cts = 0
     already_found = 0
     matches_dic = {}
-    for file in files_in_directory:
+    #for file in files_in_directory:
+    for index, row in df.iterrows():
+        file = row["ID"]
         # print(f"index: {index} missing inject info: {missing_inject_info} potential found: {potential_suv_images}")
         # if index > 10:
         #    continue
@@ -81,6 +89,11 @@ def uw_ct_conversion_external_dataset_v2():
         directory = os.path.join(dir_path, file)
         if not os.path.exists(directory):
             continue
+
+        random_id = os.listdir(directory)
+        if len(random_id) == 1:
+            directory = os.path.join(directory, random_id[0])
+
         date = os.listdir(directory)
         if len(date) == 1:
             directory = os.path.join(directory, date[0])
@@ -119,7 +132,7 @@ def uw_ct_conversion_external_dataset_v2():
         directory = os.path.join(directory, study_name[0])
         recon_types = os.listdir(directory)
         print(f"recon types: {recon_types}")
-        substrings_to_check = ["CT"]
+        substrings_to_check = ["Cor_Head_In_3.75thk", "Body-Low_Dose", "Body-ldCT_700m"]
         # Iterate over each substring and check if it's present in any element of recon_types
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
