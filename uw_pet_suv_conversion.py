@@ -147,19 +147,20 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # modality of interest is the modality that will be the reference size for the RTSTRUCT contours, defined by DICOM
     # type ('PT, 'CT', 'MR')
 
-    print(top_dicom_folder)
+    #print(top_dicom_folder)
     # Ensure the path is correct
     top_dicom_folder_path = Path(top_dicom_folder)
 
     # Search for .dcm files using Pathlib
     dcm_files = list(top_dicom_folder_path.glob("*.dcm"))
-    print(f"lengh: {len(dcm_files)}")
+    #print(f"lengh: {len(dcm_files)}")
     # Convert PosixPath objects to strings
     files = [str(file) for file in dcm_files]
-    print(len(files))
+    #print(len(files))
     #files = glob.glob(top_dicom_folder + "/*.dcm")
 
     if len(files) < 1:
+        print("will error not calling right folder")
         print('Empty folder: ' + files)
         raise Exception("Fail to find DICOM files")
 
@@ -172,11 +173,11 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     dicom_series_description = test_dicom['0008103e'].value
     #print(f"top dicom folder: {top_dicom_folder}")
     folder_names = top_dicom_folder.split("/")
-    print(folder_names)
+    #print(folder_names)
     #indices_of_pet = [index for index, element in enumerate(folder_names) if "petwb_" in element.lower()]
     indices_of_pet = [index for index, element in enumerate(folder_names) if "sah" in element.lower()]
 
-    print(f"indices: {indices_of_pet}")
+    #print(f"indices: {indices_of_pet}")
     #print(f"test: {folder_names[indices_of_pet[0]]}")
     # unique names for subjects and scans
     #subject_save_name = dicom_id + '_' + dicom_name.replace(' ', '_').replace('__', '_')
