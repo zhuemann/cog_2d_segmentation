@@ -106,7 +106,7 @@ def pet_suv_conversion_external_v3():
                     #top_dicom_folder = os.path.join(directory, matched_recon)
 
                     #top_dicom_folder = directory + "/" + str(matched_recon) + ""
-                    print(f"top dicom folder: {top_dicom_folder}")
+                    print(f"top dicom folder: {top_nifti_folder}")
 
                     try:
                         found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
