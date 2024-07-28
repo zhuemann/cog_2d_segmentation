@@ -40,6 +40,7 @@ from uw_pet_suv_conversion import uw_ct_check
 from external_test_set_creation.get_ct_paths import ct_check
 from external_test_set_creation.external_pet_dicom_conversion import pet_suv_conversion_external_v3
 from external_test_set_creation.external_ct_dicom_conversion import uw_ct_conversion_external_dataset_v2
+from external_test_set_creation.external_get_max_pixel import external_get_max_pixel
 
 
 if __name__ == '__main__':
@@ -47,7 +48,8 @@ if __name__ == '__main__':
     #uw_pet_suv_conversion_external_v3()
     #ct_check()
     #pet_suv_conversion_external_v3()
-    uw_ct_conversion_external_dataset_v2()
+    #uw_ct_conversion_external_dataset_v2()
+    xternal_get_max_pixel()
     print(fail)
     #print(fail)
     #uw_ct_check()
