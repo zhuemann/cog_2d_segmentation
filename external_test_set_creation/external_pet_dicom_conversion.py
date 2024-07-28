@@ -97,7 +97,7 @@ def pet_suv_conversion_external_v3():
                 if "wb_ctac" not in matched_recon.lower() and "pet_ac_2d" not in matched_recon.lower():
                     continue
 
-                if matched_recon == None or "fused" not in matched_recon.lower() or "mip" in matched_recon.lower():
+                if matched_recon == None or "fused_trans" not in matched_recon.lower() or "mip" in matched_recon.lower():
                     continue
                 print(f"matched: {matched_recon}")
                 if matched_recon:
@@ -106,7 +106,7 @@ def pet_suv_conversion_external_v3():
                     #top_dicom_folder = os.path.join(directory, matched_recon)
 
                     #top_dicom_folder = directory + "/" + str(matched_recon) + ""
-                    #print(f"top dicom folder: {top_dicom_folder}")
+                    print(f"top dicom folder: {top_dicom_folder}")
 
                     try:
                         found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
