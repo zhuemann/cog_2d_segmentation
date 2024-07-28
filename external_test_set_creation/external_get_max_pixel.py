@@ -96,7 +96,7 @@ def get_ct_name(folder_path):
 
     # Find the third file based on the common part
     for file in files:
-        if common_part in file and file != suv_file:
+        if common_part not in file and file != suv_file:
             if 'SUV' not in file and file.endswith('.nii.gz'):
                 return file
 
