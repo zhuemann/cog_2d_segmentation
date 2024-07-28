@@ -93,8 +93,8 @@ def get_ct_name(folder_path):
 
     # Extract the common part of the filename
     common_part = suv_file.split('_SUV')[0]
-    print(f"all files: {files}")
-    print(f"common part: {common_part}")
+    #print(f"all files: {files}")
+    #print(f"common part: {common_part}")
     # Find the third file that does not contain the common part and is not SUV
     for file in files:
         if common_part not in file and 'SUV' not in file and file.endswith('.nii.gz'):
@@ -183,18 +183,18 @@ def get_max_pixel_step3(df):
             print(f"pet shape: {img.shape}")
             # Get the voxel dimensions
             voxel_dimensions = nii_image.header.get_zooms()
-            print("pet voxel dimensions:", voxel_dimensions)
+            print(f"pet voxel dimensions: {voxel_dimensions}")
 
             ct_name = get_ct_name(file_path)
             if ct_name == None:
                 continue
-            print(ct_name)
+            #print(ct_name)
             ct_path = file_path + ct_name
             ct_nii = nib.load(ct_path)
             ct_image = ct_nii.get_fdata()
             print(f"ct shape: {ct_image.shape}")
             voxel_dimensions = ct_nii.header.get_zooms()
-            print(f"ct voxel dimensions: {voxel_dimensions}")
+            print(f"ct file name: {ct_name} ct voxel dimensions: {voxel_dimensions}")
             continue
             suv_ref = row["SUV"]
             if suv_ref < 2.5:
