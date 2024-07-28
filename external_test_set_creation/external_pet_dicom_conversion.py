@@ -17,7 +17,7 @@ from uw_pet_suv_conversion import call_suv_helper
 def pet_suv_conversion_external_v3():
 
     dir_path = "/mnt/dsb2/BRADSHAWtyler.20240716__201511/RefactoredBags/"
-    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_fused/"
 
 
     df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/Swedish_sentences_with_uw_ids.xlsx")
@@ -97,7 +97,7 @@ def pet_suv_conversion_external_v3():
                 if "wb_ctac" not in matched_recon.lower() and "pet_ac_2d" not in matched_recon.lower():
                     continue
 
-                if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+                if matched_recon == None or "fused" not in matched_recon.lower() or "mip" in matched_recon.lower():
                     continue
                 print(f"matched: {matched_recon}")
                 if matched_recon:
