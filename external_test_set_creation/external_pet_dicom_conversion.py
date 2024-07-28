@@ -97,10 +97,10 @@ def pet_suv_conversion_external_v3():
                 if "wb_ctac" not in matched_recon.lower() and "pet_ac_2d" not in matched_recon.lower():
                     continue
 
-                #if matched_recon == None or "fused_trans" not in matched_recon.lower() or "mip" in matched_recon.lower():
-                #    continue
-                if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+                if matched_recon == None or "fused_trans" not in matched_recon.lower() or "mip" in matched_recon.lower():
                     continue
+                #if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+                #    continue
                 print(f"matched: {matched_recon}")
                 if matched_recon:
                     # If a match is found, build the path
