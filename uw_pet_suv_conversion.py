@@ -220,6 +220,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
             print("slice error")
             os.rmdir(subject_save_folder)
         except Exception as e:
+            print("error doing conversion")
             print(e)
             os.rmdir(subject_save_folder)
 
