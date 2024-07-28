@@ -49,7 +49,7 @@ if __name__ == '__main__':
     #ct_check()
     #pet_suv_conversion_external_v3()
     #uw_ct_conversion_external_dataset_v2()
-    xternal_get_max_pixel()
+    external_get_max_pixel()
     print(fail)
     #print(fail)
     #uw_ct_check()
