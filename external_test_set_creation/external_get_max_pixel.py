@@ -203,8 +203,9 @@ def get_max_pixel_step3(df):
                 below_suv_threshold += 1
                 continue
             #print(f"ct dims: {ct_dimensions} pet dims: {pet_dimensions}")
-            slice_ref = np.round(int(row["Slice"]) * (ct_dimensions[2]/pet_dimensions[2]))
-            print(f"orginal slice: {row['Slice']} after conversion: {slice_ref}")
+            #slice_ref = np.round(int(row["Slice"]) * (ct_dimensions[2]/pet_dimensions[2]))
+            slice_ref = int(row["Slice"])
+            #print(f"orginal slice: {row['Slice']} after conversion: {slice_ref}")
             proposed_threshold = get_threshold(suv_ref)
             #print(f"proposed_threshold: {proposed_threshold}")
             threshold_value = suv_ref * .8
@@ -220,7 +221,7 @@ def get_max_pixel_step3(df):
             slice_tolerance = 0
             suv_tolerance = 0.1
             #suv_tolerance = suv_ref*0.05
-            slice_ref = img.shape[2] - slice_ref
+            #slice_ref = img.shape[2] - slice_ref
             found_items = 0
             for key, value in max_suv_dic.items():
                 suv_max, slice_min, slice_max, pixel = value
