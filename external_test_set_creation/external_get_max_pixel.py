@@ -224,7 +224,7 @@ def get_max_pixel_step3(df):
             slice_ref = int(row["Slice"]) # if this is pet slice number
             slice_ref = img.shape[2] - slice_ref
             # if this is ct slice number
-            ct_from_head = ct_image.shahpe[2] - row["Slice"]
+            ct_from_head = ct_image.shape[2] - row["Slice"]
             pet_from_head = ct_from_head/ct_dimensions[2]*pet_dimensions
             slice_ref = pet_from_head
             found_items = 0
