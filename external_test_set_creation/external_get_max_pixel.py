@@ -139,8 +139,8 @@ def get_max_pixel_step3(df):
         # if index < 3645:
         #    continue
         #if index > 500:
-        #if index > 100:
-        #    continue
+        if index < 13:
+            continue
         #    break
         # if index > 10:
         #    break
@@ -202,7 +202,7 @@ def get_max_pixel_step3(df):
             if suv_ref < 2.5:
                 below_suv_threshold += 1
                 continue
-            print(f"ct dims: {ct_dimensions} pet dims: {pet_dimensions}")
+            #print(f"ct dims: {ct_dimensions} pet dims: {pet_dimensions}")
             slice_ref = np.round(int(row["Slice"]) * (ct_dimensions[2]/pet_dimensions[2]))
             print(f"orginal slice: {row['Slice']} after conversion: {slice_ref}")
             proposed_threshold = get_threshold(suv_ref)
