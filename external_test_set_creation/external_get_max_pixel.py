@@ -219,7 +219,7 @@ def get_max_pixel_step3(df):
             #slice_tolerance = 3
             #slice_tolerance = suv_ref
             slice_tolerance = 1
-            suv_tolerance = 0.3
+            suv_tolerance = 0.2
             #suv_tolerance = suv_ref*0.05
             slice_ref = int(row["Slice"]) # if this is pet slice number
             slice_ref = img.shape[2] - slice_ref
