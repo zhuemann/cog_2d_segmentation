@@ -225,7 +225,7 @@ def get_max_pixel_step3(df):
             slice_ref = img.shape[2] - slice_ref
             # if this is ct slice number
             ct_from_head = ct_image.shape[2] - row["Slice"]
-            pet_from_head = int(np.round(ct_from_head/ct_dimensions[2]*pet_dimensions))
+            pet_from_head = int(np.round(ct_from_head/ct_dimensions[2]*pet_dimensions[2]))
             slice_ref = pet_from_head
             found_items = 0
             for key, value in max_suv_dic.items():
