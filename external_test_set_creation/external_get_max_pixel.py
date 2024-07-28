@@ -186,13 +186,14 @@ def get_max_pixel_step3(df):
             print("pet voxel dimensions:", voxel_dimensions)
 
             ct_name = get_ct_name(file_path)
+            print(ct_name)
             ct_path = file_path + ct_name
             ct_nii = nib.load(ct_path)
             ct_image = ct_nii.get_fdata()
             print(f"ct shape: {ct_image.shape}")
             voxel_dimensions = ct_nii.header.get_zooms()
             print(f"ct voxel dimensions: {voxel_dimensions}")
-
+            continue
             suv_ref = row["SUV"]
             if suv_ref < 2.5:
                 below_suv_threshold += 1
