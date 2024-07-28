@@ -186,9 +186,11 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     print(f"subject_save_name: {subject_save_name}")
 
     subject_save_folder = os.path.join(top_nifti_folder, subject_save_name)
+    print(f"subject save folder: {subject_save_folder}")
     os.makedirs(subject_save_folder, exist_ok=True)
     scan_save_name = '{}_{}_{}_{}'.format(subject_save_name, dicom_study_date, dicom_modality, \
                                           dicom_series_description.replace(' ', '_'))
+    print(f"save save name: {scan_save_name}")
     if dicom_modality in ['CT', 'MR', 'NM']:
         #print(f"dicom_modality: {dicom_modality}")
         dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
