@@ -132,9 +132,10 @@ def get_max_pixel_step3(df):
     dups_found = 0
     slice_diff_exceeded = 0
     too_long_not_used = 0
+    ct_missing = 0
 
     for index, row in uw_100.iterrows():
-        print(f"index: {index} mathces_found: {found_noted_lesion} duplicates: {dups_found} missing pet: {sentences_not_evalued_missing_pet} too long: {slice_diff_exceeded}")
+        print(f"index: {index} mathces_found: {found_noted_lesion} duplicates: {dups_found} missing pet: {sentences_not_evalued_missing_pet} missing ct: {ct_missing} too long: {slice_diff_exceeded} ")
         # if index < 3645:
         #    continue
         #if index > 500:
@@ -187,6 +188,7 @@ def get_max_pixel_step3(df):
 
             ct_name = get_ct_name(file_path)
             if ct_name == None:
+                ct_missing += 1
                 continue
             #print(ct_name)
             ct_path = file_path + ct_name
