@@ -186,6 +186,8 @@ def get_max_pixel_step3(df):
             print("pet voxel dimensions:", voxel_dimensions)
 
             ct_name = get_ct_name(file_path)
+            if ct_name == None:
+                continue
             print(ct_name)
             ct_path = file_path + ct_name
             ct_nii = nib.load(ct_path)
