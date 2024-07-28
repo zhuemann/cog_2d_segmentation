@@ -88,7 +88,6 @@ def get_max_pixel_step3(df):
     patient_decoding = pd.read_excel(patient_decoding)
     valid_pet_scans = set(os.listdir("/UserData/Zach_Analysis/suv_nifti/"))
     valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/SUV_images/"))
-    valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"))
 
 
     count = 0
@@ -138,7 +137,6 @@ def get_max_pixel_step3(df):
             # gets the suv image as a numpy array
             #file_path = "/UserData/Zach_Analysis/suv_nifti/" + check_id + "/"
             file_path = "/mnt/Bradshaw/UW_PET_Data/SUV_images/" + check_id + "/"
-            file_path = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/" + check_id + "/"
 
             files = os.listdir(file_path)
             index_of_suv = [index for index, s in enumerate(files) if "suv" in s.lower()]
