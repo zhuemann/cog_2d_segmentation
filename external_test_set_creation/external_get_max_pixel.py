@@ -180,10 +180,10 @@ def get_max_pixel_step3(df):
             # print(suv_image_path)
             nii_image = nib.load(suv_image_path)
             img = nii_image.get_fdata()
-            print(f"pet shape: {img.shape}")
+            #print(f"pet shape: {img.shape}")
             # Get the voxel dimensions
-            voxel_dimensions = nii_image.header.get_zooms()
-            print(f"pet voxel dimensions: {voxel_dimensions}")
+            pet_dimensions = nii_image.header.get_zooms()
+            #print(f"pet voxel dimensions: {pet_dimensions}")
 
             ct_name = get_ct_name(file_path)
             if ct_name == None:
@@ -192,15 +192,16 @@ def get_max_pixel_step3(df):
             ct_path = file_path + ct_name
             ct_nii = nib.load(ct_path)
             ct_image = ct_nii.get_fdata()
-            print(f"ct shape: {ct_image.shape}")
-            voxel_dimensions = ct_nii.header.get_zooms()
-            print(f"ct file name: {ct_name} ct voxel dimensions: {voxel_dimensions}")
-            continue
+            #print(f"ct shape: {ct_image.shape}")
+            ct_dimensions = ct_nii.header.get_zooms()
+            #print(f"ct file name: {ct_name} ct voxel dimensions: {ct_dimensions}")
+
             suv_ref = row["SUV"]
             if suv_ref < 2.5:
                 below_suv_threshold += 1
                 continue
-            slice_ref = row["Slice"]
+            slice_ref = np.round(int(row["Slice"]) * (ct_dimensions[2]/pet_dimensions[2]))
+            print(f"orginal slice: {row['slice']} after conversion: {slice_ref}")
             proposed_threshold = get_threshold(suv_ref)
             #print(f"proposed_threshold: {proposed_threshold}")
             threshold_value = suv_ref * .8
