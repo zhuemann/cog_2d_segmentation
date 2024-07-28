@@ -183,7 +183,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # unique names for subjects and scans
     #subject_save_name = dicom_id + '_' + dicom_name.replace(' ', '_').replace('__', '_')
     #print(f"subject_save_name: {subject_save_name}")
-    subject_save_name = folder_names[indices_of_pet[0]] + "/"
+    subject_save_name = folder_names[indices_of_pet[0]]
     print(f"subject_save_name: {subject_save_name}")
 
     subject_save_folder = os.path.join(top_nifti_folder, subject_save_name)
@@ -200,13 +200,6 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     elif dicom_modality == 'PT':
         #print(f"dicom_modality: {dicom_modality}")
         #print(f"about to call dicom to nifiti")
-
-        dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
-                                          os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
-                                          reorient_nifti=False)
-        #print(f" about to call convert to nifiti to suv nifiti")
-        convert_pet_nifti_to_suv_nifti(os.path.join(subject_save_folder, scan_save_name + '.nii.gz'), test_dicom,
-                                       os.path.join(subject_save_folder, scan_save_name + '_SUV.nii.gz'))
 
         try:
             dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
