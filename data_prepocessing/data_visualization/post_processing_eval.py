@@ -258,7 +258,7 @@ def post_processing_eval():
         labeled_row = labeled_subset[labeled_subset["Petlymph"] == petlymph_name]
 
         # Check if labeled_row is empty or it is a bad label
-        if labeled_row.empty or labeled_row["Label_is_Correct"] == 0:
+        if labeled_row.empty or labeled_row["Label_is_Correct"].iloc[0] == 0:
             continue
 
 
