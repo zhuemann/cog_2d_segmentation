@@ -157,7 +157,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # Convert PosixPath objects to strings
     files = [str(file) for file in dcm_files]
     #print(len(files))
-    #files = glob.glob(top_dicom_folder + "/*.dcm")
+    files = glob.glob(top_dicom_folder + "/*.dcm")
 
     if len(files) < 1:
         print("will error not calling right folder")
@@ -208,6 +208,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
         #print(f"dicom_modality: {dicom_modality}")
         #print(f"about to call dicom to nifiti")
         print(f"top dicom folder: {top_dicom_folder}")
+        print(f"{os.listdir(top_dicom_folder)}")
         dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
                                           os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
                                           reorient_nifti=False)
