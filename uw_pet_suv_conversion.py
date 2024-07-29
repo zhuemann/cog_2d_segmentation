@@ -192,6 +192,8 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     scan_save_name = '{}_{}_{}_{}'.format(subject_save_name, dicom_study_date, dicom_modality, \
                                           dicom_series_description.replace(' ', '_'))
     #scan_save_name = '{}_{}_{}'.format(subject_save_name, dicom_study_date, dicom_modality)
+    scan_save_name = scan_save_name.replace("/", "_")
+    scan_save_name = scan_save_name.replace(":", "_")
 
     print(f"save save name: {scan_save_name}")
     if dicom_modality in ['CT', 'MR', 'NM']:
