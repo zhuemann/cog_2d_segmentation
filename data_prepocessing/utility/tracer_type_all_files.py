@@ -38,7 +38,7 @@ def tracer_type_all_files():
     top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
 
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
-    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2c/"
     files_in_directory = os.listdir(dir_path)
 
 
