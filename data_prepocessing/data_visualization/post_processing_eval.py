@@ -249,7 +249,8 @@ def post_processing_eval():
         label_name = label.strip(".nii.gz")
 
         petlymph_name = image_name.strip(".nii.gz")
-        tracer_row = tracer_df[petlymph_name]
+        print(petlymph_name)
+        tracer_row = tracer_df[tracer_df["id"] == petlymph_name]
         tracer = tracer_row["Tracer"]
         print("tracer")
         continue
