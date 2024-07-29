@@ -211,8 +211,8 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
                                           os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
                                           reorient_nifti=False)
         #print(f" about to call convert to nifiti to suv nifiti")
-            convert_pet_nifti_to_suv_nifti(os.path.join(subject_save_folder, scan_save_name + '.nii.gz'), test_dicom,
-                                       os.path.join(subject_save_folder, scan_save_name + '_SUV.nii.gz'))
+            #convert_pet_nifti_to_suv_nifti(os.path.join(subject_save_folder, scan_save_name + '.nii.gz'), test_dicom,
+            #                           os.path.join(subject_save_folder, scan_save_name + '_SUV.nii.gz'))
         except ValueError:
             print("slice error")
             os.rmdir(subject_save_folder)
