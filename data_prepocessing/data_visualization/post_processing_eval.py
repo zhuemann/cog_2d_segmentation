@@ -221,7 +221,7 @@ def post_processing_eval():
     with open(json_file_path, 'r') as file:
         data = json.load(file)
 
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/abstract_predictions/predictions_ep54/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/abstract_predictions/predictions_ep72/"
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
     label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
@@ -273,7 +273,7 @@ def post_processing_eval():
         prediction_data = np.squeeze(prediction_data, axis=(0, 1))
         #print(f"pred data size: {prediction_data.shape}")
         #prediction_data = analyze_and_filter_volume(prediction_data)
-        #prediction_data = filter_prediction_by_average(prediction_data)
+        prediction_data = filter_prediction_by_average(prediction_data)
         # load in label data
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
