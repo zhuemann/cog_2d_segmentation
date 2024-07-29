@@ -109,7 +109,8 @@ def pet_suv_conversion_external_v3():
 
                     #top_dicom_folder = directory + "/" + str(matched_recon) + ""
                     print(f"top dicom folder: {top_nifti_folder}")
-
+                    found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
+                    """
                     try:
                         found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
                         break
@@ -117,3 +118,4 @@ def pet_suv_conversion_external_v3():
                         print("this is the erorr thrown")
                         print(f"error: {e}")
                         continue  # If an error occurs, continue with the next substring
+                    """
