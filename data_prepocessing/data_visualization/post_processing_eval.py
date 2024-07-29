@@ -260,7 +260,7 @@ def post_processing_eval():
 
         # Get the value from the 'Tracer' column or set tracer to None if not found
         tracer = tracer_row["Tracer"].values[0] if not tracer_row.empty else None
-        print("tracer")
+        print(f"tracer : {tracer}")
         continue
 
         # print(label_name)
