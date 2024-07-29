@@ -250,7 +250,8 @@ def post_processing_eval():
 
         petlymph_name = image_name.strip(".nii.gz")
         print(petlymph_name)
-        tracer_row = tracer_df[tracer_df["id"] == petlymph_name]
+        tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
+
         tracer = tracer_row["Tracer"]
         print("tracer")
         continue
