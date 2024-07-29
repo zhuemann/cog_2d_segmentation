@@ -157,7 +157,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # Convert PosixPath objects to strings
     files = [str(file) for file in dcm_files]
     #print(len(files))
-    files = glob.glob(top_dicom_folder + "/*.dcm")
+    #files = glob.glob(top_dicom_folder + "/*.dcm")
 
     if len(files) < 1:
         print("will error not calling right folder")
