@@ -7,6 +7,8 @@ import numpy as np
 
 import json
 
+import pandas as pd
+
 
 def pad_and_crop(prediction, label):
     # Get the shapes of the prediction and label arrays
@@ -226,7 +228,7 @@ def post_processing_eval():
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
     label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
 
-    tracer_df = "Z:/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/meta_data_files/combined_tracer_and_scanner.xlsx"
+    tracer_df = pd.read_excel("Z:/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/meta_data_files/combined_tracer_and_scanner.xlsx")
 
     prediction_list = os.listdir(prediction_location)
     all_images = os.listdir(image_base)
@@ -250,9 +252,14 @@ def post_processing_eval():
 
         petlymph_name = image_name.strip(".nii.gz")
         print(petlymph_name)
+        #tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
+
+        #tracer = tracer_row["Tracer"]
+        # Get the row where 'ID' matches petlymph_name
         tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
 
-        tracer = tracer_row["Tracer"]
+        # Get the value from the 'Tracer' column or set tracer to None if not found
+        tracer = tracer_row["Tracer"].values[0] if not tracer_row.empty else None
         print("tracer")
         continue
 
