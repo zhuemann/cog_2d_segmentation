@@ -103,6 +103,20 @@ def get_ct_name(folder_path):
     return None
 
 
+def resample_image(target_image, target_affine, reference_image):
+    # Calculate the zoom factor for each axis
+    target_shape = target_image.shape
+    reference_shape = reference_image.shape
+    zoom_factors = np.array(reference_shape) / np.array(target_shape)
+
+    # Resample the target image
+    resampled_image = zoom(target_image, zoom_factors, order=3)  # order=3 for cubic interpolation
+
+    # Create a new NIfTI image
+    resampled_nii = nib.Nifti1Image(resampled_image, target_affine)
+
+    return resampled_nii
+
 def get_max_pixel_step3(df):
     # check how many sentences have a pet scan with them
     #uw_100 = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain/concensus_slice_suv_anonymized_2.xlsx"
@@ -197,6 +211,13 @@ def get_max_pixel_step3(df):
             #print(f"ct shape: {ct_image.shape}")
             ct_dimensions = ct_nii.header.get_zooms()
             #print(f"ct file name: {ct_name} ct voxel dimensions: {ct_dimensions}")
+
+            ct_affine = ct_nii.affine
+            pet_affine = nii_image.affine
+            resampled_pet_nii = resample_image(img, pet_affine, ct_image)
+
+            img = resampled_pet_nii
+            img = img.get_fdata()
 
             suv_ref = row["SUV"]
             if suv_ref < 2.5:
