@@ -6,6 +6,8 @@ import numpy as np
 import os
 import nibabel as nib
 import cc3d
+from scipy.ndimage import zoom
+
 
 def get_threshold(source):
     background = 2
