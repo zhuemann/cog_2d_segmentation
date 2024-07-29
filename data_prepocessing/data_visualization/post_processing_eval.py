@@ -230,6 +230,8 @@ def post_processing_eval():
 
     tracer_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/meta_data_files/combined_tracer_and_scanner.xlsx")
 
+    labeled_subset = pd.read_excel("/UserData/Zach_Analysis/final_testset_evaluation_vg/all_labels_jdw.xlsx")
+
     prediction_list = os.listdir(prediction_location)
     all_images = os.listdir(image_base)
     number_correct = 0
@@ -252,9 +254,15 @@ def post_processing_eval():
 
         petlymph_name = image_name.strip(".nii.gz")
         print(petlymph_name)
-        #tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
 
-        #tracer = tracer_row["Tracer"]
+        labeled_row = labeled_subset[labeled_subset["Petlymph"] == petlymph_name]
+
+        # Check if labeled_row is empty or it is a bad label
+        if labeled_row.empty or labeled_row["Label_is_Correct"] == 0:
+            continue
+
+
+
         # Get the row where 'ID' matches petlymph_name
         tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
 
