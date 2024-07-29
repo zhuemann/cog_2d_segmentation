@@ -50,8 +50,12 @@ def plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save
     # Create a figure
     plt.figure(figsize=(10, 10))
     plt.imshow(PET_mip, cmap='gray')
+
+    # for saving off plain image
+    plt.axis('off')
     save_file_name = save_file.split("/")[-1]
-    plt.savefig(f"/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions_v6/plain + {str(save_file_name)}", bbox_inches="tight", pad_inches=0)
+    plt.savefig(f"/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions_v6/plain_{str(save_file_name)}", bbox_inches="tight", pad_inches=0)
+
     # Function to plot contours with specific colors
     def plot_contours(mask, color):
         contours = measure.find_contours(mask, 0.5)
