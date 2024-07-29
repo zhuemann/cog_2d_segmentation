@@ -136,6 +136,6 @@ def tracer_type_all_files():
     })
 
     # Save the dataframe to an Excel file
-    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/tracer_and_scanner_dsb2b.xlsx', index=False)
+    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/tracer_and_scanner_dsb2c.xlsx', index=False)
 
 
