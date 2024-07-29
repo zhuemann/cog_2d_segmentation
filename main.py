@@ -45,8 +45,8 @@ from external_test_set_creation.external_get_max_pixel import external_get_max_p
 
 
 if __name__ == '__main__':
-    tracer_type_all_files()
-    print(fail)
+    #tracer_type_all_files()
+    #print(fail)
     #uw_pet_suv_conversion_external_v3()
     #ct_check()
     #pet_suv_conversion_external_v3()

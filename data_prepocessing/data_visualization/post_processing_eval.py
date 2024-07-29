@@ -226,6 +226,8 @@ def post_processing_eval():
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
     label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
 
+    tracer_df = "Z:/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/meta_data_files/combined_tracer_and_scanner.xlsx"
+
     prediction_list = os.listdir(prediction_location)
     all_images = os.listdir(image_base)
     number_correct = 0
@@ -245,6 +247,13 @@ def post_processing_eval():
         image_name = label[:15]
         #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
+
+        petlymph_name = image_name.strip(".nii.gz")
+        tracer_row = tracer_df[petlymph_name]
+        tracer = tracer_row["Tracer"]
+        print("tracer")
+        continue
+
         # print(label_name)
         # row = df[df["Label_Name"] == label_name].iloc[0]
         # sent = row["sentence"]
