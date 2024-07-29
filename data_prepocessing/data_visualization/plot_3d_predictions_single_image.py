@@ -105,9 +105,9 @@ def plot_all_images():
     prediction_folder = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/predictions_v5_f1_.65_v2/"
     all_predictions = os.listdir(prediction_folder)
 
-    labels = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels5/"
+    labels = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
 
-    pet_images = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
+    pet_images = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
 
     save_location = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions_v5/"
 

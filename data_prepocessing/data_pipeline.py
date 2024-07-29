@@ -240,8 +240,8 @@ def run_data_pipeline_final():
 
     df.to_excel(save_base + "removed_wrong_suv_max_and_slices_13.xlsx", index=False)
     """
-    #plot_all_images()
-    plot_3d_predictions_single_image()
+    plot_all_images()
+    #plot_3d_predictions_single_image()
     #ct_analysis()
     #scanner_types()
     #post_processing_eval()
