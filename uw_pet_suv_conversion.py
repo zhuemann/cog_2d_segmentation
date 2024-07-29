@@ -207,6 +207,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     elif dicom_modality == 'PT':
         #print(f"dicom_modality: {dicom_modality}")
         #print(f"about to call dicom to nifiti")
+        print(f"top dicom folder: {top_dicom_folder}")
         dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
                                           os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
                                           reorient_nifti=False)
