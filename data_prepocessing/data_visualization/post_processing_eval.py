@@ -239,6 +239,14 @@ def post_processing_eval():
     TP_sum = 0
     FP_sum = 0
     FN_sum = 0
+
+    fdg_tp_sum = 0
+    fdg_fp_sum = 0
+    fdg_fn_sum = 0
+
+    psma_tp_sum = 0
+    psma_fp_sum = 0
+    psma_fn_sum= 0
     for label in prediction_list:
         index += 1
         #if number_correct > 1:
@@ -253,7 +261,7 @@ def post_processing_eval():
         label_name = label.strip(".nii.gz")
 
         petlymph_name = image_name.strip(".nii.gz")
-        print(petlymph_name)
+        #print(petlymph_name)
 
         labeled_row = labeled_subset[labeled_subset["Petlymph"] == petlymph_name]
 
@@ -268,8 +276,8 @@ def post_processing_eval():
 
         # Get the value from the 'Tracer' column or set tracer to None if not found
         tracer = tracer_row["Tracer"].values[0] if not tracer_row.empty else None
-        print(f"tracer : {tracer}")
-        continue
+        #print(f"tracer : {tracer}")
+        #continue
 
         # print(label_name)
         # row = df[df["Label_Name"] == label_name].iloc[0]
@@ -310,7 +318,22 @@ def post_processing_eval():
         FP_sum += FP
         FN_sum += FN
 
-    print(f"f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)}")
-        #analyze_volume(prediction_data)
+        if tracer == "FDG -- fluorodeoxyglucose":
+            fdg_tp_sum += TP
+            fdg_fp_sum += FP
+            fdg_fn_sum += FN
+        elif tracer == "Sodium Flouride" or tracer == "GA68 Dotatate":
+            print("other tracer")
+        else:
+            psma_tp_sum += TP
+            psma_fp_sum += FP
+            psma_fn_sum += FN
 
-    print(f"True positive: {TP_sum} False Positive: {FP_sum} False Negative sum: {FN_sum}")
+    print(f"Combined f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)}")
+    print(f"Combined True positive: {TP_sum} False Positive: {FP_sum} False Negative sum: {FN_sum}")
+
+    print(f"fdg f1 score: {calculate_f1_score(fdg_tp_sum, fdg_fp_sum, fdg_fn_sum)}")
+    print(f"fdg True positive: {fdg_tp_sum} False Positive: {fdg_fp_sum} False Negative sum: {fdg_fn_sum}")
+
+    print(f"psma f1 score: {calculate_f1_score(psma_tp_sum, psma_fp_sum, psma_fn_sum)}")
+    print(f"psma True positive: {psma_tp_sum} False Positive: {psma_fp_sum} False Negative sum: {psma_fn_sum}")
