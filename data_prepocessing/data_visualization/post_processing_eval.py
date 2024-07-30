@@ -255,7 +255,7 @@ def post_processing_eval():
         #    print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct / index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
         #else:
         #    print(f"index: {index} number that are correct: {number_correct}")
-        print(f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum} f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)} skipped: {skipped}")
+        #print(f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum} f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)} skipped: {skipped}")
         #print(f"label name: {label}")
         # image_name = label[:-15]
         image_name = label[:15]
@@ -272,7 +272,7 @@ def post_processing_eval():
         if labeled_row.empty:
             continue
 
-        print(labeled_row["Label_is_Correct"].iloc[0])
+        print(f'{petlymph_name} number: {labeled_row["Label_is_Correct"].iloc[0]}')
         print(type(labeled_row["Label_is_Correct"].iloc[0]))
         if labeled_row["Label_is_Correct"].iloc[0] == 0:
             skipped += 1
