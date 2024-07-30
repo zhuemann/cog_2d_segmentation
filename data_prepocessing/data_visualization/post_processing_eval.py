@@ -272,6 +272,8 @@ def post_processing_eval():
         if labeled_row.empty:
             continue
 
+        print(labeled_row["Label_is_Correct"].iloc[0])
+        print(type(labeled_row["Label_is_Correct"].iloc[0]))
         if labeled_row["Label_is_Correct"].iloc[0] == 0:
             skipped += 1
             continue
