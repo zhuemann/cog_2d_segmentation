@@ -265,7 +265,7 @@ def post_processing_eval():
         petlymph_name = image_name.strip(".nii.gz")
         #print(petlymph_name)
 
-        labeled_row = labeled_subset[labeled_subset["Petlymph"] == petlymph_name]
+        labeled_row = labeled_subset[labeled_subset["Label_Name"] == label_name]
 
 
         # Check if labeled_row is empty or it is a bad label
