@@ -264,7 +264,6 @@ def post_processing_eval():
 
         petlymph_name = image_name.strip(".nii.gz")
         #print(petlymph_name)
-        print(label_name)
         labeled_row = labeled_subset[labeled_subset["Label_Name"] == label_name]
 
 
@@ -273,13 +272,9 @@ def post_processing_eval():
         if labeled_row.empty:
             continue
 
-        print(f'{petlymph_name} number: {labeled_row["Label_is_Correct"].iloc[0]}')
-        print(type(labeled_row["Label_is_Correct"].iloc[0]))
         if labeled_row["Label_is_Correct"].iloc[0] == 0:
             skipped += 1
             continue
-
-        continue
 
         # Get the row where 'ID' matches petlymph_name
         tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
