@@ -247,13 +247,15 @@ def post_processing_eval():
     psma_tp_sum = 0
     psma_fp_sum = 0
     psma_fn_sum= 0
+
+    skipped = 0
     for label in prediction_list:
         index += 1
         #if number_correct > 1:
         #    print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct / index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
         #else:
         #    print(f"index: {index} number that are correct: {number_correct}")
-        print(f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum} f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)}")
+        print(f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum} f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)} skipped: {skipped}")
         #print(f"label name: {label}")
         # image_name = label[:-15]
         image_name = label[:15]
@@ -265,11 +267,15 @@ def post_processing_eval():
 
         labeled_row = labeled_subset[labeled_subset["Petlymph"] == petlymph_name]
 
+        if labeled_row["Label_is_Correct"].iloc[0] == 0:
+            skipped += 1
+            continue
+
         # Check if labeled_row is empty or it is a bad label
         if labeled_row.empty or labeled_row["Label_is_Correct"].iloc[0] == 0:
             continue
 
-
+        continue
 
         # Get the row where 'ID' matches petlymph_name
         tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
