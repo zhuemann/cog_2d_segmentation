@@ -34,7 +34,6 @@ from data_prepocessing.data_pipeline import run_data_pipeline_final
 from data_prepocessing.utility.scanner_types import scanner_types_external_test_set
 from data_prepocessing.utility.utility import count_files_in_suv_folder
 from data_prepocessing.data_visualization.plot_training_and_inference_images import plot_training_and_inference_images
-from uw_pet_suv_conversion import uw_pet_suv_conversion_external_v3
 from uw_pet_suv_conversion import uw_ct_check
 
 from data_prepocessing.utility.tracer_type_all_files import tracer_type_all_files
@@ -47,10 +46,9 @@ from external_test_set_creation.external_get_max_pixel import external_get_max_p
 if __name__ == '__main__':
     #tracer_type_all_files()
     #print(fail)
-    uw_pet_suv_conversion_external_v3()
-    print(fail)
     #ct_check()
-    #pet_suv_conversion_external_v3()
+    pet_suv_conversion_external_v3()
+    print(fail)
     #uw_ct_conversion_external_dataset_v2()
     #external_get_max_pixel()
     #print(fail)
