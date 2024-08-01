@@ -216,8 +216,8 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
                                           os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
                                           reorient_nifti=False)
         #print(f" about to call convert to nifiti to suv nifiti")
-        convert_pet_nifti_to_suv_nifti(os.path.join(subject_save_folder, scan_save_name + '.nii.gz'), test_dicom,
-                                   os.path.join(subject_save_folder, scan_save_name + '_SUV.nii.gz'))
+        #convert_pet_nifti_to_suv_nifti(os.path.join(subject_save_folder, scan_save_name + '.nii.gz'), test_dicom,
+        #                           os.path.join(subject_save_folder, scan_save_name + '_SUV.nii.gz'))
         """
         try:
             dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
@@ -337,10 +337,10 @@ def pet_suv_conversion_external_v3():
                 if "wb_ctac" not in matched_recon.lower() and "pet_ac_2d" not in matched_recon.lower():
                     continue
 
-                #if matched_recon == None or "fused_trans" not in matched_recon.lower() or "mip" in matched_recon.lower():
-                #    continue
-                if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+                if matched_recon == None or "fused_trans" not in matched_recon.lower() or "mip" in matched_recon.lower():
                     continue
+                #if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+                #    continue
                 print(f"matched: {matched_recon}")
                 if matched_recon:
                     # If a match is found, build the path
