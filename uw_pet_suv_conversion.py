@@ -1393,6 +1393,7 @@ def uw_pet_suv_conversion_external_v3():
 
     for file in files_in_directory:
         print(f"index: {index} already_converted: {already_converted } found pet images: {found_pet_images} file: {file}")
+        print("don't use this version us the one in its own file")
         index += 1
         #if index < 24200:
         #    continue
