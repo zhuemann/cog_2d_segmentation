@@ -277,9 +277,11 @@ def pet_suv_conversion_external_v3():
         index += 1
         #if index < 24200:
         #    continue
+
         folder_name_exists = os.path.join(top_nifti_folder, file)
         if os.path.exists(folder_name_exists):
             if any('SUV' in filename for filename in os.listdir(folder_name_exists)):
+                print(f"folder name: {folder_name_exists}")
                 found_pet_images += 1
                 already_converted += 1
                 print("already found this image with SUV")
