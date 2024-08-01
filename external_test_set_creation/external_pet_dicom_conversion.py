@@ -255,7 +255,7 @@ def call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts):
 def pet_suv_conversion_external_v3():
 
     dir_path = "/mnt/dsb2/BRADSHAWtyler.20240716__201511/RefactoredBags/"
-    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_fused/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset_try3/"
 
 
     df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/Swedish_sentences_with_uw_ids.xlsx")
