@@ -177,19 +177,19 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     folder_names = top_dicom_folder.split("/")
     #print(folder_names)
     #indices_of_pet = [index for index, element in enumerate(folder_names) if "petwb_" in element.lower()]
-    print(f"top dicom folder: {folder_names}")
+    #print(f"top dicom folder: {folder_names}")
     indices_of_pet = [index for index, element in enumerate(folder_names) if "sah" in element.lower()]
 
-    print(f"indices: {indices_of_pet}")
-    print(f"test: {folder_names[indices_of_pet[0]]}")
+    #print(f"indices: {indices_of_pet}")
+    #print(f"test: {folder_names[indices_of_pet[0]]}")
     # unique names for subjects and scans
     #subject_save_name = dicom_id + '_' + dicom_name.replace(' ', '_').replace('__', '_')
     #print(f"subject_save_name: {subject_save_name}")
     subject_save_name = folder_names[indices_of_pet[0]]
-    print(f"subject_save_name: {subject_save_name}")
+    #print(f"subject_save_name: {subject_save_name}")
 
     subject_save_folder = os.path.join(top_nifti_folder, subject_save_name)
-    print(f"subject save folder: {subject_save_folder}")
+    #print(f"subject save folder: {subject_save_folder}")
     os.makedirs(subject_save_folder, exist_ok=True)
     scan_save_name = '{}_{}_{}_{}'.format(subject_save_name, dicom_study_date, dicom_modality, \
                                           dicom_series_description.replace(' ', '_'))
@@ -200,7 +200,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     scan_save_name = scan_save_name.replace("]", "_")
 
 
-    print(f"save save name: {scan_save_name}")
+    #print(f"save save name: {scan_save_name}")
 
     if dicom_modality in ['CT', 'MR', 'NM']:
         #print(f"dicom_modality: {dicom_modality}")
@@ -210,12 +210,12 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     elif dicom_modality == 'PT':
         #print(f"dicom_modality: {dicom_modality}")
         #print(f"about to call dicom to nifiti")
-        print(f"top dicom folder: {top_dicom_folder}")
+        #print(f"top dicom folder: {top_dicom_folder}")
         #print(f"{os.listdir(top_dicom_folder)}")
         dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
                                           os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
                                           reorient_nifti=False)
-        print(f" about to call convert to nifiti to suv nifiti")
+        #print(f" about to call convert to nifiti to suv nifiti")
         convert_pet_nifti_to_suv_nifti(os.path.join(subject_save_folder, scan_save_name + '.nii.gz'), test_dicom,
                                    os.path.join(subject_save_folder, scan_save_name + '_SUV.nii.gz'))
         """
