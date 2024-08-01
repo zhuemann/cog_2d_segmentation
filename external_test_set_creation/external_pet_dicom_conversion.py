@@ -212,7 +212,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
         #print(f"about to call dicom to nifiti")
         #print(f"top dicom folder: {top_dicom_folder}")
         print(f"all files in folder: {os.listdir(top_dicom_folder)}")
-        print(f"type: {os.listdir(top_dicom_folder)[0]}")
+        print(f"type: {type(os.listdir(top_dicom_folder)[0])}")
         dicom2nifti.dicom_series_to_nifti(top_dicom_folder,
                                           os.path.join(subject_save_folder, scan_save_name + '.nii.gz'),
                                           reorient_nifti=False)
