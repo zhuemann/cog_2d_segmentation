@@ -145,10 +145,44 @@ def convert_pet_nifti_to_suv_nifti(nifti_read_filename, test_dicom, nifti_save_f
         return False, dicom_weight
 
 
+def unique_set_from_dicom_files(dicom_directory):
+    unique_values = set()
+
+    # Function to print all DICOM header fields and their values
+    def print_dicom_headers(dicom_data):
+        for element in dicom_data:
+            try:
+                value = element.value
+                print(f'{element.tag} {element.name}: {value}')
+                unique_values.add(value)
+            except Exception as e:
+                print(f'Could not read element: {e}')
+
+    # Loop through all files in the directory
+    for root, dirs, files in os.walk(dicom_directory):
+        for file in files:
+            # Construct the full file path
+            file_path = os.path.join(root, file)
+
+            try:
+                # Read the DICOM file
+                dicom_data = pydicom.dcmread(file_path)
+                # Print the DICOM file headers
+                print(f'Headers of {file_path}:')
+                print_dicom_headers(dicom_data)
+                print('-' * 80)  # Separator between files for readability
+            except Exception as e:
+                print(f'Could not read {file_path}: {e}')
+
+    return unique_values
+
+
 def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # modality of interest is the modality that will be the reference size for the RTSTRUCT contours, defined by DICOM
     # type ('PT, 'CT', 'MR')
 
+    set = unique_set_from_dicom_files(top_dicom_folder)
+    print(f"set: {set}")
     #print(top_dicom_folder)
     # Ensure the path is correct
     top_dicom_folder_path = Path(top_dicom_folder)
