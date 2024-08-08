@@ -181,8 +181,8 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # modality of interest is the modality that will be the reference size for the RTSTRUCT contours, defined by DICOM
     # type ('PT, 'CT', 'MR')
 
-    set = unique_set_from_dicom_files(top_dicom_folder)
-    print(f"set: {set}")
+    #set = unique_set_from_dicom_files(top_dicom_folder)
+    #print(f"set: {set}")
     #print(top_dicom_folder)
     # Ensure the path is correct
     top_dicom_folder_path = Path(top_dicom_folder)
@@ -207,6 +207,9 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     dicom_id = test_dicom['00100020'].value.lower()
     dicom_study_date = test_dicom['00080020'].value
     dicom_series_description = test_dicom['0008103e'].value
+
+    # check if scale factor is there
+    print(test_dicom[(0x7053, 0x1000)].value)
     #print(f"top dicom folder: {top_dicom_folder}")
     folder_names = top_dicom_folder.split("/")
     print(folder_names)
