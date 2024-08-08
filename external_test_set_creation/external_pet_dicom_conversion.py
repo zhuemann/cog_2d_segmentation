@@ -181,7 +181,7 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # modality of interest is the modality that will be the reference size for the RTSTRUCT contours, defined by DICOM
     # type ('PT, 'CT', 'MR')
 
-    #set = unique_set_from_dicom_files(top_dicom_folder)
+    set = unique_set_from_dicom_files(top_dicom_folder)
     #print(f"set: {set}")
     #print(top_dicom_folder)
     # Ensure the path is correct
