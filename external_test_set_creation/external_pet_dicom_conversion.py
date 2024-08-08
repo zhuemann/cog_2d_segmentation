@@ -209,7 +209,10 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     dicom_series_description = test_dicom['0008103e'].value
 
     # check if scale factor is there
-    print(test_dicom[(0x7053, 0x1000)].value)
+    # Check if SUVbwScaleFactor is present and retrieve its value if it exists
+    suv_bw_scale_factor = test_dicom[('7053', '1000')].value if ('7053', '1000') in test_dicom else None
+    print(f"scale factor: {suv_bw_scale_factor}")
+
     #print(f"top dicom folder: {top_dicom_folder}")
     folder_names = top_dicom_folder.split("/")
     print(folder_names)
