@@ -25,6 +25,9 @@ def con_comp(seg_array):
 
 def generate_RTs(dicom_series_path, pet_nifti_path, nifti_label_path, save_rtstruct_path):
 
+
+    close_iterations = 1
+
     color_codes = sample_color_codes()
     # set random generator seed
     np.random.seed(1)
@@ -63,10 +66,22 @@ def generate_RTs(dicom_series_path, pet_nifti_path, nifti_label_path, save_rtstr
         )
         count += 1
 
+    series_description = "test"
     rtstruct_new.save(save_rtstruct_path)
-    ds = dcmread(save_rtstruct_path)
+    ds = pydicom.dcmread(save_rtstruct_path)
     ds.SeriesDescription = 'AI_contour' + '_' + series_description
 
     with open(save_rtstruct_path, 'wb') as outfile:
         ds.save_as(outfile)
+
+
+def make_all_rts():
+
+
+    dicom_series_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/PETWB_008427_01/20190821/PT/PET_CT_SKULL_BASE_TO_THIGH"
+    pet_nifti_path = "/mnt/Bradshaw/UW_PET_Data/SUV_images/PETWB_008427_01/PETWB_008427_01_20190821_PT_WB_MAC_SUV.nii.gz"
+
+    nifti_label_path = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/PETWB_008427_01_labelel_1.nii.gz"
+    save_rtstruct_path = "/UserData/Zach_Analysis/test_folder/test_rt_struct"
+    generate_RTs(dicom_series_path, pet_nifti_path, nifti_label_path, save_rtstruct_path)
 

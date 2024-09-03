@@ -42,13 +42,15 @@ from external_test_set_creation.external_pet_dicom_conversion import pet_suv_con
 from external_test_set_creation.external_ct_dicom_conversion import uw_ct_conversion_external_dataset_v2
 from external_test_set_creation.external_get_max_pixel import external_get_max_pixel
 
+from data_prepocessing.utility.rt_struct_builder import make_all_rts
 
 if __name__ == '__main__':
     #tracer_type_all_files()
     #print(fail)
     #ct_check()
-    pet_suv_conversion_external_v3()
-    print(fail)
+    #pet_suv_conversion_external_v3()
+    #make_all_rts()
+    #print(fail)
     #uw_ct_conversion_external_dataset_v2()
     #external_get_max_pixel()
     #print(fail)
