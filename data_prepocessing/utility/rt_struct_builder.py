@@ -3,7 +3,7 @@ import cc3d
 import numpy as np
 from rt_utils import RTStructBuilder
 import nibabel as nib
-from scipy import ndimage, morphology
+#from scipy import ndimage, morphology
 import pydicom
 
 # sample different color codes
