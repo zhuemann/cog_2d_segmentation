@@ -269,12 +269,12 @@ def post_processing_eval():
 
 
         # Check if labeled_row is empty or it is a bad label
-        if labeled_row.empty:
-            continue
+        #if labeled_row.empty:
+        #    continue
 
-        if labeled_row["Label_is_Correct"].iloc[0] == 0:
-            skipped += 1
-            continue
+        #if labeled_row["Label_is_Correct"].iloc[0] == 0:
+        #    skipped += 1
+        #    continue
 
         # Get the row where 'ID' matches petlymph_name
         tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
