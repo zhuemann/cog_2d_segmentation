@@ -269,8 +269,8 @@ def post_processing_eval():
 
 
         # Check if labeled_row is empty or it is a bad label
-        #if labeled_row.empty:
-        #    continue
+        if labeled_row.empty:
+            continue
 
         #if labeled_row["Label_is_Correct"].iloc[0] == 0:
         #    skipped += 1
