@@ -89,7 +89,10 @@ def get_dicoms_for_reading():
                 top_dicom_folder = os.path.join(directory, matched_recon)
                 print(top_dicom_folder)
                 new_destination = os.path.join(destination_dir, file)
+                if os.path.exists(new_destination):
+                    continue
                 shutil.copytree(top_dicom_folder, new_destination)
+                """
                 try:
                     #scanner_type = get_scanner_type(top_dicom_folder)
                     #if scanner_type in all_scans:
@@ -101,3 +104,4 @@ def get_dicoms_for_reading():
                 except:
                     print("error happened")
                     continue  # If an error occurs, continue with the next substring
+                """
