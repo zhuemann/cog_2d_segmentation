@@ -10,7 +10,7 @@ def get_dicoms_for_reading():
 
     # path_list = ["/mnt/Bradshaw/UW_PET_Data/dsb2b/", "/mnt/Bradshaw/UW_PET_Data/dsb2c/" ,"/mnt/Bradshaw/UW_PET_Data/dsb3/"]
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
-    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb3/"
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
     files_in_directory = os.listdir(dir_path)
     destination_dir = "/UserData/Zach_Analysis/physican_labeling_UWPET/dicom_folders/"
 
@@ -89,7 +89,7 @@ def get_dicoms_for_reading():
                 # If a match is found, build the path
                 top_dicom_folder = os.path.join(directory, matched_recon)
                 print(top_dicom_folder)
-                new_destination = os.path.join(destination_dir, file)
+                new_destination = os.path.join(destination_dir, file, "pet")
                 if os.path.exists(new_destination):
                     continue
                 shutil.copytree(top_dicom_folder, new_destination)
