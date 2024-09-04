@@ -47,8 +47,7 @@ def get_dicoms_for_reading():
                 print("already found this image with SUV")
                 continue
         """
-        file = row["Petlymph"].iloc[0]
-        print(file)
+        file = row["Petlymph"]
         files_in_dir = os.listdir(dir_path)
         if file not in files_in_dir:
             skipped_files += 1
