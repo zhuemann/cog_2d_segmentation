@@ -111,7 +111,7 @@ def make_all_rts():
         nifti_path = find_suv_file(nifti_path)
 
         # define label path from the row we are doing
-        nifti_label_path = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/" + "label_name" + ".nii.gz"
+        nifti_label_path = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/" + label_name + ".nii.gz"
 
         # define the save location to be in the right spot given folder structure
         save_rtstruct_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/dicom_folders/" + str(petlymph) + "/rt_struct_label_1.dcm"
