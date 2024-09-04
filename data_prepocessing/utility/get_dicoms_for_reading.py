@@ -61,9 +61,9 @@ def get_dicoms_for_reading():
         else:
             print(f"multiple date files in this folder: {directory}")
         modality = os.listdir(directory)
-        if "PT" in modality:
+        if "CT" in modality:
             #directory = os.path.join(dir_path, file, "PT")
-            directory = os.path.join(directory, "PT")
+            directory = os.path.join(directory, "CT")
         else:
             print(f"file: {file} does not have Pet scan")
             continue
@@ -80,7 +80,8 @@ def get_dicoms_for_reading():
         # print(test)
 
         recon_types = os.listdir(directory)
-        substrings_to_check = ["wb_3d_mac", "WB_MAC", "wb_ac_3d", "PET_AC_3D", "WB_IRCTAC"]
+        #substrings_to_check = ["wb_3d_mac", "WB_MAC", "wb_ac_3d", "PET_AC_3D", "WB_IRCTAC"]
+        substrings_to_check = ["2__CTAC", "CT_MAR", "WB_CT_SLICES", "CT_IMAGES", "WB_Standard"]
         # Iterate over each substring and check if it's present in any element of recon_types
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
@@ -89,7 +90,7 @@ def get_dicoms_for_reading():
                 # If a match is found, build the path
                 top_dicom_folder = os.path.join(directory, matched_recon)
                 print(top_dicom_folder)
-                new_destination = os.path.join(destination_dir, file, "pet")
+                new_destination = os.path.join(destination_dir, file, "ct")
                 if os.path.exists(new_destination):
                     continue
                 shutil.copytree(top_dicom_folder, new_destination)
