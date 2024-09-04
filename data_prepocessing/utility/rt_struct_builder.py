@@ -107,7 +107,7 @@ def make_all_rts():
         dicom_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/dicom_folders/" + str(petlymph) + "/pet"
         # define nifti path from SUV_images folder
 
-        nifti_path = "mnt/Bradshaw/UW_PET_Data/SUV_images/" + petlymph + "/"
+        nifti_path = "/mnt/Bradshaw/UW_PET_Data/SUV_images/" + petlymph + "/"
         nifti_path = find_suv_file(nifti_path)
 
         # define label path from the row we are doing
