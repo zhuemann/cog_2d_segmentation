@@ -88,7 +88,8 @@ def get_dicoms_for_reading():
                 # If a match is found, build the path
                 top_dicom_folder = os.path.join(directory, matched_recon)
                 print(top_dicom_folder)
-                shutil.copytree(top_dicom_folder, destination_dir)
+                new_destination = os.path.join(destination_dir, file)
+                shutil.copytree(top_dicom_folder, new_destination)
                 try:
                     #scanner_type = get_scanner_type(top_dicom_folder)
                     #if scanner_type in all_scans:
