@@ -48,7 +48,7 @@ def get_dicoms_for_reading():
                 continue
         """
         file = files_used["Petlymph"].iloc[0]
-
+        print(file)
         files_in_dir = os.listdir(dir_path)
         if file not in files_in_dir:
             skipped_files += 1
@@ -88,6 +88,7 @@ def get_dicoms_for_reading():
             if matched_recon:
                 # If a match is found, build the path
                 top_dicom_folder = os.path.join(directory, matched_recon)
+                print(top_dicom_folder)
                 try:
                     #scanner_type = get_scanner_type(top_dicom_folder)
                     #if scanner_type in all_scans:
@@ -97,4 +98,5 @@ def get_dicoms_for_reading():
                     shutil.copytree(top_dicom_folder, destination_dir)
                     print("inside try")
                 except:
+                    print("error happened")
                     continue  # If an error occurs, continue with the next substring
