@@ -47,7 +47,7 @@ def get_dicoms_for_reading():
                 print("already found this image with SUV")
                 continue
         """
-        file = files_used["Petlymph"]
+        file = files_used["Petlymph"].iloc[0]
 
         files_in_dir = os.listdir(dir_path)
         if file not in files_in_dir:
