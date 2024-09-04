@@ -10,7 +10,7 @@ def get_dicoms_for_reading():
 
     # path_list = ["/mnt/Bradshaw/UW_PET_Data/dsb2b/", "/mnt/Bradshaw/UW_PET_Data/dsb2c/" ,"/mnt/Bradshaw/UW_PET_Data/dsb3/"]
     #dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/"
-    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb2c/"
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/dsb3/"
     files_in_directory = os.listdir(dir_path)
     destination_dir = "/UserData/Zach_Analysis/physican_labeling_UWPET/dicom_folders/"
 
