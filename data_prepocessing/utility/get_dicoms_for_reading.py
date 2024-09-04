@@ -47,12 +47,12 @@ def get_dicoms_for_reading():
                 print("already found this image with SUV")
                 continue
         """
+        file = files_used["Petlymph"]
+
         files_in_dir = os.listdir(dir_path)
         if file not in files_in_dir:
             skipped_files += 1
             continue
-
-        file = files_used["Petlymph"]
 
         directory = os.path.join(dir_path, file)
         date = os.listdir(directory)
