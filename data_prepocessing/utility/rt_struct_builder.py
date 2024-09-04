@@ -1,13 +1,14 @@
 
 import cc3d
 import numpy as np
+import pandas as pd
 from rt_utils import RTStructBuilder
 import nibabel as nib
 from scipy import ndimage #, morphology
 import pydicom
 #import scipy
 from skimage import morphology
-
+import os
 
 # sample different color codes
 def sample_color_codes():
@@ -77,14 +78,52 @@ def generate_RTs(dicom_series_path, pet_nifti_path, nifti_label_path, save_rtstr
     with open(save_rtstruct_path, 'wb') as outfile:
         ds.save_as(outfile)
 
+def find_suv_file(nifti_path):
+    # Iterate over all files in the specified folder
+    for file_name in os.listdir(nifti_path):
+        # Check if the substring 'SUV' is in the file name
+        if "SUV" in file_name:
+            # Join the folder path and file name to get the full path
+            suv_file_path = os.path.join(nifti_path, file_name)
+            return suv_file_path
+    # If no file with 'SUV' is found, return None
+    return None
 
 def make_all_rts():
 
+    # load in dataframe we are working on
+    df = pd.read_excel("/UserData/Zach_Analysis/final_testset_evaluation_vg/all_labels_jdw.xlsx")
+    # for all the rows in the dataframe
+    for index, row in df.iterrows():
 
+        # get row from dataframe which tells you the pet id
+        petlymph = row["Petlymph"]
+        label_name = row["Label_Name"]
+        # if we don't need rt struct then skip
+        if int(row["Label is correct but needs refinement"]) == 0:
+            continue
+
+        # define dicom sereies path (new copied path)
+        dicom_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/dicom_folders/" + str(petlymph) + "/pet"
+        # define nifti path from SUV_images folder
+
+        nifti_path = "mnt/Bradshaw/UW_PET_Data/SUV_images/" + petlymph + "/"
+        nifti_path = find_suv_file(nifti_path)
+
+        # define label path from the row we are doing
+        nifti_label_path = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/" + "label_name" + ".nii.gz"
+
+        # define the save location to be in the right spot given folder structure
+        save_rtstruct_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/dicom_folders/" + str(petlymph) + "/rt_struct_label_1.dcm"
+        # then call generate_RT
+        generate_RTs(dicom_path, nifti_path, nifti_label_path, save_rtstruct_path)
+
+
+    """
     dicom_series_path = "/mnt/Bradshaw/UW_PET_Data/dsb2b/PETWB_008427_01/20190821/PT/PET_CT_SKULL_BASE_TO_THIGH/12__WB_MAC"
     pet_nifti_path = "/mnt/Bradshaw/UW_PET_Data/SUV_images/PETWB_008427_01/PETWB_008427_01_20190821_PT_WB_MAC_SUV.nii.gz"
 
     nifti_label_path = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/PETWB_008427_01_label_1.nii.gz"
     save_rtstruct_path = "/UserData/Zach_Analysis/test_folder/test_rt_struct.dcm"
     generate_RTs(dicom_series_path, pet_nifti_path, nifti_label_path, save_rtstruct_path)
-
+    """
