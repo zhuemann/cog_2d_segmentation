@@ -47,14 +47,14 @@ from data_prepocessing.utility.get_dicoms_for_reading import get_dicoms_for_read
 
 if __name__ == '__main__':
 
-    get_dicoms_for_reading()
-    print(fail)
+    #get_dicoms_for_reading()
+    #print(fail)
     #tracer_type_all_files()
     #print(fail)
     #ct_check()
     #pet_suv_conversion_external_v3()
-    #make_all_rts()
-    #print(fail)
+    make_all_rts()
+    print(fail)
     #uw_ct_conversion_external_dataset_v2()
     #external_get_max_pixel()
     #print(fail)

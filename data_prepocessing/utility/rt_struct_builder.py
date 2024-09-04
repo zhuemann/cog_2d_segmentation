@@ -5,6 +5,7 @@ from rt_utils import RTStructBuilder
 import nibabel as nib
 #from scipy import ndimage, morphology
 import pydicom
+import scipy
 
 # sample different color codes
 def sample_color_codes():
@@ -46,10 +47,10 @@ def generate_RTs(dicom_series_path, pet_nifti_path, nifti_label_path, save_rtstr
     count = 0
     for i in range(1, nifti_label_comp.max( ) +1):
         mask_3d = nifti_label_comp == i
-        mask_3d = ndimage.binary_closing(mask_3d, iterations=close_iterations) # 3D closing
+        mask_3d = scipy.ndimage.binary_closing(mask_3d, iterations=close_iterations) # 3D closing
 
         # ''' dilate the mask by 1 voxel and reapply the thresholding, sometimes, part of the mask include heart
-        mask_3d = morphology.binary_dilation(mask_3d, morphology.ball(radius=1))
+        mask_3d = scipy.morphology.binary_dilation(mask_3d, scipy.morphology.ball(radius=1))
         # morphology.ball(radius=1) (all 26 neighbors)
         # default: cross-shaped structuring element, only the 6 neighboring voxels are considered
 
