@@ -43,8 +43,12 @@ from external_test_set_creation.external_ct_dicom_conversion import uw_ct_conver
 from external_test_set_creation.external_get_max_pixel import external_get_max_pixel
 
 from data_prepocessing.utility.rt_struct_builder import make_all_rts
+from data_prepocessing.utility.get_dicoms_for_reading import get_dicoms_for_reading
 
 if __name__ == '__main__':
+
+    get_dicoms_for_reading()
+    print(fail)
     #tracer_type_all_files()
     #print(fail)
     #ct_check()
