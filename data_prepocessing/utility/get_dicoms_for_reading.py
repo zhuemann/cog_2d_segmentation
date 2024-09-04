@@ -28,6 +28,7 @@ def get_dicoms_for_reading():
 
     #for file in files_in_directory:
     for _, row in files_used.iterrows():
+        """
         path = row["PET_Used"]
 
         path_parts = path.split(os.sep)
@@ -37,6 +38,7 @@ def get_dicoms_for_reading():
         #if index < 24200:
         #    continue
         folder_name_exists = os.path.join(top_nifti_folder, file)
+        """
         """
         if os.path.exists(folder_name_exists):
             if any('SUV' in filename for filename in os.listdir(folder_name_exists)):
