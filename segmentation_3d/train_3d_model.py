@@ -346,7 +346,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     #print("valid df")
     #print(valid_df)
 
-    json_path = " /UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json"
+    json_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json"
     json_file = load_json(json_path)
 
     training_set = TextImageDataset(json_file, tokenizer, 512, mode="train", transforms = albu_augs, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = None)
