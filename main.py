@@ -45,6 +45,8 @@ from external_test_set_creation.external_get_max_pixel import external_get_max_p
 from data_prepocessing.utility.rt_struct_builder import make_all_rts
 from data_prepocessing.utility.get_dicoms_for_reading import get_dicoms_for_reading
 
+from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
+
 if __name__ == '__main__':
 
     #get_dicoms_for_reading()
@@ -53,7 +55,8 @@ if __name__ == '__main__':
     #print(fail)
     #ct_check()
     #pet_suv_conversion_external_v3()
-    make_all_rts()
+    #make_all_rts()
+    train_3d_image_text_segmentation()
     print(fail)
     #uw_ct_conversion_external_dataset_v2()
     #external_get_max_pixel()
