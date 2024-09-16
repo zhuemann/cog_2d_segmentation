@@ -22,6 +22,7 @@ class TextImageDataset(Dataset):
                  wordDict = None,
                  ngram_synonom = [], norm = None):  # data_path = os.path.join(dir_base,'Lymphoma_UW_Retrospective/Data/mips/')
         self.tokenizer = tokenizer
+        self.json_file = json_file
         #self.data = dataframe
         #self.text = dataframe.report
         #self.targets = self.data.label
