@@ -37,7 +37,7 @@ import torch.nn.functional as F
 #from sklearn.metrics import accuracy_score, hamming_loss
 from models.ConTextual_seg_vis_model import Attention_ConTEXTual_Vis_Seg_Model
 #from dataloader_image_text import TextImageDataset
-from dataloader_visual_grounding import TextImageDataset
+from segmentation_3d.dataloader_3d import TextImageDataset
 #from vit_base import ViTBase16
 #from utility import compute_metrics
 from utility import dice_coeff
