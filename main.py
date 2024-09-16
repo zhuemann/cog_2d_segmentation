@@ -56,8 +56,7 @@ if __name__ == '__main__':
     #ct_check()
     #pet_suv_conversion_external_v3()
     #make_all_rts()
-    train_3d_image_text_segmentation()
-    print(fail)
+
     #uw_ct_conversion_external_dataset_v2()
     #external_get_max_pixel()
     #print(fail)
@@ -88,8 +87,8 @@ if __name__ == '__main__':
     #plot_ct_head_projections()
     #print(fail)
     #uw_ct_suv_conversion_v2()
-    run_data_pipeline_final()
-    print(fail)
+    #run_data_pipeline_final()
+    #print(fail)
     #plot_training_and_inference_images()
     #print(fail)
     #make_connected_component_labels_for_all_subregions()
@@ -116,6 +115,8 @@ if __name__ == '__main__':
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": ""}
 
     print("here")
+    train_3d_image_text_segmentation(config)
+    print(fail)
     #seeds = [98]
     seeds = [98, 117, 295, 456, 915]
     # seeds = [915]
