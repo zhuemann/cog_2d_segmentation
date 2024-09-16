@@ -484,7 +484,6 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     print("about to start training loop")
     lowest_loss = 100
     best_acc = 0
-    del train_df
     valid_log = []
     correct_suv_log = []
     avg_loss_list = []
