@@ -39,7 +39,8 @@ class TextImageDataset(Dataset):
         self.norm = norm
 
     def __len__(self):
-        return len(self.text)
+        return 512
+        #return len(self.text)
 
     def __getitem__(self, index):
         # text extraction
