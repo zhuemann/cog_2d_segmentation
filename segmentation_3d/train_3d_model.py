@@ -49,6 +49,20 @@ import nltk
 ssl.SSLContext.verify_mode = ssl.VerifyMode.CERT_OPTIONAL
 
 import json
+from monai.transforms import (
+    Compose,
+    RandAffine,
+    RandGaussianSmooth,
+    RandGaussianNoise,
+    SpatialPad,
+    CenterSpatialCrop,
+    Flip,
+    LoadImaged,
+    ScaleIntensityd,
+    RandCropByPosNegLabeld,
+    RandFlipd,
+    EnsureTyped
+)
 
 # Function to load JSON file
 def load_json(file_path):
@@ -319,6 +333,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     normalize = albu.Compose([
         #albu.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225), max_pixel_value=255.0)
     ])
+    """
     transforms_valid = transforms.Compose(
         [
             #transforms.RandomCrop(size=(256, 256)),
@@ -345,15 +360,46 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     #transforms_resize = transforms.Compose([transforms.Resize((IMG_SIZE, IMG_SIZE)), transforms.PILToTensor()])
     transforms_resize = transforms.Compose([transforms.Resize(IMG_SIZE), transforms.PILToTensor()])
     output_resize = transforms.Compose([transforms.Resize(IMG_SIZE)]) #407 x 907
-
+    """
 
     #print("train_df")
     #print(train_df)
     #print("valid df")
     #print(valid_df)
 
+    transforms_training = Compose([
+        RandAffine(
+            #keys=[self.image_key, self.label_key],
+            prob=0.1,
+            rotate_range=[0.05, 0.05, 0.05],
+            scale_range=[0.05, 0.05, 0.05],
+            mode="bilinear",
+            #spatial_size=self.roi_size,
+            cache_grid=True,
+            padding_mode="border",
+        ),
+        RandGaussianSmooth(
+             prob=0.2, sigma_x=(0.5, 1.0), sigma_y=(0.5, 1.0), sigma_z=(0.5, 1.0)
+        ),
+        RandGaussianNoise(prob=0.2, mean=0.0, std=0.1)
+    ])
 
-    training_set = TextImageDataset(train_df, tokenizer, 512, mode="train", transforms = albu_augs, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = None)
+    transforms_resize = Compose([
+        SpatialPad(spatial_size=(192, 192, None), mode="constant", method="symmetric", constant_values=0),
+        CenterSpatialCrop(roi_size=(192, 192, -1)),
+        # ts.append(SpatialPadd(keys = [pet_key, "label"], spatial_size = (200, 200, None), mode = "constant", method="symmetric", constant_values=0))
+        # ts.append(SpatialPadd(keys = keys, spatial_size = (None, None, 680), mode = "constant", method="start"))
+        # ts.append(SpatialPadd(keys = [ct_key], spatial_size = (200, 200, None), mode = "constant", method="symmetric", constant_values=-1000))
+
+        Flip(spatial_axis=-1), # Flip along the last dimension
+        SpatialPad(spatial_size=(None, None, 352), mode="constant", method="end"),
+        # Pad from the end (which is the start of the original after flipping)
+        Flip(spatial_axis=-1)
+
+    ])
+
+
+    training_set = TextImageDataset(train_df, tokenizer, 512, mode="train", transforms = transforms_training, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = None)
     valid_set =    TextImageDataset(valid_df, tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
     test_set =     TextImageDataset(test_df,  tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
 
