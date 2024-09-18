@@ -215,6 +215,12 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
         # stratify=test_valid_df.label.values
     )
     """
+
+    data_base_path = os.path.join(dir_base, "Zach_Analysis/uw_lymphoma_pet_3d/dataframes/")
+    train_df = pd.read_excel(data_base_path + "training.xlsx")
+    valid_df = pd.read_excel(data_base_path + "validation.xlsx")
+    test_df = pd.read_excel(data_base_path + "testing.xlsx")
+
     #valid_df = test_valid_df
     #test_df = test_valid_df
 
@@ -346,12 +352,10 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     #print("valid df")
     #print(valid_df)
 
-    json_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json"
-    json_file = load_json(json_path)
 
-    training_set = TextImageDataset(json_file, tokenizer, 512, mode="train", transforms = albu_augs, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = None)
-    valid_set =    TextImageDataset(json_file, tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
-    test_set =     TextImageDataset(json_file,  tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
+    training_set = TextImageDataset(train_df, tokenizer, 512, mode="train", transforms = albu_augs, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = None)
+    valid_set =    TextImageDataset(valid_df, tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
+    test_set =     TextImageDataset(test_df,  tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
 
     train_params = {'batch_size': BATCH_SIZE,
                 'shuffle': True,

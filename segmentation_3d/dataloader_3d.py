@@ -16,17 +16,16 @@ from utility import rle_decode_modified, rle_decode
 
 
 class TextImageDataset(Dataset):
-    def __init__(self, json_file, tokenizer, max_len, truncation=True,
+    def __init__(self, dataframe, tokenizer, max_len, truncation=True,
                  dir_base='/home/zmh001/r-fcb-isilon/research/Bradshaw/', mode=None, transforms=None, resize=None,
                  img_size=256,
                  wordDict = None,
                  ngram_synonom = [], norm = None):  # data_path = os.path.join(dir_base,'Lymphoma_UW_Retrospective/Data/mips/')
         self.tokenizer = tokenizer
-        self.json_file = json_file
-        #self.data = dataframe
-        #self.text = dataframe.report
-        #self.targets = self.data.label
-        #self.row_ids = self.data.index
+        self.data = dataframe
+        self.text = dataframe.report
+        self.targets = self.data.label
+        self.row_ids = self.data.index
         self.max_len = max_len
         self.img_size = img_size
         self.wordDict = wordDict
@@ -40,17 +39,15 @@ class TextImageDataset(Dataset):
         self.norm = norm
 
     def __len__(self):
-        return 512
-        #return len(self.text)
+        return len(self.text)
 
     def __getitem__(self, index):
         # text extraction
         #global img, image
-        print(self.json_file)
 
         text = str(self.text[index])
         text = " ".join(text.split())
-
+        print(text)
         text = text.replace("[ALPHANUMERICID]", "")
         text = text.replace("[date]", "")
         text = text.replace("[DATE]", "")
