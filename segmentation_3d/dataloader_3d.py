@@ -95,9 +95,9 @@ class TextImageDataset(Dataset):
         ct_img = self.load_nii_to_numpy(self.data.image2[index])
         label = self.load_nii_to_numpy(self.data.label[index])
 
-        print(f"img shape: {img}")
-        print(f"ct img: {ct_img}")
-        print(f"label: {label}")
+        print(f"img shape: {img.shape}")
+        print(f"ct img: {ct_img.shape}")
+        print(f"label: {label.shape}")
 
         #print(self.targets[index])
         #print(f"target: {self.targets[index]}")
