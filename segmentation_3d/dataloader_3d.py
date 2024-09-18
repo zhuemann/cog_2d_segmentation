@@ -99,27 +99,7 @@ class TextImageDataset(Dataset):
         print(f"ct img: {ct_img.shape}")
         print(f"label: {label.shape}")
 
-        #print(self.targets[index])
-        #print(f"target: {self.targets[index]}")
-        label_name = str(self.targets[index])
-        label_path = os.path.join(self.data_path, label_name)
-        #print(label_path)
-        with Image.open(label_path) as label_load:
-            label = np.array(label_load)
 
-        # decodes the rle
-        if self.targets[index] != str(-1):
-            #segmentation_mask_org = rle_decode(self.targets[index], (1024, 1024))
-            #segmentation_mask_org = rle_decode_modified(self.targets[index], (1024, 1024))
-
-            segmentation_mask_org = np.uint8(label)
-        else:
-            segmentation_mask_org = np.zeros((1024, 1024))
-            segmentation_mask_org = np.uint8(segmentation_mask_org)
-        # segmentation_mask_org = Image.fromarray(segmentation_mask_org).convert("RGB")
-        # makes the segmentation mask into a PIL image
-        # segmentation_mask = self.resize(segmentation_mask_org)
-        # print(segmentation_mask.size())
         RGB = True
         if self.transforms is not None:
             # image = self.transforms(img)
