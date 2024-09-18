@@ -11,6 +11,8 @@ import random
 import pandas as pd
 
 #import matplotlib as plt
+import nibabel as nib
+import numpy as np
 
 from utility import rle_decode_modified, rle_decode
 
@@ -40,6 +42,19 @@ class TextImageDataset(Dataset):
 
     def __len__(self):
         return len(self.text)
+
+    # Load the .nii.gz file
+    def load_nii_to_numpy(file_path):
+        # Load the NIfTI file using nibabel
+        img = nib.load(file_path)
+
+        # Get the image data as a NumPy array
+        img_data = img.get_fdata()
+
+        # Optionally, you can cast the data to a specific type if needed (e.g., np.float32)
+        img_array = np.array(img_data, dtype=np.float32)
+
+        return img_array
 
     def __getitem__(self, index):
         # text extraction
@@ -73,34 +88,16 @@ class TextImageDataset(Dataset):
         # images data extraction
         img_name = self.row_ids[index]
         img_name = str(img_name)  # + "_mip.png"
-        img_name = self.data.image[index]
+        img_path = self.data.image[index]
         print(img_name)
 
-        # if exists(os.path.join(self.data_path, 'Group_1_2_3_curated', img_name)):
-        #    data_dir = "Group_1_2_3_curated"
-        # if exists(os.path.join(self.data_path, 'Group_4_5_curated', img_name)):
-        #    data_dir = "Group_4_5_curated"
-        data_dir = "dataset/"
-        img_path = os.path.join(self.data_path, img_name)
-        # print(img_path)
-        with Image.open(img_path) as img:
-            img_raw = np.array(img)
-        #DCM_Img = pdcm.read_file(img_path)
-        #test = plt.imshow(DCM_Img.pixel_array, cmap=plt.cm.bone)
-        #plt.show()
+        img = self.load_nii_to_numpy(img_name)
+        ct_img = self.load_nii_to_numpy(self.data.image2[index])
+        label = self.load_nii_to_numpy(self.data.label[index])
 
-        try:
-            #DCM_Img = pdcm.read_file(img_path)
-            #img_raw = DCM_Img.pixel_array
-            #img_raw[img_raw > 10] = 10
-            #img_norm = img_raw * (255 / np.amax(img_raw))  # puts the highest value at 255
-            #img = np.uint8(img_norm)
-            #img_raw = img_norm
-            img = img_raw
-
-        except:
-            print("can't open image")
-            print(img_path)
+        print(f"img shape: {img}")
+        print(f"ct img: {ct_img}")
+        print(f"label: {label}")
 
         #print(self.targets[index])
         #print(f"target: {self.targets[index]}")
