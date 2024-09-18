@@ -48,14 +48,7 @@ class TextImageDataset(Dataset):
         text = str(self.text[index])
         text = " ".join(text.split())
         print(text)
-        text = text.replace("[ALPHANUMERICID]", "")
-        text = text.replace("[date]", "")
-        text = text.replace("[DATE]", "")
-        text = text.replace("[AGE]", "")
 
-
-        text = text.replace("[ADDRESS]", "")
-        text = text.replace("[PERSONALNAME]", "")
         text = text.replace("\n", "")
 
         #if self.wordDict != None:
@@ -80,6 +73,7 @@ class TextImageDataset(Dataset):
         # images data extraction
         img_name = self.row_ids[index]
         img_name = str(img_name)  # + "_mip.png"
+        print(img_name)
         # if exists(os.path.join(self.data_path, 'Group_1_2_3_curated', img_name)):
         #    data_dir = "Group_1_2_3_curated"
         # if exists(os.path.join(self.data_path, 'Group_4_5_curated', img_name)):
