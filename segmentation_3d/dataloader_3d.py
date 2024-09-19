@@ -113,7 +113,7 @@ class TextImageDataset(Dataset):
         nib.save(nii_img, save_path)
 
         # Create a NIfTI image from the NumPy array
-        nii_img = nib.Nifti1Image(transformed, affine)
+        nii_img = nib.Nifti1Image(transformed.detach().cpu().numpy(), affine)
         nib.save(nii_img, "/UserData/Zach_Analysis/test_folder/saved_augmented_data/augmented.nii.gz")
 
         RGB = True
