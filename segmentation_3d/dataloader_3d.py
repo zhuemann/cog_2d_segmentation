@@ -116,6 +116,7 @@ class TextImageDataset(Dataset):
         nii_img = nib.Nifti1Image(transformed.detach().cpu().numpy(), affine)
         nib.save(nii_img, "/UserData/Zach_Analysis/test_folder/saved_augmented_data/augmented.nii.gz")
 
+        """
         RGB = True
         if self.transforms is not None:
             # image = self.transforms(img)
@@ -181,6 +182,9 @@ class TextImageDataset(Dataset):
         # ax[2].imshow(image.squeeze().cpu().detach().numpy(), cmap=plt.cm.bone, alpha = .5)
         # plt.show()
         # print("returing from dataloader")
+        """
+        image = transformed
+        segmentation_mask = label
         return {
             'ids': torch.tensor(ids, dtype=torch.long),
             'mask': torch.tensor(mask, dtype=torch.long),
