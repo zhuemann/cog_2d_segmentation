@@ -333,7 +333,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     normalize = albu.Compose([
         #albu.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225), max_pixel_value=255.0)
     ])
-    """
+
     transforms_valid = transforms.Compose(
         [
             #transforms.RandomCrop(size=(256, 256)),
@@ -360,7 +360,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     #transforms_resize = transforms.Compose([transforms.Resize((IMG_SIZE, IMG_SIZE)), transforms.PILToTensor()])
     transforms_resize = transforms.Compose([transforms.Resize(IMG_SIZE), transforms.PILToTensor()])
     output_resize = transforms.Compose([transforms.Resize(IMG_SIZE)]) #407 x 907
-    """
+
 
     #print("train_df")
     #print(train_df)
