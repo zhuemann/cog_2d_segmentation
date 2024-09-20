@@ -102,6 +102,9 @@ class TextImageDataset(Dataset):
         transformed = self.transforms(img)
         transformed_ct = self.transforms(ct_img)
 
+        resized_img = self.resize(img)
+        print(f"resized image: {resized_img}")
+        image = resized_img
         #save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/original.nii.gz"
 
         # Define an affine transformation matrix (identity matrix by default)
@@ -184,7 +187,7 @@ class TextImageDataset(Dataset):
         # plt.show()
         # print("returing from dataloader")
         """
-        image = transformed
+
         segmentation_mask = label
         return {
             'ids': torch.tensor(ids, dtype=torch.long),
