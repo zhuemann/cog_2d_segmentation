@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch
 import pandas as pd
+from torch.cuda.amp import GradScaler, autocast
 
 from tqdm import tqdm
 from collections import OrderedDict
@@ -595,6 +596,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     #criterion = nn.BCEWithLogitsLoss()
     criterion = DiceBCELoss()
 
+    grad_scaler = torch.cuda.amp.GradScaler()
+
     # defines which optimizer is being used
     optimizer = torch.optim.AdamW(params=test_obj.parameters(), lr=LR)
     #scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=127800, eta_min=5e-5, last_epoch=-1, verbose=False)
@@ -632,6 +635,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
         for _, data in tqdm(enumerate(training_loader, 0)):
 
+            optimizer.zero_grad()  # Clear gradients before each training step
+
             #print(torch.cuda.memory_summary(device=None, abbreviated=False))
 
             ids = data['ids'].to(device, dtype=torch.long)
@@ -666,9 +671,13 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             if _ % 400 == 0:
                 print(f'Epoch: {epoch}, Loss:  {loss.item()}')
 
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
+            grad_scaler.scale(loss).backward()
+            grad_scaler.step(optimizer)
+            grad_scaler.update()
+
+            #optimizer.zero_grad()
+            #loss.backward()
+            #optimizer.step()
             #scheduler.step()
 
 
