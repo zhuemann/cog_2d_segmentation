@@ -384,6 +384,22 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
         RandGaussianNoised(keys= ["pet", "ct"], prob=0.2, mean=0.0, std=0.1)
     ])
 
+
+    transforms_resize = Compose([
+        SpatialPadd(keys = ['pet', 'ct', 'label'], spatial_size=(192, 192, -1), mode="constant", method="symmetric", constant_values=0),
+        CenterSpatialCropd(keys = ['pet', 'ct', 'label'], roi_size=(192, 192, -1)),
+        # ts.append(SpatialPadd(keys = [pet_key, "label"], spatial_size = (200, 200, None), mode = "constant", method="symmetric", constant_values=0))
+        # ts.append(SpatialPadd(keys = keys, spatial_size = (None, None, 680), mode = "constant", method="start"))
+        # ts.append(SpatialPadd(keys = [ct_key], spatial_size = (200, 200, None), mode = "constant", method="symmetric", constant_values=-1000))
+
+        Flipd(keys = ['pet', 'ct', 'label'], spatial_axis=-1), # Flip along the last dimension
+        SpatialPadd(keys = ['pet', 'ct', 'label'], spatial_size=(-1, -1, 352), mode="constant", method="end"),
+        # Pad from the end (which is the start of the original after flipping)
+        Flipd(keys = ['pet', 'ct', 'label'], spatial_axis=-1)
+
+    ])
+
+    """
     transforms_resize = Compose([
         SpatialPadd(keys = ['pet', 'ct', 'label'], spatial_size=(192, 192, None), mode="constant", method="symmetric", constant_values=0),
         CenterSpatialCropd(keys = ['pet', 'ct', 'label'], roi_size=(192, 192, -1)),
@@ -395,8 +411,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
         SpatialPadd(keys = ['pet', 'ct', 'label'], spatial_size=(None, None, 352), mode="constant", method="end"),
         # Pad from the end (which is the start of the original after flipping)
         Flipd(keys = ['pet', 'ct', 'label'], spatial_axis=-1)
-
     ])
+    """
 
 
     training_set = TextImageDataset(train_df, tokenizer, 512, mode="train", transforms = transforms_training, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = None)
