@@ -114,10 +114,10 @@ class TextImageDataset(Dataset):
             'label': label
         }
 
-        transformed_data = self.transforms(data_dic)
-        print(f"pet: {transformed_data['pet'].shape}")
-        print(f"ct: {transformed_data['ct'].shape}")
-        print(f"label: {transformed_data['label'].shape}")
+        #transformed_data = self.transforms(data_dic)
+        #print(f"pet: {transformed_data['pet'].shape}")
+        #print(f"ct: {transformed_data['ct'].shape}")
+        #print(f"label: {transformed_data['label'].shape}")
 
 
         transformed_data = self.resize(data_dic)
