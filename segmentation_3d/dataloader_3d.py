@@ -99,8 +99,8 @@ class TextImageDataset(Dataset):
         print(f"ct img: {ct_img.shape}")
         print(f"label: {label.shape}")
 
-        transformed = self.transforms(pet_img)
-        transformed_ct = self.transforms(ct_img)
+        #transformed = self.transforms(pet_img)
+        #transformed_ct = self.transforms(ct_img)
 
         #resized_img = self.resize(img)
         #print(f"resized image: {resized_img}")
