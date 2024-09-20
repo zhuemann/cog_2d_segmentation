@@ -96,8 +96,8 @@ class TextImageDataset(Dataset):
         label = self.load_nii_to_numpy(self.data.label[index])
 
         pet_img = np.expand_dims(pet_img, axis=0)
-        ct_img =  np.expand_dims(ct_img, axis=0)
-        label =   np.expand_dims(label, axis=0)
+        ct_img  = np.expand_dims(ct_img, axis=0)
+        label   = np.expand_dims(label, axis=0)
 
         print(f"img shape: {pet_img.shape}")
         print(f"ct img: {ct_img.shape}")
