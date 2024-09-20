@@ -386,7 +386,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
 
     transforms_resize = Compose([
-        SpatialPadd(keys = ['pet', 'ct', 'label'], spatial_size=(192, 192, -1), mode="constant", method="symmetric", constant_values=0),
+        SpatialPadd(keys = ['pet', 'ct', 'label'], spatial_size=(192, 192, 352), mode="constant", method="symmetric", constant_values=0),
         CenterSpatialCropd(keys = ['pet', 'ct', 'label'], roi_size=(192, 192, -1)),
         # ts.append(SpatialPadd(keys = [pet_key, "label"], spatial_size = (200, 200, None), mode = "constant", method="symmetric", constant_values=0))
         # ts.append(SpatialPadd(keys = keys, spatial_size = (None, None, 680), mode = "constant", method="start"))
