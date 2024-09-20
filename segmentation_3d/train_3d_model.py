@@ -392,15 +392,15 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
     transforms_resize = Compose([
         debug_spatial_transform,
-        SpatialPadd(keys = ['images', 'label'], spatial_size=(192, 192, None), mode="constant", method="symmetric", constant_values=0),
-        CenterSpatialCropd(keys = ['images', 'label'], roi_size=(192, 192, -1)),
+        SpatialPadd(keys = ['images', 'label'], spatial_size=(None, 192, 192, None), mode="constant", method="symmetric", constant_values=0),
+        CenterSpatialCropd(keys = ['images', 'label'], roi_size=(None, 192, 192, -1)),
         debug_spatial_transform,
         # ts.append(SpatialPadd(keys = [pet_key, "label"], spatial_size = (200, 200, None), mode = "constant", method="symmetric", constant_values=0))
         # ts.append(SpatialPadd(keys = keys, spatial_size = (None, None, 680), mode = "constant", method="start"))
         # ts.append(SpatialPadd(keys = [ct_key], spatial_size = (200, 200, None), mode = "constant", method="symmetric", constant_values=-1000))
 
         Flipd(keys = ['images', 'label'], spatial_axis=-1), # Flip along the last dimension
-        SpatialPadd(keys = ['images', 'label'], spatial_size=(None, None, 352), mode="constant", method="end"),
+        SpatialPadd(keys = ['images', 'label'], spatial_size=(None, None, None, 352), mode="constant", method="end"),
         # Pad from the end (which is the start of the original after flipping)
         Flipd(keys = ['images', 'label'], spatial_axis=-1),
         debug_spatial_transform
