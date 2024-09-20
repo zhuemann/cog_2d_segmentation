@@ -203,7 +203,7 @@ class TextImageDataset(Dataset):
         # plt.show()
         # print("returing from dataloader")
         """
-
+        image = label
         segmentation_mask = label
         return {
             'ids': torch.tensor(ids, dtype=torch.long),
