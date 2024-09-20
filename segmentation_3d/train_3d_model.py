@@ -384,6 +384,33 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
         RandGaussianNoised(keys= ["pet", "ct"], prob=0.2, mean=0.0, std=0.1)
     ])
 
+
+    def debug_spatial_transform(data_dic):
+        print(f"Shape of images: {data_dic['images'].shape}", flush=True)
+        print(f"Shape of Label: {data_dic['label'].shape}", flush=True)
+        return data_dic
+
+    transforms_resize = Compose([
+        debug_spatial_transform,
+        SpatialPadd(keys = ['images', 'label'], spatial_size=(192, 192, None), mode="constant", method="symmetric", constant_values=0),
+        CenterSpatialCropd(keys = ['images', 'label'], roi_size=(192, 192, -1)),
+        debug_spatial_transform,
+        # ts.append(SpatialPadd(keys = [pet_key, "label"], spatial_size = (200, 200, None), mode = "constant", method="symmetric", constant_values=0))
+        # ts.append(SpatialPadd(keys = keys, spatial_size = (None, None, 680), mode = "constant", method="start"))
+        # ts.append(SpatialPadd(keys = [ct_key], spatial_size = (200, 200, None), mode = "constant", method="symmetric", constant_values=-1000))
+
+        Flipd(keys = ['images', 'label'], spatial_axis=-1), # Flip along the last dimension
+        SpatialPadd(keys = ['images', 'label'], spatial_size=(None, None, 352), mode="constant", method="end"),
+        # Pad from the end (which is the start of the original after flipping)
+        Flipd(keys = ['images', 'label'], spatial_axis=-1),
+        debug_spatial_transform
+
+    ])
+
+
+
+
+    """
     def debug_spatial_transform(data_dic):
         print(f"Shape of PET: {data_dic['pet'].shape}", flush=True)
         print(f"Shape of CT: {data_dic['ct'].shape}", flush=True)
@@ -406,6 +433,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
         debug_spatial_transform
 
     ])
+    """
 
     """
     transforms_resize = Compose([
