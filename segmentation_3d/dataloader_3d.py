@@ -115,6 +115,11 @@ class TextImageDataset(Dataset):
         }
 
         transformed_data = self.transforms(data_dic)
+        print(transformed_data["pet"].shape)
+        print(transformed_data["ct"].shape)
+        print(transformed_data["label"].shape)
+
+
         transformed_data = self.resize(data_dic)
         #save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/original.nii.gz"
 
