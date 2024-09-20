@@ -47,7 +47,7 @@ from utility import dice_coeff
 import ssl
 import nltk
 ssl.SSLContext.verify_mode = ssl.VerifyMode.CERT_OPTIONAL
-from ConTEXTual_Net_3D import ConTEXTual_Net_3D
+from .ConTEXTual_Net_3D import ConTEXTual_Net_3D
 import json
 from monai.transforms import (
     Compose,
