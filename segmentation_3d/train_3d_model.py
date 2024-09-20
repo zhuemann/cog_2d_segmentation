@@ -553,6 +553,10 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     #test_obj = segmentation.__dict__[args.model](pretrained=args.pretrained_swin_weights, args=args)
     #test_obj = load_img_segmentation_model(dir_base = dir_base, pretrained_model=False)
 
+    # Iterate over all parameters in the language model
+    for param in language_model.parameters():
+        param.requires_grad = False  # Disable gradient updates for these parameters
+
     n_class = 2
     kernels = [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]
     strides = [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2]]
