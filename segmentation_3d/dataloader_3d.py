@@ -116,6 +116,7 @@ class TextImageDataset(Dataset):
         nii_img = nib.Nifti1Image(transformed.detach().cpu().numpy(), affine)
         nib.save(nii_img, "/UserData/Zach_Analysis/test_folder/saved_augmented_data/augmented.nii.gz")
 
+        print(fail)
         """
         RGB = True
         if self.transforms is not None:
