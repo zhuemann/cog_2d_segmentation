@@ -636,10 +636,10 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             #targets = data['targets'].to(device, dtype=torch.float)
             #targets = torch.squeeze(targets)
             #images = data['images']['pet'].to(device, dtype=torch.float)
-            targets = data["targets"]
+            targets = data["targets"].to(device, dtype=torch.float)
             image_dic = data["images"]
-            ct = image_dic["ct"]
-            pet = image_dic["pet"]
+            ct = image_dic["ct"].to(device, dtype=torch.float)
+            pet = image_dic["pet"].to(device, dtype=torch.float)
             images = torch.cat((pet.unsqueeze(1), ct.unsqueeze(1)), dim=1)  # Now it's [batch_size, 2, 1, H, W, D]
             images = images.squeeze(2) # Now it's [batch_size, 2, H, W, D]
             print(f"images: {images.shape}")
