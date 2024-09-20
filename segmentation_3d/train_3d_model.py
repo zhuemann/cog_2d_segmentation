@@ -640,7 +640,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             image_dic = data["images"]
             ct = image_dic["ct"]
             pet = image_dic["pet"]
-            images = torch.cat((pet.unsqueeze(1), ct.unsqueeze(1)),dim=1)  # Now it's [batch_size, 2, H, W, D]
+            images = torch.cat((pet.unsqueeze(1), ct.unsqueeze(1)), dim=1)  # Now it's [batch_size, 2, 1, H, W, D]
+            images = images.squeeze(2) # Now it's [batch_size, 2, H, W, D]
             print(f"images: {images.shape}")
             #print(targets.sum())
             #outputs = test_obj(images, ids, mask)  # for lavt
