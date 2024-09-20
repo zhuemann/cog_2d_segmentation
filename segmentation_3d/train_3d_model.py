@@ -605,7 +605,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
             targets = data['targets'].to(device, dtype=torch.float)
             targets = torch.squeeze(targets)
-            images = data['images'].to(device, dtype=torch.float)
+            images = data['images']['pet'].to(device, dtype=torch.float)
 
             #print(targets.sum())
             #outputs = test_obj(images, ids, mask)  # for lavt
