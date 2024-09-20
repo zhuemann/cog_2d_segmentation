@@ -47,7 +47,7 @@ from utility import dice_coeff
 import ssl
 import nltk
 ssl.SSLContext.verify_mode = ssl.VerifyMode.CERT_OPTIONAL
-
+from ConTEXTual_Net_3D import ConTEXTual_Net_3D
 import json
 from monai.transforms import (
     Compose,
@@ -522,6 +522,25 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     # This is for LAVT
     #test_obj = segmentation.__dict__[args.model](pretrained=args.pretrained_swin_weights, args=args)
     #test_obj = load_img_segmentation_model(dir_base = dir_base, pretrained_model=False)
+
+    n_class = 2
+    kernels = [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]
+    strides = [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2]]
+
+    deep_supr_num = len(strides) - 2
+    model = ConTEXTual_Net_3D(spatial_dims=3,
+                    in_channels=2,  # in_channels changed to 1 from in_channels
+                    out_channels=n_class,
+                    kernel_size=kernels,
+                    filters=[64, 96, 128, 192, 256],
+                    strides=strides,
+                    upsample_kernel_size=strides[1:],
+                    res_block=True,
+                    norm_name="instance",
+                    deep_supervision=False,
+                    deep_supr_num=deep_supr_num,
+                    language_model=language_model)
+
 
     # Print the total number of parameters
     total_params = sum(p.numel() for p in test_obj.parameters())
