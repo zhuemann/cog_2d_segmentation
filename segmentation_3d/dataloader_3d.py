@@ -113,31 +113,34 @@ class TextImageDataset(Dataset):
 
         keys = ['pet', 'ct', 'label']
 
+        pet_img = torch.from_numpy(pet_img)  # Convert to tensor
+        ct_img = torch.from_numpy(ct_img)  # Convert to tensor
+        label = torch.from_numpy(label)
         data_dic = {
             'pet': pet_img,
             'ct': ct_img,
             'label': label
         }
 
-        pet_img = torch.from_numpy(data_dic['pet'])  # Convert to tensor
-        ct_img = torch.from_numpy(data_dic['ct'])  # Convert to tensor
+        #pet_img = torch.from_numpy(data_dic['pet'])  # Convert to tensor
+        #ct_img = torch.from_numpy(data_dic['ct'])  # Convert to tensor
 
         # Apply separate transformations to PET and CT
         #pet_transformed = pet_preprocessing_transform(pet)  # Apply PET-specific transforms
         #ct_transformed = ct_preprocessing_transform(ct)  # Apply CT-specific transforms
 
         # Concatenate along the channel dimension (assumed to be dim=1)
-        combined_pet_ct = torch.cat((pet_img.unsqueeze(1), ct_img.unsqueeze(1)),
-                             dim=1)  # Now it's [batch_size, 2, H, W, D]
+        #combined_pet_ct = torch.cat((pet_img.unsqueeze(1), ct_img.unsqueeze(1)),
+        #                     dim=1)  # Now it's [batch_size, 2, H, W, D]
 
 
-        data_dic = {
-            'images': combined_pet_ct,
-            'label': label
-        }
+        #data_dic = {
+        #    'images': combined_pet_ct,
+        #    'label': label
+        #}
         #transformed_data = self.transforms(data_dic)
-        print(f"images: {data_dic['images'].shape}")
-        print(f"label: {data_dic['label'].shape}")
+        #print(f"images: {data_dic['images'].shape}")
+        #print(f"label: {data_dic['label'].shape}")
 
 
         transformed_data = self.resize(data_dic)
