@@ -650,6 +650,9 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             pet = image_dic["pet"].to(device, dtype=torch.Tensor)
             targets = image_dic["label"].to(device, dtype=torch.Tensor)
             del image_dic
+            del ct
+            del pet
+            del targets
             images = torch.cat((pet.unsqueeze(1), ct.unsqueeze(1)), dim=1)  # Now it's [batch_size, 2, 1, H, W, D]
             images = images.squeeze(2) # Now it's [batch_size, 2, H, W, D]
             print(f"images: {images.shape}")
