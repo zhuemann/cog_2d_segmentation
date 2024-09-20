@@ -500,8 +500,9 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     #weight = torch.load("/UserData/Zach_Analysis/models/swin/model_swinvit.pt")
     #test_obj.load_from(weights=weight)
     #print("Using pretrained self-supervied Swin UNETR backbone weights !")
+
     # was this one before coming back 3/20
-    test_obj = Attention_ConTEXTual_Lang_Seg_Model(lang_model=language_model, n_channels=3, n_classes=1, bilinear=False)
+    #test_obj = Attention_ConTEXTual_Lang_Seg_Model(lang_model=language_model, n_channels=3, n_classes=1, bilinear=False) # 2d version we left behind
 
     #test_obj = Attention_ConTEXTual_Vis_Seg_Model(n_channels=3, n_classes=1, bilinear=False)
     #test_obj = smp.Unet(encoder_name="resnet50", encoder_weights=None, in_channels=3, classes=1)
@@ -528,7 +529,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     strides = [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2]]
 
     deep_supr_num = len(strides) - 2
-    model = ConTEXTual_Net_3D(spatial_dims=3,
+    test_obj = ConTEXTual_Net_3D(spatial_dims=3,
                     in_channels=2,  # in_channels changed to 1 from in_channels
                     out_channels=n_class,
                     kernel_size=kernels,
