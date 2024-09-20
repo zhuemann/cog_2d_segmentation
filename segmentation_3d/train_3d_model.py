@@ -402,7 +402,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
         Flipd(keys = ['pet', 'ct', 'label'], spatial_axis=-1), # Flip along the last dimension
         SpatialPadd(keys = ['pet', 'ct', 'label'], spatial_size=(None, None, 352), mode="constant", method="end"),
         # Pad from the end (which is the start of the original after flipping)
-        Flipd(keys = ['pet', 'ct', 'label'], spatial_axis=-1)
+        Flipd(keys = ['pet', 'ct', 'label'], spatial_axis=-1),
+        debug_spatial_transform
 
     ])
 
