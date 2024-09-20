@@ -91,20 +91,31 @@ class TextImageDataset(Dataset):
         img_path = self.data.image[index]
         print(img_name)
 
-        img = self.load_nii_to_numpy(img_path)
+        pet_img = self.load_nii_to_numpy(img_path)
         ct_img = self.load_nii_to_numpy(self.data.image2[index])
         label = self.load_nii_to_numpy(self.data.label[index])
 
-        print(f"img shape: {img.shape}")
+        print(f"img shape: {pet_img.shape}")
         print(f"ct img: {ct_img.shape}")
         print(f"label: {label.shape}")
 
-        transformed = self.transforms(img)
+        transformed = self.transforms(pet_img)
         transformed_ct = self.transforms(ct_img)
 
-        resized_img = self.resize(img)
-        print(f"resized image: {resized_img}")
-        image = resized_img
+        #resized_img = self.resize(img)
+        #print(f"resized image: {resized_img}")
+        #image = resized_img
+
+        keys = ['pet', 'ct', 'label']
+
+        data_dic = {
+            'pet': pet_img,
+            'ct': ct_img,
+            'label': label
+        }
+
+        transformed_data = self.transforms(data_dic)
+        transformed_data = self.resize(data_dic)
         #save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/original.nii.gz"
 
         # Define an affine transformation matrix (identity matrix by default)

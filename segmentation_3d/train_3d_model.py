@@ -51,12 +51,12 @@ ssl.SSLContext.verify_mode = ssl.VerifyMode.CERT_OPTIONAL
 import json
 from monai.transforms import (
     Compose,
-    RandAffine,
-    RandGaussianSmooth,
-    RandGaussianNoise,
-    SpatialPad,
-    CenterSpatialCrop,
-    Flip,
+    RandAffined,
+    RandGaussianSmoothd,
+    RandGaussianNoised,
+    SpatialPadd,
+    CenterSpatialCropd,
+    Flipd,
     LoadImaged,
     ScaleIntensityd,
     RandCropByPosNegLabeld,
@@ -366,10 +366,10 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     #print(train_df)
     #print("valid df")
     #print(valid_df)
-
+    keys = ['pet', 'ct', 'label']
     transforms_training = Compose([
-        RandAffine(
-            #keys=[self.image_key, self.label_key],
+        RandAffined(
+            keys=keys,
             prob=0.1,
             rotate_range=[0.05, 0.05, 0.05],
             scale_range=[0.05, 0.05, 0.05],
@@ -378,23 +378,23 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             cache_grid=True,
             padding_mode="border",
         ),
-        RandGaussianSmooth(
-             prob=0.2, sigma_x=(0.5, 1.0), sigma_y=(0.5, 1.0), sigma_z=(0.5, 1.0)
+        RandGaussianSmoothd(
+            keys= ["pet", "CT"], prob=0.2, sigma_x=(0.5, 1.0), sigma_y=(0.5, 1.0), sigma_z=(0.5, 1.0)
         ),
-        RandGaussianNoise(prob=0.2, mean=0.0, std=0.1)
+        RandGaussianNoised(keys= ["pet", "CT"], prob=0.2, mean=0.0, std=0.1)
     ])
 
     transforms_resize = Compose([
-        SpatialPad(spatial_size=(192, 192, None), mode="constant", method="symmetric", constant_values=0),
-        CenterSpatialCrop(roi_size=(192, 192, -1)),
+        SpatialPadd(keys = ['pet', 'ct', 'label'], spatial_size=(192, 192, None), mode="constant", method="symmetric", constant_values=0),
+        CenterSpatialCropd(keys = ['pet', 'ct', 'label'], roi_size=(192, 192, -1)),
         # ts.append(SpatialPadd(keys = [pet_key, "label"], spatial_size = (200, 200, None), mode = "constant", method="symmetric", constant_values=0))
         # ts.append(SpatialPadd(keys = keys, spatial_size = (None, None, 680), mode = "constant", method="start"))
         # ts.append(SpatialPadd(keys = [ct_key], spatial_size = (200, 200, None), mode = "constant", method="symmetric", constant_values=-1000))
 
-        Flip(spatial_axis=-1), # Flip along the last dimension
-        SpatialPad(spatial_size=(None, None, 352), mode="constant", method="end"),
+        Flipd(keys = ['pet', 'ct', 'label'], spatial_axis=-1), # Flip along the last dimension
+        SpatialPadd(keys = ['pet', 'ct', 'label'], spatial_size=(None, None, 352), mode="constant", method="end"),
         # Pad from the end (which is the start of the original after flipping)
-        Flip(spatial_axis=-1)
+        Flipd(keys = ['pet', 'ct', 'label'], spatial_axis=-1)
 
     ])
 
