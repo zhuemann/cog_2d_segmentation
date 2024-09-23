@@ -656,7 +656,6 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             del image_dic
             del ct
             del pet
-            del targets
             images = images.squeeze(2) # Now it's [batch_size, 2, H, W, D]
             print(f"images: {images.shape}")
             #print(targets.sum())
