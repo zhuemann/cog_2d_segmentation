@@ -586,8 +586,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     print(f"Total Parameters: {total_params}")
 
     #print("need to unfreeze lang params")
-    for param in language_model.parameters():
-        param.requires_grad = False
+    #for param in language_model.parameters():
+    #   param.requires_grad = False
 
     num_unfrozen_layers = 1  # Replace N with the number of layers you want to unfreeze
     #for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
