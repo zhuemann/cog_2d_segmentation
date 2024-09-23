@@ -115,6 +115,9 @@ class TextImageDataset(Dataset):
         pet_img = torch.from_numpy(pet_img)  # Convert to tensor
         ct_img = torch.from_numpy(ct_img)  # Convert to tensor
         label = torch.from_numpy(label)
+
+
+
         data_dic = {
             'pet': pet_img,
             'ct': ct_img,
@@ -143,6 +146,7 @@ class TextImageDataset(Dataset):
 
 
         transformed_data = self.resize(data_dic)
+        del data_dic, pet_img, ct_img, label
         #save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/original.nii.gz"
 
         # Define an affine transformation matrix (identity matrix by default)
