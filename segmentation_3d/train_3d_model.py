@@ -360,7 +360,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
     #transforms_resize = transforms.Compose([transforms.Resize((IMG_SIZE, IMG_SIZE)), transforms.PILToTensor()])
     transforms_resize = transforms.Compose([transforms.Resize(IMG_SIZE), transforms.PILToTensor()])
-    output_resize = transforms.Compose([transforms.Resize(IMG_SIZE)]) #407 x 907
+    #output_resize = transforms.Compose([transforms.Resize(IMG_SIZE)]) #407 x 907
 
 
     #print("train_df")
@@ -664,8 +664,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             outputs = test_obj(images, ids, mask, token_type_ids)
             #outputs = test_obj(images)
 
-            #print(outputs.size())
-            outputs = output_resize(torch.squeeze(outputs, dim=1))
+            print(f"output size: {outputs.size()}")
+            #outputs = output_resize(torch.squeeze(outputs, dim=1))
             #print(outputs.size())
             #outputs = torch.squeeze(outputs)
             #print(outputs.size())
