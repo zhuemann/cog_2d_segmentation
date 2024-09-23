@@ -578,6 +578,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                     deep_supr_num=deep_supr_num,
                     language_model=language_model)
 
+    for param in test_obj.parameters():
+        print(param.requires_grad)
 
     # Print the total number of parameters
     total_params = sum(p.numel() for p in test_obj.parameters())
