@@ -440,7 +440,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
         #debug_spatial_transform
 
     ])
-
+    """
     transforms_resize = Compose([
         # Pad symmetrically in all dimensions to ensure minimum size
         SpatialPadd(
@@ -455,7 +455,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             keys=['pet', 'ct', 'label'],
             roi_size=(192, 192, length)
         ),
-    ])
+    ])"""
 
 
     """
@@ -668,6 +668,32 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             #targets = data['targets'].to(device, dtype=torch.float)
             #targets = torch.squeeze(targets)
             #images = data['images']['pet'].to(device, dtype=torch.float)
+
+            image_dic = data["images"]
+            pet = image_dic["pet"]
+            ct = image_dic["ct"]
+            targets = image_dic["label"]
+
+            # Stack images on CPU
+            images = torch.stack((pet, ct), dim=1)
+            del pet, ct  # Free up memory
+
+            # Move images and targets to device
+            images = images.to(device, non_blocking=True)
+            targets = targets.to(device, non_blocking=True)
+            del image_dic  # Free up memory
+
+            # Proceed with model inference, potentially using AMP
+            with autocast():
+                outputs = test_obj(images, ids, mask, token_type_ids)
+                loss = criterion(outputs, targets)
+
+            # Backward pass with GradScaler if using AMP
+            grad_scaler.scale(loss).backward()
+            grad_scaler.step(optimizer)
+            grad_scaler.update()
+
+            """
             image_dic = data["images"]
             ct = image_dic["ct"].to(device, dtype=torch.float)
             pet = image_dic["pet"].to(device, dtype=torch.float)
@@ -703,6 +729,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             grad_scaler.scale(loss).backward()
             grad_scaler.step(optimizer)
             grad_scaler.update()
+            """
 
             #optimizer.zero_grad()
             #loss.backward()
