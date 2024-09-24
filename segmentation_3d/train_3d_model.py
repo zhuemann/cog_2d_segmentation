@@ -441,6 +441,22 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
     ])
 
+    transforms_resize = Compose([
+        # Pad symmetrically in all dimensions to ensure minimum size
+        SpatialPadd(
+            keys=['pet', 'ct', 'label'],
+            spatial_size=(192, 192, length),
+            mode="constant",
+            method="symmetric",
+            constant_values=0
+        ),
+        # Center crop to the desired size
+        CenterSpatialCropd(
+            keys=['pet', 'ct', 'label'],
+            roi_size=(192, 192, length)
+        ),
+    ])
+
 
     """
     transforms_resize = Compose([
