@@ -675,6 +675,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             #optimizer.zero_grad()
 
             loss = criterion(outputs, targets)
+            print(f"Loss requires_grad: {loss.requires_grad}")
+
             print(f"loss: {loss}")
             if _ % 400 == 0:
                 print(f'Epoch: {epoch}, Loss:  {loss.item()}')
