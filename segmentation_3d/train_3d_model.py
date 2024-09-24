@@ -690,7 +690,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 outputs = test_obj(images, ids, mask, token_type_ids)
                 loss = criterion(outputs, targets)
 
-            del images, targets
+            del images
             # Backward pass with GradScaler if using AMP
             grad_scaler.scale(loss).backward()
             grad_scaler.step(optimizer)
@@ -754,7 +754,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 #    dice = 1
 
                 training_dice.append(dice)
-            del outputs
+            del outputs, targets
             gc.collect()
             torch.cuda.empty_cache()
 
