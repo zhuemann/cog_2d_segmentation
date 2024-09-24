@@ -62,7 +62,7 @@ class TextImageDataset(Dataset):
 
         text = str(self.text[index])
         text = " ".join(text.split())
-        print(text)
+        #print(text)
 
         text = text.replace("\n", "")
 
@@ -89,7 +89,7 @@ class TextImageDataset(Dataset):
         img_name = self.row_ids[index]
         img_name = str(img_name)  # + "_mip.png"
         img_path = self.data.image[index]
-        print(img_name)
+        #print(img_name)
 
         pet_img = self.load_nii_to_numpy(img_path)
         ct_img = self.load_nii_to_numpy(self.data.image2[index])
