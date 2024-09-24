@@ -672,7 +672,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             #outputs = torch.squeeze(outputs)
             #print(outputs.size())
             #targets = output_resize(targets)
-            optimizer.zero_grad()
+            #optimizer.zero_grad()
 
             loss = criterion(outputs, targets)
             print(f"loss: {loss}")
