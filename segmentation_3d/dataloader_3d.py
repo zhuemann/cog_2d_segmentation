@@ -99,9 +99,9 @@ class TextImageDataset(Dataset):
         ct_img  = np.expand_dims(ct_img, axis=0)
         label   = np.expand_dims(label, axis=0)
 
-        print(f"img shape: {pet_img.shape}")
-        print(f"ct img: {ct_img.shape}")
-        print(f"label: {label.shape}")
+        #print(f"img shape: {pet_img.shape}")
+        #print(f"ct img: {ct_img.shape}")
+        #print(f"label: {label.shape}")
 
         #transformed = self.transforms(pet_img)
         #transformed_ct = self.transforms(ct_img)
