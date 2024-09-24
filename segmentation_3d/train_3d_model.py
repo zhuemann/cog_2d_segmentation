@@ -684,9 +684,9 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             del image_dic  # Free up memory
 
             # Proceed with model inference, potentially using AMP
-            with autocast():
-                outputs = test_obj(images, ids, mask, token_type_ids)
-                loss = criterion(outputs, targets)
+            #with autocast():
+            outputs = test_obj(images, ids, mask, token_type_ids)
+            loss = criterion(outputs, targets)
 
             # Backward pass with GradScaler if using AMP
             grad_scaler.scale(loss).backward()
