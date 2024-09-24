@@ -757,8 +757,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
                 training_dice.append(dice)
             del outputs, targets
-            gc.collect()
-            torch.cuda.empty_cache()
+            #gc.collect()
+            #torch.cuda.empty_cache()
 
         avg_training_dice = np.average(training_dice)
         print(f"Epoch {str(epoch)}, Average Training Dice Score = {avg_training_dice}")
