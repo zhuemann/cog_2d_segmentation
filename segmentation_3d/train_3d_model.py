@@ -422,6 +422,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     #length = 352
     #length = 176
     length = 144
+    length = 112
 
     transforms_resize = Compose([
         #debug_spatial_transform,
