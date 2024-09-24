@@ -482,7 +482,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
     train_params = {'batch_size': BATCH_SIZE,
                 'shuffle': True,
-                'num_workers': 16
+                'num_workers': 8
                 }
 
     test_params = {'batch_size': BATCH_SIZE,
@@ -690,6 +690,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 outputs = test_obj(images, ids, mask, token_type_ids)
                 loss = criterion(outputs, targets)
 
+            del images
             # Backward pass with GradScaler if using AMP
             grad_scaler.scale(loss).backward()
             grad_scaler.step(optimizer)
@@ -749,10 +750,12 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 dice = dice_coeff(outputs[i], targets[i])
                 dice = dice.item()
                 # gives a dice score of 1 if correctly predicts negative
-                if torch.max(outputs[i]) == 0 and torch.max(targets[i]) == 0:
-                    dice = 1
+                #if torch.max(outputs[i]) == 0 and torch.max(targets[i]) == 0:
+                #    dice = 1
 
                 training_dice.append(dice)
+            gc.collect()
+            torch.cuda.empty_cache()
 
         avg_training_dice = np.average(training_dice)
         print(f"Epoch {str(epoch)}, Average Training Dice Score = {avg_training_dice}")
