@@ -91,9 +91,9 @@ class TextImageDataset(Dataset):
         img_path = self.data.image[index]
         #print(img_name)
 
-        pet_img = self.load_nii_to_numpy(img_path)
-        ct_img = self.load_nii_to_numpy(self.data.image2[index])
-        label = self.load_nii_to_numpy(self.data.label[index])
+        pet_img = self.load_nii_to_numpy(img_path).astype(np.float32)
+        ct_img = self.load_nii_to_numpy(self.data.image2[index]).astype(np.float32)
+        label = self.load_nii_to_numpy(self.data.label[index]).astype(np.float32)
 
         pet_img = np.expand_dims(pet_img, axis=0)
         ct_img  = np.expand_dims(ct_img, axis=0)
@@ -110,13 +110,11 @@ class TextImageDataset(Dataset):
         #print(f"resized image: {resized_img}")
         #image = resized_img
 
-        keys = ['pet', 'ct', 'label']
+        #keys = ['pet', 'ct', 'label']
 
         pet_img = torch.from_numpy(pet_img)  # Convert to tensor
         ct_img = torch.from_numpy(ct_img)  # Convert to tensor
         label = torch.from_numpy(label)
-
-
 
         data_dic = {
             'pet': pet_img,
