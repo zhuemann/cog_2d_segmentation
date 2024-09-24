@@ -101,18 +101,14 @@ class TextImageDataset(Dataset):
 
         #keys = ['pet', 'ct', 'label']
 
-        pet_img = torch.from_numpy(pet_img)  # Convert to tensor
-        ct_img = torch.from_numpy(ct_img)  # Convert to tensor
-        label = torch.from_numpy(label)
-
-        pet_img = np.expand_dims(pet_img, axis=0)
-        ct_img = np.expand(ct_img, axis=0)
-        label = np.expand_dims(label, axis=0)
+        #pet_img = torch.from_numpy(pet_img)  # Convert to tensor
+        #ct_img = torch.from_numpy(ct_img)  # Convert to tensor
+        #label = torch.from_numpy(label)
 
         # Chain expand_dims with from_numpy to avoid intermediate variables
-        #pet_img = torch.from_numpy(np.expand_dims(pet_img, axis=0))
-        #ct_img = torch.from_numpy(np.expand_dims(ct_img, axis=0))
-        #label = torch.from_numpy(np.expand_dims(label, axis=0))
+        pet_img = torch.from_numpy(np.expand_dims(pet_img, axis=0))
+        ct_img = torch.from_numpy(np.expand_dims(ct_img, axis=0))
+        label = torch.from_numpy(np.expand_dims(label, axis=0))
 
         data_dic = {
             'pet': pet_img,
