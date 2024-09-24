@@ -99,21 +99,6 @@ class TextImageDataset(Dataset):
         ct_img = self.load_nii_to_numpy(self.data.image2[index])
         label = self.load_nii_to_numpy(self.data.label[index])
 
-        #pet_img = np.expand_dims(pet_img, axis=0)
-        #ct_img  = np.expand_dims(ct_img, axis=0)
-        #label   = np.expand_dims(label, axis=0)
-
-        #print(f"img shape: {pet_img.shape}")
-        #print(f"ct img: {ct_img.shape}")
-        #print(f"label: {label.shape}")
-
-        #transformed = self.transforms(pet_img)
-        #transformed_ct = self.transforms(ct_img)
-
-        #resized_img = self.resize(img)
-        #print(f"resized image: {resized_img}")
-        #image = resized_img
-
         #keys = ['pet', 'ct', 'label']
 
         #pet_img = torch.from_numpy(pet_img)  # Convert to tensor
@@ -130,26 +115,6 @@ class TextImageDataset(Dataset):
             'ct': ct_img,
             'label': label
         }
-
-        #pet_img = torch.from_numpy(data_dic['pet'])  # Convert to tensor
-        #ct_img = torch.from_numpy(data_dic['ct'])  # Convert to tensor
-
-        # Apply separate transformations to PET and CT
-        #pet_transformed = pet_preprocessing_transform(pet)  # Apply PET-specific transforms
-        #ct_transformed = ct_preprocessing_transform(ct)  # Apply CT-specific transforms
-
-        # Concatenate along the channel dimension (assumed to be dim=1)
-        #combined_pet_ct = torch.cat((pet_img.unsqueeze(1), ct_img.unsqueeze(1)),
-        #                     dim=1)  # Now it's [batch_size, 2, H, W, D]
-
-
-        #data_dic = {
-        #    'images': combined_pet_ct,
-        #    'label': label
-        #}
-        #transformed_data = self.transforms(data_dic)
-        #print(f"images: {data_dic['images'].shape}")
-        #print(f"label: {data_dic['label'].shape}")
 
 
         transformed_data = self.resize(data_dic)
@@ -168,76 +133,7 @@ class TextImageDataset(Dataset):
         #nii_img = nib.Nifti1Image(transformed.detach().cpu().numpy(), affine)
         #nib.save(nii_img, "/UserData/Zach_Analysis/test_folder/saved_augmented_data/augmented.nii.gz")
 
-        #print(fail)
-        """
-        RGB = True
-        if self.transforms is not None:
-            # image = self.transforms(img)
 
-            if self.mode == "train":
-                # print(type(img))
-                # print(img.shape)
-                if RGB:
-                    img = Image.fromarray(img).convert("RGB") # should make this more rigous but stich this guy
-                else:
-                    img = Image.fromarray(img)
-
-                # print(type(img))
-                # img = Image.fromarray(img)
-                img = np.array(img)
-                # segmentation_mask_org = np.uint8(segmentation_mask_org)
-                # print(type(img))
-                transformed = self.transforms(image=img, mask=segmentation_mask_org)
-                image = transformed['image']
-                segmentation_mask_org = transformed['mask']
-                image = Image.fromarray(np.uint8(image))  # makes the image into a PIL image
-                image = self.resize(image)  # resizes the image to be the same as the model size
-                # segmentation_mask = Image.fromarray(np.uint8(segmentation_mask))
-                # segmentation_mask = self.resize(segmentation_mask)
-
-
-            else:
-
-                if RGB:
-                    img = Image.fromarray(img).convert("RGB")  # makes the image into a PIL image
-                    #img = np.array(img)
-                    #img = self.norm(image=img)
-                    #img = img["image"]
-                    #img = self.norm(img)
-                    #img = Image.fromarray(np.uint8(img))
-                    image = self.resize(img)
-                    #image = self.transforms(img)
-
-                    #trying to do flipping
-                    #transformed = self.transforms(image=img, mask=segmentation_mask_org)
-                    #image = transformed['image']
-                    #segmentation_mask_org = transformed['mask']
-                else:
-                    img = Image.fromarray(img)
-                    image = self.transforms(img)
-
-
-        else:
-            image = img
-
-        # print(img.shape)
-        # print(segmentation_mask.shape)
-        segmentation_mask = Image.fromarray(np.uint8(segmentation_mask_org))
-        segmentation_mask = self.resize(segmentation_mask)
-        # for showing the images with maps and such
-        # plt.figure()
-        # DCM_Img = pdcm.read_file(img_path)
-        # img_raw = DCM_Img.pixel_array
-        # f, ax = plt.subplots(1, 3)
-        # ax[0].imshow(img_raw, cmap=plt.cm.bone,)
-        # ax[1].imshow(image.squeeze().cpu().detach().numpy(), cmap=plt.cm.bone)
-        # ax[2].imshow(segmentation_mask, cmap="jet", alpha = 1)
-        # ax[2].imshow(image.squeeze().cpu().detach().numpy(), cmap=plt.cm.bone, alpha = .5)
-        # plt.show()
-        # print("returing from dataloader")
-        """
-        #image = label
-        #segmentation_mask = label
         return {
             'ids': torch.tensor(ids, dtype=torch.long),
             'mask': torch.tensor(mask, dtype=torch.long),
