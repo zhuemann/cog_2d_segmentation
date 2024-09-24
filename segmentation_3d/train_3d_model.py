@@ -616,8 +616,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
     test_obj.to(device)
 
-    #criterion = nn.BCEWithLogitsLoss()
-    criterion = DiceBCELoss()
+    criterion = nn.BCEWithLogitsLoss()
+    #criterion = DiceBCELoss()
 
     grad_scaler = torch.cuda.amp.GradScaler()
 
