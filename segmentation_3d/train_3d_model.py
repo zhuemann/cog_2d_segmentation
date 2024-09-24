@@ -659,14 +659,14 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             del ct
             del pet
             images = images.squeeze(2) # Now it's [batch_size, 2, H, W, D]
-            print(f"images: {images.shape}")
+            #print(f"images: {images.shape}")
             #print(targets.sum())
             #outputs = test_obj(images, ids, mask)  # for lavt
             outputs = test_obj(images, ids, mask, token_type_ids)
             #outputs = test_obj(images)
             #outputs = torch.argmax(outputs, dim=1)
-            print(f"output size: {outputs.size()}")
-            print(f"target size: {targets.size()}")
+            #print(f"output size: {outputs.size()}")
+            #print(f"target size: {targets.size()}")
             #outputs = output_resize(torch.squeeze(outputs, dim=1))
             #print(outputs.size())
             #outputs = torch.squeeze(outputs)
@@ -675,9 +675,9 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             #optimizer.zero_grad()
 
             loss = criterion(outputs, targets)
-            print(f"Loss requires_grad: {loss.requires_grad}")
+            #print(f"Loss requires_grad: {loss.requires_grad}")
 
-            print(f"loss: {loss}")
+            #print(f"loss: {loss}")
             if _ % 400 == 0:
                 print(f'Epoch: {epoch}, Loss:  {loss.item()}')
 
