@@ -675,7 +675,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             targets = image_dic["label"]
 
             # Stack images on CPU
-            images = torch.stack((pet, ct), dim=1)
+            images = torch.stack((pet, ct), dim=1).squeeze(2)
             del pet, ct  # Free up memory
 
             # Move images and targets to device
