@@ -579,8 +579,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                     deep_supr_num=deep_supr_num,
                     language_model=language_model)
 
-    for param in test_obj.parameters():
-        print(param.requires_grad)
+    #for param in test_obj.parameters():
+    #    print(param.requires_grad)
 
     # Print the total number of parameters
     total_params = sum(p.numel() for p in test_obj.parameters())
@@ -651,9 +651,9 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             #targets = torch.squeeze(targets)
             #images = data['images']['pet'].to(device, dtype=torch.float)
             image_dic = data["images"]
-            ct = image_dic["ct"].to(device, dtype=torch.float16)
-            pet = image_dic["pet"].to(device, dtype=torch.float16)
-            targets = image_dic["label"].to(device, dtype=torch.float16)
+            ct = image_dic["ct"].to(device, dtype=torch.float)
+            pet = image_dic["pet"].to(device, dtype=torch.float)
+            targets = image_dic["label"].to(device, dtype=torch.float)
 
             images = torch.cat((pet.unsqueeze(1), ct.unsqueeze(1)), dim=1)  # Now it's [batch_size, 2, 1, H, W, D]
             del image_dic
