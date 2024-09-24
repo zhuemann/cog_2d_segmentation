@@ -478,6 +478,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     valid_set =    TextImageDataset(valid_df, tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
     test_set =     TextImageDataset(test_df,  tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
 
+    print(f"test set: {len(training_set)}")
+
     train_params = {'batch_size': BATCH_SIZE,
                 'shuffle': True,
                 'num_workers': 16
