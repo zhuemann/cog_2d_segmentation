@@ -754,6 +754,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 #    dice = 1
 
                 training_dice.append(dice)
+            del outputs
             gc.collect()
             torch.cuda.empty_cache()
 
