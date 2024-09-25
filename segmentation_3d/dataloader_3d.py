@@ -134,7 +134,7 @@ class TextImageDataset(Dataset):
         label = self.load_nii_to_numpy(self.data.label[index])
         label = convert_to_two_channel(label)
         #keys = ['pet', 'ct', 'label']
-        print(f"label after conversion dimensions: {label.shape}")
+        #print(f"label after conversion dimensions: {label.shape}")
         #pet_img = torch.from_numpy(pet_img)  # Convert to tensor
         #ct_img = torch.from_numpy(ct_img)  # Convert to tensor
         #label = torch.from_numpy(label)
@@ -143,8 +143,8 @@ class TextImageDataset(Dataset):
         pet_img = torch.from_numpy(np.expand_dims(pet_img, axis=0))
         ct_img = torch.from_numpy(np.expand_dims(ct_img, axis=0))
         label = torch.from_numpy(label)
-        print(f"label returned dimensions: {label.size()}")
-        print(f"pet returned dimensions: {pet_img.size()}")
+        #print(f"label returned dimensions: {label.size()}")
+        #print(f"pet returned dimensions: {pet_img.size()}")
 
         data_dic = {
             'pet': pet_img,
@@ -152,8 +152,8 @@ class TextImageDataset(Dataset):
             'label': label
         }
 
-
-        transformed_data = self.resize(data_dic)
+        transformed_data = self.transforms(data_dic)
+        transformed_data = self.resize(transformed_data)
         del data_dic, pet_img, ct_img, label
         #save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/original.nii.gz"
 
