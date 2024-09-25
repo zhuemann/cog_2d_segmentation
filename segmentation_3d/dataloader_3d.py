@@ -17,6 +17,40 @@ import numpy as np
 from utility import rle_decode_modified, rle_decode
 
 
+def convert_to_two_channel(volume_3d):
+    """
+    Convert a single-channel 3D volume with labels 0 and 1 into a two-channel volume.
+    The first channel represents the background (label 0), and the second channel represents the object (label 1).
+
+    Parameters:
+    volume_3d (np.ndarray): A 3D NumPy array of shape (D, H, W) with labels 0 and 1.
+
+    Returns:
+    np.ndarray: A 4D NumPy array of shape (2, D, H, W) where:
+                - channel 0 is the background mask (label == 0)
+                - channel 1 is the object mask (label == 1)
+    """
+    if not isinstance(volume_3d, np.ndarray):
+        raise TypeError("Input volume must be a NumPy array.")
+    if volume_3d.ndim != 3:
+        raise ValueError("Input volume must be a 3D array.")
+    if not np.array_equal(np.unique(volume_3d), [0, 1]) and not np.array_equal(np.unique(volume_3d),
+                                                                               [0]) and not np.array_equal(
+            np.unique(volume_3d), [1]):
+        raise ValueError("Input volume must contain only 0 and 1 as labels.")
+
+    # Create empty array for two channels
+    channels = np.zeros((2, *volume_3d.shape), dtype=volume_3d.dtype)
+
+    # Channel 0: Background (label == 0)
+    channels[0] = (volume_3d == 0).astype(volume_3d.dtype)
+
+    # Channel 1: Object (label == 1)
+    channels[1] = (volume_3d == 1).astype(volume_3d.dtype)
+
+    return channels
+
+
 class TextImageDataset(Dataset):
     def __init__(self, dataframe, tokenizer, max_len, truncation=True,
                  dir_base='/home/zmh001/r-fcb-isilon/research/Bradshaw/', mode=None, transforms=None, resize=None,
@@ -98,9 +132,9 @@ class TextImageDataset(Dataset):
         pet_img = self.load_nii_to_numpy(img_path)
         ct_img = self.load_nii_to_numpy(self.data.image2[index])
         label = self.load_nii_to_numpy(self.data.label[index])
-
+        label = convert_to_two_channel(label)
         #keys = ['pet', 'ct', 'label']
-
+        print(f"label after conversion dimensions: {label.shape}")
         #pet_img = torch.from_numpy(pet_img)  # Convert to tensor
         #ct_img = torch.from_numpy(ct_img)  # Convert to tensor
         #label = torch.from_numpy(label)
@@ -109,6 +143,7 @@ class TextImageDataset(Dataset):
         pet_img = torch.from_numpy(np.expand_dims(pet_img, axis=0))
         ct_img = torch.from_numpy(np.expand_dims(ct_img, axis=0))
         label = torch.from_numpy(np.expand_dims(label, axis=0))
+        print(f"label returned dimensions: {label.size}")
 
         data_dic = {
             'pet': pet_img,

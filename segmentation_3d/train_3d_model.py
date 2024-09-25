@@ -744,7 +744,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             targets_detached = targets.detach()
             # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
             sigmoid = torch.sigmoid(outputs_detached )
-            outputs_detached  = torch.round(sigmoid)
+            outputs_detached = torch.round(sigmoid)
             prediction_sum += torch.sum(outputs_detached )
 
             # calculates the dice coefficent for each image and adds it to the list
