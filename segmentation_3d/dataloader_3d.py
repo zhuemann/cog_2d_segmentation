@@ -143,7 +143,7 @@ class TextImageDataset(Dataset):
         pet_img = torch.from_numpy(np.expand_dims(pet_img, axis=0))
         ct_img = torch.from_numpy(np.expand_dims(ct_img, axis=0))
         label = torch.from_numpy(np.expand_dims(label, axis=0))
-        print(f"label returned dimensions: {label.size}")
+        print(f"label returned dimensions: {label.size()}")
 
         data_dic = {
             'pet': pet_img,
