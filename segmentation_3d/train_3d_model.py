@@ -817,7 +817,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 print(f"max outputs: {max_outputs}")
                 # calculates the dice coefficent for each image and adds it to the list
                 for i in range(0, outputs.shape[0]):
-                    dice = dice_coeff(outputs_detached [i], targets_detached[i])
+                    dice = dice_coeff(outputs_detached[i], targets_detached[i])
                     dice = dice.item()
                     if torch.max(outputs_detached [i]) == 0 and torch.max(targets_detached[i]) == 0:
                         dice = 1
