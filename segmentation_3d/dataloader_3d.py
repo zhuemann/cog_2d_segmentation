@@ -175,7 +175,7 @@ class TextImageDataset(Dataset):
         print(f"image shape: {pet_img.size()}")
         # Create a NIfTI image from the NumPy array
         #nii_img = nib.Nifti1Image(transformed.detach().cpu().numpy(), affine)
-        nii_img = nib.Nifti1Image(pet_img.detach().cpu().numpy(), affine)
+        nii_img = nib.Nifti1Image(pet_img.squeeze().detach().cpu().numpy(), affine)
         save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/augmented_" + str(index) + ".nii.gz"
         nib.save(nii_img, save_path)
 
