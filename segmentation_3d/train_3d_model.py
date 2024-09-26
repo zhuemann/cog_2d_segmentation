@@ -652,7 +652,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
         for index, data in tqdm(enumerate(training_loader, 0)):
 
             optimizer.zero_grad()  # Clear gradients before each training step
-            print(f"index: {index} True positive: {run_tp} False positive: {run_fp} False negative: {run_fn}")
+            print(f"index: {index} True positive: {run_tp} False positive: {run_fp} False negative: {run_fn} Dice: {sum(run_dice)/len(run_dice)}")
             #print(torch.cuda.memory_summary(device=None, abbreviated=False))
 
             ids = data['ids'].to(device, dtype=torch.long)
