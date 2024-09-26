@@ -236,6 +236,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     valid_df = pd.read_excel(data_base_path + "validation.xlsx")
     test_df = pd.read_excel(data_base_path + "testing.xlsx")
 
+
+    train_df = train_df.head(1)
     #valid_df = test_valid_df
     #test_df = test_valid_df
 
@@ -777,18 +779,30 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 ids = data['ids'].to(device, dtype=torch.long)
                 mask = data['mask'].to(device, dtype=torch.long)
                 token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
-                targets = data['targets'].to(device, dtype=torch.float)
-                targets = torch.squeeze(targets)
-                images = data['images'].to(device, dtype=torch.float)
+
+                image_dic = data["images"]
+                pet = image_dic["pet"]
+                ct = image_dic["ct"]
+                targets = image_dic["label"]
+
+                # Stack images on CPU
+                images = torch.stack((pet, ct), dim=1).squeeze(2)
+                del pet, ct  # Free up memory
+
+                # Move images and targets to device
+                images = images.to(device, non_blocking=True)
+                targets = targets.to(device, non_blocking=True)
+                del image_dic  # Free up memory
+
 
                 #outputs = model_obj(images)
                 #outputs = test_obj(images, ids, mask)  # for lavt
                 outputs = test_obj(images, ids, mask, token_type_ids)
                 #outputs = test_obj(images)
 
-                outputs = output_resize(torch.squeeze(outputs, dim=1))
+                #outputs = output_resize(torch.squeeze(outputs, dim=1))
                 #outputs = torch.squeeze(outputs)
-                targets = output_resize(targets)
+                #targets = output_resize(targets)
 
                 # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
                 sigmoid = torch.sigmoid(outputs)
