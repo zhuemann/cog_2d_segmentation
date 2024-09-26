@@ -30,6 +30,8 @@ from data_prepocessing.template_removal import template_removal
 
 import torch.nn.functional as F
 
+import copy
+import cc3d
 
 #from PIL import Image
 from monai.optimizers.lr_scheduler import WarmupCosineSchedule
@@ -67,49 +69,17 @@ from monai.transforms import (
     EnsureTyped
 )
 
-# Function to load JSON file
-def load_json(file_path):
-    with open(file_path, 'r') as json_file:
-        data = json.load(json_file)
-        return data
-    try:
-        with open(file_path, 'r') as json_file:
-            data = json.load(json_file)
-            return data
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return None
-
-
-# PyTorch
-class DiceBCELoss(nn.Module):
-    def __init__(self, weight=None, size_average=True):
-        super(DiceBCELoss, self).__init__()
-
-    def forward(self, inputs, targets, smooth=1):
-        # comment out if your model contains a sigmoid or equivalent activation layer
-        inputs = F.sigmoid(inputs)
-
-        # flatten label and prediction tensors
-        inputs = inputs.view(-1)
-        targets = targets.view(-1)
-
-        intersection = (inputs * targets).sum()
-        dice_loss = 1 - (2. * intersection + smooth) / (inputs.sum() + targets.sum() + smooth)
-        BCE = F.binary_cross_entropy(inputs, targets, reduction='mean')
-        Dice_BCE = BCE + dice_loss
-
-        return Dice_BCE
-
-
-
+from utility_3d_training import logits2pred
+from utility_3d_training import DiceBCELoss
+from utility_3d_training import TPFPFNHelper
+from utility_3d_training import DiceHelper
 
 def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/home/zmh001/r-fcb-isilon/research/Bradshaw/", n_classes = 2):
     nltk.download('punkt')
     # model specific global variables
     IMG_SIZE = config["IMG_SIZE"] #256 #1024 #512 #384
     #BATCH_SIZE = batch_size
-    LR = 7e-5 #5e-5 #30e-5  #1e-4 #5e-5 #5e-5 was lr for contextualnet runs #8e-5  # 1e-4 was for efficient #1e-06 #2e-6 1e-6 for transformer 1e-4 for efficientnet
+    LR = 1e-5 #5e-5 #30e-5  #1e-4 #5e-5 #5e-5 was lr for contextualnet runs #8e-5  # 1e-4 was for efficient #1e-06 #2e-6 1e-6 for transformer 1e-4 for efficientnet
     #LR = 5e-4
     N_EPOCHS = epoch
     N_CLASS = n_classes
@@ -646,8 +616,9 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     #optimizer = torch.optim.Adam(params= list(vision_model.parameters()) + list(language_model.parameters()), lr=LR, weight_decay=1e-6)
     #scheduler = lr_scheduler.CosineAnnealingLR(optimizer, T_max=10, eta_min=1e-6)
     #scheduler = MultiStepLR(optimizer, milestones=[5, 10, 25, 37, 50, 75], gamma=0.50)
-    lr_scheduler = WarmupCosineSchedule(optimizer=optimizer, warmup_steps=5,
-                                        warmup_multiplier=0.1, t_total=config["epochs"])
+    total_steps = config["epochs"]*len(train_df)
+    lr_scheduler = WarmupCosineSchedule(optimizer=optimizer, warmup_steps=5, end_lr=1e-6, cycles=2,
+                                        warmup_multiplier=0.1, t_total=total_steps)
 
     #print(test_dataframe_location)
     print("about to start training loop")
@@ -709,6 +680,17 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             grad_scaler.scale(loss).backward()
             grad_scaler.step(optimizer)
             grad_scaler.update()
+
+            # update the learning rate
+            lr_scheduler.step()
+
+            with torch.no_grad():
+                pred = logits2pred(outputs, sigmoid=sigmoid)
+                #acc = acc_function(pred, target)
+                TP, FP, FN = TPFPFNHelper(pred, targets)
+                print(f"true positive: {TP} false positive: {TP} false negative: {FN}")
+                dice = DiceHelper(pred, targets)
+                print(f"Dice: {dice}")
 
             """
             image_dic = data["images"]
@@ -774,7 +756,6 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             #gc.collect()
             #torch.cuda.empty_cache()
 
-        lr_scheduler.step()
         avg_training_dice = np.average(training_dice)
         print(f"Epoch {str(epoch)}, Average Training Dice Score = {avg_training_dice}")
         print(f"training prediction sum: {prediction_sum}")
