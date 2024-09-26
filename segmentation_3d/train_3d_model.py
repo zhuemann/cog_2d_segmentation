@@ -32,6 +32,7 @@ import torch.nn.functional as F
 
 
 #from PIL import Image
+from monai.optimizers.lr_scheduler import WarmupCosineSchedule
 
 
 #from sklearn import metrics
@@ -238,7 +239,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     test_df = pd.read_excel(data_base_path + "testing.xlsx")
 
 
-    #train_df = train_df.head(1)
+    train_df = train_df.head(25)
+    valid_df = valid_df.head(25)
     #valid_df = test_valid_df
     #test_df = test_valid_df
 
@@ -415,22 +417,13 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
     intensity_bounds_pt = [0, 10]
     normalize_pet_transforms = Compose([
-
-        ScaleIntensityRange(a_min=intensity_bounds_pt[0], a_max=intensity_bounds_pt[1], b_min=0, b_max=1,
-                             clip=True)
-
+        ScaleIntensityRange(a_min=intensity_bounds_pt[0], a_max=intensity_bounds_pt[1], b_min=0, b_max=1, clip=True)
     ])
 
     intensity_bounds_ct = [-150, 250]
     normalize_ct_transforms = Compose([
-
         ScaleIntensityRange(a_min=intensity_bounds_ct[0], a_max=intensity_bounds_ct[1], b_min=0, b_max=1, clip=True)
-
     ])
-
-
-
-
 
 
     def debug_spatial_transform(data_dic):
@@ -653,7 +646,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     #optimizer = torch.optim.Adam(params= list(vision_model.parameters()) + list(language_model.parameters()), lr=LR, weight_decay=1e-6)
     #scheduler = lr_scheduler.CosineAnnealingLR(optimizer, T_max=10, eta_min=1e-6)
     #scheduler = MultiStepLR(optimizer, milestones=[5, 10, 25, 37, 50, 75], gamma=0.50)
-
+    lr_scheduler = WarmupCosineSchedule(optimizer=optimizer, warmup_steps=config["num_warmup_epochs"],
+                                        warmup_multiplier=0.1, t_total=config["epochs"])
 
     #print(test_dataframe_location)
     print("about to start training loop")
@@ -675,7 +669,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
         #        param.requires_grad = True
 
         loss_list = []
-        #print(scheduler.get_lr())
+        print(lr_scheduler.get_lr())
         prediction_sum = 0
 
         for _, data in tqdm(enumerate(training_loader, 0)):
@@ -781,6 +775,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             #gc.collect()
             #torch.cuda.empty_cache()
 
+        lr_scheduler.step()
         avg_training_dice = np.average(training_dice)
         print(f"Epoch {str(epoch)}, Average Training Dice Score = {avg_training_dice}")
         print(f"training prediction sum: {prediction_sum}")
