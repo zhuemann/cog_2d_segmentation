@@ -115,6 +115,8 @@ def get_greater_channel_mask(volume):
 def get_max_pixel_value_3d(images, targets, outputs):
 
     print(f"type: {type(targets)}")
+    print(f"outputs size: {outputs.shape}")
+
     targets = get_greater_channel_mask(targets)
     outputs = get_greater_channel_mask(outputs)
 
