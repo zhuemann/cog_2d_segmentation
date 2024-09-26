@@ -768,7 +768,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             del outputs, targets
             #gc.collect()
             #torch.cuda.empty_cache()
-            if index % 5 == 0:
+            if index % 1000 == 0:
                 print(f"index: {index + 1} True positive: {run_tp} False positive: {run_fp} False negative: {run_fn} Running Average Dice: {sum(run_dice) / len(run_dice)}")
 
         avg_training_dice = np.average(training_dice)
