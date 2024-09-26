@@ -697,7 +697,6 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             # Move images and targets to device
             images = images.to(device, non_blocking=True)
             targets = targets.to(device, non_blocking=True)
-            print(images.size)
             del image_dic  # Free up memory
 
             # Proceed with model inference, potentially using AMP
