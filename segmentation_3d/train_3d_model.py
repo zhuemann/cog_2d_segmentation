@@ -646,7 +646,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     #optimizer = torch.optim.Adam(params= list(vision_model.parameters()) + list(language_model.parameters()), lr=LR, weight_decay=1e-6)
     #scheduler = lr_scheduler.CosineAnnealingLR(optimizer, T_max=10, eta_min=1e-6)
     #scheduler = MultiStepLR(optimizer, milestones=[5, 10, 25, 37, 50, 75], gamma=0.50)
-    lr_scheduler = WarmupCosineSchedule(optimizer=optimizer, warmup_steps=config["num_warmup_epochs"],
+    lr_scheduler = WarmupCosineSchedule(optimizer=optimizer, warmup_steps=5,
                                         warmup_multiplier=0.1, t_total=config["epochs"])
 
     #print(test_dataframe_location)
