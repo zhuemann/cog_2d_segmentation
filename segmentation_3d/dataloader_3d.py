@@ -141,10 +141,10 @@ class TextImageDataset(Dataset):
         #ct_img = torch.from_numpy(ct_img)  # Convert to tensor
         #label = torch.from_numpy(label)
 
-        affine = np.eye(4)
-        nii_img = nib.Nifti1Image(pet_img, affine)
-        save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/original_" + str(index) + ".nii.gz"
-        nib.save(nii_img, save_path)
+        #affine = np.eye(4)
+        #nii_img = nib.Nifti1Image(pet_img, affine)
+        #save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/original_" + str(index) + ".nii.gz"
+        #nib.save(nii_img, save_path)
 
         # Chain expand_dims with from_numpy to avoid intermediate variables
         pet_img = torch.from_numpy(np.expand_dims(pet_img, axis=0))
@@ -183,11 +183,11 @@ class TextImageDataset(Dataset):
         #nib.save(nii_img, save_path)
 
         #print(f"image shape: {pet_img.size()}")
+
         # Create a NIfTI image from the NumPy array
-        #nii_img = nib.Nifti1Image(transformed.detach().cpu().numpy(), affine)
-        nii_img = nib.Nifti1Image(transformed_data["pet"].squeeze().detach().cpu().numpy(), affine)
-        save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/augmented_" + str(index) + ".nii.gz"
-        nib.save(nii_img, save_path)
+        #nii_img = nib.Nifti1Image(transformed_data["pet"].squeeze().detach().cpu().numpy(), affine)
+        #save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/augmented_" + str(index) + ".nii.gz"
+        #nib.save(nii_img, save_path)
 
 
         return {
