@@ -83,35 +83,39 @@ def get_max_pixel_value(images, targets, outputs):
 
 def get_greater_channel_mask(volume):
     """
-    Given a 4D volume of shape (2, height, width, depth), returns a binary mask of shape
-    (height, width, depth) where the mask has value 1 where the second channel is greater than the first.
+    Given a 5D volume of shape (1, 2, width, height, depth), returns a binary mask of shape
+    (width, height, depth) where the mask has value 1 where the second channel is greater than the first.
 
     Parameters:
-    volume (np.ndarray): A 4D NumPy array of shape (2, height, width, depth)
+    volume (np.ndarray): A 5D NumPy array of shape (1, 2, width, height, depth)
 
     Returns:
-    np.ndarray: A 3D binary mask of shape (height, width, depth) with values 0 and 1
+    np.ndarray: A 3D binary mask of shape (width, height, depth) with values 0 and 1
     """
     # Input validation
     if not isinstance(volume, np.ndarray):
         raise TypeError("Input volume must be a NumPy array.")
-    if volume.ndim != 4:
-        raise ValueError("Input volume must be a 4D NumPy array with shape (2, height, width, depth).")
-    if volume.shape[0] != 2:
-        raise ValueError("The first dimension of the input volume must be of size 2 (channels).")
+    if volume.ndim != 5:
+        raise ValueError("Input volume must be a 5D NumPy array with shape (1, 2, width, height, depth).")
+    if volume.shape[0] != 1:
+        raise ValueError("The first dimension of the input volume must be of size 1.")
+    if volume.shape[1] != 2:
+        raise ValueError("The second dimension of the input volume must be of size 2 (channels).")
+
+    # Remove the singleton batch dimension
+    volume = volume[0]  # Now shape is (2, width, height, depth)
 
     # Extract the two channels
-    channel0 = volume[0]  # First channel (height, width, depth)
-    channel1 = volume[1]  # Second channel (height, width, depth)
+    channel0 = volume[0]  # First channel (width, height, depth)
+    channel1 = volume[1]  # Second channel (width, height, depth)
 
     # Compute the binary mask where the second channel is greater than the first
-    mask = channel1 > channel0  # Boolean array (height, width, depth)
+    mask = channel1 > channel0  # Boolean array (width, height, depth)
 
     # Convert boolean mask to binary (0 and 1)
     binary_mask = mask.astype(np.uint8)
 
     return binary_mask
-
 def get_max_pixel_value_3d(images, targets, outputs):
 
     print(f"type: {type(targets)}")
