@@ -15,7 +15,7 @@ from collections import OrderedDict
 import numpy as np
 import gc
 import albumentations as albu
-from utility_3d_training import get_max_pixel_value_3d
+from .utility_3d_training import get_max_pixel_value_3d
 import monai
 from timm.models.swin_transformer import SwinTransformer
 #from models.swin_model import SwinModel
@@ -69,10 +69,10 @@ from monai.transforms import (
     EnsureTyped
 )
 
-from utility_3d_training import logits2pred
-from utility_3d_training import DiceBCELoss
-from utility_3d_training import TPFPFNHelper
-from utility_3d_training import DiceHelper
+from .utility_3d_training import logits2pred
+from .utility_3d_training import DiceBCELoss
+from .utility_3d_training import TPFPFNHelper
+from .utility_3d_training import DiceHelper
 
 def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/home/zmh001/r-fcb-isilon/research/Bradshaw/", n_classes = 2):
     nltk.download('punkt')
