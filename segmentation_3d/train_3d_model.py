@@ -685,7 +685,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             lr_scheduler.step()
 
             with torch.no_grad():
-                pred = logits2pred(outputs, sigmoid=sigmoid)
+                pred = logits2pred(outputs, sigmoid=False)
                 #acc = acc_function(pred, target)
                 TP, FP, FN = TPFPFNHelper(pred, targets)
                 print(f"true positive: {TP} false positive: {TP} false negative: {FN}")
