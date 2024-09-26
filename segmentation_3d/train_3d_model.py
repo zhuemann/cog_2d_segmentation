@@ -691,7 +691,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
 
             with torch.no_grad():
-                #pred = logits2pred(outputs, sigmoid=False)
+                pred = logits2pred(outputs, sigmoid=False)
                 #acc = acc_function(pred, target)
                 #TP, FP, FN = acc_function(pred, targets)
                 TP, FP, FN = 0, 0, 0
