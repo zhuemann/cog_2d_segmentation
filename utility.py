@@ -121,15 +121,17 @@ def get_max_pixel_value_3d(images, targets, outputs):
     print(f"type: {type(targets)}")
     print(f"outputs size: {outputs.shape}")
 
-    targets = get_greater_channel_mask(targets)
-    outputs = get_greater_channel_mask(outputs)
+    mask_targets = get_greater_channel_mask(targets)
+    mask_outputs = get_greater_channel_mask(outputs)
 
     print(f"outputs size: {outputs.shape}")
-    mask_outputs = outputs.unsqueeze(1)
-    mask_targets = targets.unsqueeze(1)
+    #mask_outputs = outputs.unsqueeze(1)
+    #mask_targets = targets.unsqueeze(1)
 
     segmented_pixels = images * mask_outputs  # apply mask to original image to get segmented pixels
     target_pixels = images * mask_targets  # apply target to original image
+
+    print(f"segmented_pixels size: {segmented_pixels}")
 
     max_target, _ = torch.max(target_pixels, dim=2)
     max_target, _ = torch.max(max_target, dim=2)
