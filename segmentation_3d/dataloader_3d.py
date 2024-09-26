@@ -167,14 +167,14 @@ class TextImageDataset(Dataset):
         # Define an affine transformation matrix (identity matrix by default)
         affine = np.eye(4)
         # Create a NIfTI image from the NumPy array
-        nii_img = nib.Nifti1Image(pet_img, affine)
+        #nii_img = nib.Nifti1Image(pet_img, affine)
 
         # Save the NIfTI image as a .nii.gz file
         #nib.save(nii_img, save_path)
 
         # Create a NIfTI image from the NumPy array
         #nii_img = nib.Nifti1Image(transformed.detach().cpu().numpy(), affine)
-        nii_img = nib.Nifti1Image(pet_img, affine)
+        nii_img = nib.Nifti1Image(pet_img.detach().cpu().numpy(), affine)
         save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/augmented_" + str(index) + ".nii.gz"
         nib.save(nii_img, save_path)
 
