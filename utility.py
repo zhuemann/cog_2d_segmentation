@@ -118,27 +118,27 @@ def get_greater_channel_mask(volume):
     return binary_mask
 def get_max_pixel_value_3d(images, targets, outputs):
 
-    print(f"type: {type(targets)}")
-    print(f"image type: {type(images)}")
-    print(f"image size: {images.shape}")
-    print(f"outputs size: {outputs.shape}")
+    #print(f"type: {type(targets)}")
+    #print(f"image type: {type(images)}")
+    #print(f"image size: {images.shape}")
+    #print(f"outputs size: {outputs.shape}")
 
     mask_targets = get_greater_channel_mask(targets)
     mask_outputs = get_greater_channel_mask(outputs)
 
-    print(f"outputs size: {outputs.shape}")
+    #print(f"outputs size: {outputs.shape}")
     #mask_outputs = outputs.unsqueeze(1)
     #mask_targets = targets.unsqueeze(1)
 
     segmented_pixels = images * mask_outputs  # apply mask to original image to get segmented pixels
     target_pixels = images * mask_targets  # apply target to original image
 
-    print(f"segmented_pixels size: {segmented_pixels.shape}")
+    #print(f"segmented_pixels size: {segmented_pixels.shape}")
 
     max_target = np.max(target_pixels, axis=2)
     max_target = np.max(max_target, axis=2)
     max_target = np.max(max_target, axis=2)
-    print(f"max_target size: {max_target.shape}")
+    #print(f"max_target size: {max_target.shape}")
 
     max_target = max_target[0, 1]
 
