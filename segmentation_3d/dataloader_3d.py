@@ -172,7 +172,7 @@ class TextImageDataset(Dataset):
         # Save the NIfTI image as a .nii.gz file
         #nib.save(nii_img, save_path)
 
-        print(f"image shape: {pet_img.size()}")
+        #print(f"image shape: {pet_img.size()}")
         # Create a NIfTI image from the NumPy array
         #nii_img = nib.Nifti1Image(transformed.detach().cpu().numpy(), affine)
         nii_img = nib.Nifti1Image(pet_img.squeeze().detach().cpu().numpy(), affine)
