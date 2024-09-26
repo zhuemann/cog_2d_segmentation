@@ -642,13 +642,17 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
         #        param.requires_grad = True
 
         loss_list = []
+        run_dice = []
+        run_tp = 0
+        run_fp = 0
+        run_fn = 0
         print(lr_scheduler.get_lr())
         prediction_sum = 0
 
-        for _, data in tqdm(enumerate(training_loader, 0)):
+        for index, data in tqdm(enumerate(training_loader, 0)):
 
             optimizer.zero_grad()  # Clear gradients before each training step
-
+            print(f"index: {index} True positive: {run_tp} False positive: {run_fp} False negative: {run_fn}")
             #print(torch.cuda.memory_summary(device=None, abbreviated=False))
 
             ids = data['ids'].to(device, dtype=torch.long)
@@ -690,9 +694,17 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 pred = logits2pred(outputs, sigmoid=False)
                 #acc = acc_function(pred, target)
                 TP, FP, FN = acc_function(pred, targets)
-                print(f"true positive: {TP} false positive: {TP} false negative: {FN}")
+                run_tp += TP
+                run_fp += FP
+                run_fn += FN
+                #print(f"true positive: {TP} false positive: {TP} false negative: {FN}")
                 dice = dice_function(pred, targets)
                 print(f"Dice: {dice}")
+
+                if isinstance(dice, (list, tuple)):
+                    dice, batch_size_adjusted = dice
+                    print(f"Dice: {dice}")
+                    run_dice.append(dice)
 
             """
             image_dic = data["images"]
@@ -741,9 +753,9 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             outputs_detached = outputs.detach()
             targets_detached = targets.detach()
             # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
-            sigmoid = torch.sigmoid(outputs_detached )
+            sigmoid = torch.sigmoid(outputs_detached)
             outputs_detached = torch.round(sigmoid)
-            prediction_sum += torch.sum(outputs_detached )
+            prediction_sum += torch.sum(outputs_detached)
 
             # calculates the dice coefficent for each image and adds it to the list
             for i in range(0, outputs_detached .shape[0]):
