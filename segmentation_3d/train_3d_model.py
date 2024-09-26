@@ -689,7 +689,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             # update the learning rate
             lr_scheduler.step()
 
-
+            """
             with torch.no_grad():
                 pred = logits2pred(outputs, sigmoid=False)
                 #acc = acc_function(pred, target)
@@ -708,6 +708,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                     #print(f"Dice: {dice}")
                     #run_dice.append(dice.detach().cpu().numpy())
                     run_dice.append(0)
+            """
 
             """
             image_dic = data["images"]
@@ -813,6 +814,16 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 outputs = test_obj(images, ids, mask, token_type_ids)
                 #outputs = test_obj(images)
 
+                with torch.no_grad():
+                    pred = logits2pred(outputs, sigmoid=False)
+                    TP, FP, FN = acc_function(pred, targets)
+                    run_tp += TP
+                    run_fp += FP
+                    run_fn += FN
+                    if isinstance(dice, (list, tuple)):
+                        dice, batch_size_adjusted = dice
+                        run_dice.append(dice.detach().cpu().numpy())
+
                 #outputs = output_resize(torch.squeeze(outputs, dim=1))
                 #outputs = torch.squeeze(outputs)
                 #targets = output_resize(targets)
@@ -845,6 +856,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             print(f"valid correct_max_predictions: {correct_max_predictions} or: {correct_max_predictions/len(valid_df)}%")
             valid_log.append(avg_valid_dice)
             correct_suv_log.append(correct_max_predictions)
+            print(f"Validation epoch: {epoch} True positive: {run_tp} False positive: {run_fp} False negative: {run_fn} Running Average Dice: {sum(run_dice) / len(run_dice)}")
 
             if avg_valid_dice > best_acc:
                 best_acc = avg_valid_dice
