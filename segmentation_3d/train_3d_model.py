@@ -822,7 +822,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                     if torch.max(outputs_detached [i]) == 0 and torch.max(targets_detached[i]) == 0:
                         dice = 1
                     valid_dice.append(dice)
-                    if max_outputs[i] == max_targets[i] and max_outputs[i] != 0:
+                    if max_outputs == max_targets and max_outputs != 0:
                         correct_max_predictions += 1
 
             #scheduler.step()
