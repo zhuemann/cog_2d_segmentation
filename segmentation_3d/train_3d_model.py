@@ -703,10 +703,10 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 #print(f"Dice: {dice}")
 
                 if isinstance(dice, (list, tuple)):
-                    dice, batch_size_adjusted = dice
+                    #dice, batch_size_adjusted = dice
                     #print(f"Dice: {dice}")
-                    run_dice.append(dice.detach().cpu().numpy())
-
+                    #run_dice.append(dice.detach().cpu().numpy())
+                    run_dice.append(0)
 
             """
             image_dic = data["images"]
