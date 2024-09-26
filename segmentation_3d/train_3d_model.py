@@ -820,6 +820,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                     run_tp += TP
                     run_fp += FP
                     run_fn += FN
+                    dice = dice_function(pred, targets)
                     if isinstance(dice, (list, tuple)):
                         dice, batch_size_adjusted = dice
                         run_dice.append(dice.detach().cpu().numpy())
