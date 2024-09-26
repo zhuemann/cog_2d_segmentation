@@ -166,7 +166,7 @@ class TextImageDataset(Dataset):
         else:
             transformed_data = self.resize(data_dic)
 
-        #del data_dic, pet_img, ct_img, label
+        del data_dic, pet_img, ct_img, label
         #save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/original.nii.gz"
 
         # Define an affine transformation matrix (identity matrix by default)

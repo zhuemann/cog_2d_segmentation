@@ -382,7 +382,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             padding_mode="border",
         ),
         RandGaussianSmoothd(
-            keys= ["pet", "ct"], prob=.99, sigma_x=(0.5, 1.0), sigma_y=(0.5, 1.0), sigma_z=(0.5, 1.0) # prob was .2
+            keys= ["pet", "ct"], prob=.2, sigma_x=(0.5, 1.0), sigma_y=(0.5, 1.0), sigma_z=(0.5, 1.0) # prob was .2
         ),
         RandGaussianNoised(keys= ["pet", "ct"], prob=0.2, mean=0.0, std=0.1)
     ])
