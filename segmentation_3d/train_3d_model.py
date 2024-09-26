@@ -465,12 +465,12 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
     train_params = {'batch_size': BATCH_SIZE,
                 'shuffle': True,
-                'num_workers': 1
+                'num_workers': 16
                 }
 
     test_params = {'batch_size': BATCH_SIZE,
                    'shuffle': True,
-                   'num_workers': 4
+                   'num_workers': 8
                    }
 
     training_loader = DataLoader(training_set, **train_params)
