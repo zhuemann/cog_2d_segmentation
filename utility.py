@@ -120,6 +120,7 @@ def get_max_pixel_value_3d(images, targets, outputs):
 
     print(f"type: {type(targets)}")
     print(f"image type: {type(images)}")
+    print(f"image size: {images.shape}")
     print(f"outputs size: {outputs.shape}")
 
     mask_targets = get_greater_channel_mask(targets)
