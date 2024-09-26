@@ -698,11 +698,11 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 run_fn += FN
                 #print(f"true positive: {TP} false positive: {TP} false negative: {FN}")
                 dice = dice_function(pred, targets)
-                print(f"Dice: {dice}")
+                #print(f"Dice: {dice}")
 
                 if isinstance(dice, (list, tuple)):
                     dice, batch_size_adjusted = dice
-                    print(f"Dice: {dice}")
+                    #print(f"Dice: {dice}")
                     run_dice.append(dice.detach().cpu().numpy())
 
             """
