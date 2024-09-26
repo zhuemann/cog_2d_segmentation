@@ -80,3 +80,56 @@ def get_max_pixel_value(images, targets, outputs):
 
     return max_target, max_output
 
+
+def get_greater_channel_mask(volume):
+    """
+    Given a 4D volume of shape (2, height, width, depth), returns a binary mask of shape
+    (height, width, depth) where the mask has value 1 where the second channel is greater than the first.
+
+    Parameters:
+    volume (np.ndarray): A 4D NumPy array of shape (2, height, width, depth)
+
+    Returns:
+    np.ndarray: A 3D binary mask of shape (height, width, depth) with values 0 and 1
+    """
+    # Input validation
+    if not isinstance(volume, np.ndarray):
+        raise TypeError("Input volume must be a NumPy array.")
+    if volume.ndim != 4:
+        raise ValueError("Input volume must be a 4D NumPy array with shape (2, height, width, depth).")
+    if volume.shape[0] != 2:
+        raise ValueError("The first dimension of the input volume must be of size 2 (channels).")
+
+    # Extract the two channels
+    channel0 = volume[0]  # First channel (height, width, depth)
+    channel1 = volume[1]  # Second channel (height, width, depth)
+
+    # Compute the binary mask where the second channel is greater than the first
+    mask = channel1 > channel0  # Boolean array (height, width, depth)
+
+    # Convert boolean mask to binary (0 and 1)
+    binary_mask = mask.astype(np.uint8)
+
+    return binary_mask
+
+def get_max_pixel_value_3d(images, targets, outputs):
+
+    targets = get_greater_channel_mask(targets)
+    outputs = get_greater_channel_mask(outputs)
+
+    mask_outputs = outputs.unsqueeze(1)
+    mask_targets = targets.unsqueeze(1)
+
+    segmented_pixels = images * mask_outputs  # apply mask to original image to get segmented pixels
+    target_pixels = images * mask_targets  # apply target to original image
+
+    max_target, _ = torch.max(target_pixels, dim=2)
+    max_target, _ = torch.max(max_target, dim=2)
+    max_target, _ = torch.max(max_target, dim=1)
+
+    max_output, _ = torch.max(segmented_pixels, dim=2)
+    max_output, _ = torch.max(max_output, dim=2)
+    max_output, _ = torch.max(max_output, dim=1)
+
+    return max_target, max_output
+

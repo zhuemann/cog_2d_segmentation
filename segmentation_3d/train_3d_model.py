@@ -15,7 +15,7 @@ from collections import OrderedDict
 import numpy as np
 import gc
 import albumentations as albu
-from utility import get_max_pixel_value
+from utility import get_max_pixel_value_3d
 import monai
 from timm.models.swin_transformer import SwinTransformer
 #from models.swin_model import SwinModel
@@ -812,7 +812,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 outputs_detached = torch.round(sigmoid)
                 prediction_sum += torch.sum(outputs_detached)
 
-                max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
+                max_targets, max_outputs = get_max_pixel_value_3d(images, targets, outputs)
                 print(f"max target: {max_targets}")
                 print(f"max outputs: {max_outputs}")
                 # calculates the dice coefficent for each image and adds it to the list
@@ -902,7 +902,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             prediction_sum += torch.sum(outputs)
             row_ids.extend(data['row_ids'])
 
-            max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
+            max_targets, max_outputs = get_max_pixel_value_3d(images, targets, outputs)
 
             for i in range(0, outputs.shape[0]):
                 output_item = outputs[i].cpu().data.numpy()
