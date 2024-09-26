@@ -53,7 +53,7 @@ def convert_to_two_channel(volume_3d):
 
 class TextImageDataset(Dataset):
     def __init__(self, dataframe, tokenizer, max_len, truncation=True,
-                 dir_base='/home/zmh001/r-fcb-isilon/research/Bradshaw/', mode=None, transforms=None, resize=None,
+                 dir_base='/home/zmh001/r-fcb-isilon/research/Bradshaw/', mode=None, transforms=None, pet_norm = None, ct_norm = None, resize=None,
                  img_size=256,
                  wordDict = None,
                  ngram_synonom = [], norm = None):  # data_path = os.path.join(dir_base,'Lymphoma_UW_Retrospective/Data/mips/')
@@ -68,6 +68,8 @@ class TextImageDataset(Dataset):
 
         #self.df_data = dataframe.values
         self.transforms = transforms
+        self.pet_norm = pet_norm
+        self.ct_norm = ct_norm
         self.mode = mode
         self.data_path = os.path.join(dir_base, "Zach_Analysis/cog_data_splits/mips/")
         self.dir_base = dir_base
@@ -150,6 +152,9 @@ class TextImageDataset(Dataset):
         label = torch.from_numpy(label)
         #print(f"label returned dimensions: {label.size()}")
         #print(f"pet returned dimensions: {pet_img.size()}")
+
+        pet_img = self.pet_norm(pet_img)
+        ct_img = self.ct_norm(ct_img)
 
         data_dic = {
             'pet': pet_img,

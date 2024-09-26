@@ -58,6 +58,7 @@ from monai.transforms import (
     SpatialPadd,
     CenterSpatialCropd,
     Flipd,
+    ScaleIntensityRanged,
     LoadImaged,
     ScaleIntensityd,
     RandCropByPosNegLabeld,
@@ -373,7 +374,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     transforms_training = Compose([
         RandAffined(
             keys=keys,
-            prob=0.99,
+            prob=0.1,
             rotate_range=[0.05, 0.05, 0.05],
             scale_range=[0.05, 0.05, 0.05],
             mode="bilinear",
@@ -410,6 +411,23 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
     ])
     """
+
+
+    intensity_bounds_pt = [0, 10]
+    normalize_pet_transforms = Compose([
+
+        ScaleIntensityRanged(keys=['pet'], a_min=intensity_bounds_pt[0], a_max=intensity_bounds_pt[1], b_min=0, b_max=1,
+                             clip=True)
+
+    ])
+
+    intensity_bounds_ct = [-150, 250]
+    normalize_ct_transforms = Compose([
+
+        ScaleIntensityRanged(keys=['ct'], a_min=intensity_bounds_ct[0], a_max=intensity_bounds_ct[1], b_min=0, b_max=1, clip=True)
+
+    ])
+
 
 
 
@@ -476,9 +494,9 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     """
 
 
-    training_set = TextImageDataset(train_df, tokenizer, 512, mode="train", transforms = transforms_training, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = None)
-    valid_set =    TextImageDataset(valid_df, tokenizer, 512,               transforms = None, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
-    test_set =     TextImageDataset(test_df,  tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
+    training_set = TextImageDataset(train_df, tokenizer, 512, mode="train", transforms = transforms_training, pet_norm = normalize_pet_transforms, ct_norm = normalize_ct_transforms, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = None)
+    valid_set =    TextImageDataset(valid_df, tokenizer, 512,               transforms = None, pet_norm = normalize_pet_transforms, ct_norm = normalize_ct_transforms, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
+    test_set =     TextImageDataset(test_df,  tokenizer, 512,               transforms = transforms_valid, pet_norm = normalize_pet_transforms, ct_norm = normalize_ct_transforms, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
 
     print(f"test set: {len(training_set)}")
 
