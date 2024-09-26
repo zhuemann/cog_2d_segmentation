@@ -15,7 +15,7 @@ from collections import OrderedDict
 import numpy as np
 import gc
 import albumentations as albu
-from utility import get_max_pixel_value_3d
+from utility_3d_training import get_max_pixel_value_3d
 import monai
 from timm.models.swin_transformer import SwinTransformer
 #from models.swin_model import SwinModel

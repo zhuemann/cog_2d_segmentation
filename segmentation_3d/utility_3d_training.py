@@ -5,6 +5,13 @@ import numpy as np
 import torch.nn as nn
 import json
 import torch.nn.functional as F
+from monai.utils import MetricReduction, convert_to_dst_type, optional_import, set_determinism
+from typing import Dict, Hashable, Mapping, List, Optional
+from monai.losses import DiceCELoss
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
+from monai.networks.utils import one_hot
+from monai.metrics import CumulativeAverage, compute_dice, do_metric_reduction
+
 
 
 
@@ -181,3 +188,75 @@ class DiceHelper:
 
         f, not_nans = do_metric_reduction(data, self.reduction)
         return (f, not_nans) if self.get_not_nans else f
+
+
+
+def get_greater_channel_mask(volume):
+    """
+    Given a 5D volume of shape (1, 2, width, height, depth), returns a binary mask of shape
+    (width, height, depth) where the mask has value 1 where the second channel is greater than the first.
+
+    Parameters:
+    volume (np.ndarray): A 5D NumPy array of shape (1, 2, width, height, depth)
+
+    Returns:
+    np.ndarray: A 3D binary mask of shape (width, height, depth) with values 0 and 1
+    """
+    # Input validation
+    if not isinstance(volume, np.ndarray):
+        raise TypeError("Input volume must be a NumPy array.")
+    if volume.ndim != 5:
+        raise ValueError("Input volume must be a 5D NumPy array with shape (1, 2, width, height, depth).")
+    if volume.shape[0] != 1:
+        raise ValueError("The first dimension of the input volume must be of size 1.")
+    if volume.shape[1] != 2:
+        raise ValueError("The second dimension of the input volume must be of size 2 (channels).")
+
+    # Remove the singleton batch dimension
+    volume = volume[0]  # Now shape is (2, width, height, depth)
+
+    # Extract the two channels
+    channel0 = volume[0]  # First channel (width, height, depth)
+    channel1 = volume[1]  # Second channel (width, height, depth)
+
+    # Compute the binary mask where the second channel is greater than the first
+    mask = channel1 > channel0  # Boolean array (width, height, depth)
+
+    # Convert boolean mask to binary (0 and 1)
+    binary_mask = mask.astype(np.uint8)
+
+    return binary_mask
+def get_max_pixel_value_3d(images, targets, outputs):
+
+    #print(f"type: {type(targets)}")
+    #print(f"image type: {type(images)}")
+    #print(f"image size: {images.shape}")
+    #print(f"outputs size: {outputs.shape}")
+
+    mask_targets = get_greater_channel_mask(targets)
+    mask_outputs = get_greater_channel_mask(outputs)
+
+    #print(f"outputs size: {outputs.shape}")
+    #mask_outputs = outputs.unsqueeze(1)
+    #mask_targets = targets.unsqueeze(1)
+
+    segmented_pixels = images * mask_outputs  # apply mask to original image to get segmented pixels
+    target_pixels = images * mask_targets  # apply target to original image
+
+    #print(f"segmented_pixels size: {segmented_pixels.shape}")
+
+    max_target = np.max(target_pixels, axis=2)
+    max_target = np.max(max_target, axis=2)
+    max_target = np.max(max_target, axis=2)
+    #print(f"max_target size: {max_target.shape}")
+
+    max_target = max_target[0, 1]
+
+    max_output = np.max(segmented_pixels, axis=2)
+    max_output = np.max(max_output, axis=2)
+    max_output = np.max(max_output, axis=2)
+    max_output = max_output[0, 1]
+
+    return max_target, max_output
+
+
