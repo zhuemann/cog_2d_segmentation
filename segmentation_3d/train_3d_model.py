@@ -689,23 +689,24 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             # update the learning rate
             lr_scheduler.step()
 
-            """
+
             with torch.no_grad():
-                pred = logits2pred(outputs, sigmoid=False)
+                #pred = logits2pred(outputs, sigmoid=False)
                 #acc = acc_function(pred, target)
-                TP, FP, FN = acc_function(pred, targets)
+                #TP, FP, FN = acc_function(pred, targets)
+                TP, FP, FN = 0, 0, 0
                 run_tp += TP
                 run_fp += FP
                 run_fn += FN
                 #print(f"true positive: {TP} false positive: {TP} false negative: {FN}")
-                dice = dice_function(pred, targets)
+                #dice = dice_function(pred, targets)
                 #print(f"Dice: {dice}")
 
                 if isinstance(dice, (list, tuple)):
                     dice, batch_size_adjusted = dice
                     #print(f"Dice: {dice}")
                     run_dice.append(dice.detach().cpu().numpy())
-            """
+
 
             """
             image_dic = data["images"]
