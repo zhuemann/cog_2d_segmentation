@@ -621,6 +621,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                                         warmup_multiplier=0.1, t_total=total_steps)
 
     acc_function = TPFPFNHelper()
+    dice_function = DiceHelper(sigmoid=False)
     #print(test_dataframe_location)
     print("about to start training loop")
     lowest_loss = 100
@@ -690,7 +691,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 #acc = acc_function(pred, target)
                 TP, FP, FN = acc_function(pred, targets)
                 print(f"true positive: {TP} false positive: {TP} false negative: {FN}")
-                dice = DiceHelper(pred, targets)
+                dice = dice_function(pred, targets)
                 print(f"Dice: {dice}")
 
             """
