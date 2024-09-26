@@ -135,13 +135,13 @@ def get_max_pixel_value_3d(images, targets, outputs):
 
     print(f"segmented_pixels size: {segmented_pixels.shape}")
 
-    max_target, _ = np.max(target_pixels, dim=2)
-    max_target, _ = np.max(max_target, dim=2)
-    max_target, _ = np.max(max_target, dim=1)
+    max_target, _ = np.max(target_pixels, axis=2)
+    max_target, _ = np.max(max_target, axis=2)
+    max_target, _ = np.max(max_target, axis=1)
 
-    max_output, _ = np.max(segmented_pixels, dim=2)
-    max_output, _ = np.max(max_output, dim=2)
-    max_output, _ = np.max(max_output, dim=1)
+    max_output, _ = np.max(segmented_pixels, axis=2)
+    max_output, _ = np.max(max_output, axis=2)
+    max_output, _ = np.max(max_output, axis=1)
 
     return max_target, max_output
 
