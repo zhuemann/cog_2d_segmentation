@@ -58,7 +58,7 @@ from monai.transforms import (
     SpatialPadd,
     CenterSpatialCropd,
     Flipd,
-    ScaleIntensityRanged,
+    ScaleIntensityRange,
     LoadImaged,
     ScaleIntensityd,
     RandCropByPosNegLabeld,
@@ -416,7 +416,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     intensity_bounds_pt = [0, 10]
     normalize_pet_transforms = Compose([
 
-        ScaleIntensityRanged(keys=['pet'], a_min=intensity_bounds_pt[0], a_max=intensity_bounds_pt[1], b_min=0, b_max=1,
+        ScaleIntensityRange(a_min=intensity_bounds_pt[0], a_max=intensity_bounds_pt[1], b_min=0, b_max=1,
                              clip=True)
 
     ])
@@ -424,7 +424,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     intensity_bounds_ct = [-150, 250]
     normalize_ct_transforms = Compose([
 
-        ScaleIntensityRanged(keys=['ct'], a_min=intensity_bounds_ct[0], a_max=intensity_bounds_ct[1], b_min=0, b_max=1, clip=True)
+        ScaleIntensityRange(a_min=intensity_bounds_ct[0], a_max=intensity_bounds_ct[1], b_min=0, b_max=1, clip=True)
 
     ])
 
