@@ -620,6 +620,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     lr_scheduler = WarmupCosineSchedule(optimizer=optimizer, warmup_steps=5, end_lr=1e-6, cycles=2,
                                         warmup_multiplier=0.1, t_total=total_steps)
 
+    acc_function = TPFPFNHelper()
     #print(test_dataframe_location)
     print("about to start training loop")
     lowest_loss = 100
@@ -687,7 +688,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             with torch.no_grad():
                 pred = logits2pred(outputs, sigmoid=False)
                 #acc = acc_function(pred, target)
-                TP, FP, FN = TPFPFNHelper(pred, targets)
+                TP, FP, FN = acc_function(pred, targets)
                 print(f"true positive: {TP} false positive: {TP} false negative: {FN}")
                 dice = DiceHelper(pred, targets)
                 print(f"Dice: {dice}")
