@@ -10,7 +10,7 @@ from torch.cuda.amp import GradScaler, autocast
 
 from tqdm import tqdm
 from collections import OrderedDict
-
+from monai.losses import DeepSupervisionLoss
 
 import numpy as np
 import gc
@@ -603,6 +603,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
     criterion = nn.BCEWithLogitsLoss()
     #criterion = DiceBCELoss()
+    loss_string = "DiceCELoss"
+    criterion = DeepSupervisionLoss(loss_string)
 
     grad_scaler = torch.cuda.amp.GradScaler()
 
