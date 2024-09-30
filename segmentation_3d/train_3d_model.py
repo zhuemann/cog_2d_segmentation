@@ -209,7 +209,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     test_df = pd.read_excel(data_base_path + "testing.xlsx")
 
 
-    train_df = train_df.head(5)
+    #train_df = train_df.head(5)
     valid_df = valid_df.head(25)
     #valid_df = test_valid_df
     #test_df = test_valid_df
