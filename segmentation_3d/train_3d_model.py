@@ -349,7 +349,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             prob=0.1,
             rotate_range=[0.05, 0.05, 0.05],
             scale_range=[0.05, 0.05, 0.05],
-            mode="bilinear",
+            mode=["bilinear", "bilinear", "nearest"],
             #spatial_size=self.roi_size,
             cache_grid=True,
             padding_mode="border",
