@@ -210,7 +210,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
 
     #train_df = train_df.head(5)
-    valid_df = valid_df.head(25)
+    #valid_df = valid_df.head(25)
     #valid_df = test_valid_df
     #test_df = test_valid_df
 
@@ -465,7 +465,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
 
     train_params = {'batch_size': BATCH_SIZE,
                 'shuffle': True,
-                'num_workers': 1
+                'num_workers': 8
                 }
 
     test_params = {'batch_size': BATCH_SIZE,
@@ -691,7 +691,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             # update the learning rate
             lr_scheduler.step()
 
-
+            """
             with torch.no_grad():
                 pred = logits2pred(outputs, sigmoid=False)
                 #acc = acc_function(pred, target)
@@ -710,7 +710,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                     #print(f"Dice: {dice}")
                     #run_dice.append(dice.detach().cpu().numpy())
                     run_dice.append(0)
-
+            """
 
             """
             image_dic = data["images"]
