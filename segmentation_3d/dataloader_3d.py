@@ -189,8 +189,8 @@ class TextImageDataset(Dataset):
         save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/augmented_" + str(index) + ".nii.gz"
         nib.save(nii_img, save_path)
 
-        print(f'label shape: {transformed_data["label"].squeeze().detach().cpu().numpy().shape}')
-        nii_img = nib.Nifti1Image(transformed_data["label"].squeeze().detach().cpu().numpy().argmax(), affine)
+        print(f'label shape: {transformed_data["label"].squeeze().detach().cpu().numpy().astype(np.int32).shape}')
+        nii_img = nib.Nifti1Image(transformed_data["label"].squeeze().detach().cpu().numpy().astype(np.int32).argmax(), affine)
         save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/augmented_label_" + str(index) + ".nii.gz"
         nib.save(nii_img, save_path)
 
