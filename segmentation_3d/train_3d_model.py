@@ -209,8 +209,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
     test_df = pd.read_excel(data_base_path + "testing.xlsx")
 
 
-    #train_df = train_df.head(25)
-    #valid_df = valid_df.head(25)
+    train_df = train_df.head(1)
+    valid_df = valid_df.head(25)
     #valid_df = test_valid_df
     #test_df = test_valid_df
 
@@ -691,7 +691,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             # update the learning rate
             lr_scheduler.step()
 
-            """
+
             with torch.no_grad():
                 pred = logits2pred(outputs, sigmoid=False)
                 #acc = acc_function(pred, target)
@@ -710,7 +710,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                     #print(f"Dice: {dice}")
                     #run_dice.append(dice.detach().cpu().numpy())
                     run_dice.append(0)
-            """
+
 
             """
             image_dic = data["images"]
@@ -764,12 +764,12 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             prediction_sum += torch.sum(outputs_detached)
 
             # calculates the dice coefficent for each image and adds it to the list
-            for i in range(0, outputs_detached .shape[0]):
+            for i in range(0, outputs_detached.shape[0]):
                 dice = dice_coeff(outputs_detached[i], targets_detached[i])
                 dice = dice.item()
                 # gives a dice score of 1 if correctly predicts negative
-                #if torch.max(outputs[i]) == 0 and torch.max(targets[i]) == 0:
-                #    dice = 1
+                if torch.max(outputs[i]) == 0 and torch.max(targets[i]) == 0:
+                    dice = 1
 
                 training_dice.append(dice)
             del outputs, targets
@@ -840,13 +840,13 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 prediction_sum += torch.sum(outputs_detached)
 
                 max_targets, max_outputs = get_max_pixel_value_3d(images.detach().cpu().numpy(), targets_detached.cpu().numpy(), outputs_detached.cpu().numpy())
-                #print(f"max target: {max_targets}")
-                #print(f"max outputs: {max_outputs}")
+                print(f"max target: {max_targets}")
+                print(f"max outputs: {max_outputs}")
                 # calculates the dice coefficent for each image and adds it to the list
                 for i in range(0, outputs.shape[0]):
                     dice = dice_coeff(outputs_detached[i], targets_detached[i])
                     dice = dice.item()
-                    if torch.max(outputs_detached [i]) == 0 and torch.max(targets_detached[i]) == 0:
+                    if torch.max(outputs_detached[i]) == 0 and torch.max(targets_detached[i]) == 0:
                         dice = 1
                     valid_dice.append(dice)
                     if max_outputs == max_targets and max_outputs != 0:
