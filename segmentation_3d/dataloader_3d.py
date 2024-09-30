@@ -193,6 +193,8 @@ class TextImageDataset(Dataset):
 
         label_data = transformed_data["label"].squeeze().detach().cpu().numpy().astype(np.int32)
         label_data = np.argmax(label_data, axis = 0)
+        label_data = label_data.astype(np.int32)
+
         nii_img = nib.Nifti1Image(label_data, affine)
         save_path = "/UserData/Zach_Analysis/test_folder/saved_augmented_data/augmented_label_" + str(index) + ".nii.gz"
         nib.save(nii_img, save_path)
