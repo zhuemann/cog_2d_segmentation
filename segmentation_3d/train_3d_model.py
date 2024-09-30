@@ -761,7 +761,7 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
             # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
             sigmoid = torch.sigmoid(outputs_detached)
             outputs_detached = torch.round(sigmoid)
-            prediction_sum += torch.sum(outputs_detached)
+            #prediction_sum += torch.sum(outputs)
 
             # calculates the dice coefficent for each image and adds it to the list
             for i in range(0, outputs_detached.shape[0]):
@@ -840,8 +840,8 @@ def train_3d_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "
                 prediction_sum += torch.sum(outputs_detached)
 
                 max_targets, max_outputs = get_max_pixel_value_3d(images.detach().cpu().numpy(), targets_detached.cpu().numpy(), outputs_detached.cpu().numpy())
-                print(f"max target: {max_targets}")
-                print(f"max outputs: {max_outputs}")
+                #print(f"max target: {max_targets}")
+                #print(f"max outputs: {max_outputs}")
                 # calculates the dice coefficent for each image and adds it to the list
                 for i in range(0, outputs.shape[0]):
                     dice = dice_coeff(outputs_detached[i], targets_detached[i])
