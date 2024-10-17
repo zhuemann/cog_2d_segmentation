@@ -48,9 +48,11 @@ from data_prepocessing.utility.get_dicoms_for_reading import get_dicoms_for_read
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 
 from data_prepocessing.data_visualization.intereactive_report_figure import make_interactive_figure
+from data_prepocessing.data_visualization.intereactive_report_figure import compound_interactive_report_v2
 
 if __name__ == '__main__':
-
+    compound_interactive_report_v2()
+    print(fail)
     make_interactive_figure()
     print(fail)
     #get_dicoms_for_reading()
