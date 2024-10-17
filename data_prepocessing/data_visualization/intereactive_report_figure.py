@@ -273,6 +273,7 @@ def compound_interactive_report_v2():
     # Loop over each good index to load prediction and plot contours
     for i, index in enumerate(good_index):
         print(f"Processing index: {index}")
+        print(f"Levels: {prediction_mip.min()}, {prediction_mip.max()}")
 
         # Load the prediction data
         label_final_path = os.path.join(base_file_path, f"{index}PETWB_001516_02_label_.nii")
