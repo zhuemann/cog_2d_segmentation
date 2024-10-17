@@ -270,6 +270,7 @@ def compound_interactive_report_v2():
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.imshow(suv_mip, cmap='gray_r', aspect='auto', origin='lower', vmin=0, vmax=6)
 
+    """
     # Loop over each good index to load prediction and plot contours
     for i, index in enumerate(good_index):
         print(f"Processing index: {index}")
@@ -291,11 +292,11 @@ def compound_interactive_report_v2():
 
         alpha_value = 0.5  # Use a valid alpha value
         ax.contour(prediction_mip, levels=[0.5], colors=[cm.jet(i / len(good_index))], alpha=alpha_value)
-
+    """
     ax.axis('off')
     # Display the plot
     #plt.title('SUV MIP with Prediction Contours')
     plt.show()
     plt.savefig(
-        "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure/" + "final_image" + ".png")
+        "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure/" + "pet_image" + ".png")
     plt.close()
