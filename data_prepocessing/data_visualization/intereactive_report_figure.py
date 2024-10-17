@@ -60,11 +60,11 @@ def insert_newlines(text, word_limit=15):
 def make_interactive_figure():
 
     # Load JSON file
-    with open('Z:/Zach_Analysis/uw_lymphoma_pet_3d/data_for_making_interactive_figure.json', 'r') as file:
+    with open('/UserData/Zach_Analysis/uw_lymphoma_pet_3d/data_for_making_interactive_figure.json', 'r') as file:
         figure_data = json.load(file)
 
     for index in range(1, 10):
-        base_file_path = "Z:/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure/"
+        base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure/"
         # print(sent)
 
         image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6//PETWB_001516_02/"
