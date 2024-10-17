@@ -289,8 +289,8 @@ def compound_interactive_report_v2():
         prediction_mip = np.rot90(prediction_mip, k=3)
         #print(f"Levels: {prediction_mip.min()}, {prediction_mip.max()}")
 
-        # Create contour for the prediction
-        contours = ax.contour(prediction_mip, levels=[0.5], colors=cm.jet(i / len(good_index)), alpha=0.6)
+        alpha_value = 0.5  # Use a valid alpha value
+        ax.contour(prediction_mip, levels=[0.5], colors=cm.jet(i / len(good_index)), alpha=alpha_value)
 
     # Display the plot
     plt.title('SUV MIP with Prediction Contours')
