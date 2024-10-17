@@ -9,6 +9,8 @@ import json
 import os
 import numpy as np
 import scipy.ndimage
+import cc3d
+
 
 def max_suv_in_positive_region(suv_volume, label_volume):
     """
@@ -39,6 +41,34 @@ def resample_img_size(volume, target):
                                                target_shape[1] / volume.shape[1],
                                                target_shape[2] / volume.shape[2]), order=1)  # Linear interpolation
     return resampled_volume
+
+def filter_prediction_by_average(volume):
+    # Threshold the volume
+    thresholded_volume = np.where(volume > 0.5, 1, 0)
+
+    # Compute connected components
+    connectivity = 26  # You can choose 6, 18, or 26 for 3D connectivity
+    components = cc3d.connected_components(thresholded_volume, connectivity=connectivity)
+
+    # Find the component with the highest average value in the original volume
+    max_avg_component_id = None
+    max_average = -np.inf  # Start with the lowest possible value
+    for component_id in np.unique(components):
+        if component_id == 0:
+            continue  # Skip the background component
+        component_mask = components == component_id
+        component_values = volume[component_mask]
+        component_average = np.mean(component_values)
+        if component_average > max_average:
+            max_average = component_average
+            max_avg_component_id = component_id
+
+    # Create a new volume where only the component with the highest average is retained
+    filtered_volume = np.zeros_like(volume)
+    if max_avg_component_id is not None:
+        filtered_volume[components == max_avg_component_id] = volume[components == max_avg_component_id]
+
+    return filtered_volume
 
 def insert_newlines(text, word_limit=15):
     words = text.split()
@@ -90,6 +120,7 @@ def make_interactive_figure():
 
         prediction_data = np.squeeze(prediction_data, axis=(0, 1))
         # print(f"pred data size: {prediction_data.shape}")
+        prediction_data = filter_prediction_by_average(prediction_data)
         suv_data = resample_img_size(suv_data, prediction_data)
         # load in label data
         # nii_label = nib.load(label_full_path + ".gz")
