@@ -67,11 +67,11 @@ def make_interactive_figure():
         base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure/"
         # print(sent)
 
-        image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6//PETWB_001516_02/"
-        image_base = "/mnt/PURENFS/Bradshaw/UW_PET_Data/SUV_images/PETWB_001516_02/"
-        ct_path_final = os.path.join(image_base, "PETWB_001516_02_20160906_CT_CTAC.nii.gz")
+        image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
+        #image_base = "/mnt/PURENFS/Bradshaw/UW_PET_Data/SUV_images/PETWB_001516_02/"
+        ct_path_final = os.path.join(image_base, "PETWB_001516_02_ct_cropped.nii.gz ")
         # print(suv_path_final)
-        suv_path_final = os.path.join(image_base, "PETWB_001516_02_20160906_PT_WB_MAC_SUV.nii.gz")
+        suv_path_final = os.path.join(image_base, "PETWB_001516_02_suv_cropped.nii.gz")
         # full_pred_path = os.path.join(prediction_location, label)
         # label_full_path = os.path.join(label_base, label)
 
