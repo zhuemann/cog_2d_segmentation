@@ -63,7 +63,9 @@ def make_interactive_figure():
     with open('/UserData/Zach_Analysis/uw_lymphoma_pet_3d/data_for_making_interactive_figure.json', 'r') as file:
         figure_data = json.load(file)
     figure_data = figure_data["testing"]
-    for index in range(0, 41):
+    good_index = [12,16, 24, 33] # maybe 25
+    for index in range(0, 45):
+        print(f"index: {index}")
         base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure/"
         # print(sent)
 
@@ -125,9 +127,9 @@ def make_interactive_figure():
         # label_mip = np.rot90(label_mip, k=3)
         prediction_mip = np.rot90(prediction_mip, k=3)
 
-        suv_mip = np.fliplr(suv_mip)
+        #suv_mip = np.fliplr(suv_mip)
         # label_mip = np.fliplr(label_mip)
-        prediction_mip = np.fliplr(prediction_mip)
+        #prediction_mip = np.fliplr(prediction_mip)
         if (prediction_mip.min() == prediction_mip.max()):
             continue
         # Plot 1: Label MIP overlayed on SUV MIP
