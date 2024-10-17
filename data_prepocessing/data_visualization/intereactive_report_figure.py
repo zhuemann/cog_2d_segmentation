@@ -68,7 +68,7 @@ def make_interactive_figure():
         # print(sent)
 
         image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6//PETWB_001516_02/"
-
+        image_base = "/mnt/PURENFS/Bradshaw/UW_PET_Data/SUV_images/PETWB_001516_02/"
         ct_path_final = os.path.join(image_base, "PETWB_001516_02_20160906_CT_CTAC.nii.gz")
         # print(suv_path_final)
         suv_path_final = os.path.join(image_base, "PETWB_001516_02_20160906_PT_WB_MAC_SUV.nii.gz")
