@@ -128,7 +128,8 @@ def make_interactive_figure():
         suv_mip = np.fliplr(suv_mip)
         # label_mip = np.fliplr(label_mip)
         prediction_mip = np.fliplr(prediction_mip)
-
+        if (prediction_mip.min() == prediction_mip.max()):
+            continue
         # Plot 1: Label MIP overlayed on SUV MIP
         axes[0].imshow(suv_mip, cmap='gray_r', aspect='auto', origin='lower', vmin=0, vmax=10)
         # axes[0].imshow(label_mip, alpha=norm(label_mip), aspect='auto', origin='lower')
