@@ -292,8 +292,9 @@ def compound_interactive_report_v2():
         alpha_value = 0.5  # Use a valid alpha value
         ax.contour(prediction_mip, levels=[0.5], colors=[cm.jet(i / len(good_index))], alpha=alpha_value)
 
+    ax.axis('off')
     # Display the plot
-    plt.title('SUV MIP with Prediction Contours')
+    #plt.title('SUV MIP with Prediction Contours')
     plt.show()
     plt.savefig(
         "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure/" + "final_image" + ".png")
