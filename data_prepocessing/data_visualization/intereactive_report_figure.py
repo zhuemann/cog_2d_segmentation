@@ -287,10 +287,10 @@ def compound_interactive_report_v2():
         # Compute Maximum Intensity Projection (MIP) for the prediction
         prediction_mip = np.max(prediction_data, axis=1)
         prediction_mip = np.rot90(prediction_mip, k=3)
-        print(f"Levels: {prediction_mip.min()}, {prediction_mip.max()}")
+        #print(f"Levels: {prediction_mip.min()}, {prediction_mip.max()}")
 
         # Create contour for the prediction
-        #contours = ax.contour(prediction_mip, levels=[0.5], colors=cm.jet(i / len(good_index)), alpha=0.6)
+        contours = ax.contour(prediction_mip, levels=[0.5], colors=cm.jet(i / len(good_index)), alpha=0.6)
 
     # Display the plot
     plt.title('SUV MIP with Prediction Contours')
