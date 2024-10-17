@@ -63,7 +63,7 @@ def make_interactive_figure():
     with open('/UserData/Zach_Analysis/uw_lymphoma_pet_3d/data_for_making_interactive_figure.json', 'r') as file:
         figure_data = json.load(file)
     figure_data = figure_data["testing"]
-    for index in range(1, 10):
+    for index in range(0, 41):
         base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure/"
         # print(sent)
 
