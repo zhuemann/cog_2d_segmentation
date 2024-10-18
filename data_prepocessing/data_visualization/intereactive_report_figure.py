@@ -259,7 +259,7 @@ def compound_interactive_report_v2():
 
     # Load the SUV data (Assuming SUV data is common for all indices)
     suv_path_final = os.path.join(image_base, "PETWB_001516_02_suv_cropped.nii.gz")
-    suv_path_final = os.path.join(image_base, "PETWB_001516_02_suv_cropped.nii.gz")
+    suv_path_final = os.path.join(image_base, "PETWB_001516_02_ct_cropped.nii.gz")
 
     nii_suv = nib.load(suv_path_final)
     suv_data = nii_suv.get_fdata()
