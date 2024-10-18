@@ -267,7 +267,7 @@ def post_processing_eval():
         #print(f"label name: {label}")
         # image_name = label[:-15]
         print(label)
-        label = remove_leading_number(label)
+        #label = remove_leading_number(label)
         print(label)
         image_name = label[:15]
         print(image_name)
