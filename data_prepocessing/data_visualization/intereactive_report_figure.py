@@ -265,7 +265,8 @@ def compound_interactive_report_v2():
     suv_data = nii_suv.get_fdata()
 
     # Compute the Maximum Intensity Projection (MIP) for SUV
-    suv_mip = np.max(suv_data, axis=1)
+    #suv_mip = np.max(suv_data, axis=1)
+    suv_mip = suv_data[:,100,:]
     suv_mip = np.rot90(suv_mip, k=3)  # Rotate the SUV MIP
 
     # Setup the plot with 1 main plot for SUV MIP
