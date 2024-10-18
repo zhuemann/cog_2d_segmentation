@@ -262,6 +262,7 @@ def post_processing_eval():
         #print(f"label name: {label}")
         # image_name = label[:-15]
         label = remove_first_number(label)
+        print(label)
         image_name = label[:15]
         #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
