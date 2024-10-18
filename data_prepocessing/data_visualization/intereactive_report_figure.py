@@ -252,7 +252,7 @@ def compound_interactive_report_v2():
 
     # Define the list of good indices
     good_index = [12, 16, 28, 32, 33, 41, 43, 44]  # maybe 25
-
+    good_index = [44]
     # Base file paths
     base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure/"
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
@@ -273,7 +273,7 @@ def compound_interactive_report_v2():
     fig, ax = plt.subplots(figsize=(8, 8))
     #ax.imshow(suv_mip, cmap='gray_r', aspect='auto', origin='lower', vmin=0, vmax=6)
     ax.imshow(suv_mip, cmap='gray', aspect='auto', origin='lower', vmin=-100, vmax=400)
-    """
+
     # Loop over each good index to load prediction and plot contours
     for i, index in enumerate(good_index):
         print(f"Processing index: {index}")
@@ -294,12 +294,12 @@ def compound_interactive_report_v2():
         #print(f"Levels: {prediction_mip.min()}, {prediction_mip.max()}")
 
         alpha_value = 0.5  # Use a valid alpha value
-        ax.contour(prediction_mip, levels=[0.5], colors=[cm.jet(i / len(good_index))], alpha=alpha_value)
-    """
+        ax.contour(prediction_mip, levels=[0.5], colors=[cm.jet(i / len(good_index))], alpha=alpha_value, linewidths=2)
+
     ax.axis('off')
     # Display the plot
     #plt.title('SUV MIP with Prediction Contours')
     plt.show()
     plt.savefig(
-        "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure/" + "ct_image" + ".png")
+        "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure/" + "single_contour_44" + ".png")
     plt.close()
