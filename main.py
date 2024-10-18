@@ -51,8 +51,8 @@ from data_prepocessing.data_visualization.intereactive_report_figure import make
 from data_prepocessing.data_visualization.intereactive_report_figure import compound_interactive_report_v2
 
 if __name__ == '__main__':
-    #compound_interactive_report_v2()
-    post_processing_eval()
+    compound_interactive_report_v2()
+    #post_processing_eval()
     print(fail)
     #make_interactive_figure()
     #print(fail)
