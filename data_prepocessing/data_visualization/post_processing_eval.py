@@ -270,7 +270,9 @@ def post_processing_eval():
         label = remove_leading_number(label)
         print(label)
         image_name = label[:15]
+        print(image_name)
         #print(f"image name: {image_name}")
+        label_name = label.strip(".nii.gz")
         label_name = label.strip(".nii.gz")
 
         petlymph_name = image_name.strip(".nii.gz")
