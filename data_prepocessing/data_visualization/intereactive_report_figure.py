@@ -295,7 +295,7 @@ def compound_interactive_report_v2():
 
         alpha_value = 0.5  # Use a valid alpha value
         #ax.contour(prediction_mip, levels=[0.5], colors=[cm.jet(i / len(good_index))], alpha=alpha_value, linewidths=5)
-        ax.contour(prediction_mip, levels=[0.5], colors= '#00FF00', alpha=alpha_value, linewidths=5)
+        ax.contour(prediction_mip, levels=[0.5], colors= '#00FF00', alpha=alpha_value, linewidths=3)
     ax.axis('off')
     # Display the plot
     #plt.title('SUV MIP with Prediction Contours')
