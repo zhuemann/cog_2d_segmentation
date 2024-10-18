@@ -273,7 +273,7 @@ def post_processing_eval():
         print(image_name)
         #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
-        label_name = label.strip(".nii")
+        label_name = label.strip("_label_.nii")
 
         petlymph_name = image_name.strip(".nii.gz")
         #print(petlymph_name)
