@@ -259,14 +259,14 @@ def compound_interactive_report_v2():
 
     # Load the SUV data (Assuming SUV data is common for all indices)
     suv_path_final = os.path.join(image_base, "PETWB_001516_02_suv_cropped.nii.gz")
-    suv_path_final = os.path.join(image_base, "PETWB_001516_02_ct_cropped.nii.gz")
+    #suv_path_final = os.path.join(image_base, "PETWB_001516_02_ct_cropped.nii.gz")
 
     nii_suv = nib.load(suv_path_final)
     suv_data = nii_suv.get_fdata()
 
     # Compute the Maximum Intensity Projection (MIP) for SUV
-    #suv_mip = np.max(suv_data, axis=1)
-    suv_mip = suv_data[:,90,:]
+    suv_mip = np.max(suv_data, axis=1)
+    #suv_mip = suv_data[:,90,:]
     suv_mip = np.rot90(suv_mip, k=3)  # Rotate the SUV MIP
 
     # Setup the plot with 1 main plot for SUV MIP
