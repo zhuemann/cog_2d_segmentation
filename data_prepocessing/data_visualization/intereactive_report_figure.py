@@ -271,8 +271,8 @@ def compound_interactive_report_v2():
 
     # Setup the plot with 1 main plot for SUV MIP
     fig, ax = plt.subplots(figsize=(8, 8))
-    ax.imshow(suv_mip, cmap='gray_r', aspect='auto', origin='lower', vmin=0, vmax=6)
-
+    #ax.imshow(suv_mip, cmap='gray_r', aspect='auto', origin='lower', vmin=0, vmax=6)
+    ax.imshow(suv_mip, cmap='gray', aspect='auto', origin='lower', vmin=-100, vmax=1000)
     """
     # Loop over each good index to load prediction and plot contours
     for i, index in enumerate(good_index):
