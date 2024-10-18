@@ -216,14 +216,17 @@ def filter_prediction_by_average(volume):
         filtered_volume[components == max_avg_component_id] = volume[components == max_avg_component_id]
 
     return filtered_volume
-
+import regex as re
+def remove_first_number(strings):
+    pattern = re.compile(r'^\d+')
+    return [pattern.sub('', s, 1) for s in strings]
 
 def post_processing_eval():
     json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json"
     with open(json_file_path, 'r') as file:
         data = json.load(file)
 
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/f1_.76_dice_.55_best_prediction/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.5_data/"
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
     label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
@@ -258,6 +261,7 @@ def post_processing_eval():
         print(f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum} f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)} skipped: {skipped}")
         #print(f"label name: {label}")
         # image_name = label[:-15]
+        label = remove_first_number(label)
         image_name = label[:15]
         #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")

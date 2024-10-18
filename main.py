@@ -46,13 +46,13 @@ from data_prepocessing.utility.rt_struct_builder import make_all_rts
 from data_prepocessing.utility.get_dicoms_for_reading import get_dicoms_for_reading
 
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
-from data_prepocessing.data_visualization.post_processing_metric_eval import post_processing_metric_eval
+from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
 from data_prepocessing.data_visualization.intereactive_report_figure import make_interactive_figure
 from data_prepocessing.data_visualization.intereactive_report_figure import compound_interactive_report_v2
 
 if __name__ == '__main__':
     #compound_interactive_report_v2()
-    post_processing_metric_eval()
+    post_processing_eval()
     print(fail)
     #make_interactive_figure()
     #print(fail)
