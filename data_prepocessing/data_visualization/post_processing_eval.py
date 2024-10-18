@@ -262,6 +262,7 @@ def post_processing_eval():
         print(f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum} f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)} skipped: {skipped}")
         #print(f"label name: {label}")
         # image_name = label[:-15]
+        print(label)
         label = remove_first_number(label)
         print(label)
         image_name = label[:15]
