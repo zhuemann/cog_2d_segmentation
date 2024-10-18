@@ -217,16 +217,14 @@ def filter_prediction_by_average(volume):
 
     return filtered_volume
 import regex as re
-def remove_first_number(strings):
-    result = []
-    for s in strings:
-        # Initialize index to find where the first non-digit character is located
-        index = 0
-        while index < len(s) and s[index].isdigit():
-            index += 1
-        # Append the substring starting from the first non-digit character
-        result.append(s[index:])
-    return result
+def remove_leading_number(string):
+    # Find the position where the first non-digit character appears
+    index = 0
+    while index < len(string) and string[index].isdigit():
+        index += 1
+    # Slice the string from the first non-digit character
+    modified_string = string[index:]
+    return modified_string
 
 def post_processing_eval():
     json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json"
@@ -269,7 +267,7 @@ def post_processing_eval():
         #print(f"label name: {label}")
         # image_name = label[:-15]
         print(label)
-        label = remove_first_number(label)
+        label = remove_leading_number(label)
         print(label)
         image_name = label[:15]
         #print(f"image name: {image_name}")
