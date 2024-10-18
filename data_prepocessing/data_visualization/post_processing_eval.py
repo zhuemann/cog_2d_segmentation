@@ -218,7 +218,7 @@ def filter_prediction_by_average(volume):
     return filtered_volume
 import regex as re
 def remove_first_number(strings):
-    # Regex to match only the leading number at the start of the string
+    # Regex to match and remove the leading numbers
     pattern = re.compile(r'^\d+')
     return [pattern.sub('', s, 1) for s in strings]
 
