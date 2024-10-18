@@ -218,9 +218,15 @@ def filter_prediction_by_average(volume):
     return filtered_volume
 import regex as re
 def remove_first_number(strings):
-    # Regex to match and remove the leading numbers
-    pattern = re.compile(r'^\d+')
-    return [pattern.sub('', s, 1) for s in strings]
+    result = []
+    for s in strings:
+        # Initialize index to find where the first non-digit character is located
+        index = 0
+        while index < len(s) and s[index].isdigit():
+            index += 1
+        # Append the substring starting from the first non-digit character
+        result.append(s[index:])
+    return result
 
 def post_processing_eval():
     json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json"
