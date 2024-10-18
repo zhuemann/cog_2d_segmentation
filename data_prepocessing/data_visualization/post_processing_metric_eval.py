@@ -216,7 +216,10 @@ def filter_prediction_by_average(volume):
         filtered_volume[components == max_avg_component_id] = volume[components == max_avg_component_id]
 
     return filtered_volume
-
+import regex as re
+def remove_first_number(strings):
+    pattern = re.compile(r'^\d+')
+    return [pattern.sub('', s, 1) for s in strings]
 
 def post_processing_metric_eval():
     json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json"
@@ -258,6 +261,7 @@ def post_processing_metric_eval():
         print(f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum} f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)} skipped: {skipped}")
         #print(f"label name: {label}")
         # image_name = label[:-15]
+        label = remove_first_number(label)
         image_name = label[:15]
         #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
