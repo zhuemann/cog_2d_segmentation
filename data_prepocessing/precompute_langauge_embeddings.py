@@ -11,15 +11,9 @@ def precomputed_language_embeddings():
     dir_base = "/UserData/"
     model_name = os.path.join(dir_base, 'Zach_Analysis/models/llama3.1/')
 
-    #tokenizer = AutoTokenizer.from_pretrained(model_name)
-    #model = LlamaModel.from_pretrained(model_name)
-    lang_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
-    lang_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
-    lang_path = os.path.join(dir_base, 'Zach_Analysis/language_models/bert/')
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = LlamaModel.from_pretrained(model_name)
 
-    tokenizer = AutoTokenizer.from_pretrained(lang_path)
-
-    model = AutoModel.from_pretrained(lang_path, output_hidden_states=True)
     # Load JSON data
     with open("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json", "r") as file:
         data = json.load(file)
