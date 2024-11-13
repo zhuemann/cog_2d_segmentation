@@ -50,7 +50,7 @@ def precomputed_language_embeddings():
                 outputs = model(**inputs)
                 # Get embeddings for every token (full last hidden state)
                 token_embeddings = outputs.last_hidden_state.squeeze()  # Shape: (sequence_length, hidden_size)
-                print(f"token size: {token_embeddings.size()}")
+                #print(f"token size: {token_embeddings.size()}")
 
             # Define the path based on label_name
             embedding_path = embedding_base_dir / f"{label_name}_embedding.pt"
