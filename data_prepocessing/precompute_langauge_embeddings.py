@@ -1,6 +1,9 @@
 import torch
 from transformers import LlamaModel, AutoTokenizer
 import os
+import json
+from pathlib import Path
+
 
 
 def precomputed_language_embeddings():
@@ -11,15 +14,37 @@ def precomputed_language_embeddings():
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = LlamaModel.from_pretrained(model_name)
 
-    texts = ["Text sample 1", "Text sample 2"]
+    # Load JSON data
+    with open("final_training_testing_v6.json", "r") as file:
+        data = json.load(file)
 
-    embeddings = []
-    for text in texts:
-        inputs = tokenizer(text, return_tensors='pt')
-        with torch.no_grad():
-            outputs = model(**inputs)
-            text_embeddings = outputs.last_hidden_state[:, 0, :]  # Example: using CLS token
-            embeddings.append(text_embeddings)
+    # Base directory to store embeddings
+    embedding_base_dir = Path("embeddings")
+    embedding_base_dir.mkdir(exist_ok=True)
 
-    # Save embeddings to file
-    torch.save(embeddings, 'precomputed_embeddings.pt')
+    # Process each sample and save embeddings with <label_name>_embedding.pt naming
+    for subset in ['training', 'testing']:
+        for sample in data[subset]:
+            report = sample['report']
+            label_name = sample['label_name']  # Assuming each sample has a 'label_name' field
+
+            # Tokenize and get embeddings for every token in the report
+            inputs = tokenizer(report, return_tensors="pt", truncation=True)
+            with torch.no_grad():
+                outputs = model(**inputs)
+                # Get embeddings for every token (full last hidden state)
+                token_embeddings = outputs.last_hidden_state.squeeze()  # Shape: (sequence_length, hidden_size)
+                print(f"token size: {token_embeddings.size()}")
+
+            # Define the path based on label_name
+            embedding_path = embedding_base_dir / f"{label_name}_embedding.pt"
+
+            # Save the full token embeddings to the specified path
+            torch.save(token_embeddings, embedding_path)
+
+            # Update the JSON with the path to the embedding file
+            sample['embedding_path'] = str(embedding_path)
+
+    # Save the updated JSON
+    with open("final_training_testing_v6_with_embeddings.json", "w") as file:
+        json.dump(data, file, indent=4)
