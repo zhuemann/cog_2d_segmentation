@@ -19,7 +19,7 @@ def precomputed_language_embeddings():
 
     tokenizer = AutoTokenizer.from_pretrained(lang_path)
 
-    model = BertModel.from_pretrained(lang_path) #, output_hidden_states=True)
+    model = BertModel.from_pretrained(lang_path, output_hidden_states=True)
     # Load JSON data
     with open("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json", "r") as file:
         data = json.load(file)
