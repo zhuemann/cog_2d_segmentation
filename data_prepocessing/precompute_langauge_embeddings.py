@@ -6,7 +6,7 @@ import os
 def precomputed_language_embeddings():
 
     dir_base = "/UserData/"
-    model_name = os.path.join(dir_base, 'Zach_Analysis/language_models/llama3.1/')
+    model_name = os.path.join(dir_base, 'Zach_Analysis/models/llama3.1/')
 
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = LlamaModel.from_pretrained(model_name)
