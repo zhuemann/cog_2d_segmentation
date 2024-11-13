@@ -8,11 +8,18 @@ from pathlib import Path
 
 def precomputed_language_embeddings():
 
+    # Check if GPU is available and set the device
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Using device: {device}")
+
     dir_base = "/UserData/"
     model_name = os.path.join(dir_base, 'Zach_Analysis/models/llama3.1/')
 
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = LlamaModel.from_pretrained(model_name)
+
+    # Move the model to the GPU
+    model.to(device)
 
     # Set the padding token if not already set
     if tokenizer.pad_token is None:
