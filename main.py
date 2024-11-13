@@ -50,9 +50,12 @@ from data_prepocessing.data_visualization.post_processing_eval import post_proce
 from data_prepocessing.data_visualization.intereactive_report_figure import make_interactive_figure
 from data_prepocessing.data_visualization.intereactive_report_figure import compound_interactive_report_v2
 
+from data_prepocessing.precompute_langauge_embeddings import precomputed_language_embeddings
+
 if __name__ == '__main__':
     #compound_interactive_report_v2()
-    post_processing_eval()
+    #post_processing_eval()
+    precomputed_language_embeddings()
     print(fail)
     #make_interactive_figure()
     #print(fail)
