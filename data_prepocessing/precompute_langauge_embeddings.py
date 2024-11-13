@@ -14,6 +14,10 @@ def precomputed_language_embeddings():
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = LlamaModel.from_pretrained(model_name)
 
+    # Set the padding token if not already set
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token  # Use EOS token as padding
+
     # Load JSON data
     with open("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json", "r") as file:
         data = json.load(file)
