@@ -16,7 +16,7 @@ def precomputed_language_embeddings():
     lang_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
     tokenizer = AutoTokenizer.from_pretrained(lang_path)
 
-    model = RobertaModel.from_pretrained(lang_path, output_hidden_states=True)
+    model = RobertaModel.from_pretrained(lang_path) #, output_hidden_states=True)
     # Load JSON data
     with open("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json", "r") as file:
         data = json.load(file)
