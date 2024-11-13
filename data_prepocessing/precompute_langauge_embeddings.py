@@ -1,5 +1,5 @@
 import torch
-from transformers import LlamaTokenizer, LlamaModel
+from transformers import LlamaTokenizer, LlamaModel, AutoTokenizer
 import os
 
 
@@ -8,7 +8,7 @@ def precomputed_language_embeddings():
     dir_base = "/UserData/"
     model_name = os.path.join(dir_base, 'Zach_Analysis/language_models/bert/')
 
-    tokenizer = LlamaTokenizer.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = LlamaModel.from_pretrained(model_name)
 
     texts = ["Text sample 1", "Text sample 2"]
