@@ -25,13 +25,14 @@ def precomputed_language_embeddings():
     # Base directory to store embeddings
     embedding_base_dir = Path("embeddings")
     embedding_base_dir.mkdir(exist_ok=True)
-
+    i = 0
     # Process each sample and save embeddings with <label_name>_embedding.pt naming
     for subset in ['training', 'testing']:
         for sample in data[subset]:
             report = sample['report']
             label_name = sample['label_name']  # Assuming each sample has a 'label_name' field
-
+            print(f"i: {i}")
+            i += 1
             # Tokenize and get embeddings for every token in the report
             inputs = tokenizer(report, return_tensors="pt", truncation=True, padding="max_length", max_length=512)
             with torch.no_grad():
