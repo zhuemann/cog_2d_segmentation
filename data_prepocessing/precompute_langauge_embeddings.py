@@ -1,5 +1,5 @@
 import torch
-from transformers import LlamaTokenizer, LlamaModel, AutoTokenizer
+from transformers import LlamaModel, AutoTokenizer
 import os
 
 
