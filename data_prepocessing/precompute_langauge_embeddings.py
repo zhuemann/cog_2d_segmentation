@@ -42,6 +42,10 @@ def precomputed_language_embeddings():
             i += 1
             # Tokenize and get embeddings for every token in the report
             inputs = tokenizer(report, return_tensors="pt", truncation=True, padding="max_length", max_length=512)
+
+            # Move inputs to the GPU
+            inputs = {key: value.to(device) for key, value in inputs.items()}
+
             with torch.no_grad():
                 outputs = model(**inputs)
                 # Get embeddings for every token (full last hidden state)
