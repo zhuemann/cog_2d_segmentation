@@ -1,5 +1,5 @@
 import torch
-from transformers import LlamaModel, AutoTokenizer, RobertaModel
+from transformers import LlamaModel, AutoTokenizer, RobertaModel, BertModel
 import os
 import json
 from pathlib import Path
@@ -14,9 +14,12 @@ def precomputed_language_embeddings():
     #tokenizer = AutoTokenizer.from_pretrained(model_name)
     #model = LlamaModel.from_pretrained(model_name)
     lang_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
+    lang_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
+    lang_path = os.path.join(dir_base, 'Zach_Analysis/language_models/bert/')
+
     tokenizer = AutoTokenizer.from_pretrained(lang_path)
 
-    model = RobertaModel.from_pretrained(lang_path, from_tf=True) #, output_hidden_states=True)
+    model = BertModel.from_pretrained(lang_path) #, output_hidden_states=True)
     # Load JSON data
     with open("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json", "r") as file:
         data = json.load(file)
