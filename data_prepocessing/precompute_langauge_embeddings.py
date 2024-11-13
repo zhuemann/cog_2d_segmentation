@@ -29,7 +29,7 @@ def precomputed_language_embeddings():
             label_name = sample['label_name']  # Assuming each sample has a 'label_name' field
 
             # Tokenize and get embeddings for every token in the report
-            inputs = tokenizer(report, return_tensors="pt", truncation=True)
+            inputs = tokenizer(report, return_tensors="pt", truncation=True, padding="max_length", max_length=512)
             with torch.no_grad():
                 outputs = model(**inputs)
                 # Get embeddings for every token (full last hidden state)
