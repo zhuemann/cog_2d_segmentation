@@ -1,5 +1,5 @@
 import torch
-from transformers import LlamaModel, AutoTokenizer
+from transformers import LlamaModel, AutoTokenizer, RobertaModel
 import os
 import json
 from pathlib import Path
@@ -11,11 +11,14 @@ def precomputed_language_embeddings():
     dir_base = "/UserData/"
     model_name = os.path.join(dir_base, 'Zach_Analysis/models/llama3.1/')
 
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = LlamaModel.from_pretrained(model_name)
+    #tokenizer = AutoTokenizer.from_pretrained(model_name)
+    #model = LlamaModel.from_pretrained(model_name)
+    lang_path = os.path.join(dir_base, 'Zach_Analysis/language_models/bert/')
+    tokenizer = AutoTokenizer.from_pretrained(lang_path)
 
+    model = RobertaModel.from_pretrained(lang_path, output_hidden_states=True)
     # Load JSON data
-    with open("final_training_testing_v6.json", "r") as file:
+    with open("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json", "r") as file:
         data = json.load(file)
 
     # Base directory to store embeddings
