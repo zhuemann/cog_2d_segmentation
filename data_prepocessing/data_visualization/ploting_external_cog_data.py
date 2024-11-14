@@ -205,7 +205,7 @@ def testing_ploting_external_cog_data():
         label_name='example_label',
         slice_num=50,
         voxel_dims=(3.0, 3.0, 3.0), # or voxel_dims
-        ct_dims=(1.0, 1.0, 1.0),
+        ct_dims=(3.0, 3.0, 3.0),
         sentence='This is an example sentence for the plot title.',
         suv_value=2.5,
         output_path='/path/to/save/figure'
