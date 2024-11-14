@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.ndimage import zoom
 import os
+import nibabel as nib
+
 
 def insert_newlines(text, word_limit):
     """
@@ -176,9 +178,24 @@ def plot_volumes(pet_volume, ct_volume, label_volume, label_name, slice_num, vox
 
 def testing_ploting_external_cog_data():
 
-    pet_volume   =
-    ct_volume    =
-    label_volume =
+    pet_location = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/PETWB_013536_01_suv_cropped.nii.gz"
+    # Load the NIfTI file using nibabel
+    pet_nii_image = nib.load(pet_location)
+    # Extract the image data as a NumPy array
+    pet_volume = pet_nii_image.get_fdata()
+    # Optionally, retrieve the voxel dimensions (e.g., for use in plotting)
+    voxel_dims = pet_nii_image.header.get_zooms()
+
+    # Load CT volume
+    ct_location = '/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/PETWB_013536_01_ct_cropped.nii.gz'
+    ct_nii = nib.load(ct_location)
+    ct_volume = ct_nii.get_fdata()
+    ct_dims = ct_nii.header.get_zooms()
+
+    # Load Label volume
+    label_location = '/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/PETWB_013536_01_label_1.nii.gz'
+    label_nii = nib.load(label_location)
+    label_volume = label_nii.get_fdata()
 
     # Assuming you have the pet_volume, ct_volume, label_volume, and other parameters ready
     plot_volumes(
@@ -187,7 +204,7 @@ def testing_ploting_external_cog_data():
         label_volume=label_volume,
         label_name='example_label',
         slice_num=50,
-        voxel_dims=(3.0, 3.0, 3.0),
+        voxel_dims=(3.0, 3.0, 3.0), # or voxel_dims
         ct_dims=(1.0, 1.0, 1.0),
         sentence='This is an example sentence for the plot title.',
         suv_value=2.5,
