@@ -208,5 +208,6 @@ def testing_ploting_external_cog_data():
         ct_dims=(3.0, 3.0, 3.0),
         sentence='This is an example sentence for the plot title.',
         suv_value=2.5,
-        output_path='test_output.png'
+        output_path=''
+        #output_path='/path/to/save/figure'  # base path to save location
     )
