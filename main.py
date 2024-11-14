@@ -51,11 +51,13 @@ from data_prepocessing.data_visualization.intereactive_report_figure import make
 from data_prepocessing.data_visualization.intereactive_report_figure import compound_interactive_report_v2
 
 from data_prepocessing.precompute_langauge_embeddings import precomputed_language_embeddings
+from data_prepocessing.data_visualization.ploting_external_cog_data import testing_ploting_external_cog_data
 
 if __name__ == '__main__':
     #compound_interactive_report_v2()
     #post_processing_eval()
-    precomputed_language_embeddings()
+    testing_ploting_external_cog_data()
+    #precomputed_language_embeddings()
     print(fail)
     #make_interactive_figure()
     #print(fail)
