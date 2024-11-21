@@ -55,8 +55,8 @@ from data_prepocessing.data_visualization.ploting_external_cog_data import testi
 
 if __name__ == '__main__':
     #compound_interactive_report_v2()
-    #post_processing_eval()
-    testing_ploting_external_cog_data()
+    post_processing_eval()
+    #testing_ploting_external_cog_data()
     #precomputed_language_embeddings()
     print(fail)
     #make_interactive_figure()
