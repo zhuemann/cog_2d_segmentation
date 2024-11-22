@@ -426,6 +426,7 @@ def calculate_f1_score(true_positives, false_positives, false_negatives):
 
 def filter_prediction_by_average(volume):
     # Threshold the volume
+    print(f"volume shape: {volume.shape}")
     thresholded_volume = np.where(volume > 0.5, 1, 0)
 
     # Compute connected components
