@@ -477,5 +477,5 @@ def post_processing_eval():
 
     print(f"final dice over all samples: {np.mean(dice_scores)}")
 
-    print(f"threshold TP: {TP_sum_thresh} TP: {TP_sum_thresh} TN: {FN_sum_thresh}")
-    print(f"combined threshold f1 score:{calculate_f1_score(TP_sum_thresh, TP_sum_thresh, FN_sum_thresh)}")
+    print(f"threshold TP: {TP_sum_thresh} TP: {FP_sum_thresh} TN: {FN_sum_thresh}")
+    print(f"combined threshold f1 score:{calculate_f1_score(TP_sum_thresh, FP_sum_thresh, FN_sum_thresh)}")
