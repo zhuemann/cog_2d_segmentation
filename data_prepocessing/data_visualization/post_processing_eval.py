@@ -277,8 +277,10 @@ def TPFPFN_with_same_max(y_pred, y, image, intensity_threshold=0.1):
             if np.sum(y_pred_) > 0:
                 FP_count += 1
             # False Negative if ground truth exists but no sufficient agreement
-            if np.sum(y_) > 0:
+            elif np.sum(y_) > 0:
                 FN_count += 1
+            else:
+                print("lost count")
 
     return TP_count, FP_count, FN_count
 
