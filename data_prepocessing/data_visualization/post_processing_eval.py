@@ -121,6 +121,48 @@ def TPFPFNHelper(y_pred, y):
 
         return TP_sum, FP_sum, FN_sum  # all are volumes
 
+
+def dice_score_helper(y_pred, y):
+    """
+    Computes the Dice score for the prediction volumes.
+
+    Parameters:
+    - y_pred: Predicted volumes (numpy array).
+    - y: Ground truth volumes (numpy array).
+
+    Returns:
+    - dice_score: Dice score for the volumes.
+    """
+    # Binarize the predictions
+    y_pred = np.where(y_pred < 0.5, 0, 1)
+
+    y_copy = copy.deepcopy(y).squeeze()
+    y_pred_copy = copy.deepcopy(y_pred).squeeze()
+
+    # Add batch dimension if missing
+    if y_copy.ndim == 3:  # if batch dim is reduced
+        y_copy = y_copy[np.newaxis, ...]
+        y_pred_copy = y_pred_copy[np.newaxis, ...]
+
+    dice_scores = []
+
+    # Iterate over the batch
+    for ii in range(y_copy.shape[0]):
+        y_ = y_copy[ii]
+        y_pred_ = y_pred_copy[ii]
+
+        # Compute True Positives, False Positives, and False Negatives
+        intersection = np.sum(y_ * y_pred_)  # TP
+        sum_y = np.sum(y_)  # FN + TP
+        sum_y_pred = np.sum(y_pred_)  # FP + TP
+
+        # Dice Score calculation
+        dice = (2 * intersection) / (sum_y + sum_y_pred + 1e-6)  # Add epsilon to avoid division by zero
+        dice_scores.append(dice)
+
+    # Return the score across the batch
+    return dice_scores
+
 def analyze_volume(volume):
     # Threshold the volume
     thresholded_volume = np.where(volume > 0.5, 1, 0)
@@ -257,6 +299,8 @@ def post_processing_eval():
     psma_fp_sum = 0
     psma_fn_sum= 0
 
+    dice_scores = []
+
     skipped = 0
     for label in prediction_list:
         index += 1
@@ -267,18 +311,18 @@ def post_processing_eval():
         print(f"index: {index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum} f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)} skipped: {skipped}")
         #print(f"label name: {label}")
         # image_name = label[:-15]
-        print(label)
+        # print(label)
         #label = remove_leading_number(label)
-        print(label)
+        # print(label)
         image_name = label[:15]
-        print(image_name)
+        # print(image_name)
         #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
         #label_name = label.strip("_label_.nii")
 
         petlymph_name = image_name.strip(".nii.gz")
-        #print(petlymph_name)
-        print(f"label name: {label_name}")
+        # print(petlymph_name)
+        # print(f"label name: {label_name}")
         labeled_row = labeled_subset[labeled_subset["Label_Name"] == label_name]
 
 
@@ -339,6 +383,10 @@ def post_processing_eval():
         FP_sum += FP
         FN_sum += FN
 
+        dice_score = dice_score_helper(prediction_data, label_data)
+        dice_scores.extend(dice_score)
+        print(f"dice score: {dice_score}")
+
         if tracer == "FDG -- fluorodeoxyglucose":
             fdg_tp_sum += TP
             fdg_fp_sum += FP
@@ -358,3 +406,5 @@ def post_processing_eval():
 
     print(f"psma f1 score: {calculate_f1_score(psma_tp_sum, psma_fp_sum, psma_fn_sum)}")
     print(f"psma True positive: {psma_tp_sum} False Positive: {psma_fp_sum} False Negative sum: {psma_fn_sum}")
+
+    print(f"final dice over all samples: {np.mean(dice_scores)}")
