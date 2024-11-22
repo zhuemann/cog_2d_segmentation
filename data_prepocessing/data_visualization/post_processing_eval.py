@@ -163,6 +163,67 @@ def dice_score_helper(y_pred, y):
     # Return the score across the batch
     return dice_scores
 
+
+def TPFPFN_with_dice_threshold(y_pred, y, dice_threshold=0.5):
+    """
+    Computes the TP, FP, and FN counts with a Dice threshold.
+
+    A predicted contour is only considered a True Positive (TP) if the Dice
+    score between the predicted and ground truth contour is above the threshold.
+
+    Parameters:
+    - y_pred: Predicted volumes (numpy array).
+    - y: Ground truth volumes (numpy array).
+    - dice_threshold: Minimum Dice score for a prediction to be considered a TP.
+
+    Returns:
+    - TP_sum: Total True Positives.
+    - FP_sum: Total False Positives.
+    - FN_sum: Total False Negatives.
+    """
+    # Binarize the predictions
+    y_pred = np.where(y_pred < 0.5, 0, 1)
+
+    y_copy = copy.deepcopy(y).squeeze()
+    y_pred_copy = copy.deepcopy(y_pred).squeeze()
+
+    # Add batch dimension if missing
+    if y_copy.ndim == 3:  # if batch dim is reduced
+        y_copy = y_copy[np.newaxis, ...]
+        y_pred_copy = y_pred_copy[np.newaxis, ...]
+
+    TP_sum = 0
+    FP_sum = 0
+    FN_sum = 0
+
+    # Iterate over the batch
+    for ii in range(y_copy.shape[0]):
+        y_ = y_copy[ii]
+        y_pred_ = y_pred_copy[ii]
+
+        # Compute Dice score
+        intersection = np.sum(y_ * y_pred_)  # TP
+        sum_y = np.sum(y_)  # FN + TP
+        sum_y_pred = np.sum(y_pred_)  # FP + TP
+
+        dice = (2 * intersection) / (sum_y + sum_y_pred + 1e-6)  # Avoid division by zero
+
+        if dice > dice_threshold:
+            # If Dice threshold is met, count as TP
+            TP = intersection
+        else:
+            # Otherwise, count all predictions as FP
+            TP = 0
+
+        FP = np.sum(y_pred_) - TP
+        FN = np.sum(y_) - TP
+
+        TP_sum += TP
+        FP_sum += FP
+        FN_sum += FN
+
+    return TP_sum, FP_sum, FN_sum
+
 def analyze_volume(volume):
     # Threshold the volume
     thresholded_volume = np.where(volume > 0.5, 1, 0)
@@ -301,6 +362,10 @@ def post_processing_eval():
 
     dice_scores = []
 
+    TP_sum_thresh = 0
+    FP_sum_thresh = 0
+    FN_sum_thresh = 0
+
     skipped = 0
     for label in prediction_list:
         index += 1
@@ -387,6 +452,12 @@ def post_processing_eval():
         dice_scores.extend(dice_score)
         print(f"dice score: {dice_score}")
 
+        TP_thresh, FP_thresh, FN_thresh = TPFPFN_with_dice_threshold(prediction_data, label_data)
+        TP_sum_thresh += TP_thresh
+        FP_sum_thresh += FP_thresh
+        FN_sum_thresh += FN_thresh
+
+
         if tracer == "FDG -- fluorodeoxyglucose":
             fdg_tp_sum += TP
             fdg_fp_sum += FP
@@ -408,3 +479,6 @@ def post_processing_eval():
     print(f"psma True positive: {psma_tp_sum} False Positive: {psma_fp_sum} False Negative sum: {psma_fn_sum}")
 
     print(f"final dice over all samples: {np.mean(dice_scores)}")
+
+    print(f"threshold TP: {TP_sum_thresh} TP: {TP_sum_thresh} TN: {FN_sum_thresh}")
+    print(f"combined threshold f1 score:{calculate_f1_score(TP_sum_thresh, TP_sum_thresh, FN_sum_thresh)}")
