@@ -8,6 +8,8 @@ import numpy as np
 import json
 
 import pandas as pd
+from scipy.ndimage import label
+
 
 
 def pad_and_crop(prediction, label):
@@ -221,7 +223,7 @@ def TPFPFN_with_dice_threshold(y_pred, y, dice_threshold=0.5):
 
     return TP_count, FP_count, FN_count
 
-def TPFPFN_with_same_max(y_pred, y, image, intensity_threshold=0.1):
+def TPFPFN_with_same_max_v1(y_pred, y, image, intensity_threshold=0.1):
     """
     Computes the TP, FP, and FN counts based on volumes with an intensity threshold.
 
@@ -277,10 +279,80 @@ def TPFPFN_with_same_max(y_pred, y, image, intensity_threshold=0.1):
             if np.sum(y_pred_) > 0:
                 FP_count += 1
             # False Negative if ground truth exists but no sufficient agreement
-            elif np.sum(y_) > 0:
+            if np.sum(y_) > 0:
                 FN_count += 1
+
+
+    return TP_count, FP_count, FN_count
+
+def TPFPFN_with_same_max(y_pred, y, image, intensity_threshold=0.1):
+
+    # Binarize the predictions
+    y_pred = np.where(y_pred < 0.5, 0, 1)
+
+    y_copy = copy.deepcopy(y).squeeze()
+    y_pred_copy = copy.deepcopy(y_pred).squeeze()
+    image_copy = copy.deepcopy(image).squeeze()
+
+    # Add batch dimension if missing
+    if y_copy.ndim == 3:  # if batch dim is reduced
+        y_copy = y_copy[np.newaxis, ...]
+        y_pred_copy = y_pred_copy[np.newaxis, ...]
+        image_copy = image_copy[np.newaxis, ...]
+
+    TP_count = 0
+    FP_count = 0
+    FN_count = 0
+
+    # Iterate over the batch
+    for ii in range(y_copy.shape[0]):
+        y_ = y_copy[ii]
+        y_pred_ = y_pred_copy[ii]
+        image_ = image_copy[ii]
+
+        # Label connected components in ground truth
+        gt_labels, num_gt = label(y_)
+        # Label connected components in prediction
+        pred_labels, num_pred = label(y_pred_)
+
+        matched_gt = set()
+        matched_pred = set()
+
+        # Iterate over ground truth components
+        for gt_idx in range(1, num_gt + 1):
+            gt_component = (gt_labels == gt_idx)
+            max_intensity_gt = np.max(image_ * gt_component)
+
+            # Find matching prediction components
+            overlap = gt_component * y_pred_
+            if overlap.sum() > 0:
+                # Get the labels of overlapping prediction components
+                pred_idxs = np.unique(pred_labels * gt_component)
+                pred_idxs = pred_idxs[pred_idxs != 0]  # Exclude background
+
+                for pred_idx in pred_idxs:
+                    if pred_idx in matched_pred:
+                        continue  # Already matched
+
+                    pred_component = (pred_labels == pred_idx)
+                    max_intensity_pred = np.max(image_ * pred_component)
+
+                    # Check intensity threshold
+                    if abs(max_intensity_pred - max_intensity_gt) <= intensity_threshold:
+                        TP_count += 1
+                        matched_gt.add(gt_idx)
+                        matched_pred.add(pred_idx)
+                        break
+                else:
+                    continue  # No matching prediction component met the criteria
             else:
-                print("lost count")
+                # No overlap with prediction
+                continue
+
+        # Count false negatives (ground truth components not matched)
+        FN_count += (num_gt - len(matched_gt))
+        # Count false positives (prediction components not matched)
+        FP_count += (num_pred - len(matched_pred))
 
     return TP_count, FP_count, FN_count
 
