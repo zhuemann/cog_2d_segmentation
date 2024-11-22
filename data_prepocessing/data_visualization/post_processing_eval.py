@@ -491,7 +491,6 @@ def post_processing_eval():
         nii_suv = nib.load(suv_path_final)
         pet_image = nii_suv.get_fdata()
 
-        print(f"pet image size: {pet_image.shape}")
         # load in the ct data
         #nii_ct = nib.load(ct_path_final)
         #ct_data = nii_ct.get_fdata()
@@ -505,7 +504,6 @@ def post_processing_eval():
         # load in label data
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
-        print(f"prediction_data: {prediction_data.shape}")
 
         #prediction_data = pad_and_crop(prediction_data, label_data)
         TP, FP, FN = TPFPFNHelper(prediction_data, label_data)
@@ -551,3 +549,6 @@ def post_processing_eval():
 
     print(f"threshold TP: {TP_sum_thresh} FP: {FP_sum_thresh} FN: {FN_sum_thresh}")
     print(f"combined threshold f1 score:{calculate_f1_score(TP_sum_thresh, FP_sum_thresh, FN_sum_thresh)}")
+
+    print(f"max TP: {TP_sum_max} FP: {FP_sum_max} FN: {FN_sum_max}")
+    print(f"combined max f1 score:{calculate_f1_score(TP_sum_max, FP_sum_max, FN_sum_max)}")
