@@ -221,6 +221,67 @@ def TPFPFN_with_dice_threshold(y_pred, y, dice_threshold=0.5):
 
     return TP_count, FP_count, FN_count
 
+def TPFPFN_with_same_max(y_pred, y, image, intensity_threshold=0.1):
+    """
+    Computes the TP, FP, and FN counts based on volumes with an intensity threshold.
+
+    A predicted volume is only considered a True Positive (TP) if the maximum
+    pixel intensities of the y_pred mask applied to the image and the y mask
+    applied to the image are within the given threshold.
+
+    Parameters:
+    - y_pred: Predicted masks (numpy array, binarized with 0s and 1s).
+    - y: Ground truth masks (numpy array, binarized with 0s and 1s).
+    - image: The corresponding image (numpy array, same shape as masks).
+    - intensity_threshold: Maximum allowed difference in max intensity for TP.
+
+    Returns:
+    - TP_count: Total count of True Positive volumes.
+    - FP_count: Total count of False Positive volumes.
+    - FN_count: Total count of False Negative volumes.
+    """
+    # Binarize the predictions
+    y_pred = np.where(y_pred < 0.5, 0, 1)
+
+    y_copy = copy.deepcopy(y).squeeze()
+    y_pred_copy = copy.deepcopy(y_pred).squeeze()
+    image_copy = copy.deepcopy(image).squeeze()
+
+    # Add batch dimension if missing
+    if y_copy.ndim == 3:  # if batch dim is reduced
+        y_copy = y_copy[np.newaxis, ...]
+        y_pred_copy = y_pred_copy[np.newaxis, ...]
+        image_copy = image_copy[np.newaxis, ...]
+
+    TP_count = 0
+    FP_count = 0
+    FN_count = 0
+
+    # Iterate over the batch
+    for ii in range(y_copy.shape[0]):
+        y_ = y_copy[ii]
+        y_pred_ = y_pred_copy[ii]
+        image_ = image_copy[ii]
+
+        # Apply masks to the image
+        max_intensity_pred = np.max(image_ * y_pred_)
+        max_intensity_gt = np.max(image_ * y_)
+
+        # Check intensity threshold
+        if abs(max_intensity_pred - max_intensity_gt) <= intensity_threshold:
+            # True Positive if intensity condition is met and overlap exists
+            if np.sum(y_ * y_pred_) > 0:
+                TP_count += 1
+        else:
+            # False Positive if prediction exists but no sufficient intensity agreement
+            if np.sum(y_pred_) > 0:
+                FP_count += 1
+            # False Negative if ground truth exists but no sufficient agreement
+            if np.sum(y_) > 0:
+                FN_count += 1
+
+    return TP_count, FP_count, FN_count
+
 def analyze_volume(volume):
     # Threshold the volume
     thresholded_volume = np.where(volume > 0.5, 1, 0)
@@ -363,6 +424,10 @@ def post_processing_eval():
     FP_sum_thresh = 0
     FN_sum_thresh = 0
 
+    TP_sum_max = 0
+    FP_sum_max = 0
+    FN_sum_max = 0
+
     skipped = 0
     for label in prediction_list:
         index += 1
@@ -423,8 +488,10 @@ def post_processing_eval():
         label_full_path = os.path.join(label_base, label)
         #print(label)
         # load in the suv data
-        #nii_suv = nib.load(suv_path_final)
-        #suv_data = nii_suv.get_fdata()
+        nii_suv = nib.load(suv_path_final)
+        pet_image = nii_suv.get_fdata()
+
+        print(f"pet image size: {pet_image.shape}")
         # load in the ct data
         #nii_ct = nib.load(ct_path_final)
         #ct_data = nii_ct.get_fdata()
@@ -438,6 +505,7 @@ def post_processing_eval():
         # load in label data
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
+        print(f"prediction_data: {prediction_data.shape}")
 
         #prediction_data = pad_and_crop(prediction_data, label_data)
         TP, FP, FN = TPFPFNHelper(prediction_data, label_data)
@@ -454,6 +522,10 @@ def post_processing_eval():
         FP_sum_thresh += FP_thresh
         FN_sum_thresh += FN_thresh
 
+        TP_max, FP_max, FN_max = TPFPFN_with_same_max(prediction_data, label_data, pet_image, intensity_threshold=0.1)
+        TP_sum_max += TP_max
+        FP_sum_max += FP_max
+        FN_sum_max += FN_max
 
         if tracer == "FDG -- fluorodeoxyglucose":
             fdg_tp_sum += TP
@@ -477,5 +549,5 @@ def post_processing_eval():
 
     print(f"final dice over all samples: {np.mean(dice_scores)}")
 
-    print(f"threshold TP: {TP_sum_thresh} TP: {FP_sum_thresh} TN: {FN_sum_thresh}")
+    print(f"threshold TP: {TP_sum_thresh} FP: {FP_sum_thresh} FN: {FN_sum_thresh}")
     print(f"combined threshold f1 score:{calculate_f1_score(TP_sum_thresh, FP_sum_thresh, FN_sum_thresh)}")
