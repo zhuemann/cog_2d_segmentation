@@ -166,20 +166,20 @@ def dice_score_helper(y_pred, y):
 
 def TPFPFN_with_dice_threshold(y_pred, y, dice_threshold=0.5):
     """
-    Computes the TP, FP, and FN counts with a Dice threshold.
+    Computes the TP, FP, and FN counts based on volumes with a Dice threshold.
 
-    A predicted contour is only considered a True Positive (TP) if the Dice
-    score between the predicted and ground truth contour is above the threshold.
+    A predicted volume is only considered a True Positive (TP) if the Dice
+    score between the predicted and ground truth volume is above the threshold.
 
     Parameters:
     - y_pred: Predicted volumes (numpy array).
     - y: Ground truth volumes (numpy array).
-    - dice_threshold: Minimum Dice score for a prediction to be considered a TP.
+    - dice_threshold: Minimum Dice score for a volume to be considered a TP.
 
     Returns:
-    - TP_sum: Total True Positives.
-    - FP_sum: Total False Positives.
-    - FN_sum: Total False Negatives.
+    - TP_count: Total count of True Positive volumes.
+    - FP_count: Total count of False Positive volumes.
+    - FN_count: Total count of False Negative volumes.
     """
     # Binarize the predictions
     y_pred = np.where(y_pred < 0.5, 0, 1)
@@ -192,37 +192,34 @@ def TPFPFN_with_dice_threshold(y_pred, y, dice_threshold=0.5):
         y_copy = y_copy[np.newaxis, ...]
         y_pred_copy = y_pred_copy[np.newaxis, ...]
 
-    TP_sum = 0
-    FP_sum = 0
-    FN_sum = 0
+    TP_count = 0
+    FP_count = 0
+    FN_count = 0
 
     # Iterate over the batch
     for ii in range(y_copy.shape[0]):
         y_ = y_copy[ii]
         y_pred_ = y_pred_copy[ii]
 
-        # Compute Dice score
-        intersection = np.sum(y_ * y_pred_)  # TP
-        sum_y = np.sum(y_)  # FN + TP
-        sum_y_pred = np.sum(y_pred_)  # FP + TP
+        # Compute Dice score for the current volume
+        intersection = np.sum(y_ * y_pred_)  # Overlapping region
+        sum_y = np.sum(y_)  # Ground truth volume size
+        sum_y_pred = np.sum(y_pred_)  # Predicted volume size
 
         dice = (2 * intersection) / (sum_y + sum_y_pred + 1e-6)  # Avoid division by zero
 
         if dice > dice_threshold:
-            # If Dice threshold is met, count as TP
-            TP = intersection
+            # Count as True Positive if Dice threshold is met
+            TP_count += 1
         else:
-            # Otherwise, count all predictions as FP
-            TP = 0
+            if sum_y_pred > 0:
+                # False Positive if there's a prediction but no matching ground truth
+                FP_count += 1
+            if sum_y > 0:
+                # False Negative if there's ground truth but no matching prediction
+                FN_count += 1
 
-        FP = np.sum(y_pred_) - TP
-        FN = np.sum(y_) - TP
-
-        TP_sum += TP
-        FP_sum += FP
-        FN_sum += FN
-
-    return TP_sum, FP_sum, FN_sum
+    return TP_count, FP_count, FN_count
 
 def analyze_volume(volume):
     # Threshold the volume
