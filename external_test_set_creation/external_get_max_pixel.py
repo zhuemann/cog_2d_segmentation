@@ -245,7 +245,7 @@ def get_max_pixel_step3(df):
             suv_tolerance = 1
             #suv_tolerance = suv_ref*0.05
             slice_ref = int(row["Slice"]) # if this is pet slice number
-            slice_ref = img.shape[2] - slice_ref
+            #slice_ref = img.shape[2] - slice_ref
             # if this is ct slice number
             #ct_from_head = ct_image.shape[2] - row["Slice"]
             #pet_from_head = int(np.round(ct_from_head/ct_dimensions[2]*pet_dimensions[2]))
@@ -315,5 +315,5 @@ def external_get_max_pixel():
     df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_test.xlsx')
     df = get_max_pixel_step3(df)
 
-    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v3.xlsx')
+    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v3_index_other_side.xlsx')
     print(df)
