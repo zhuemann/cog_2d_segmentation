@@ -54,13 +54,14 @@ from data_prepocessing.precompute_langauge_embeddings import precomputed_languag
 from data_prepocessing.data_visualization.ploting_external_cog_data import testing_ploting_external_cog_data
 from external_test_set_creation.get_orientation_from_dicom import get_orientation_from_dicom
 
+
 if __name__ == '__main__':
     #compound_interactive_report_v2()
     #post_processing_eval()
     #testing_ploting_external_cog_data()
     #precomputed_language_embeddings()
-    #external_get_max_pixel()
-    get_orientation_from_dicom()
+    external_get_max_pixel()
+    #get_orientation_from_dicom()
     print(fail)
     #make_interactive_figure()
     #print(fail)

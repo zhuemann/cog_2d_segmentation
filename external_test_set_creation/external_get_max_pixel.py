@@ -136,6 +136,7 @@ def get_max_pixel_step3(df):
     valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/SUV_images/"))
     valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"))
 
+    df_orientation = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/df_orientation.xlsx")
 
     count = 0
     two_rows = 0
@@ -244,9 +245,14 @@ def get_max_pixel_step3(df):
             slice_tolerance = 1
             suv_tolerance = 1
             #suv_tolerance = suv_ref*0.05
+
             slice_ref = int(row["Slice"]) # if this is pet slice number
             #slice_ref = img.shape[2] - slice_ref
             # if this is ct slice number
+
+            print(f"file name: {file_name}")
+            orientation = df_orientation[df_orientation["Key"] == file_name]
+            print(f"ori: {orientation}")
             #ct_from_head = ct_image.shape[2] - row["Slice"]
             #pet_from_head = int(np.round(ct_from_head/ct_dimensions[2]*pet_dimensions[2]))
             #slice_ref = pet_from_head
