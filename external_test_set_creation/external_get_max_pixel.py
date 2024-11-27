@@ -221,6 +221,9 @@ def get_max_pixel_step3(df):
             orientation = orientation.iloc[0]
             orientation = orientation.iloc[1]
 
+            if orientation == "HFS":
+                continue
+
             ct_affine = ct_nii.affine
             pet_affine = nii_image.affine
             resampled_pet_nii = resample_image(img, pet_affine, ct_image)
@@ -255,6 +258,7 @@ def get_max_pixel_step3(df):
             slice_ref = int(row["Slice"]) # if this is pet slice number
             #slice_ref = img.shape[2] - slice_ref
             # if this is ct slice number
+            print(f"orientation: {orientation}")
             if orientation == "FFS":
                 slice_ref = img.shape[2] - slice_ref
             else:
