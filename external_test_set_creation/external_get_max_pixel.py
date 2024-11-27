@@ -219,6 +219,7 @@ def get_max_pixel_step3(df):
 
             print(f"file name: {file}")
             orientation = df_orientation[df_orientation["Key"] == file]
+            print(f"test: {orientation}")
             orientation = orientation.iloc[0]
             orientation = orientation.iloc[0]
             print(type(orientation))
