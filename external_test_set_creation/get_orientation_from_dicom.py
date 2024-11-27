@@ -48,6 +48,8 @@ def get_orientation_from_dicom():
 
     files_in_directory = os.listdir(dir_path)
 
+    orientation_dic = {}
+
     no_pt_files_list = []
     index = 0
     found_pet_images = 0
@@ -114,12 +116,13 @@ def get_orientation_from_dicom():
         substrings_to_check = ["WB_CTAC"]
         #print(f"recon_types: {recon_types}")
         # Iterate over each substring and check if it's present in any element of recon_types
-        print(f"recon types: {recon_types}")
+        #print(f"recon types: {recon_types}")
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
             #matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
             for matched_recon in recon_types:
 
+                """
                 if "wb_ctac" not in matched_recon.lower() and "pet_ac_2d" not in matched_recon.lower():
                     continue
 
@@ -132,13 +135,24 @@ def get_orientation_from_dicom():
                 if "PET_AC_2D" in matched_recon:
                     print("skipping ge pets")
                     continue
+                """
                 if matched_recon:
                     # If a match is found, build the path
                     top_dicom_folder = os.path.join(directory, matched_recon, file)
                     #top_dicom_folder = os.path.join(directory, matched_recon)
 
                     #top_dicom_folder = directory + "/" + str(matched_recon) + ""
-                    print(f"top dicom folder: {top_nifti_folder}")
+                    #print(f"top dicom folder: {top_nifti_folder}")
                     #found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
                     orientation = get_patient_position(top_dicom_folder)
                     print(orientation)
+
+                    orientation_dic[file] = orientation
+
+        # Convert dictionary to a pandas DataFrame
+        df = pd.DataFrame(list(orientation_dic.items()), columns=["Key", "Value"])
+
+        file_name = "df_orientation.xlsx"
+        # Save the DataFrame to an Excel file
+        df.to_excel(file_name, index=False)
+        print(f"Dictionary saved to {file_name}")
