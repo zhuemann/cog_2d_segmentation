@@ -254,6 +254,7 @@ def get_max_pixel_step3(df):
 
             print(f"file name: {file}")
             orientation = df_orientation[df_orientation["Key"] == file]
+            orientation = orientation.iloc[0]
             print(f"ori: {orientation}")
             #ct_from_head = ct_image.shape[2] - row["Slice"]
             #pet_from_head = int(np.round(ct_from_head/ct_dimensions[2]*pet_dimensions[2]))
