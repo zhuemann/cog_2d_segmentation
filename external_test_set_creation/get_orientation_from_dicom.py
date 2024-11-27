@@ -146,8 +146,8 @@ def get_orientation_from_dicom():
                     #found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
                     orientation = get_patient_position(top_dicom_folder)
                     print(orientation)
-
-                    orientation_dic[file] = orientation
+                    if orientation is not None:
+                        orientation_dic[file] = orientation
 
         # Convert dictionary to a pandas DataFrame
         df = pd.DataFrame(list(orientation_dic.items()), columns=["Key", "Value"])
