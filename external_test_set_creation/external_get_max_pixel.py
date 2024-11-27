@@ -217,6 +217,12 @@ def get_max_pixel_step3(df):
             ct_dimensions = ct_nii.header.get_zooms()
             #print(f"ct file name: {ct_name} ct voxel dimensions: {ct_dimensions}")
 
+            print(f"file name: {file}")
+            orientation = df_orientation[df_orientation["Key"] == file]
+            orientation = orientation.iloc[0]
+            print(type(orientation))
+            print(f"ori: {orientation}")
+
             ct_affine = ct_nii.affine
             pet_affine = nii_image.affine
             resampled_pet_nii = resample_image(img, pet_affine, ct_image)
@@ -252,10 +258,6 @@ def get_max_pixel_step3(df):
             #slice_ref = img.shape[2] - slice_ref
             # if this is ct slice number
 
-            print(f"file name: {file}")
-            orientation = df_orientation[df_orientation["Key"] == file]
-            orientation = orientation.iloc[0]
-            print(f"ori: {orientation}")
             #ct_from_head = ct_image.shape[2] - row["Slice"]
             #pet_from_head = int(np.round(ct_from_head/ct_dimensions[2]*pet_dimensions[2]))
             #slice_ref = pet_from_head
