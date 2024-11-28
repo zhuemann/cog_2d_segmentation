@@ -256,7 +256,7 @@ def get_max_pixel_step3(df):
             #slice_ref = img.shape[2] - slice_ref
             # if this is ct slice number
             print(f"orientation: {orientation}")
-            if orientation == "FFS":
+            if orientation == "HFS": # flipping this to test was "FFS"
                 slice_ref = img.shape[2] - slice_ref
             else:
                 print(f"no flipping")
@@ -330,5 +330,5 @@ def external_get_max_pixel():
     df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_test.xlsx')
     df = get_max_pixel_step3(df)
 
-    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v4_orientation_fix.xlsx')
+    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v4_orientation_fix_flipped.xlsx')
     print(df)
