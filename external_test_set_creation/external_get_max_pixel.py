@@ -119,6 +119,27 @@ def resample_image(target_image, target_affine, reference_image):
 
     return resampled_nii
 
+
+def get_corresponding_pet_slice(ct_slice_idx, ct_voxel_size, pet_voxel_size):
+    """
+    Calculates the corresponding PET slice for a given CT slice based on their voxel sizes.
+
+    Args:
+        ct_slice_idx (int): The index of the CT slice (0-based index).
+        ct_voxel_size (float): The slice thickness of the CT volume (z-axis voxel size).
+        pet_voxel_size (float): The slice thickness of the PET volume (z-axis voxel size).
+
+    Returns:
+        float: The corresponding PET slice index (can be a non-integer if interpolation is needed).
+    """
+    # Calculate the position of the CT slice in physical space (z-axis position)
+    ct_slice_position = ct_slice_idx * ct_voxel_size
+
+    # Calculate the corresponding PET slice index
+    pet_slice_idx = ct_slice_position / pet_voxel_size
+
+    return pet_slice_idx
+
 def get_max_pixel_step3(df):
     # check how many sentences have a pet scan with them
     #uw_100 = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain/concensus_slice_suv_anonymized_2.xlsx"
@@ -221,12 +242,14 @@ def get_max_pixel_step3(df):
             orientation = orientation.iloc[0]
             orientation = orientation.iloc[1]
 
+            """
             ct_affine = ct_nii.affine
             pet_affine = nii_image.affine
             resampled_pet_nii = resample_image(img, pet_affine, ct_image)
 
             img = resampled_pet_nii
             img = img.get_fdata()
+            """
 
             suv_ref = row["SUV"]
             if suv_ref < 2.5:
@@ -255,8 +278,14 @@ def get_max_pixel_step3(df):
             slice_ref = int(row["Slice"]) # if this is pet slice number
             #slice_ref = img.shape[2] - slice_ref
             # if this is ct slice number
+
+            # Get the voxel dimensions
+            ct_voxel_size = ct_nii.header.get_zooms()  # (slice thickness, pixel spacing x, pixel spacing y) for CT
+            pet_voxel_size = nii_image.header.get_zooms()  # (slice thickness, pixel spacing x, pixel spacing y) for PET
+            slice_ref_ct = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
+            print(f"slice_ref if it is PET: {slice_ref} slice_ref if it is CT: {slice_ref_ct}")
             print(f"orientation: {orientation}")
-            if orientation == "HFS": # flipping this to test was "FFS"
+            if orientation == "FFS": #"HFS": # flipping this to test was "FFS"
                 slice_ref = img.shape[2] - slice_ref
             else:
                 print(f"no flipping")
@@ -330,5 +359,5 @@ def external_get_max_pixel():
     df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_test.xlsx')
     df = get_max_pixel_step3(df)
 
-    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v4_orientation_fix_flipped.xlsx')
+    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v5.xlsx')
     print(df)
