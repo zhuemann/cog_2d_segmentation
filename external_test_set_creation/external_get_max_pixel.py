@@ -120,7 +120,7 @@ def resample_image(target_image, target_affine, reference_image):
     return resampled_nii
 
 
-def get_corresponding_pet_slice(ct_slice_idx, ct_voxel_size, pet_voxel_size):
+def get_corresponding_pet_slice_v1(ct_slice_idx, ct_voxel_size, pet_voxel_size):
     """
     Calculates the corresponding PET slice for a given CT slice based on their voxel sizes.
 
@@ -137,6 +137,31 @@ def get_corresponding_pet_slice(ct_slice_idx, ct_voxel_size, pet_voxel_size):
 
     # Calculate the corresponding PET slice index
     pet_slice_idx = ct_slice_position / pet_voxel_size
+
+    return pet_slice_idx
+
+
+def get_corresponding_pet_slice(ct_slice_idx, ct_voxel_size, pet_voxel_size):
+    """
+    Calculates the corresponding PET slice for a given CT slice based on their voxel sizes.
+
+    Args:
+        ct_slice_idx (int): The index of the CT slice (0-based index).
+        ct_voxel_size (tuple): The voxel size of the CT volume (z, y, x).
+        pet_voxel_size (tuple): The voxel size of the PET volume (z, y, x).
+
+    Returns:
+        float: The corresponding PET slice index (can be a non-integer if interpolation is needed).
+    """
+    # Extract the slice thickness (z-axis voxel size)
+    ct_slice_thickness = ct_voxel_size[2]
+    pet_slice_thickness = pet_voxel_size[2]
+
+    # Calculate the position of the CT slice in physical space (z-axis position)
+    ct_slice_position = ct_slice_idx * ct_slice_thickness
+
+    # Calculate the corresponding PET slice index
+    pet_slice_idx = ct_slice_position / pet_slice_thickness
 
     return pet_slice_idx
 
