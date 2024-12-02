@@ -286,7 +286,7 @@ def make_labels_from_suv_max_points():
 
     # Create the new column
     df['Label_Name'] = (df.groupby('Petlymph').cumcount() + 1).astype(str)
-    df['Label_Name'] = df['Petlymph'] + '_label_' + df['New_Label']
+    df['Label_Name'] = df['Petlymph'] + '_label_' + df['Label_Name']
 
     missing_conversion = 0
     petlymph_dic = {}
