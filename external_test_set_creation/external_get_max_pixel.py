@@ -364,6 +364,7 @@ def get_max_pixel_step3(df):
                 dups_found += found_items
 
         else:
+            print(f"counting as missed pet: {check_id}")
             sentences_not_evalued_missing_pet += 1
 
     new_columns = list(uw_100.columns) + ['i', 'j', 'k']
