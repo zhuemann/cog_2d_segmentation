@@ -64,7 +64,7 @@ def plot_external_testset():
     #image_path_root = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     image_path_root = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
-    label_path_base = "/mnt/Bradshaw/UW_PET_Data/external_raw_pet/testv3/"
+    label_path_base = "/mnt/Bradshaw/UW_PET_Data/external_raw_pet/testv4/"
 
     df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v7_flipped.xlsx")
 
