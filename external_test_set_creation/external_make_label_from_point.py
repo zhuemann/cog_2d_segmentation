@@ -360,7 +360,8 @@ def make_labels_from_suv_max_points():
         # contour = threshold_of_max(starting_point, row['SUV'], img)
 
         if contour == None:
-            drop_later.append(row["Label_Name"])
+            #drop_later.append(row["Label_Name"])
+            drop_later.append(row["Petlymph"])
             continue
         # print(contour)
         # print(row["Extracted Sentences"])
