@@ -184,10 +184,12 @@ def plot_external_testset():
         sum_coronal = np.sum(label, axis=(0, 2))
         # Find the index of the slice with the maximum sum
         coronal_slice = int(np.argmax(sum_coronal)*voxel_dims[1]/ct_dims[1])
+        coronal_slice = 1
         print(f"other1 index: {coronal_slice}")
         sums_sagital = np.sum(label, axis=(1, 2))
         # Find the index of the slice with the maximum sum
         sagital_slice = int(np.argmax(sums_sagital)*voxel_dims[0]/ct_dims[0])
+        sagital_slice = 1
         print(f"other2 index: {sagital_slice}")
 
         ct_label = label
