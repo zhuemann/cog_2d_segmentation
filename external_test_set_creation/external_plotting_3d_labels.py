@@ -152,7 +152,7 @@ def plot_external_testset():
             nii_label = nib.load(label_path)
             label = nii_label.get_fdata()  # the label data
         else:
-            print("label path wrong")
+            print(f"label path wrong: {label_path}")
             continue
 
         # flip data
