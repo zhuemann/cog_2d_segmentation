@@ -283,6 +283,11 @@ def single_component(original_contour, start_point):
 
 def make_labels_from_suv_max_points():
     df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v6.xlsx")
+
+    # Create the new column
+    df['Label_Name'] = (df.groupby('Petlymph').cumcount() + 1).astype(str)
+    df['Label_Name'] = df['Petlymph'] + '_label_' + df['New_Label']
+
     missing_conversion = 0
     petlymph_dic = {}
     image_path_base = "Z:/Zach_Analysis/suv_nifti/"
