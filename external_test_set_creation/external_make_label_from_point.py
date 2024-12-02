@@ -408,4 +408,8 @@ def make_labels_from_suv_max_points():
                   axis=1)]
     print(f"new_length of df: {len(df)}")
     df.rename(columns={'Extracted Sentences': 'sentence'}, inplace=True)
+
+    df.to_excel(
+        '/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v7.xlsx')
+
     return df
