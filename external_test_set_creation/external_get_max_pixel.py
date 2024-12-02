@@ -315,7 +315,7 @@ def get_max_pixel_step3(df):
                 print(f"slice_ref if it is PET: {slice_ref} slice_ref if it is CT: {slice_ref_ct} tag: {row['tag']}")
 
             print(f"orientation: {orientation}")
-            if orientation == "FFS": #"HFS": # flipping this to test was "FFS"
+            if orientation == "HFS": #"FFS": #"HFS": # flipping this to test was "FFS"
                 slice_ref = img.shape[2] - slice_ref
             else:
                 print(f"no flipping")
