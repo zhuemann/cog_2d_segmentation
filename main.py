@@ -53,7 +53,7 @@ from data_prepocessing.data_visualization.intereactive_report_figure import comp
 from data_prepocessing.precompute_langauge_embeddings import precomputed_language_embeddings
 from data_prepocessing.data_visualization.ploting_external_cog_data import testing_ploting_external_cog_data
 from external_test_set_creation.get_orientation_from_dicom import get_orientation_from_dicom
-
+from external_test_set_creation.external_make_label_from_point import make_labels_from_suv_max_points
 
 if __name__ == '__main__':
     #compound_interactive_report_v2()
@@ -61,7 +61,8 @@ if __name__ == '__main__':
     #testing_ploting_external_cog_data()
     #precomputed_language_embeddings()
     #uw_ct_conversion_external_dataset_v2()
-    external_get_max_pixel()
+    make_labels_from_suv_max_points()
+    #external_get_max_pixel()
     #get_orientation_from_dicom()
     print(fail)
     #make_interactive_figure()
