@@ -111,7 +111,7 @@ def plot_external_testset():
 
         ct_volume = rotated_volume
 
-        slice_num = row["slice_num"]
+        slice_num = row["Slice"]
         # k_num = row["k"]
         original_row = original_df.loc[original_df['Label_Name'] == label_name]
         #crop_row = crop_df.loc[crop_df['id'] == petlymph]
