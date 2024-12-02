@@ -308,7 +308,12 @@ def get_max_pixel_step3(df):
             ct_voxel_size = ct_nii.header.get_zooms()  # (slice thickness, pixel spacing x, pixel spacing y) for CT
             pet_voxel_size = nii_image.header.get_zooms()  # (slice thickness, pixel spacing x, pixel spacing y) for PET
             slice_ref_ct = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
-            print(f"slice_ref if it is PET: {slice_ref} slice_ref if it is CT: {slice_ref_ct}")
+
+            if row["tag"] == "ct":
+                print("found ct")
+                slice_ref = slice_ref_ct
+                print(f"slice_ref if it is PET: {slice_ref} slice_ref if it is CT: {slice_ref_ct} tag: {row['tag']}")
+
             print(f"orientation: {orientation}")
             if orientation == "FFS": #"HFS": # flipping this to test was "FFS"
                 slice_ref = img.shape[2] - slice_ref
@@ -384,5 +389,5 @@ def external_get_max_pixel():
     df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_test.xlsx')
     df = get_max_pixel_step3(df)
 
-    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v5.xlsx')
+    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v6.xlsx')
     print(df)
