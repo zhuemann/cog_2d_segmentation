@@ -21,7 +21,8 @@ def uw_ct_conversion_external_dataset_v2():
     dir_path_suv = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
     top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset/"
 
-    dir_path = "/mnt/dsb2/BRADSHAWtyler.20240716__201511/RefactoredBags/"
+    #dir_path = "/mnt/dsb2/BRADSHAWtyler.20240716__201511/RefactoredBags/"
+    dir_path = "/mnt/Bradshaw/UW_PET_Data/swedish_dicom/RefactoredBags/"
     top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
 
     df = pd.read_excel(
