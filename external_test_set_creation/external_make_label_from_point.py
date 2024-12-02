@@ -397,7 +397,7 @@ def make_labels_from_suv_max_points():
         # nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/' + save_location +"/"+ row["Label_Name"] + '.nii.gz')
         #nib.save(new_nifti_img,
         #         '/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/' + save_location + "/" + row["Label_Name"] + '.nii.gz')
-        save_location = "testv2"
+        save_location = "testv3"
         nib.save(new_nifti_img,
                  '/mnt/Bradshaw/UW_PET_Data/external_raw_pet/' + save_location + "/" + str(row["Label_Name"]) + '.nii.gz')
     print(f"missing petlymph number: {missing_conversion}")
@@ -410,6 +410,6 @@ def make_labels_from_suv_max_points():
     df.rename(columns={'Extracted Sentences': 'sentence'}, inplace=True)
 
     df.to_excel(
-        '/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v7.xlsx')
+        '/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v7_flipped.xlsx')
 
     return df
