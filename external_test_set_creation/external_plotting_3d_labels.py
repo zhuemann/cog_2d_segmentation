@@ -10,7 +10,8 @@ from scipy.ndimage import binary_erosion
 
 
 def get_slice_thickness(folder_name):
-    image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+    #image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
     image_path = os.path.join(image_path_base, folder_name)
     file_names = os.listdir(image_path)
     index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
