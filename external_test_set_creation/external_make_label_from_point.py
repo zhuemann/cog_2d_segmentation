@@ -362,6 +362,7 @@ def make_labels_from_suv_max_points():
         if contour == None:
             #drop_later.append(row["Label_Name"])
             drop_later.append(row["Petlymph"])
+            print("contour is none")
             continue
         # print(contour)
         # print(row["Extracted Sentences"])
