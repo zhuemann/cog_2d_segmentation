@@ -345,8 +345,9 @@ def plot_external_testset():
             original_row["SUV"].iloc[0]), fontsize=12, color='black')
 
         plt.savefig(
-            "/UserData/Zach_Analysis/final_testset_evaluation_vg/external_mips/" + label_name,
+            "/UserData/Zach_Analysis/final_testset_evaluation_vg/external_mips/" + label_name + ".png",
             dpi=300)
 
         plt.close()
+        print("end of save figure")
 
