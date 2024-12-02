@@ -392,7 +392,7 @@ def make_labels_from_suv_max_points():
         #         '/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/' + save_location + "/" + row["Label_Name"] + '.nii.gz')
         save_location = "testv1"
         nib.save(new_nifti_img,
-                 '/mnt/Bradshaw/UW_PET_Data/external_raw_pet/' + save_location + "/" + row["Label_Name"] + '.nii.gz')
+                 '/mnt/Bradshaw/UW_PET_Data/external_raw_pet/' + save_location + "/" + row["Petlymph"] + '.nii.gz')
     print(f"missing petlymph number: {missing_conversion}")
     print(f"exit early: {exit_early}")
 
