@@ -55,6 +55,7 @@ from data_prepocessing.data_visualization.ploting_external_cog_data import testi
 from external_test_set_creation.get_orientation_from_dicom import get_orientation_from_dicom
 from external_test_set_creation.external_make_label_from_point import make_labels_from_suv_max_points
 from external_test_set_creation.external_plotting_3d_labels import plot_external_testset
+from external_test_set_creation.plot_for_orientation_and_modality import plot_for_orientation_and_modality
 
 if __name__ == '__main__':
     #compound_interactive_report_v2()
@@ -64,7 +65,8 @@ if __name__ == '__main__':
     #uw_ct_conversion_external_dataset_v2()
     #external_get_max_pixel()
     #make_labels_from_suv_max_points()
-    plot_external_testset()
+    #plot_external_testset()
+    plot_for_orientation_and_modality()
     #external_get_max_pixel()
     #get_orientation_from_dicom()
     print(fail)
