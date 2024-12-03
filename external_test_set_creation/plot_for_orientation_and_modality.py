@@ -52,6 +52,29 @@ def normalize_mip(mip):
     normalized_uint8 = normalized.astype(np.uint8)
     return normalized_uint8
 
+def get_corresponding_pet_slice(ct_slice_idx, ct_voxel_size, pet_voxel_size):
+    """
+    Calculates the corresponding PET slice for a given CT slice based on their voxel sizes.
+
+    Args:
+        ct_slice_idx (int): The index of the CT slice (0-based index).
+        ct_voxel_size (tuple): The voxel size of the CT volume (z, y, x).
+        pet_voxel_size (tuple): The voxel size of the PET volume (z, y, x).
+
+    Returns:
+        float: The corresponding PET slice index (can be a non-integer if interpolation is needed).
+    """
+    # Extract the slice thickness (z-axis voxel size)
+    ct_slice_thickness = ct_voxel_size[2]
+    pet_slice_thickness = pet_voxel_size[2]
+
+    # Calculate the position of the CT slice in physical space (z-axis position)
+    ct_slice_position = ct_slice_idx * ct_slice_thickness
+
+    # Calculate the corresponding PET slice index
+    pet_slice_idx = ct_slice_position / pet_slice_thickness
+
+    return pet_slice_idx
 
 def plot_for_orientation_and_modality():
     # Paths and DataFrame loading (adjust as necessary)
@@ -67,7 +90,7 @@ def plot_for_orientation_and_modality():
         print(f"Processing index: {index}")
 
         # Extract the folder name and get voxel dimensions
-        petlymph = row["Petlymph"]
+        petlymph = row["ID"]
         pet_voxel_dims = get_slice_thickness(petlymph)
         print(f"PET voxel dimensions: {pet_voxel_dims}")
 
@@ -114,8 +137,9 @@ def plot_for_orientation_and_modality():
 
         # Calculate the positions of the lines
         # Assuming 'Slice' column contains the PET slice number
-        pet_slice_num = row["Slice"]  # Replace with the correct column name if different
-        ct_slice_num = row["CT_Slice"]  # Replace with the correct column name for CT slice number
+        pet_slice_num = row["Image"]  # Replace with the correct column name if different
+        #ct_slice_num = row["Image"]  # Replace with the correct column name for CT slice number
+        ct_slice_num = get_corresponding_pet_slice(pet_slice_num, ct_voxel_dims, pet_voxel_dims)
 
         # Calculate positions in the MIP images
         pet_line_position = pet_slice_num * pet_voxel_dims[2] / pet_voxel_dims[1]  # Adjust for pixel spacing
