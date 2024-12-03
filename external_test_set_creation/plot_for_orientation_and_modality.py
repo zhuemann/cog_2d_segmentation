@@ -108,7 +108,11 @@ def plot_for_orientation_and_modality():
         # Filter file names to find the desired CT image
         index_of_ct = [idx for idx, element in enumerate(file_names) if
                        "ct" in element.lower() and "pt" not in element.lower()]
-        print(f"index of ct: {index_of_ct}")
+        print(f"index of ct: {index_of_ct} image name: {petlymph}")
+
+        if len(index_of_ct) == 0:
+            print("missing ct")
+            continue
         ct_image_path = os.path.join(image_path_base, file_names[index_of_ct[0]])
         print(f"Image name: {petlymph}")
 
