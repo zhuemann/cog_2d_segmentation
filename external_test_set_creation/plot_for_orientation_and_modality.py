@@ -161,6 +161,14 @@ def plot_for_orientation_and_modality():
         # fused_slice_num = pet_slice_num  # Adjust if the fused image has a different slice number
         # fused_line_position = fused_slice_num * fused_slice_thickness / pet_voxel_dims[1]  # Adjust for pixel spacing
 
+        # Calculate positions when indexing from the bottom
+        pet_total_slices = mip_coronal_pet.shape[0]  # Total number of slices in PET MIP
+        ct_total_slices = mip_coronal_ct.shape[0]  # Total number of slices in CT MIP
+
+        # Positions when indexing from the bottom
+        pet_line_position_bottom = pet_total_slices - pet_slice_num
+        ct_line_position_bottom = ct_total_slices - ct_slice_num
+
         # Plotting
         plt.figure(figsize=(20, 10))
 
@@ -171,7 +179,10 @@ def plot_for_orientation_and_modality():
 
         # Plot lines on PET MIP
         ax1.axhline(y=pet_line_position, color='r', linestyle='-', label='PET Slice')
+        ax1.axhline(y=pet_line_position_bottom, color='orange', linestyle='-', label='PET Slice (Bottom Indexing)')
         ax1.axhline(y=ct_line_position, color='g', linestyle='--', label='CT Slice')
+        ax1.axhline(y=ct_line_position_bottom, color='lime', linestyle='--', label='CT Slice (Bottom Indexing)')
+
         # ax1.axhline(y=fused_line_position, color='b', linestyle=':', label='Fused PET/CT Slice')
         ax1.legend()
 
@@ -182,9 +193,18 @@ def plot_for_orientation_and_modality():
 
         # Plot lines on CT MIP
         ax2.axhline(y=pet_line_position, color='r', linestyle='-', label='PET Slice')
+        ax2.axhline(y=pet_line_position_bottom, color='orange', linestyle='-', label='PET Slice (Bottom Indexing)')
         ax2.axhline(y=ct_line_position, color='g', linestyle='--', label='CT Slice')
+        ax2.axhline(y=ct_line_position_bottom, color='lime', linestyle='--', label='CT Slice (Bottom Indexing)')
         # ax2.axhline(y=fused_line_position, color='b', linestyle=':', label='Fused PET/CT Slice')
         ax2.legend()
+
+        sentence = df["Sentence"].iloc[0]
+        # print(sentence)
+        # print(type(sentence))
+        sentence = insert_newlines(sentence, word_limit=25)
+        plt.suptitle(sentence + " Image number used: " + str(df['Image'].iloc[0]) + " SUV: " + str(
+            df["SUV"].iloc[0]), fontsize=12, color='black')
 
         # Save the figure
         label_name = row["Label_Name"]
