@@ -130,8 +130,8 @@ def plot_for_orientation_and_modality():
         mip_coronal_ct = np.max(ct_volume, axis=1)
 
         # Normalize MIP images if needed
-        mip_coronal_pet = normalize_mip(mip_coronal_pet)
-        mip_coronal_ct = normalize_mip(mip_coronal_ct)
+        #mip_coronal_pet = normalize_mip(mip_coronal_pet)
+        #mip_coronal_ct = normalize_mip(mip_coronal_ct)
 
         # Rotate and flip images for correct orientation
         mip_coronal_pet = np.rot90(mip_coronal_pet)
@@ -158,7 +158,7 @@ def plot_for_orientation_and_modality():
 
         # Plot PET MIP
         ax1 = plt.subplot(1, 2, 1)
-        ax1.imshow(mip_coronal_pet, cmap='gray', aspect='auto')
+        ax1.imshow(mip_coronal_pet, cmap='gray', aspect='auto', vmin=0, vmax=10)
         ax1.set_title('PET MIP (Coronal)')
 
         # Plot lines on PET MIP
@@ -169,7 +169,7 @@ def plot_for_orientation_and_modality():
 
         # Plot CT MIP
         ax2 = plt.subplot(1, 2, 2)
-        ax2.imshow(mip_coronal_ct, cmap='gray', aspect='auto')
+        ax2.imshow(mip_coronal_ct, cmap='gray', aspect='auto', vmax=600, vmin=-300)
         ax2.set_title('CT MIP (Coronal)')
 
         # Plot lines on CT MIP
