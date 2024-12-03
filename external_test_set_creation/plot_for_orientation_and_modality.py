@@ -173,7 +173,8 @@ def plot_for_orientation_and_modality():
         ct_line_position_for_pet = get_corresponding_pet_slice(ct_line_position, ct_voxel_dims, pet_voxel_dims)
         ct_line_position_for_pet_bottom = get_corresponding_pet_slice(ct_line_position_bottom, ct_voxel_dims, pet_voxel_dims)
         #conver pet lines to CT for plotting, the lines should line up
-
+        pet_line_position_for_ct = get_corresponding_pet_slice(pet_line_position, pet_voxel_dims, ct_voxel_dims)
+        pet_line_position_for_ct_bottom = get_corresponding_pet_slice(pet_line_position_bottom, pet_voxel_dims, ct_voxel_dims)
 
         # Plotting
         plt.figure(figsize=(20, 10))
@@ -198,8 +199,8 @@ def plot_for_orientation_and_modality():
         ax2.set_title('CT MIP (Coronal)')
 
         # Plot lines on CT MIP
-        ax2.axhline(y=pet_line_position, color='r', linestyle='-', label='PET Slice')
-        ax2.axhline(y=pet_line_position_bottom, color='orange', linestyle='-', label='PET Slice (Bottom Indexing)')
+        ax2.axhline(y=pet_line_position_for_ct, color='r', linestyle='-', label='PET Slice')
+        ax2.axhline(y=pet_line_position_for_ct_bottom, color='orange', linestyle='-', label='PET Slice (Bottom Indexing)')
         ax2.axhline(y=ct_line_position, color='g', linestyle='--', label='CT Slice')
         ax2.axhline(y=ct_line_position_bottom, color='lime', linestyle='--', label='CT Slice (Bottom Indexing)')
         # ax2.axhline(y=fused_line_position, color='b', linestyle=':', label='Fused PET/CT Slice')
