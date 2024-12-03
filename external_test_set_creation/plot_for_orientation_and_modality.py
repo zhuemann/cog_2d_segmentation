@@ -146,9 +146,9 @@ def plot_for_orientation_and_modality():
         ct_slice_num = get_corresponding_pet_slice(pet_slice_num, ct_voxel_dims, pet_voxel_dims)
 
         # Calculate positions in the MIP images
-        pet_line_position = pet_slice_num * pet_voxel_dims[2] / pet_voxel_dims[1]  # Adjust for pixel spacing
-        ct_line_position = ct_slice_num * ct_voxel_dims[2] / ct_voxel_dims[1]
-
+        pet_line_position = pet_slice_num #* pet_voxel_dims[2] / pet_voxel_dims[1]  # Adjust for pixel spacing
+        ct_line_position = ct_slice_num #ct_slice_num * ct_voxel_dims[2] / ct_voxel_dims[1]
+        print(f"pet slice: {pet_slice_num} ct slice: {ct_slice_num}")
         # For fused PET/CT, calculate line position using fused slice thickness
         # fused_slice_num = pet_slice_num  # Adjust if the fused image has a different slice number
         # fused_line_position = fused_slice_num * fused_slice_thickness / pet_voxel_dims[1]  # Adjust for pixel spacing
