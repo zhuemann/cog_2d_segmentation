@@ -199,12 +199,12 @@ def plot_for_orientation_and_modality():
         # ax2.axhline(y=fused_line_position, color='b', linestyle=':', label='Fused PET/CT Slice')
         ax2.legend()
 
-        sentence = df["Sentence"].iloc[0]
+        sentence = row["Sentence"].iloc[0]
         # print(sentence)
         # print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
-        plt.suptitle(sentence + " Image number used: " + str(df['Image'].iloc[0]) + " SUV: " + str(
-            df["SUV"].iloc[0]), fontsize=12, color='black')
+        plt.suptitle(sentence + " Image number used: " + str(row['Image'].iloc[0]) + " SUV: " + str(
+            row["SUV"].iloc[0]), fontsize=12, color='black')
 
         # Save the figure
         label_name = row["Label_Name"]
