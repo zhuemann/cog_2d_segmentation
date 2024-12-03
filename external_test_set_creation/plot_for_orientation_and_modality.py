@@ -91,7 +91,11 @@ def plot_for_orientation_and_modality():
 
         # Extract the folder name and get voxel dimensions
         petlymph = row["ID"]
-        pet_voxel_dims = get_slice_thickness(petlymph)
+        try:
+            pet_voxel_dims = get_slice_thickness(petlymph)
+        except:
+            print("can't load this")
+            continue
         print(f"PET voxel dimensions: {pet_voxel_dims}")
 
         # Build paths to PET and CT images
