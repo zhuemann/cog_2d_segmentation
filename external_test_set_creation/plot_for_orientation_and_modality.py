@@ -104,7 +104,11 @@ def plot_for_orientation_and_modality():
         index_of_suv = [idx for idx, element in enumerate(file_names) if "suv" in element.lower()]
         image_path = os.path.join(image_path_base, file_names[index_of_suv[0]])
 
-        index_of_ct = [idx for idx, element in enumerate(file_names) if "ct" in element.lower()]
+        #index_of_ct = [idx for idx, element in enumerate(file_names) if "ct" in element.lower()]
+        # Filter file names to find the desired CT image
+        index_of_ct = [idx for idx, element in enumerate(file_names) if
+                       "ct" in element.lower() and "pt" not in element.lower()]
+
         ct_image_path = os.path.join(image_path_base, file_names[index_of_ct[0]])
         print(f"Image name: {petlymph}")
 
