@@ -176,7 +176,7 @@ def plot_for_orientation_and_modality():
 
         # Save the figure
         label_name = row["Label_Name"]
-        plt.savefig(f"/UserData/Zach_Analysis/final_testset_evaluation_vg/orientation_line_plots/{label_name}_MIP.png",
+        plt.savefig(f"/UserData/Zach_Analysis/final_testset_evaluation_vg/orientation_line_plots/{row['id']}_" + f"{label_name}_MIP.png",
                     dpi=300)
         plt.close()
         print(f"Saved figure for {label_name}")
