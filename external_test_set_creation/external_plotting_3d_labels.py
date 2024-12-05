@@ -90,7 +90,8 @@ def plot_external_testset(df):
         index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
         image_path = os.path.join(image_path_base, file_names[index_of_suv[0]])
 
-        index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
+        index_of_ct = [idx for idx, element in enumerate(file_names) if
+                       "ct" in element.lower() and "pt" not in element.lower()]
         ct_image_path = os.path.join(image_path_base, file_names[index_of_ct[0]])
         #image_path = os.path.join(image_path_base, petlymph, + "_suv_cropped.nii.gz")
         #ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
