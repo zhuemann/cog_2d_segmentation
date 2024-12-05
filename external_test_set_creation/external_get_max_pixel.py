@@ -223,7 +223,8 @@ def get_max_pixel_step3(df):
         if patient_decoding['Accession Number'].isin([accession_num]).any():
             pet_id = rows_with_value.iloc[0].iloc[1]
         """
-        pet_id = row["Petlymph"]
+        #pet_id = row["Petlymph"]
+        pet_id = row["ID"]
         #check_id = str(pet_id).lower() + "_" + str(pet_id).lower()
         check_id = pet_id
         if check_id in valid_pet_scans:
