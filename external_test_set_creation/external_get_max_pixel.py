@@ -245,6 +245,7 @@ def get_max_pixel_step3(df):
         pet_id = row["ID"]
         #check_id = str(pet_id).lower() + "_" + str(pet_id).lower()
         check_id = pet_id
+        print(f"index: {index} id: {pet_id} mathces_found: {found_noted_lesion} duplicates: {dups_found} missing pet: {sentences_not_evalued_missing_pet} missing ct: {ct_missing} too long: {slice_diff_exceeded} ")
 
         if check_id in valid_pet_scans:
 
