@@ -72,7 +72,7 @@ def plot_external_testset():
     #    "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx")
     crop_df = pd.read_excel(
         "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/crop_offset_lookup.xlsx")
-    original_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v8_flipped.xlsx")
+    original_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v9_max_made.xlsx")
     i = 0
 
     for index, row in df.iterrows():
@@ -340,8 +340,8 @@ def plot_external_testset():
         """
 
         # print(original_row)
-        #sentence = original_row["sentence"].iloc[0]
-        sentence = original_row["sentence"]
+        sentence = original_row["sentence"].iloc[0]
+        #sentence = original_row["sentence"]
 
         print(sentence)
         print(type(sentence))
