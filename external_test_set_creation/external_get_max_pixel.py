@@ -165,6 +165,24 @@ def get_corresponding_pet_slice(ct_slice_idx, ct_voxel_size, pet_voxel_size):
 
     return pet_slice_idx
 
+
+def linear_scale(input_value):
+    """
+    Linearly scales the input value to an output value based on the given range.
+    Input range: 2.5 to 15
+    Output range: 0.2 to 2
+    """
+    # Clamp the input value within the bounds
+    input_value = max(2.5, min(15, input_value))
+
+    # Define the input and output ranges
+    input_min, input_max = 2.5, 15
+    output_min, output_max = 0.2, 2
+
+    # Linear interpolation formula
+    output_value = output_min + (input_value - input_min) * (output_max - output_min) / (input_max - input_min)
+    return output_value
+
 def get_max_pixel_step3(df):
     # check how many sentences have a pet scan with them
     #uw_100 = "/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain/concensus_slice_suv_anonymized_2.xlsx"
@@ -227,6 +245,9 @@ def get_max_pixel_step3(df):
         pet_id = row["ID"]
         #check_id = str(pet_id).lower() + "_" + str(pet_id).lower()
         check_id = pet_id
+
+        print(check_id)
+        print(f"valid pet scans: {valid_pet_scans}")
         if check_id in valid_pet_scans:
             found_pet_scan += 1
 
@@ -303,7 +324,9 @@ def get_max_pixel_step3(df):
             #slice_tolerance = 3
             #slice_tolerance = suv_ref
             slice_tolerance = 1
-            suv_tolerance = 1
+            suv_tolerance = linear_scale(suv_ref)
+            print(f"suv: {suv_ref} tolerance of: {suv_tolerance}")
+
             #suv_tolerance = suv_ref*0.05
 
             #slice_ref = int(row["Slice"]) # if this is pet slice number
