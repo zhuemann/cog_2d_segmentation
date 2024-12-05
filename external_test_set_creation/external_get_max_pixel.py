@@ -264,8 +264,8 @@ def get_max_pixel_step3(df):
             ct_dimensions = ct_nii.header.get_zooms()
             #print(f"ct file name: {ct_name} ct voxel dimensions: {ct_dimensions}")
 
-            orientation_row = df_orientation[df_orientation["ID"] == file]
-
+            #orientation_row = df_orientation[df_orientation["ID"] == file]
+            orientation_row = row
             if orientation_row["Drop"].iloc[0] == 1 or orientation_row["Missing"].iloc[0] == 1:
                 print("dropping because missing files or something is wrong with sentence")
                 continue
@@ -280,7 +280,9 @@ def get_max_pixel_step3(df):
             img = img.get_fdata()
             """
 
-            suv_ref = row["SUV"]
+            #suv_ref = row["SUV"]
+            suv_ref = row["Image"]
+
             if suv_ref < 2.5:
                 below_suv_threshold += 1
                 continue
