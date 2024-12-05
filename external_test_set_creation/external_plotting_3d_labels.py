@@ -340,7 +340,7 @@ def plot_external_testset():
         """
 
         # print(original_row)
-        sentence = original_row["sentence"].iloc[0]
+        #sentence = original_row["sentence"].iloc[0]
         sentence = original_row["sentence"]
 
         print(sentence)
