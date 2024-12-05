@@ -64,9 +64,9 @@ def plot_external_testset():
     #image_path_root = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     image_path_root = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
-    label_path_base = "/mnt/Bradshaw/UW_PET_Data/external_raw_pet/testv4/"
+    label_path_base = "/mnt/Bradshaw/UW_PET_Data/external_raw_pet/testv9/"
 
-    df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v8_flipped.xlsx")
+    df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v9_max_made.xlsx")
 
     #original_df = pd.read_excel(
     #    "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx")
@@ -348,7 +348,7 @@ def plot_external_testset():
             original_row["SUV"].iloc[0]), fontsize=12, color='black')
 
         plt.savefig(
-            "/UserData/Zach_Analysis/final_testset_evaluation_vg/external_mips_v2/" + label_name + ".png",
+            "/UserData/Zach_Analysis/final_testset_evaluation_vg/external_mips_v9/" + label_name + ".png",
             dpi=300)
 
         plt.close()

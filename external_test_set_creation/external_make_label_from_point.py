@@ -282,7 +282,7 @@ def single_component(original_contour, start_point):
 
 
 def make_labels_from_suv_max_points():
-    df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v7_flipped.xlsx")
+    df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v9_orientation_accounting.xlsx")
 
     # Create the new column
     df['Label_Name'] = (df.groupby('Petlymph').cumcount() + 1).astype(str)
@@ -397,7 +397,7 @@ def make_labels_from_suv_max_points():
         # nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/' + save_location +"/"+ row["Label_Name"] + '.nii.gz')
         #nib.save(new_nifti_img,
         #         '/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/' + save_location + "/" + row["Label_Name"] + '.nii.gz')
-        save_location = "testv4"
+        save_location = "testv9"
         nib.save(new_nifti_img,
                  '/mnt/Bradshaw/UW_PET_Data/external_raw_pet/' + save_location + "/" + str(row["Label_Name"]) + '.nii.gz')
     print(f"missing petlymph number: {missing_conversion}")
@@ -410,6 +410,6 @@ def make_labels_from_suv_max_points():
     df.rename(columns={'Extracted Sentences': 'sentence'}, inplace=True)
 
     df.to_excel(
-        '/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v8_flipped.xlsx')
+        '/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v9_max_made.xlsx')
 
     return df
