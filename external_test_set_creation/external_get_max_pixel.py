@@ -309,6 +309,7 @@ def get_max_pixel_step3(df):
             # if this is ct slice number
 
 
+
             # Get the voxel dimensions
             ct_voxel_size = ct_nii.header.get_zooms()  # (slice thickness, pixel spacing x, pixel spacing y) for CT
             pet_voxel_size = nii_image.header.get_zooms()  # (slice thickness, pixel spacing x, pixel spacing y) for PET
@@ -318,23 +319,25 @@ def get_max_pixel_step3(df):
 
                 if orientation_row["CT"].iloc[0] == 1:
 
-                    #slice_ref = int(row["Slice"])
-                    #slice_ref = ct_nii.shape[2] - slice_ref
+                    slice_ref_ct = ct_nii.shape[2] - slice_ref
 
                     slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
                     slice_ref = slice_ref_pet_inverted
                 else:
                     # pet from the bottom
-                    slice_ref = slice_ref
-            else:
-                if orientation_row["CT"].iloc[0] == 1: # ct from the top
-
-                    slice_ref_ct = ct_nii.shape[2] - slice_ref
-                    slice_ref_pet = get_corresponding_pet_slice(slice_ref_ct, ct_voxel_size, pet_voxel_size)
-                    slice_ref = slice_ref_pet
-                else: # pet from teh top
                     slice_ref_pet = img.shape[2] - slice_ref
                     slice_ref = slice_ref_pet
+                    #slice_ref = slice_ref
+            else:
+                if orientation_row["CT"].iloc[0] == 1: # ct from the top
+                    slice_ref_ct = slice_ref
+                    #slice_ref_ct = ct_nii.shape[2] - slice_ref
+                    slice_ref_pet = get_corresponding_pet_slice(slice_ref_ct, ct_voxel_size, pet_voxel_size)
+                    slice_ref = slice_ref_pet
+                else: # pet from the top
+                    #slice_ref_pet = img.shape[2] - slice_ref
+                    #slice_ref = slice_ref_pet
+                    slice_ref = slice_ref
 
 
             """
