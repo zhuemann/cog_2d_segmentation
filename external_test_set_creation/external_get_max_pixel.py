@@ -182,7 +182,7 @@ def get_max_pixel_step3(df):
     valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/SUV_images/"))
     valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"))
 
-    df_orientation = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/df_orientation.xlsx")
+    df_orientation = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/orientation_labeled_manually.xlsx")
 
     count = 0
     two_rows = 0
@@ -263,9 +263,11 @@ def get_max_pixel_step3(df):
             ct_dimensions = ct_nii.header.get_zooms()
             #print(f"ct file name: {ct_name} ct voxel dimensions: {ct_dimensions}")
 
-            orientation = df_orientation[df_orientation["Key"] == file]
-            orientation = orientation.iloc[0]
-            orientation = orientation.iloc[1]
+            orientation_row = df_orientation[df_orientation["ID"] == file]
+            if orientation_row["Drop"] == 1 or orientation_row["Missing"] == 1:
+                print("dropping because missing files or something is wrong with sentence")
+                continue
+
 
             """
             ct_affine = ct_nii.affine
@@ -304,11 +306,27 @@ def get_max_pixel_step3(df):
             #slice_ref = img.shape[2] - slice_ref
             # if this is ct slice number
 
+
             # Get the voxel dimensions
             ct_voxel_size = ct_nii.header.get_zooms()  # (slice thickness, pixel spacing x, pixel spacing y) for CT
             pet_voxel_size = nii_image.header.get_zooms()  # (slice thickness, pixel spacing x, pixel spacing y) for PET
             slice_ref_ct = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
 
+            if orientation_row["Bottom"] == 1:
+                print(f"indexing from bottom")
+                slice_ref_inverted = img.shape[2] - slice_ref
+
+                if orientation_row["CT"] == 1:
+
+                    slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref_inverted, ct_voxel_size, pet_voxel_size)
+                    slice_ref = slice_ref_pet_inverted
+            else:
+                if orientation_row["CT"] == 1:
+                    slice_ref_pet = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
+                    slice_ref = slice_ref_pet
+
+            """
+            old orientation
             if row["tag"] == "ct":
                 print("found ct")
                 slice_ref = slice_ref_ct
@@ -320,6 +338,7 @@ def get_max_pixel_step3(df):
             else:
                 print(f"no flipping")
                 slice_ref = slice_ref
+            """
 
             #ct_from_head = ct_image.shape[2] - row["Slice"]
             #pet_from_head = int(np.round(ct_from_head/ct_dimensions[2]*pet_dimensions[2]))
@@ -390,5 +409,5 @@ def external_get_max_pixel():
     df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_test.xlsx')
     df = get_max_pixel_step3(df)
 
-    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v7_flipped.xlsx')
+    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v9_orientation_accounting.xlsx')
     print(df)
