@@ -268,7 +268,7 @@ def get_max_pixel_step3(df):
             print(orientation_row["Drop"])
             print(type(orientation_row["Drop"]))
 
-            if orientation_row["Drop"] == 1 or orientation_row["Missing"] == 1:
+            if orientation_row.loc["Drop"] == 1 or orientation_row.loc["Missing"] == 1:
                 print("dropping because missing files or something is wrong with sentence")
                 continue
 
@@ -316,16 +316,16 @@ def get_max_pixel_step3(df):
             pet_voxel_size = nii_image.header.get_zooms()  # (slice thickness, pixel spacing x, pixel spacing y) for PET
             slice_ref_ct = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
 
-            if orientation_row["Bottom"] == 1:
+            if orientation_row.loc["Bottom"] == 1:
                 print(f"indexing from bottom")
                 slice_ref_inverted = img.shape[2] - slice_ref
 
-                if orientation_row["CT"] == 1:
+                if orientation_row.loc["CT"] == 1:
 
                     slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref_inverted, ct_voxel_size, pet_voxel_size)
                     slice_ref = slice_ref_pet_inverted
             else:
-                if orientation_row["CT"] == 1:
+                if orientation_row.loc["CT"] == 1:
                     slice_ref_pet = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
                     slice_ref = slice_ref_pet
 
