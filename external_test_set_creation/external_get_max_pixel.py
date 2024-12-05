@@ -304,7 +304,8 @@ def get_max_pixel_step3(df):
             #suv_tolerance = suv_ref*0.05
 
             slice_ref = int(row["Slice"]) # if this is pet slice number
-            slice_ref = img.shape[2] - slice_ref
+            #slice_ref_pet = img.shape[2] - slice_ref
+            #slice_ref_ct = ct_nii.shape[2] - slice_ref
             # if this is ct slice number
 
 
@@ -314,17 +315,27 @@ def get_max_pixel_step3(df):
             slice_ref_ct = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
 
             if orientation_row["Bottom"].iloc[0] == 1:
-                print(f"indexing from bottom")
-                slice_ref_inverted = img.shape[2] - slice_ref
 
                 if orientation_row["CT"].iloc[0] == 1:
 
-                    slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref_inverted, ct_voxel_size, pet_voxel_size)
+                    #slice_ref = int(row["Slice"])
+                    #slice_ref = ct_nii.shape[2] - slice_ref
+
+                    slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
                     slice_ref = slice_ref_pet_inverted
+                else:
+                    # pet from the bottom
+                    slice_ref = slice_ref
             else:
-                if orientation_row["CT"].iloc[0] == 1:
-                    slice_ref_pet = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
+                if orientation_row["CT"].iloc[0] == 1: # ct from the top
+
+                    slice_ref_ct = ct_nii.shape[2] - slice_ref
+                    slice_ref_pet = get_corresponding_pet_slice(slice_ref_ct, ct_voxel_size, pet_voxel_size)
                     slice_ref = slice_ref_pet
+                else: # pet from teh top
+                    slice_ref_pet = img.shape[2] - slice_ref
+                    slice_ref = slice_ref_pet
+
 
             """
             old orientation
