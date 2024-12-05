@@ -341,8 +341,10 @@ def plot_external_testset():
 
         # print(original_row)
         sentence = original_row["sentence"].iloc[0]
-        # print(sentence)
-        # print(type(sentence))
+        sentence = original_row["sentence"]
+
+        print(sentence)
+        print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
         plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) + " SUV: " + str(
             original_row["SUV"].iloc[0]), fontsize=12, color='black')

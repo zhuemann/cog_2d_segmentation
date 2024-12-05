@@ -64,7 +64,7 @@ if __name__ == '__main__':
     #precomputed_language_embeddings()
     #uw_ct_conversion_external_dataset_v2()
     #external_get_max_pixel()
-    make_labels_from_suv_max_points()
+    #make_labels_from_suv_max_points()
     plot_external_testset()
     #plot_for_orientation_and_modality()
     #external_get_max_pixel()
