@@ -266,7 +266,7 @@ def get_max_pixel_step3(df):
 
             #orientation_row = df_orientation[df_orientation["ID"] == file]
             orientation_row = row
-            if orientation_row["Drop"].iloc[0] == 1 or orientation_row["Missing"].iloc[0] == 1:
+            if orientation_row["Drop"]== 1 or orientation_row["Missing"] == 1:
                 print("dropping because missing files or something is wrong with sentence")
                 continue
 
