@@ -246,9 +246,8 @@ def get_max_pixel_step3(df):
         #check_id = str(pet_id).lower() + "_" + str(pet_id).lower()
         check_id = pet_id
 
-        print(check_id)
-        print(f"valid pet scans: {valid_pet_scans}")
         if check_id in valid_pet_scans:
+
             found_pet_scan += 1
 
             # gets the suv image as a numpy array
@@ -301,8 +300,8 @@ def get_max_pixel_step3(df):
             img = img.get_fdata()
             """
 
-            #suv_ref = row["SUV"]
-            suv_ref = row["Image"]
+            suv_ref = row["SUV"]
+            #suv_ref = row["Image"]
 
             if suv_ref < 2.5:
                 below_suv_threshold += 1
