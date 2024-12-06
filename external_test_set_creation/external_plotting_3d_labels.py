@@ -81,7 +81,9 @@ def plot_external_testset(df):
         i += 1
 
         #petlymph = extract_image_id(row["image"])
-        petlymph = row["Petlymph"]
+        #petlymph = row["Petlymph"]
+        petlymph = row["ID"]
+
         dims = get_slice_thickness(petlymph)
         print(f"dims: {dims}")
         image_path_base = os.path.join(image_path_root, petlymph)
@@ -342,14 +344,14 @@ def plot_external_testset(df):
         """
 
         # print(original_row)
-        sentence = original_row["sentence"].iloc[0]
+        sentence = original_row["Sentence"] #.iloc[0]
         #sentence = original_row["sentence"]
 
         print(sentence)
         print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
         plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) + " SUV: " + str(
-            original_row["SUV"].iloc[0]), fontsize=12, color='black')
+            original_row["SUV"]), fontsize=12, color='black')
 
         plt.savefig(
             "/UserData/Zach_Analysis/final_testset_evaluation_vg/external_mips_v10/" + label_name + ".png",
