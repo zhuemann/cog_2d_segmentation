@@ -96,7 +96,7 @@ def plot_for_orientation_and_modality():
         if float(row["Keep"]) != float(1):
             print(str(row["Keep"]))
             print("skipping cuz not noted skip")
-            break
+            continue
         try:
             pet_voxel_dims = get_slice_thickness(petlymph)
         except:
