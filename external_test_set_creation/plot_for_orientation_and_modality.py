@@ -94,6 +94,7 @@ def plot_for_orientation_and_modality():
         # Extract the folder name and get voxel dimensions
         petlymph = row["ID"]
         if str(row["Keep"]) != "1":
+            print("skipping cuz not noted skip")
             continue
         try:
             pet_voxel_dims = get_slice_thickness(petlymph)
