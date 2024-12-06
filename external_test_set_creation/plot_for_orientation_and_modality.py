@@ -109,7 +109,7 @@ def plot_for_orientation_and_modality():
             continue
         print(f"PET voxel dimensions: {pet_voxel_dims}")
         """
-
+        try:
         # Build paths to PET and CT images
         image_path_base = os.path.join(image_path_root, petlymph)
         file_names = os.listdir(image_path_base)
