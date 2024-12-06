@@ -344,7 +344,7 @@ def plot_external_testset(df):
         """
 
         # print(original_row)
-        sentence = original_row["Sentence"] #.iloc[0]
+        sentence = original_row["Sentence"].iloc[0]
         #sentence = original_row["sentence"]
 
         print(sentence)
