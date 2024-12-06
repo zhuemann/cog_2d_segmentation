@@ -299,7 +299,10 @@ def pet_suv_conversion_external_v3():
     top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset_try3/"
 
 
-    df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/Swedish_sentences_with_uw_ids.xlsx")
+    #df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/Swedish_sentences_with_uw_ids.xlsx")
+
+    df = pd.read_excel(
+        "/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/additional_sentences.xlsx")
 
     files_in_directory = os.listdir(dir_path)
 
