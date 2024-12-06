@@ -78,7 +78,7 @@ def get_corresponding_pet_slice(ct_slice_idx, ct_voxel_size, pet_voxel_size):
 
 def plot_for_orientation_and_modality():
     # Paths and DataFrame loading (adjust as necessary)
-    image_path_root = "/mnt/Bradshaw/UW_PET_Data/external_testset_v3/"
+    image_path_root = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/external_raw_pet/testv4/"
     df = pd.read_excel(
         "/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_pet_ct_labeled.xlsx")
@@ -219,7 +219,7 @@ def plot_for_orientation_and_modality():
 
         # Save the figure
         label_name = row["Label_Name"]
-        plt.savefig(f"/UserData/Zach_Analysis/final_testset_evaluation_vg/orientation_line_plots/{row['ID']}_" + f"{label_name}_MIP.png",
+        plt.savefig(f"/UserData/Zach_Analysis/final_testset_evaluation_vg/orientation_line_plots_2/{row['ID']}_" + f"{label_name}_MIP.png",
                     dpi=300)
         plt.close()
         print(f"Saved figure for {label_name}")
