@@ -103,7 +103,7 @@ def get_suv_conversion_factor(test_dicom, weight=0):
         # SUV factor
     # print(dicom_dose, dicom_half_life, dicom_weight, diff_seconds, '\n')
     dose_corrected = dicom_dose * 2 ** (- diff_seconds / dicom_half_life)
-    print(f"units: {test_dicom.Units}")
+    #print(f"units: {test_dicom.Units}")
     # Units = BQML
     suv_factor = 1 / (
                 (dose_corrected / dicom_weight) * 0.001)  # 1/(dose_corrected (decay-corrected Bq) /dicom_weight (gram))
@@ -153,7 +153,7 @@ def unique_set_from_dicom_files(dicom_directory):
         for element in dicom_data:
             try:
                 value = element.value
-                print(f'{element.tag} {element.name}: {value}')
+                #print(f'{element.tag} {element.name}: {value}')
                 unique_values.add(value)
             except Exception as e:
                 print(f'Could not read element: {e}')
@@ -168,9 +168,9 @@ def unique_set_from_dicom_files(dicom_directory):
                 # Read the DICOM file
                 dicom_data = pydicom.dcmread(file_path)
                 # Print the DICOM file headers
-                print(f'Headers of {file_path}:')
-                print_dicom_headers(dicom_data)
-                print('-' * 80)  # Separator between files for readability
+                #print(f'Headers of {file_path}:')
+                #print_dicom_headers(dicom_data)
+                #print('-' * 80)  # Separator between files for readability
             except Exception as e:
                 print(f'Could not read {file_path}: {e}')
 
@@ -211,17 +211,17 @@ def convert_PT_CT_files_to_nifti(top_dicom_folder, top_nifti_folder):
     # check if scale factor is there
     # Check if SUVbwScaleFactor is present and retrieve its value if it exists
     suv_bw_scale_factor = test_dicom[('7053', '1000')].value if ('7053', '1000') in test_dicom else None
-    print(f"scale factor: {suv_bw_scale_factor}")
+    #print(f"scale factor: {suv_bw_scale_factor}")
 
     #print(f"top dicom folder: {top_dicom_folder}")
     folder_names = top_dicom_folder.split("/")
-    print(folder_names)
+    #print(folder_names)
     #indices_of_pet = [index for index, element in enumerate(folder_names) if "petwb_" in element.lower()]
     #print(f"top dicom folder: {folder_names}")
     indices_of_pet = [index for index, element in enumerate(folder_names) if "sah" in element.lower()]
 
-    print(f"indices: {indices_of_pet}")
-    print(f"test: {folder_names[indices_of_pet[0]]}")
+    #print(f"indices: {indices_of_pet}")
+    #print(f"test: {folder_names[indices_of_pet[0]]}")
     # unique names for subjects and scans
     #subject_save_name = dicom_id + '_' + dicom_name.replace(' ', '_').replace('__', '_')
     #print(f"subject_save_name: {subject_save_name}")
@@ -370,41 +370,42 @@ def pet_suv_conversion_external_v3():
         # print(test)
 
         recon_types = os.listdir(directory)
-        substrings_to_check = ["WB_CTAC"]
+        substrings_to_check = ["WB_CTAC", "PET_AC_2D"]
         #print(f"recon_types: {recon_types}")
         # Iterate over each substring and check if it's present in any element of recon_types
         print(f"recon types: {recon_types}")
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
-            #matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
-            for matched_recon in recon_types:
+            matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
+            #for matched_recon in recon_types:
 
-                if "wb_ctac" not in matched_recon.lower() and "pet_ac_2d" not in matched_recon.lower():
-                    continue
+            """
+            if "wb_ctac" not in matched_recon.lower() and "pet_ac_2d" not in matched_recon.lower():
+                continue
 
-                #if matched_recon == None or "fused_trans" not in matched_recon.lower() or "mip" in matched_recon.lower():
-                #    continue
-                if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
-                    continue
-                print(f"matched: {matched_recon}")
+            #if matched_recon == None or "fused_trans" not in matched_recon.lower() or "mip" in matched_recon.lower():
+            #    continue
+            if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+                continue
+            print(f"matched: {matched_recon}")
 
-                if "PET_AC_2D" in matched_recon:
-                    print("skipping ge pets")
-                    continue
-                if matched_recon:
-                    # If a match is found, build the path
-                    top_dicom_folder = os.path.join(directory, matched_recon, file)
-                    #top_dicom_folder = os.path.join(directory, matched_recon)
+            if "PET_AC_2D" in matched_recon:
+                print("skipping ge pets")
+                continue
+            """
+            if matched_recon:
+                # If a match is found, build the path
+                top_dicom_folder = os.path.join(directory, matched_recon, file)
+                #top_dicom_folder = os.path.join(directory, matched_recon)
 
-                    #top_dicom_folder = directory + "/" + str(matched_recon) + ""
-                    print(f"top dicom folder: {top_nifti_folder}")
+                #top_dicom_folder = directory + "/" + str(matched_recon) + ""
+                print(f"top dicom folder: {top_nifti_folder}")
+                #found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
+
+                try:
                     found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
-                    """
-                    try:
-                        found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
-                        break
-                    except Exception as e:
-                        print("this is the erorr thrown")
-                        print(f"error: {e}")
-                        continue  # If an error occurs, continue with the next substring
-                    """
+                    break
+                except Exception as e:
+                    print("this is the erorr thrown")
+                    print(f"error: {e}")
+                    continue  # If an error occurs, continue with the next substring
