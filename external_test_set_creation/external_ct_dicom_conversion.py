@@ -75,6 +75,7 @@ def uw_ct_conversion_external_dataset_v2():
 
 
         suv_dims = (0, 0, 0)
+        """
         suv_path = os.path.join(dir_path_suv, file)
         if not os.path.exists(suv_path):
             continue
@@ -88,6 +89,7 @@ def uw_ct_conversion_external_dataset_v2():
                 except:
 
                     print("can't get dimensions from suv")
+        """
 
 
         # print(f"suv_dims: {suv_dims}")
