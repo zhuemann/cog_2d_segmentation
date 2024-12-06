@@ -93,6 +93,7 @@ def uw_ct_conversion_external_dataset_v2():
         # print(f"suv_dims: {suv_dims}")
         directory = os.path.join(dir_path, file)
         if not os.path.exists(directory):
+            print("path does not exist")
             continue
 
         random_id = os.listdir(directory)
@@ -155,4 +156,5 @@ def uw_ct_conversion_external_dataset_v2():
                     try:
                         found_cts = call_suv_helper(top_dicom_folder, top_nifti_folder, found_cts)
                     except:
+                        print("tried and errored")
                         continue  # If an error occurs, continue with the next substring
