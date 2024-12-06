@@ -93,7 +93,7 @@ def plot_for_orientation_and_modality():
         #print(row)
         # Extract the folder name and get voxel dimensions
         petlymph = row["ID"]
-        if str(row["Keep"]) != "1":
+        if float(row["Keep"]) != float(1):
             print(str(row["Keep"]))
             print("skipping cuz not noted skip")
             break
