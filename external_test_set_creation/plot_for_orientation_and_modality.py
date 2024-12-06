@@ -78,11 +78,13 @@ def get_corresponding_pet_slice(ct_slice_idx, ct_voxel_size, pet_voxel_size):
 
 def plot_for_orientation_and_modality():
     # Paths and DataFrame loading (adjust as necessary)
-    image_path_root = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
+    image_path_root = "/mnt/Bradshaw/UW_PET_Data/external_testset_v3/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/external_raw_pet/testv4/"
     df = pd.read_excel(
         "/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_pet_ct_labeled.xlsx")
 
+    df = pd.read_excel(
+        "/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/additional_sentences_labeled.xlsx")
     # Add the path to your fused PET/CT DICOM file
     #fused_dicom_path = '/path/to/your/fused_PET_CT.dcm'  # Update this path
 
@@ -91,6 +93,8 @@ def plot_for_orientation_and_modality():
 
         # Extract the folder name and get voxel dimensions
         petlymph = row["ID"]
+        if str(row["Keep"]) != "1":
+            continue
         try:
             pet_voxel_dims = get_slice_thickness(petlymph)
         except:
