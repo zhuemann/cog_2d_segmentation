@@ -90,7 +90,7 @@ def plot_for_orientation_and_modality():
 
     for index, row in df.iterrows():
         print(f"Processing index: {index}")
-
+        print(row)
         # Extract the folder name and get voxel dimensions
         petlymph = row["ID"]
         if str(row["Keep"]) != "1":
