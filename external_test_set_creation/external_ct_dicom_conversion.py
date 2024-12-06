@@ -116,8 +116,9 @@ def uw_ct_conversion_external_dataset_v2():
             num_modality["extra"] += 1
         if "CT" in modality:
             num_modality["CT"] += 1
-        else:
-            continue
+        #else:
+        #    print("too many modalities")
+        #    continue
         if "CT" in modality:
             directory = os.path.join(directory, "CT")
         else:
@@ -137,7 +138,7 @@ def uw_ct_conversion_external_dataset_v2():
         directory = os.path.join(directory, study_name[0])
         recon_types = os.listdir(directory)
         print(f"recon types: {recon_types}")
-        substrings_to_check = ["Cor_Head_In_3.75thk", "Body-Low_Dose", "Body-ldCT_700m", "Cor_Head_In_3.75_thk"]
+        substrings_to_check = ["Cor_Head_In_3.75thk", "Body-Low_Dose", "Body-ldCT_700m", "Cor_Head_In_3.75_thk", "Cor_Head_In_3.75_thk"]
         # Iterate over each substring and check if it's present in any element of recon_types
         for substring in substrings_to_check:
             # Normalize to lower case for case-insensitive comparison
