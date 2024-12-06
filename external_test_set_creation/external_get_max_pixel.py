@@ -200,7 +200,7 @@ def get_max_pixel_step3(df):
     valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/SUV_images/"))
     valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"))
 
-    df_orientation = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/orientation_labeled_manually.xlsx")
+    #df_orientation = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/orientation_labeled_manually.xlsx")
 
     count = 0
     two_rows = 0
@@ -465,5 +465,5 @@ def external_get_max_pixel():
     df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/orientation_labeled_manually.xlsx')
     df = get_max_pixel_step3(df)
 
-    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v10_orientation_accounting.xlsx')
+    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v11_orientation_accounting.xlsx')
     print(df)
