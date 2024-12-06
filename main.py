@@ -63,7 +63,7 @@ if __name__ == '__main__':
     #testing_ploting_external_cog_data()
     #precomputed_language_embeddings()
     #uw_ct_conversion_external_dataset_v2()
-    external_get_max_pixel()
+    #external_get_max_pixel()
     df = make_labels_from_suv_max_points()
     plot_external_testset(df)
     #plot_for_orientation_and_modality()
