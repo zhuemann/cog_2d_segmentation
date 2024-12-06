@@ -101,14 +101,14 @@ def plot_for_orientation_and_modality():
             print(str(row["Keep"]))
             print("skipping cuz noted skip")
             continue
-        """
+
         try:
             pet_voxel_dims = get_slice_thickness(petlymph)
         except:
             print("can't load this")
             continue
         print(f"PET voxel dimensions: {pet_voxel_dims}")
-        """
+
         #try:
         # Build paths to PET and CT images
         image_path_base = os.path.join(image_path_root, petlymph)
