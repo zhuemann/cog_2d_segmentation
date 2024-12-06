@@ -215,7 +215,7 @@ def plot_for_orientation_and_modality():
         ax2.axhline(y=ct_line_position_bottom, color='lime', linestyle='--', label='CT Slice (Bottom Indexing)')
         # ax2.axhline(y=fused_line_position, color='b', linestyle=':', label='Fused PET/CT Slice')
         ax2.legend()
-
+        print(row)
         sentence = row["Sentence"]
         # print(sentence)
         # print(type(sentence))
