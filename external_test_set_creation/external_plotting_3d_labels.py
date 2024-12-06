@@ -351,7 +351,7 @@ def plot_external_testset(df):
         print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
         plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) + " SUV: " + str(
-            original_row["SUV"]), fontsize=12, color='black')
+            original_row["SUV"].iloc[0]), fontsize=12, color='black')
 
         plt.savefig(
             "/UserData/Zach_Analysis/final_testset_evaluation_vg/external_mips_v10/" + label_name + ".png",
