@@ -184,6 +184,8 @@ def plot_external_testset(df):
         sums_axial = np.sum(label, axis=(0, 1))
         # Find the index of the slice with the maximum sum
         k_num = np.argmax(sums_axial)
+        k_num = 0
+
 
         sum_coronal = np.sum(label, axis=(0, 2))
         # Find the index of the slice with the maximum sum
