@@ -328,7 +328,7 @@ def make_labels_from_suv_max_points():
         else:
             petlymph = petlymph["Patient ID"].iloc[0]
         """
-        petlymph = row["Petlymph"]
+        petlymph = row["ID"]
         if petlymph in petlymph_dic:
             petlymph_dic[petlymph] += 1
         else:
