@@ -70,7 +70,7 @@ if __name__ == '__main__':
     #external_get_max_pixel()
     #pet_suv_conversion_external_v3()
     #uw_ct_suv_conversion_v2()
-    #get_orientation_from_dicom()
+    get_orientation_from_dicom()
     print(fail)
     #make_interactive_figure()
     #print(fail)
