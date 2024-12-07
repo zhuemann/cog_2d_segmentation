@@ -88,7 +88,7 @@ def plot_for_orientation_and_modality():
         "/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_pet_ct_labeled.xlsx")
 
     df = pd.read_excel(
-        "/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/additional_sentences_labeled.xlsx")
+        "/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/additional_sentences_orientation_mannual.xlsx")
     # Add the path to your fused PET/CT DICOM file
     #fused_dicom_path = '/path/to/your/fused_PET_CT.dcm'  # Update this path
 
@@ -97,10 +97,10 @@ def plot_for_orientation_and_modality():
         #print(row)
         # Extract the folder name and get voxel dimensions
         petlymph = row["ID"]
-        if float(row["Keep"]) != float(1):
-            print(str(row["Keep"]))
-            print("skipping cuz noted skip")
-            continue
+        #if float(row["Keep"]) != float(1):
+        #    print(str(row["Keep"]))
+        #    print("skipping cuz noted skip")
+        #    continue
 
         try:
             pet_voxel_dims = get_slice_thickness(petlymph)
