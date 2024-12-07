@@ -24,7 +24,7 @@ def uw_ct_conversion_external_dataset_v2():
     #dir_path = "/mnt/dsb2/BRADSHAWtyler.20240716__201511/RefactoredBags/"
     dir_path = "/mnt/Bradshaw/UW_PET_Data/swedish_dicom/RefactoredBags/"
     #top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
-    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset_try2/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset_try4/"
 
     #df = pd.read_excel(
     #    "/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/Swedish_sentences_with_uw_ids.xlsx")
