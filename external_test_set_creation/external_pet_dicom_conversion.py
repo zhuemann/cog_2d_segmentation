@@ -393,6 +393,8 @@ def pet_suv_conversion_external_v3():
                 print("skipping ge pets")
                 continue
             """
+            if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+                continue
             if matched_recon:
                 # If a match is found, build the path
                 top_dicom_folder = os.path.join(directory, matched_recon, file)
