@@ -427,7 +427,7 @@ def pet_suv_conversion_external_v3():
             #if "PET_AC_2D" in matched_recon:
             #    print("skipping ge pets")
             #    continue
-            
+            print(f"matched recon: {matched_recon}")
             if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
                 continue
             if matched_recon:
