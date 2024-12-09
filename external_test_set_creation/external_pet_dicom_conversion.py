@@ -297,7 +297,7 @@ def pet_suv_conversion_external_v3():
 
     #dir_path = "/mnt/dsb2/BRADSHAWtyler.20240716__201511/RefactoredBags/"
     dir_path = "/mnt/Bradshaw/UW_PET_Data/swedish_dicom/RefactoredBags/"
-    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset_try5/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/conversion_test/external_testset_try6/"
 
 
     #df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/Swedish_sentences_with_uw_ids.xlsx")
@@ -371,6 +371,7 @@ def pet_suv_conversion_external_v3():
 
 
         # trying new conversion that handles quotes
+        """
         recon_types = os.listdir(directory)
         substrings_to_check = ["WB_CTAC", "PET_AC_2D"]
 
@@ -392,14 +393,15 @@ def pet_suv_conversion_external_v3():
             print(f"Top dicom folder: {top_dicom_folder}")
 
             try:
+                print
                 found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
                 break
             except Exception as e:
                 print("This is the error thrown:")
                 print(f"Error: {e}")
                 continue
-
         """
+
         recon_types = os.listdir(directory)
         substrings_to_check = ["WB_CTAC", "PET_AC_2D"]
         #print(f"recon_types: {recon_types}")
@@ -442,4 +444,3 @@ def pet_suv_conversion_external_v3():
                     print("this is the erorr thrown")
                     print(f"error: {e}")
                     continue  # If an error occurs, continue with the next substring
-            """
