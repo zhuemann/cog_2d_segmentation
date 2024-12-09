@@ -354,6 +354,7 @@ def get_max_pixel_step3(df):
                         slice_ref = slice_ref_pet_inverted
 
                     else:
+                        print(f"using standard ct from bottom")
                         slice_ref_ct = ct_nii.shape[2] - slice_ref
                         slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref_ct, ct_voxel_size, pet_voxel_size)
                         slice_ref = slice_ref_pet_inverted
