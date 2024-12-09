@@ -82,6 +82,7 @@ def plot_for_orientation_and_modality():
     # Paths and DataFrame loading (adjust as necessary)
     image_path_root = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
     image_path_root = "/mnt/Bradshaw/UW_PET_Data/external_testset_try2/"
+    image_path_root = "/mnt/Bradshaw/UW_PET_Data/conversion_test/external_testset_try6/"
 
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/external_raw_pet/testv4/"
     df = pd.read_excel(
@@ -227,7 +228,7 @@ def plot_for_orientation_and_modality():
 
         # Save the figure
         label_name = row["Label_Name"]
-        plt.savefig(f"/UserData/Zach_Analysis/final_testset_evaluation_vg/orientation_line_plots_2/{row['ID']}_" + f"{label_name}_MIP.png",
+        plt.savefig(f"/UserData/Zach_Analysis/final_testset_evaluation_vg/orientation_line_plots_3/{row['ID']}_" + f"{label_name}_MIP.png",
                     dpi=300)
         plt.close()
         print(f"Saved figure for {label_name}")
