@@ -413,7 +413,12 @@ def pet_suv_conversion_external_v3():
 
             print(f"substring: {substring}")
             # Normalize to lower case for case-insensitive comparison
-            matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
+            #matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
+            matched_recon = next(
+                (recon for recon in recon_types
+                 if substring.lower() in recon.lower() and "fused" not in recon.lower() and "mip" not in recon.lower()),
+                None
+            )
             #for matched_recon in recon_types:
 
             
@@ -428,10 +433,13 @@ def pet_suv_conversion_external_v3():
 
             #if "PET_AC_2D" in matched_recon:
             #    print("skipping ge pets")
+
             #    continue
             print(f"matched recon: {matched_recon}")
-            if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+            if matched_recon == None:
                 continue
+            #if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+            #    continue
             if matched_recon:
                 # If a match is found, build the path
                 top_dicom_folder = os.path.join(directory, matched_recon, file)
