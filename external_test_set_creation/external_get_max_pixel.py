@@ -215,6 +215,7 @@ def get_max_pixel_step3(df):
     slice_diff_exceeded = 0
     too_long_not_used = 0
     ct_missing = 0
+    found_suv_max = []
 
     for index, row in uw_100.iterrows():
         #print(f"index: {index} mathces_found: {found_noted_lesion} duplicates: {dups_found} missing pet: {sentences_not_evalued_missing_pet} missing ct: {ct_missing} too long: {slice_diff_exceeded} ")
@@ -442,6 +443,7 @@ def get_max_pixel_step3(df):
                         row_list = row.tolist()
                         row_list.extend([pixel_i, pixel_j, pixel_k])
                         found_pixels_df.append(row_list)
+                        found_suv_max.append(suv_max)
                         found_items += 1
             if found_items > 1:
                 dups_found += found_items
@@ -452,6 +454,7 @@ def get_max_pixel_step3(df):
 
     new_columns = list(uw_100.columns) + ['i', 'j', 'k']
     new_df = pd.DataFrame(found_pixels_df, columns=new_columns)
+    new_df['Found SUV max'] = found_suv_max
     #new_df.to_excel('/UserData/Zach_Analysis/suv_slice_text/uw_lymphoma_preprocess_chain_v2/found_pixels_in_sentence_uw_anonymized_3_v4.xlsx', index=False)
     print(new_df)
     print(len(new_df))
