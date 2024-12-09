@@ -297,7 +297,7 @@ def pet_suv_conversion_external_v3():
 
     #dir_path = "/mnt/dsb2/BRADSHAWtyler.20240716__201511/RefactoredBags/"
     dir_path = "/mnt/Bradshaw/UW_PET_Data/swedish_dicom/RefactoredBags/"
-    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset_try4/"
+    top_nifti_folder = "/mnt/Bradshaw/UW_PET_Data/external_testset_try5/"
 
 
     #df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/Swedish_sentences_with_uw_ids.xlsx")
@@ -369,6 +369,37 @@ def pet_suv_conversion_external_v3():
         # print(modality)
         # print(test)
 
+
+        # trying new conversion that handles quotes
+        recon_types = os.listdir(directory)
+        substrings_to_check = ["WB_CTAC", "PET_AC_2D"]
+
+        # Print the raw recon_types to verify the folder names
+        print(f"Raw recon types: {recon_types}")
+
+        for substring in substrings_to_check:
+            # Normalize the comparison to handle names with or without quotes
+            matched_recon = next((
+                recon for recon in recon_types
+                if substring.lower() in recon.lower() or substring.lower() in recon.strip("'\"").lower()
+            ), None)
+
+            if matched_recon is None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+                continue
+
+            # Build the path using the original name (quotes intact)
+            top_dicom_folder = os.path.join(directory, matched_recon, file)
+            print(f"Top dicom folder: {top_dicom_folder}")
+
+            try:
+                found_pet_images = call_suv_helper(top_dicom_folder, top_nifti_folder, found_pet_images)
+                break
+            except Exception as e:
+                print("This is the error thrown:")
+                print(f"Error: {e}")
+                continue
+
+        """
         recon_types = os.listdir(directory)
         substrings_to_check = ["WB_CTAC", "PET_AC_2D"]
         #print(f"recon_types: {recon_types}")
@@ -379,20 +410,20 @@ def pet_suv_conversion_external_v3():
             matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
             #for matched_recon in recon_types:
 
-            """
-            if "wb_ctac" not in matched_recon.lower() and "pet_ac_2d" not in matched_recon.lower():
-                continue
+            
+            #if "wb_ctac" not in matched_recon.lower() and "pet_ac_2d" not in matched_recon.lower():
+            #    continue
 
             #if matched_recon == None or "fused_trans" not in matched_recon.lower() or "mip" in matched_recon.lower():
             #    continue
-            if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
-                continue
-            print(f"matched: {matched_recon}")
+            #if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
+            #    continue
+            #print(f"matched: {matched_recon}")
 
-            if "PET_AC_2D" in matched_recon:
-                print("skipping ge pets")
-                continue
-            """
+            #if "PET_AC_2D" in matched_recon:
+            #    print("skipping ge pets")
+            #    continue
+            
             if matched_recon == None or "fused" in matched_recon.lower() or "mip" in matched_recon.lower():
                 continue
             if matched_recon:
@@ -411,3 +442,4 @@ def pet_suv_conversion_external_v3():
                     print("this is the erorr thrown")
                     print(f"error: {e}")
                     continue  # If an error occurs, continue with the next substring
+            """
