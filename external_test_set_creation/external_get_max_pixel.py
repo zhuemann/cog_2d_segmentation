@@ -177,7 +177,7 @@ def linear_scale(input_value):
 
     # Define the input and output ranges
     input_min, input_max = 2.5, 15
-    output_min, output_max = 0.2, 2
+    output_min, output_max = 0.4, 3
 
     # Linear interpolation formula
     output_value = output_min + (input_value - input_min) * (output_max - output_min) / (input_max - input_min)
