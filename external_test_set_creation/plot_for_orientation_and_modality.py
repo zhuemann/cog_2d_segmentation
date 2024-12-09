@@ -11,6 +11,8 @@ def get_slice_thickness(folder_name):
     #image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/external_testset_try2/"
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/conversion_test/external_testset_try6/"
+
 
     image_path = os.path.join(image_path_base, folder_name)
     file_names = os.listdir(image_path)
