@@ -350,17 +350,14 @@ def get_max_pixel_step3(df):
                 if orientation_row["CT"] == 1:
                     slice_tolerance = 3
                     if flipping:
-                        #slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
-                        #slice_ref = slice_ref_pet_inverted
+                        slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
+                        slice_ref = slice_ref_pet_inverted
+
+                    else:
                         slice_ref_ct = ct_nii.shape[2] - slice_ref
                         slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref_ct, ct_voxel_size, pet_voxel_size)
                         slice_ref = slice_ref_pet_inverted
-                    else:
-                        #slice_ref_ct = ct_nii.shape[2] - slice_ref
-                        #slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref_ct, ct_voxel_size, pet_voxel_size)
-                        #slice_ref = slice_ref_pet_inverted
-                        slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
-                        slice_ref = slice_ref_pet_inverted
+
 
                 else:
                     # pet from the bottom
