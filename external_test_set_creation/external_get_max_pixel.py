@@ -199,7 +199,7 @@ def get_max_pixel_step3(df):
     valid_pet_scans = set(os.listdir("/UserData/Zach_Analysis/suv_nifti/"))
     valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/SUV_images/"))
     valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"))
-    valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/conversion_test/external_testset_try6/"))
+    #valid_pet_scans = set(os.listdir("/mnt/Bradshaw/UW_PET_Data/conversion_test/external_testset_try6/"))
 
     #df_orientation = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/orientation_labeled_manually.xlsx")
 
@@ -256,7 +256,7 @@ def get_max_pixel_step3(df):
             #file_path = "/UserData/Zach_Analysis/suv_nifti/" + check_id + "/"
             file_path = "/mnt/Bradshaw/UW_PET_Data/SUV_images/" + check_id + "/"
             file_path = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/" + check_id + "/"
-            file_path = "/mnt/Bradshaw/UW_PET_Data/conversion_test/external_testset_try6/" + check_id + "/"
+            #file_path = "/mnt/Bradshaw/UW_PET_Data/conversion_test/external_testset_try6/" + check_id + "/"
 
             files = os.listdir(file_path)
             index_of_suv = [index for index, s in enumerate(files) if "suv" in s.lower()]
@@ -469,8 +469,8 @@ def get_max_pixel_step3(df):
 
 def external_get_max_pixel():
 
-    #df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/orientation_labeled_manually.xlsx')
-    df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/additional_sentences_orientation_mannual.xlsx')
+    df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/orientation_labeled_manually.xlsx')
+    #df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/additional_sentences_orientation_mannual.xlsx')
 
     df = get_max_pixel_step3(df)
 
