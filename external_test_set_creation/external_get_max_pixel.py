@@ -444,6 +444,7 @@ def get_max_pixel_step3(df):
                         row_list.extend([pixel_i, pixel_j, pixel_k])
                         found_pixels_df.append(row_list)
                         found_suv_max.append(suv_max)
+                        print(f"reference suv max: {suv_ref} found suv: {suv_max}")
                         found_items += 1
             if found_items > 1:
                 dups_found += found_items
