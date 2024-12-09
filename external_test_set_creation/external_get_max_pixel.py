@@ -316,7 +316,7 @@ def get_max_pixel_step3(df):
             #print(f"orginal slice: {row['Slice']} after conversion: {slice_ref}")
             #proposed_threshold = get_threshold(suv_ref)
             #print(f"proposed_threshold: {proposed_threshold}")
-            threshold_value = suv_ref * .8
+            threshold_value = suv_ref * .3
             #print(f"current threshold: {threshold_value}")
             # segmented_regions = img > threshold_value
             #segmented_regions = img > proposed_threshold
