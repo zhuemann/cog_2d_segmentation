@@ -410,6 +410,8 @@ def pet_suv_conversion_external_v3():
         # Iterate over each substring and check if it's present in any element of recon_types
         print(f"recon types: {recon_types}")
         for substring in substrings_to_check:
+
+            print(f"substring: {substring}")
             # Normalize to lower case for case-insensitive comparison
             matched_recon = next((recon for recon in recon_types if substring.lower() in recon.lower()), None)
             #for matched_recon in recon_types:
