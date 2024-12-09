@@ -11,7 +11,7 @@ from scipy.ndimage import zoom
 
 def get_threshold(source):
     background = 2
-    background = 1
+    #background = 1
     new_threshold = (.617*(background/source) + .316)*source
     return new_threshold
 
