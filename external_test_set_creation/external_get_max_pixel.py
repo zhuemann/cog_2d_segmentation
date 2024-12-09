@@ -346,7 +346,7 @@ def get_max_pixel_step3(df):
             slice_ref_ct = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
 
             if orientation_row["Bottom"] == 1:
-
+                print(f"indexing from bottom")
                 if orientation_row["CT"] == 1:
                     slice_tolerance = 3
                     if flipping:
@@ -366,6 +366,7 @@ def get_max_pixel_step3(df):
                         slice_ref_pet = img.shape[2] - slice_ref
                         slice_ref = slice_ref_pet
                     else:
+                        print(f"pet from bottom")
                         slice_ref = slice_ref
             else:
                 if orientation_row["CT"] == 1: # ct from the top
@@ -375,6 +376,7 @@ def get_max_pixel_step3(df):
                         slice_ref_pet = get_corresponding_pet_slice(slice_ref_ct, ct_voxel_size, pet_voxel_size)
                         slice_ref = slice_ref_pet
                     else:
+                        print(f"ct from top")
                         slice_ref_ct = ct_nii.shape[2] - slice_ref
                         slice_ref_pet = get_corresponding_pet_slice(slice_ref_ct, ct_voxel_size, pet_voxel_size)
                         slice_ref = slice_ref_pet
@@ -382,6 +384,7 @@ def get_max_pixel_step3(df):
                     if flipping:
                         slice_ref = slice_ref
                     else:
+                        print(f"pet from top")
                         slice_ref_pet = img.shape[2] - slice_ref
                         slice_ref = slice_ref_pet
 
