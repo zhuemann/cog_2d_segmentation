@@ -348,12 +348,12 @@ def plot_external_testset(df):
         # print(original_row)
         sentence = row["Sentence"]
         #sentence = original_row["sentence"]
-
+        current_suv = row["SUV"] #someimtes is .iloc[0]
         print(sentence)
         print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
         plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) + " SUV: " + str(
-            row["SUV"].iloc[0]), fontsize=12, color='black')
+            current_suv), fontsize=12, color='black')
 
         plt.savefig(
             "/UserData/Zach_Analysis/final_testset_evaluation_vg/external_mips_v11/" + label_name + ".png",
