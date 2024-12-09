@@ -465,7 +465,7 @@ def get_max_pixel_step3(df):
 def external_get_max_pixel():
 
     #df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/orientation_labeled_manually.xlsx')
-    df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/additional_sentences_orientation_labeled_mannual.xlsx')
+    df = pd.read_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/additional_sentences_orientation_mannual.xlsx')
 
     df = get_max_pixel_step3(df)
 
