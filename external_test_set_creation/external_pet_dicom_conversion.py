@@ -304,8 +304,8 @@ def pet_suv_conversion_external_v3():
 
     df = pd.read_excel(
         "/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/additional_sentences.xlsx")
-    df = pd.read_excel(
-        "/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/additional_sentences_quote_testing.xlsx")
+    #df = pd.read_excel(
+    #    "/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/additional_sentences_quote_testing.xlsx")
 
     files_in_directory = os.listdir(dir_path)
 
