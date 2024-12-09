@@ -284,6 +284,8 @@ def single_component(original_contour, start_point):
 def make_labels_from_suv_max_points():
     df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v11_orientation_accounting.xlsx")
     #df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v12_orientation_accounting_additional_labels.xlsx")
+    df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v13.xlsx")
+
     # Create the new column
     df['Label_Name'] = (df.groupby('ID').cumcount() + 1).astype(str)
     df['Label_Name'] = df['ID'] + '_label_' + df['Label_Name']
@@ -400,7 +402,7 @@ def make_labels_from_suv_max_points():
         #nib.save(new_nifti_img,
         #         '/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/' + save_location + "/" + row["Label_Name"] + '.nii.gz')
         #save_location = "testv12_additional"
-        save_location = "testv11"
+        save_location = "testv13"
 
         nib.save(new_nifti_img,
                  '/mnt/Bradshaw/UW_PET_Data/external_raw_pet/' + save_location + "/" + str(row["Label_Name"]) + '.nii.gz')
@@ -414,6 +416,6 @@ def make_labels_from_suv_max_points():
     df.rename(columns={'Extracted Sentences': 'sentence'}, inplace=True)
 
     df.to_excel(
-        '/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v11_orientation_accounting_label_made.xlsx')
+        '/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v13_label_made.xlsx')
 
     return df

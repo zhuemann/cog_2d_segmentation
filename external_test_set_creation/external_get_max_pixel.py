@@ -338,7 +338,7 @@ def get_max_pixel_step3(df):
             #slice_ref_ct = ct_nii.shape[2] - slice_ref
             # if this is ct slice number
 
-            flipping = True
+            flipping = False
 
             # Get the voxel dimensions
             ct_voxel_size = ct_nii.header.get_zooms()  # (slice thickness, pixel spacing x, pixel spacing y) for CT
@@ -350,11 +350,16 @@ def get_max_pixel_step3(df):
                 if orientation_row["CT"] == 1:
                     slice_tolerance = 3
                     if flipping:
-                        slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
-                        slice_ref = slice_ref_pet_inverted
-                    else:
+                        #slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
+                        #slice_ref = slice_ref_pet_inverted
                         slice_ref_ct = ct_nii.shape[2] - slice_ref
                         slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref_ct, ct_voxel_size, pet_voxel_size)
+                        slice_ref = slice_ref_pet_inverted
+                    else:
+                        #slice_ref_ct = ct_nii.shape[2] - slice_ref
+                        #slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref_ct, ct_voxel_size, pet_voxel_size)
+                        #slice_ref = slice_ref_pet_inverted
+                        slice_ref_pet_inverted = get_corresponding_pet_slice(slice_ref, ct_voxel_size, pet_voxel_size)
                         slice_ref = slice_ref_pet_inverted
 
                 else:
@@ -469,5 +474,5 @@ def external_get_max_pixel():
 
     df = get_max_pixel_step3(df)
 
-    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v12_orientation_accounting_additional_labels.xlsx')
+    df.to_excel('/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v13.xlsx')
     print(df)
