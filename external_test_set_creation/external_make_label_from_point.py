@@ -285,8 +285,8 @@ def make_labels_from_suv_max_points():
     df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v11_orientation_accounting.xlsx")
     #df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v12_orientation_accounting_additional_labels.xlsx")
     # Create the new column
-    #df['Label_Name'] = (df.groupby('ID').cumcount() + 1).astype(str)
-    #df['Label_Name'] = df['ID'] + '_label_' + df['Label_Name']
+    df['Label_Name'] = (df.groupby('ID').cumcount() + 1).astype(str)
+    df['Label_Name'] = df['ID'] + '_label_' + df['Label_Name']
 
     missing_conversion = 0
     petlymph_dic = {}
