@@ -338,7 +338,7 @@ def get_max_pixel_step3(df):
             #slice_ref_ct = ct_nii.shape[2] - slice_ref
             # if this is ct slice number
 
-            flipping = False
+            flipping = True
 
             # Get the voxel dimensions
             ct_voxel_size = ct_nii.header.get_zooms()  # (slice thickness, pixel spacing x, pixel spacing y) for CT
