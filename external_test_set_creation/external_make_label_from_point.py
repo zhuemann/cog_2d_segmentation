@@ -283,10 +283,10 @@ def single_component(original_contour, start_point):
 
 def make_labels_from_suv_max_points():
     df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v11_orientation_accounting.xlsx")
-
+    df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/swedish_hospital_external_data_set/swedish_dataframe_max_pixels_v12_orientation_accounting_additional_labels.xlsx")
     # Create the new column
-    df['Label_Name'] = (df.groupby('ID').cumcount() + 1).astype(str)
-    df['Label_Name'] = df['ID'] + '_label_' + df['Label_Name']
+    #df['Label_Name'] = (df.groupby('ID').cumcount() + 1).astype(str)
+    #df['Label_Name'] = df['ID'] + '_label_' + df['Label_Name']
 
     missing_conversion = 0
     petlymph_dic = {}
@@ -294,6 +294,8 @@ def make_labels_from_suv_max_points():
     image_path_base = "/UserData/Zach_Analysis/suv_nifti/"
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/external_testset_v2/"
+    image_path_base = "/mnt/Bradshaw/UW_PET_Data/conversion_test/external_testset_try6/"
+
     exit_early = 0
     drop_later = []
     for index, row in df.iterrows():
@@ -397,7 +399,7 @@ def make_labels_from_suv_max_points():
         # nib.save(new_nifti_img, '/UserData/Zach_Analysis/petlymph_image_data/' + save_location +"/"+ row["Label_Name"] + '.nii.gz')
         #nib.save(new_nifti_img,
         #         '/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/' + save_location + "/" + row["Label_Name"] + '.nii.gz')
-        save_location = "testv11"
+        save_location = "testv12_additional"
         nib.save(new_nifti_img,
                  '/mnt/Bradshaw/UW_PET_Data/external_raw_pet/' + save_location + "/" + str(row["Label_Name"]) + '.nii.gz')
     print(f"missing petlymph number: {missing_conversion}")
