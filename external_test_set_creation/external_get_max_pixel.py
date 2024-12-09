@@ -314,12 +314,14 @@ def get_max_pixel_step3(df):
             #slice_ref = np.round(int(row["Slice"]) * (ct_dimensions[2]/pet_dimensions[2]))
             #slice_ref = int(row["Slice"])
             #print(f"orginal slice: {row['Slice']} after conversion: {slice_ref}")
-            proposed_threshold = get_threshold(suv_ref)
+            #proposed_threshold = get_threshold(suv_ref)
             #print(f"proposed_threshold: {proposed_threshold}")
             threshold_value = suv_ref * .8
             #print(f"current threshold: {threshold_value}")
             # segmented_regions = img > threshold_value
-            segmented_regions = img > proposed_threshold
+            #segmented_regions = img > proposed_threshold
+            segmented_regions = img > threshold_value
+
             labels_out = cc3d.connected_components(segmented_regions, connectivity=6)
 
             max_suv_dic = get_max_pixel_of_segmented_regions_v2(labels_out, img)
@@ -466,6 +468,7 @@ def get_max_pixel_step3(df):
     print(f"not evaluaged sentences missing pet: {sentences_not_evalued_missing_pet}")
     print(f"no suv but does have pet: {no_suv_file_but_does_have_mac}")
     print(f"number of lesions lost slice dif exceeded 50: {slice_diff_exceeded}")
+    print(f"total: mathces_found: {found_noted_lesion} duplicates: {dups_found} missing pet: {sentences_not_evalued_missing_pet} missing ct: {ct_missing} too long: {slice_diff_exceeded} ")
     return new_df
 
 
