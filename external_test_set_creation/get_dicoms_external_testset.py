@@ -95,12 +95,12 @@ def get_dicoms_external_testset():
 
     df = pd.read_excel("/UserData/Zach_Analysis/path_to_move.xlsx")
 
-    destination = "/UserData/Zach_Analysis/swedish_dicoms/"  # Replace with your destination folder
+    destination = "/UserData/Zach_Analysis/swedish_dicoms/"
 
     #copy_matching_folders(df, id_column = "ID", source_folder="/mnt/Bradshaw/UW_PET_Data/swedish_dicom/RefactoredBags/", destination_folder=destination)
 
     # Define the destination folder for moved files
-    destination = "/UserData/Zach_Analysis/upload_to_mim2/"  # Replace with your destination folder
+    destination = "/UserData/Zach_Analysis/upload_to_mim2/"
 
     # Run the function
     copy_and_reorganize_files(df, destination)
