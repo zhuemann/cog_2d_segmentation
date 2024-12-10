@@ -34,4 +34,4 @@ def get_dicoms_external_testset():
 
     destination = "/UserData/Zach_Analysis/swedish_dicoms/"  # Replace with your destination folder
 
-    copy_matching_folders(df, id_column = "ID", source_folder="/mnt/Bradshaw/UW_PET_Data/swedish_dicom/RefactoredBags/", destination)
+    copy_matching_folders(df, id_column = "ID", source_folder="/mnt/Bradshaw/UW_PET_Data/swedish_dicom/RefactoredBags/", destination_folder=destination)
