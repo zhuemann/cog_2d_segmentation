@@ -55,8 +55,10 @@ def copy_and_reorganize_files(dataframe, destination_folder):
         ct_path = ct_path.replace("dicom_to_copy", "swedish_dicoms")
         pt_path = pt_path.replace("Z:", "/UserData")
         ct_path = ct_path.replace("Z:", "/UserData")
-        pt_path = str(Path(pt_path))
-        ct_path = str(Path(ct_path))
+        #pt_path = str(Path(pt_path))
+        #ct_path = str(Path(ct_path))
+        pt_path = pt_path.replace("\\", "/")
+        ct_path = ct_path .replace("\\", "/")
         #pt_path = "/UserData/Zach_Analysis/swedish_dicoms/"
         # Create swedish_<ID> directory in the destination folder
         id_dest_folder = os.path.join(destination_folder, f"swedish_{id_}")
