@@ -70,6 +70,9 @@ def copy_and_reorganize_files(dataframe, destination_folder):
                     print(f"Copied PT folder for ID {id_} to {pt_dest_folder}")
             else:
                 print(f"Skipping PT for ID {id_}: PT path is empty.")
+        else:
+            print(f"pet path did not exist")
+            print(f"pet path: {pt_path}")
 
         # Process CT
         if os.path.exists(ct_path):
