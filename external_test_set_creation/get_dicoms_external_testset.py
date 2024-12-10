@@ -30,7 +30,7 @@ def copy_matching_folders(df, id_column, source_folder, destination_folder):
 def get_dicoms_external_testset():
 
 
-    df = pd.read_excel("/UserData/path_to_move.xlsx")
+    df = pd.read_excel("/UserData/Zach_Analysis/path_to_move.xlsx")
 
     destination = "/UserData/Zach_Analysis/swedish_dicoms/"  # Replace with your destination folder
 
