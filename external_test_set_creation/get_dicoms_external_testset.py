@@ -57,6 +57,7 @@ def copy_and_reorganize_files(dataframe, destination_folder):
         ct_path = ct_path.replace("Z:", "/UserData")
         pt_path = str(Path(pt_path))
         ct_path = str(Path(ct_path))
+        pt_path = " /UserData/Zach_Analysis/swedish_dicoms/"
         # Create swedish_<ID> directory in the destination folder
         id_dest_folder = os.path.join(destination_folder, f"swedish_{id_}")
         if not os.path.exists(id_dest_folder):
