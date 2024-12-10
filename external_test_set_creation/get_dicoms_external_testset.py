@@ -54,6 +54,8 @@ def copy_and_reorganize_files(dataframe, destination_folder):
         ct_path = ct_path.replace("dicom_to_copy", "swedish_dicoms")
         pt_path = pt_path.replace("Z:", "/UserData")
         ct_path = ct_path.replace("Z:", "/UserData")
+        pt_path = os.path.normpath(pt_path)
+        ct_path = os.path.normpath(ct_path)
         # Create swedish_<ID> directory in the destination folder
         id_dest_folder = os.path.join(destination_folder, f"swedish_{id_}")
         if not os.path.exists(id_dest_folder):
