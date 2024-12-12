@@ -57,6 +57,8 @@ from external_test_set_creation.external_make_label_from_point import make_label
 from external_test_set_creation.external_plotting_3d_labels import plot_external_testset
 from external_test_set_creation.plot_for_orientation_and_modality import plot_for_orientation_and_modality
 from external_test_set_creation.get_dicoms_external_testset import get_dicoms_external_testset
+from external_test_set_creation.process_rt_structs_to_nifti import process_rt_strcuts_to_nifty
+
 if __name__ == '__main__':
     #compound_interactive_report_v2()
     #post_processing_eval()
@@ -68,10 +70,11 @@ if __name__ == '__main__':
     #plot_external_testset(df)
     #plot_for_orientation_and_modality()
     #external_get_max_pixel()
-    get_dicoms_external_testset()
+    #get_dicoms_external_testset()
     #pet_suv_conversion_external_v3()
     #uw_ct_conversion_external_dataset_v2()
     #get_orientation_from_dicom()
+    process_rt_strcuts_to_nifty()
     print(fail)
     #make_interactive_figure()
     #print(fail)
