@@ -68,7 +68,7 @@ def process_rt_strcuts_to_nifty():
         elif int(petlymph.split("_")[2]) > int(previous_id.split("_")[2]): # if the image is higher increment order
             order_index += 1
 
-
+        print(f"order_index: {order_index}")
         folder_name = get_folder_by_index(folder_list = folder_list, input_string = patient_id, index = order_index)
 
         dicom_path_RT_folder = os.path.join(folder_list, folder_name)
