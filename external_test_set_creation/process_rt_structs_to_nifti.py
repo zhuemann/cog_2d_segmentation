@@ -55,8 +55,8 @@ def process_rt_strcuts_to_nifty():
         #    file_id = match.group(1)  # Extract the XXXXXX
         #    date = match.group(2)  # Extract the Date
 
-        patient_id = row.loc["Coded Patient ID"]
-        petlymph = row.loc["id"]
+        patient_id = row["Coded Patient ID"]
+        petlymph = row["id"]
         dicom_series_path_pet = os.path.join(dicom_location_base, petlymph, "pet")
 
 
