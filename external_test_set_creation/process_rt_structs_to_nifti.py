@@ -25,7 +25,7 @@ def get_folder_by_index(folder_list, input_string, index):
 
     # Sort the folders by date (oldest to newest)
     sorted_folders = sorted(matching_folders, key=lambda x: x[1])
-
+    print(sorted_folders)
     # Check if the index is within range
     if index - 1 < len(sorted_folders):
         # Return the folder name at the specified index (1-based index)
