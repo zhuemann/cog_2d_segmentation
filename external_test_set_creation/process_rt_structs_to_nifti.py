@@ -70,7 +70,7 @@ def process_rt_strcuts_to_nifty():
 
         print(f"order_index: {order_index}")
         folder_name = get_folder_by_index(folder_list = folder_list, input_string = patient_id, index = order_index)
-
+        print(f"folder name: {folder_name}")
         dicom_path_RT_folder = os.path.join(folder_list, folder_name)
         dicom_file_name = os.listdir(dicom_path_RT_folder)
         dicom_path_RT = os.path.join(dicom_path_RT_folder, dicom_file_name)
