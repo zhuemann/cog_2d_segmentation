@@ -44,7 +44,7 @@ def process_rt_strcuts_to_nifty():
     # Compile a regex pattern to match the desired parts of the filename
     pattern = re.compile(r'UWPETCTWB\.(\d+)_UWPETCTWB\.\1_RTst_(\d{4}-\d{2}-\d{2})')
 
-    order_index = 0
+    order_index = 1
     previous_id = "PETWB_000000_00"
 
     for _, row in df.iterrows():
@@ -64,7 +64,7 @@ def process_rt_strcuts_to_nifty():
         #if petlymph == previous_id:
         #    print("keep order index")
         if petlymph.split("_")[1] != previous_id.split("_")[1]: # if we moved on to a new patient set index to 0
-            order_index = 0
+            order_index = 1
         elif int(petlymph.split("_")[2]) > int(previous_id.split("_")[2]): # if the image is higher increment order
             order_index += 1
 
