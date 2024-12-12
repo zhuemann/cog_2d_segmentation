@@ -13,7 +13,9 @@ def get_folder_by_index(folder_list, input_string, index):
     identifier = input_string.replace('_', '.')
 
     # Compile a regex to match folders containing the identifier and a date
-    pattern = re.compile(rf"{re.escape(identifier)}_(\d{{4}}-\d{{2}}-\d{{2}})")
+    #pattern = re.compile(rf"{re.escape(identifier)}_(\d{{4}}-\d{{2}}-\d{{2}})")
+    pattern = re.compile(rf"{re.escape(identifier)}_(\d{{4}}-\d{{2}}-\d{{2}})_.*")
+
     print(f"identifier: {identifier}")
     print(folder_list)
     # Filter folders matching the identifier and extract their dates
