@@ -116,7 +116,7 @@ def process_rt_strcuts_to_nifty():
         print(f"folder name: {folder_name}")
         dicom_path_RT_folder = os.path.join(rt_location, folder_name)
 
-        dicom_file_name = os.listdir(dicom_path_RT_folder)
+        dicom_file_name = os.listdir(dicom_path_RT_folder)[0]
         dicom_path_RT = os.path.join(dicom_path_RT_folder, dicom_file_name)
 
         save_rt_struct_path = os.path.join(nifti_save_path, petlymph)
