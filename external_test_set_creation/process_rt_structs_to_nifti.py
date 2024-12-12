@@ -5,6 +5,7 @@ from platipy.dicom.io import rtstruct_to_nifti
 import pandas as pd
 import os
 import re
+from datetime import datetime
 
 
 def get_folder_by_index(folder_list, input_string, index):
@@ -59,7 +60,7 @@ def process_rt_strcuts_to_nifty():
         petlymph = row["id"]
         dicom_series_path_pet = os.path.join(dicom_location_base, petlymph, "pet")
 
-
+        print(f"patient_id: {patient_id}")
 
         #if petlymph == previous_id:
         #    print("keep order index")
