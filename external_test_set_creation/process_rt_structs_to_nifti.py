@@ -28,6 +28,7 @@ def get_folder_by_index(folder_list, input_string, index):
             date_str = match.group(1)  # Extract the date part
             matching_folders.append((folder, datetime.strptime(date_str, "%Y-%m-%d")))
 
+    print(f"matching folders: {matching_folders}")
     # Sort the folders by date (oldest to newest)
     sorted_folders = sorted(matching_folders, key=lambda x: x[1])
     print(sorted_folders)
