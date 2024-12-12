@@ -8,7 +8,7 @@ import re
 from datetime import datetime
 
 
-def get_folder_by_index(folder_list, input_string, index):
+def get_folder_by_index_v1(folder_list, input_string, index):
     # Extract the identifier from the input string
     identifier = input_string.replace('_', '.')
 
@@ -39,7 +39,42 @@ def get_folder_by_index(folder_list, input_string, index):
     else:
         # If the index is out of range, return None or handle as needed
         return None
+def get_folder_by_index(folder_list, input_string, index):
+    # Extract the identifier from the input string
+    identifier = input_string.replace('_', '.')
 
+    print(f"identifier: {identifier}")
+    print(folder_list)
+
+    # Filter folders matching the identifier and extract their dates
+    matching_folders = []
+    for folder in folder_list:
+        if identifier in folder:  # Check if the identifier exists in the folder name
+            print("found")
+            # Extract the date part by locating the pattern YYYY-MM-DD
+            try:
+                # Assuming the date is in the format YYYY-MM-DD
+                date_start = folder.find("20")  # Find the starting point of the year (assumes year starts with '20')
+                date_str = folder[date_start:date_start + 10]  # Extract the substring for the date
+                matching_folders.append((folder, datetime.strptime(date_str, "%Y-%m-%d")))
+            except ValueError:
+                print(f"Invalid date format in folder name: {folder}")
+                continue
+
+    print(f"matching folders: {matching_folders}")
+
+    # Sort the folders by date (oldest to newest)
+    sorted_folders = sorted(matching_folders, key=lambda x: x[1])
+    print(sorted_folders)
+
+    # Check if the index is within range
+    if index - 1 < len(sorted_folders):
+        # Return the folder name at the specified index (1-based index)
+        return sorted_folders[index - 1][0]
+    else:
+        # If the index is out of range, return None or handle as needed
+        print(f"Index {index} out of range for identifier: {identifier}")
+        return None
 def process_rt_strcuts_to_nifty():
 
     df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Meghan_worksheet_returned.xlsx")
