@@ -4,7 +4,7 @@ import numpy as np
 from platipy.dicom.io import rtstruct_to_nifti
 import pandas as pd
 import os
-import re
+import regex as re
 from datetime import datetime
 
 
