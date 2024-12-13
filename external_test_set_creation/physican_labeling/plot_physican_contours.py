@@ -337,11 +337,11 @@ def plot_physican_contours():
         ax7.set_title(f'Axial Slice: {slice_num} With Label')
         """
 
-        print(original_row)
-        sentence = original_row["Text Description"] #.iloc[0]
+        print(row)
+        sentence = row["Text Description"] #.iloc[0]
         print(sentence)
         print(type(sentence))
-        sentence = original_row["Text Description"].iloc[0]
+        sentence = row["Text Description"].iloc[0]
         sentence = insert_newlines(sentence, word_limit=25)
         plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
 
