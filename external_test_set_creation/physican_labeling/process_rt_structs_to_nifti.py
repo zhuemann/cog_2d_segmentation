@@ -86,7 +86,7 @@ def process_rt_strcuts_to_nifty():
 
     rt_location = "/UserData/Zach_Analysis/physican_labeling_UWPET/rt_structs_meg_structured/"
     folder_list = os.listdir(rt_location)
-    nifti_save_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_nifti/"
+    nifti_save_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_nifti_v2/"
     # Compile a regex pattern to match the desired parts of the filename
     pattern = re.compile(r'UWPETCTWB\.(\d+)_UWPETCTWB\.\1_RTst_(\d{4}-\d{2}-\d{2})')
 
