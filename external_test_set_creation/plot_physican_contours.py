@@ -110,7 +110,7 @@ def plot_physican_contours():
 
         ct_volume = rotated_volume
 
-        slice_num = row["slice_num"]
+        #slice_num = row["slice_num"]
         slice_num = 0
         # k_num = row["k"]
         original_row = original_df.loc[original_df['Label_Name'] == label_name]
