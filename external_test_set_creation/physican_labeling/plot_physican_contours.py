@@ -95,7 +95,7 @@ def plot_physican_contours():
         print(f"image name: {petlymph}")
         # gets location of label nifti
         label_name = row["File_Name"]
-        label_path = os.path.join(label_path_base, label_name + ".nii.gz")
+        label_path = os.path.join(label_path_base, label_name) #+ ".nii.gz")
 
         ct_image = nib.load(ct_image_path)
         ct_volume = ct_image.get_fdata()
@@ -152,6 +152,7 @@ def plot_physican_contours():
             nii_label = nib.load(label_path)
             label = nii_label.get_fdata()  # the label data
         else:
+            print("can't load label")
             continue
 
         # flip data
