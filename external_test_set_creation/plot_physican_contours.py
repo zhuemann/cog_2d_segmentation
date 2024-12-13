@@ -345,6 +345,7 @@ def plot_physican_contours():
             original_row["SUV"].iloc[0]), fontsize=12, color='black')
 
         save_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_labels_plotted/" + label_name + ".png"
+        print(f"save path: {save_path}")
         plt.savefig(save_path, dpi=300)
 
         plt.close()
