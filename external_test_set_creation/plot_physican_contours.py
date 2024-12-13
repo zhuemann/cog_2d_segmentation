@@ -54,7 +54,7 @@ def normalize_mip(mip):
     return normalized_uint8
 
 
-def plot_physican_contours(df):
+def plot_physican_contours():
     # image_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images4_v2/"
     # label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels4_v2/"
     #image_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
@@ -70,7 +70,7 @@ def plot_physican_contours(df):
         "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/crop_offset_lookup.xlsx")
 
     original_df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Meghan_worksheet_returned.xlsx")
-
+    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Meghan_worksheet_returned.xlsx")
 
     i = 0
 
