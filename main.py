@@ -2,12 +2,9 @@
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-import argparse
 import os
 
 import pandas as pd
-import argparse
-
 
 from train_segmentation import train_image_text_segmentation
 #from crop_images import crop_images_to_mips
@@ -16,51 +13,19 @@ from train_segmentation import train_image_text_segmentation
 #from sub_region_label_and_image_creation import make_mips_from_3d_data
 #from get_max_pixel import get_max_pixel_step3
 #from create_sentence_mips_and_labels import create_mips
-from data_prepocessing.data_pipeline import run_data_pipeline
-from uw_pet_suv_conversion import uw_pet_suv_conversion
-from data_prepocessing.utility.utility import get_suv_file_names
-from data_prepocessing.utility.utility import finding_missing_images
-from data_prepocessing.utility.utility import analyze_ct_series_when_pt_matches
-from data_prepocessing.utility.utility import analyze_matching_ct_series_for_pt_substring
-from uw_pet_suv_conversion import file_conversion_ct
-from data_prepocessing.data_visualization.plot_ct_head_projections import plot_ct_head_projections
-from data_prepocessing.utility.utility import generate_data_sheet_on_uw_pet_dataset
 # Press the green button in the gutter to run the script.
-from uw_pet_suv_conversion import uw_pet_suv_conversion_v2
-from uw_pet_suv_conversion import uw_ct_suv_conversion_v2
-from uw_pet_suv_conversion import file_exploration_analysis_pet
-from uw_pet_suv_conversion import uw_ct_conversion_external_dataset_v2
-from data_prepocessing.data_pipeline import run_data_pipeline_final
-from data_prepocessing.utility.scanner_types import scanner_types_external_test_set
-from data_prepocessing.utility.utility import count_files_in_suv_folder
-from data_prepocessing.data_visualization.plot_training_and_inference_images import plot_training_and_inference_images
-from uw_pet_suv_conversion import uw_ct_check
-
-from data_prepocessing.utility.tracer_type_all_files import tracer_type_all_files
-from external_test_set_creation.get_ct_paths import ct_check
-from external_test_set_creation.external_pet_dicom_conversion import pet_suv_conversion_external_v3
-from external_test_set_creation.external_ct_dicom_conversion import uw_ct_conversion_external_dataset_v2
-from external_test_set_creation.external_get_max_pixel import external_get_max_pixel
-
-from data_prepocessing.utility.rt_struct_builder import make_all_rts
-from data_prepocessing.utility.get_dicoms_for_reading import get_dicoms_for_reading
 
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
-from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
-from data_prepocessing.data_visualization.intereactive_report_figure import make_interactive_figure
-from data_prepocessing.data_visualization.intereactive_report_figure import compound_interactive_report_v2
 
-from data_prepocessing.precompute_langauge_embeddings import precomputed_language_embeddings
-from data_prepocessing.data_visualization.ploting_external_cog_data import testing_ploting_external_cog_data
-from external_test_set_creation.get_orientation_from_dicom import get_orientation_from_dicom
-from external_test_set_creation.external_make_label_from_point import make_labels_from_suv_max_points
-from external_test_set_creation.external_plotting_3d_labels import plot_external_testset
-from external_test_set_creation.plot_for_orientation_and_modality import plot_for_orientation_and_modality
-from external_test_set_creation.get_dicoms_external_testset import get_dicoms_external_testset
-from external_test_set_creation.process_rt_structs_to_nifti import process_rt_strcuts_to_nifty
-from external_test_set_creation.plot_physican_contours import plot_physican_contours
+from external_test_set_creation.physican_labeling.plot_physican_contours import plot_physican_contours
+from external_test_set_creation.physican_labeling.rename_nifti_files import rename_nifti_files
 
 if __name__ == '__main__':
+
+
+    rename_nifti_files()
+
+    print(fail)
     #compound_interactive_report_v2()
     #post_processing_eval()
     #testing_ploting_external_cog_data()
@@ -75,7 +40,7 @@ if __name__ == '__main__':
     #pet_suv_conversion_external_v3()
     #uw_ct_conversion_external_dataset_v2()
     #get_orientation_from_dicom()
-    plot_physican_contours()
+    #plot_physican_contours()
     #process_rt_strcuts_to_nifty()
     print(fail)
     #make_interactive_figure()
