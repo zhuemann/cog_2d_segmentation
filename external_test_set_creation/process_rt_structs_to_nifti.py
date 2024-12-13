@@ -51,17 +51,18 @@ def get_folder_by_index(folder_list, input_string, index):
     for folder in folder_list:
         if identifier in folder:  # Check if the identifier exists in the folder name
             print("found")
-            # Extract the date part by locating the pattern YYYY-MM-DD
-            match = re.search(r"\b20\d{2}-\d{2}-\d{2}\b", folder)
-            if match:
-                date_str = match.group(0)  # Extract the matched date
-                try:
-                    matching_folders.append((folder, datetime.strptime(date_str, "%Y-%m-%d")))
-                except ValueError:
-                    print(f"Invalid date format in folder name: {folder}")
-                    continue
-            else:
-                print(f"No valid date found in folder name: {folder}")
+            # Split the folder name to locate the date part
+            parts = folder.split("_")  # Split by underscores
+            for part in parts:
+                if part.startswith("20") and len(part) == 10:  # Look for 'YYYY-MM-DD'
+                    try:
+                        # Attempt to parse the date
+                        date = datetime.strptime(part, "%Y-%m-%d")
+                        matching_folders.append((folder, date))
+                        break  # Stop once a valid date is found
+                    except ValueError:
+                        print(f"Invalid date format: {part}")
+                        continue
 
     print(f"matching folders: {matching_folders}")
 
