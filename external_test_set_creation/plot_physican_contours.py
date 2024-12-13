@@ -146,7 +146,7 @@ def plot_physican_contours():
             #ct_label = resample_image(label, ct_volume.shape)
             nib.save(ct_label, '/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/resampled_labels/' + row["Label_Name"] + '.nii.gz')
         """
-
+        print(f"label_path: {label_path}")
         if os.path.exists(label_path):
             # loads in the label as a numpy array
             nii_label = nib.load(label_path)
