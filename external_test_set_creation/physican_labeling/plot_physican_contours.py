@@ -337,7 +337,7 @@ def plot_physican_contours():
         ax7.set_title(f'Axial Slice: {slice_num} With Label')
         """
 
-        # print(original_row)
+        print(original_row)
         sentence = original_row["Text Description"] #.iloc[0]
         print(sentence)
         print(type(sentence))
