@@ -339,8 +339,9 @@ def plot_physican_contours():
 
         # print(original_row)
         sentence = original_row["Text Description"] #.iloc[0]
-        # print(sentence)
-        # print(type(sentence))
+        print(sentence)
+        print(type(sentence))
+        sentence = original_row["Text Description"].iloc[0]
         sentence = insert_newlines(sentence, word_limit=25)
         plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
 
