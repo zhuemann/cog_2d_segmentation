@@ -338,12 +338,11 @@ def plot_physican_contours():
         """
 
         # print(original_row)
-        sentence = original_row["sentence"].iloc[0]
+        sentence = original_row["Text Description"].iloc[0]
         # print(sentence)
         # print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
-        plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)) + " SUV: " + str(
-            original_row["SUV"].iloc[0]), fontsize=12, color='black')
+        plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
 
         save_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_labels_plotted/" + label_name + ".png"
         print(f"save path: {save_path}")
