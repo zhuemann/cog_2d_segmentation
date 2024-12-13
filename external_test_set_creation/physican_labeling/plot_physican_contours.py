@@ -338,7 +338,7 @@ def plot_physican_contours():
         """
 
         # print(original_row)
-        sentence = original_row["Text Description"].iloc[0]
+        sentence = original_row["Text Description"] #.iloc[0]
         # print(sentence)
         # print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
