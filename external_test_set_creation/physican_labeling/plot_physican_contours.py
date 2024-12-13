@@ -95,7 +95,7 @@ def plot_physican_contours():
         print(f"image name: {petlymph}")
         # gets location of label nifti
         label_name = row["File_Name"]
-        label_path = os.path.join(label_path_base, label_name) #+ ".nii.gz")
+        label_path = os.path.join(label_path_base, str(label_name)) #+ ".nii.gz")
 
         ct_image = nib.load(ct_image_path)
         ct_volume = ct_image.get_fdata()
