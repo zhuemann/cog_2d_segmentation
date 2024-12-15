@@ -5,8 +5,8 @@ import regex as re
 
 def rename_nifti_files():
 
-    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Meghan_worksheet_returned.xlsx")
-    folder_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_nifti/"
+    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Steve_worksheet_returned.xlsx")
+    folder_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/steve_nifti/"
     """
         Matches the label identifiers in the DataFrame with the corresponding filenames in the folder
         and adds a new column to the DataFrame.
@@ -55,4 +55,4 @@ def rename_nifti_files():
     # Add the matched file names as a new column
     df['File_Name'] = matched_files
 
-    df.to_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Meghan_worksheet_matched.xlsx")
+    df.to_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Steve_worksheet_matched.xlsx")

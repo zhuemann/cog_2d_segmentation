@@ -23,8 +23,8 @@ from external_test_set_creation.physican_labeling.process_rt_structs_to_nifti im
 
 if __name__ == '__main__':
 
-    process_rt_strcuts_to_nifty()
-    #rename_nifti_files()
+    #process_rt_strcuts_to_nifty()
+    rename_nifti_files()
     #plot_physican_contours()
     print(fail)
     #compound_interactive_report_v2()
