@@ -55,4 +55,4 @@ def rename_nifti_files():
     # Add the matched file names as a new column
     df['File_Name'] = matched_files
 
-    df.to_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Steve_worksheet_matched.xlsx")
+    df.to_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Steve_worksheet_matched_2.xlsx")
