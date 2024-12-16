@@ -566,7 +566,9 @@ def physician_post_processing_eval():
         full_pred_path = os.path.join(prediction_location, label)
         if ".gz" not in label:
             label += ".gz"
-        label_full_path = os.path.join(label_base, label)
+
+        print(f"label_name: {label_name}")
+        label_full_path = os.path.join(label_base, label_name, label)
         #print(label)
         # load in the suv data
         nii_suv = nib.load(suv_path_final)
