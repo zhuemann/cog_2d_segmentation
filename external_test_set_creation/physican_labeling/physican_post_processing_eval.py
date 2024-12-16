@@ -568,9 +568,11 @@ def physician_post_processing_eval():
         suv_path_final = os.path.join(image_path_base, file_names[index_of_suv[0]])
         #print(suv_path_final)
         #ct_path_final = os.path.join(image_base, image_name + "_ct_cropped.nii.gz")
-        full_pred_path = os.path.join(prediction_location, label)
+        if ".nii" not in label:
+            label += ".nii"
         if ".gz" not in label:
             label += ".gz"
+        full_pred_path = os.path.join(prediction_location, label)
 
         print(f"image_name: {image_name}")
         label_full_path = os.path.join(label_base, label)
