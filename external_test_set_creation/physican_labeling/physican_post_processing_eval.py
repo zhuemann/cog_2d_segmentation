@@ -567,7 +567,7 @@ def physician_post_processing_eval():
         if ".gz" not in label:
             label += ".gz"
 
-        print(f"label_name: {label_name}")
+        print(f"image_name: {image_name}")
         label_full_path = os.path.join(label_base, label_name, label)
         #print(label)
         # load in the suv data
