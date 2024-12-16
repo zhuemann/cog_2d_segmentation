@@ -523,6 +523,8 @@ def physician_post_processing_eval():
         #label = remove_leading_number(label)
         # print(label)
         image_name = label[:15]
+        print(f"image_name: {image_name}")
+
         # print(image_name)
         #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
@@ -568,7 +570,7 @@ def physician_post_processing_eval():
             label += ".gz"
 
         print(f"image_name: {image_name}")
-        label_full_path = os.path.join(label_base, label_name, label)
+        label_full_path = os.path.join(label_base, image_name, label)
         #print(label)
         # load in the suv data
         nii_suv = nib.load(suv_path_final)
