@@ -7,7 +7,9 @@ def copy_physican_labels_to_folder():
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Meghan_worksheet_matched.xlsx")
     df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Steve_worksheet_matched.xlsx")
     # Define the base folder for the new location
-    new_location_folder = "/mnt/Bradshaw/UW_PET_Data/physican_labels/meghan_labels/"
+    #new_location_folder = "/mnt/Bradshaw/UW_PET_Data/physican_labels/meghan_labels/"
+    new_location_folder = "/mnt/Bradshaw/UW_PET_Data/physican_labels/steve_labels/"
+
     #original_location_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_nifti_v2/"
     original_location_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/steve_nifti/"
 
