@@ -62,8 +62,8 @@ def plot_physican_contours():
 
     image_path_root = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     #label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
-    label_path_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_nifti_v2/"
-    #label_path_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/steve_nifti/"
+    #label_path_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_nifti_v2/"
+    label_path_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/steve_nifti/"
 
     original_df = pd.read_excel(
         "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx")
