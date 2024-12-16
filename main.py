@@ -27,6 +27,7 @@ if __name__ == '__main__':
     #process_rt_strcuts_to_nifty()
     #rename_nifti_files()
     #plot_physican_contours()
+    copy_physican_labels_to_folder()
     physician_post_processing_eval()
     #copy_physican_labels_to_folder()
     print(fail)

@@ -18,6 +18,7 @@ def copy_physican_labels_to_folder():
     for index, row in df.iterrows():
         original_path = row["File_Name"]
         new_name = row["Label_Name"]
+        new_name = new_name + ".nii.gz"
         destination_path = os.path.join(new_location_folder, new_name)
 
         original_path = os.path.join(original_location_base, original_path)
