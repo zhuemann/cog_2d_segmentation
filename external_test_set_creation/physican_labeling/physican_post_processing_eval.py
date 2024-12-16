@@ -574,6 +574,8 @@ def physician_post_processing_eval():
 
         print(f"image_name: {image_name}")
         label_full_path = os.path.join(label_base, label)
+        print(f"label full path: {label_full_path} and just label: {label}")
+
         #print(label)
         # load in the suv data
         nii_suv = nib.load(suv_path_final)
