@@ -10,6 +10,7 @@ def copy_physican_labels_to_folder():
     #new_location_folder = "/mnt/Bradshaw/UW_PET_Data/physican_labels/meghan_labels/"
     new_location_folder = "/mnt/Bradshaw/UW_PET_Data/physican_labels/steve_labels/"
 
+
     #original_location_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_nifti_v2/"
     original_location_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/steve_nifti/"
 
