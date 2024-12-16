@@ -21,13 +21,14 @@ from external_test_set_creation.physican_labeling.plot_physican_contours import 
 from external_test_set_creation.physican_labeling.rename_nifti_files import rename_nifti_files
 from external_test_set_creation.physican_labeling.process_rt_structs_to_nifti import process_rt_strcuts_to_nifty
 from external_test_set_creation.physican_labeling.move_physican_labels_to_folder import copy_physican_labels_to_folder
-
+from external_test_set_creation.physican_labeling.physican_post_processing_eval import physician_post_processing_eval
 if __name__ == '__main__':
 
     #process_rt_strcuts_to_nifty()
     #rename_nifti_files()
     #plot_physican_contours()
-    copy_physican_labels_to_folder()
+    physician_post_processing_eval()
+    #copy_physican_labels_to_folder()
     print(fail)
     #compound_interactive_report_v2()
     #post_processing_eval()
