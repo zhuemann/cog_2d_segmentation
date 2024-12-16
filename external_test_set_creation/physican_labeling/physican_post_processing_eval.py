@@ -562,7 +562,10 @@ def physician_post_processing_eval():
         #    if label_name in entry.get('label'):
         #        sent = entry.get('report')  # Return the report if label name matches
         #print(sent)
-        suv_path_final = os.path.join(image_base, image_name + "_suv_cropped.nii.gz")
+        image_path_base = os.path.join(image_base, image_name) # ,image_name + "_suv_cropped.nii.gz")
+        file_names = os.listdir(image_path_base)
+        index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
+        suv_path_final = os.path.join(image_path_base, file_names[index_of_suv[0]])
         #print(suv_path_final)
         ct_path_final = os.path.join(image_base, image_name + "_ct_cropped.nii.gz")
         full_pred_path = os.path.join(prediction_location, label)
