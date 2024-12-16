@@ -26,8 +26,8 @@ if __name__ == '__main__':
 
     #process_rt_strcuts_to_nifty()
     #rename_nifti_files()
-    plot_physican_contours()
-    #copy_physican_labels_to_folder()
+    #plot_physican_contours()
+    copy_physican_labels_to_folder()
     print(fail)
     #compound_interactive_report_v2()
     #post_processing_eval()
