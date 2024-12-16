@@ -349,7 +349,7 @@ def plot_physican_contours():
         sentence = insert_newlines(sentence, word_limit=25)
         plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
 
-        save_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_labels_plotted_v3/" + label_name + ".png"
+        save_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_labels_plotted_v4/" + label_name + ".png"
         print(f"save path: {save_path}")
         plt.savefig(save_path, dpi=300)
 
