@@ -63,7 +63,8 @@ def plot_physican_contours():
     image_path_root = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
     #label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
     #label_path_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_nifti_v2/"
-    label_path_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/steve_nifti/"
+    #label_path_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/steve_nifti/"
+    label_path_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/josh_nifti/"
 
     original_df = pd.read_excel(
         "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx")
@@ -73,8 +74,11 @@ def plot_physican_contours():
     #original_df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Meghan_worksheet_matched.xlsx")
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Meghan_worksheet_matched.xlsx")
 
-    original_df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Steve_worksheet_matched.xlsx")
-    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Steve_worksheet_matched.xlsx")
+    #original_df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Steve_worksheet_matched.xlsx")
+    #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Steve_worksheet_matched.xlsx")
+
+    original_df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
+    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
 
     i = 0
 
@@ -349,7 +353,7 @@ def plot_physican_contours():
         sentence = insert_newlines(sentence, word_limit=25)
         plt.suptitle(sentence + " Pixels: " + str(np.sum(label_coronal)), fontsize=12, color='black')
 
-        save_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/steve_labels_plotted_v2/" + label_name + ".png"
+        save_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/josh_labels_plotted/" + label_name + ".png"
         print(f"save path: {save_path}")
         plt.savefig(save_path, dpi=300)
 
