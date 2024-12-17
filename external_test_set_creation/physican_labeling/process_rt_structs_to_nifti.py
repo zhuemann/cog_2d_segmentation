@@ -82,14 +82,19 @@ def process_rt_strcuts_to_nifty():
 
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Meghan_worksheet_returned.xlsx")
     df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Steve_worksheet_returned.xlsx")
+    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_returned.xlsx")
 
     dicom_location_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/dicom_folders/"
 
     #rt_location = "/UserData/Zach_Analysis/physican_labeling_UWPET/rt_structs_meg_structured/"
-    rt_location = "/UserData/Zach_Analysis/physican_labeling_UWPET/rt_structs_steve_structured/"
+    #rt_location = "/UserData/Zach_Analysis/physican_labeling_UWPET/rt_structs_steve_structured/"
+    rt_location = "/UserData/Zach_Analysis/physican_labeling_UWPET/rt_structs_josh_structured/"
+
 
     folder_list = os.listdir(rt_location)
-    nifti_save_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/steve_nifti/"
+    #nifti_save_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/steve_nifti/"
+    nifti_save_path = "/UserData/Zach_Analysis/physican_labeling_UWPET/josh_nifti/"
+
     # Compile a regex pattern to match the desired parts of the filename
     pattern = re.compile(r'UWPETCTWB\.(\d+)_UWPETCTWB\.\1_RTst_(\d{4}-\d{2}-\d{2})')
 
