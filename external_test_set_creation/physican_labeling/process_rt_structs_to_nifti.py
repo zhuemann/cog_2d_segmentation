@@ -111,6 +111,9 @@ def process_rt_strcuts_to_nifty():
 
         patient_id = row["Coded Patient ID"]
         petlymph = row["id"]
+        if petlymph == "PETWB_002624_01":
+            print("skipping first one")
+            continue
         dicom_series_path_pet = os.path.join(dicom_location_base, petlymph, "pet")
 
         print(f"patient_id: {patient_id}")
