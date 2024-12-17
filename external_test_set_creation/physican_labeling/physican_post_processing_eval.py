@@ -472,7 +472,8 @@ def physician_post_processing_eval():
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions_v4/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_embeddings_predictions/"
-    prediction_location = "/mnt/Bradshaw/UW_PET_Data/physican_labels/steve_labels/"
+    #prediction_location = "/mnt/Bradshaw/UW_PET_Data/physican_labels/steve_labels/"
+    prediction_location = "/mnt/Bradshaw/UW_PET_Data/physican_labels/meghan_labels/"
 
     #image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
     #label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
