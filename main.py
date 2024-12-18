@@ -14,6 +14,7 @@ from train_segmentation import train_image_text_segmentation
 #from get_max_pixel import get_max_pixel_step3
 #from create_sentence_mips_and_labels import create_mips
 # Press the green button in the gutter to run the script.
+from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
 
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 
@@ -26,14 +27,14 @@ if __name__ == '__main__':
 
     #process_rt_strcuts_to_nifty()
     #rename_nifti_files()
-    plot_physican_contours()
+    #plot_physican_contours()
+    post_processing_eval()
     #copy_physican_labels_to_folder()
     #physician_post_processing_eval()
     #copy_physican_labels_to_folder()
     #process_rt_strcuts_to_nifty()
     print(fail)
     #compound_interactive_report_v2()
-    #post_processing_eval()
     #testing_ploting_external_cog_data()
     #precomputed_language_embeddings()
     #uw_ct_conversion_external_dataset_v2()

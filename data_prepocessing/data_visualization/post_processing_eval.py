@@ -480,6 +480,8 @@ def post_processing_eval():
     tracer_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/meta_data_files/combined_tracer_and_scanner.xlsx")
 
     labeled_subset = pd.read_excel("/UserData/Zach_Analysis/final_testset_evaluation_vg/all_labels_jdw.xlsx")
+    labeled_subset = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Steve_worksheet_matched.xlsx")
+
 
     prediction_list = os.listdir(prediction_location)
     all_images = os.listdir(image_base)
