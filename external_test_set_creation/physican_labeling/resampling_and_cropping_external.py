@@ -142,7 +142,7 @@ def resampling_and_cropping(df):
         #label_path = os.path.join(label_path_base, row["Label_Name"])
         label_path = os.path.join(label_path_base, row["File_Name"])
 
-        label_path = str(label_path) + ".nii.gz"
+        #label_path = str(label_path) + ".nii.gz"
 
         # gets the crop offset for all images matching this petlymph
         matched_row = crop_lookup[crop_lookup['id'] == petlymph]
