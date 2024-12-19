@@ -132,7 +132,7 @@ def resampling_and_cropping(df):
 
         if row["Zach_drop"] == "1":
             continue
-        petlymph = row["Petlymph"]
+        petlymph = row["id"]
 
         print(f"i: {i} Petlymph: {petlymph} labels cropped out: {label_cropped_out} missing ct: {number_of_missing_ct} resampling saved: {resampling_saved} already processed: { already_processed}")
         i += 1
