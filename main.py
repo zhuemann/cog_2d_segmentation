@@ -26,7 +26,7 @@ from external_test_set_creation.physican_labeling.physican_post_processing_eval 
 from external_test_set_creation.physican_labeling.resampling_and_cropping_external import resampling_and_cropping
 if __name__ == '__main__':
 
-    df = pd.read_excel("/UserData/Zach_Analysis/final_testset_evaluation_vg/all_labels_jdw.xlsx")
+    df = pd.read_excel("/UserData/Zach_Analysis/final_testset_evaluation_vg/Josh_worksheet_matched.xlsx")
     resampling_and_cropping(df)
     #process_rt_strcuts_to_nifty()
     #rename_nifti_files()
