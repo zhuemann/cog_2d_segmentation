@@ -24,6 +24,7 @@ from external_test_set_creation.physican_labeling.process_rt_structs_to_nifti im
 from external_test_set_creation.physican_labeling.move_physican_labels_to_folder import copy_physican_labels_to_folder
 from external_test_set_creation.physican_labeling.physican_post_processing_eval import physician_post_processing_eval
 from external_test_set_creation.physican_labeling.resampling_and_cropping_external import resampling_and_cropping
+from external_test_set_creation.physican_labeling.copy_images_labels_to_final_dataset import copy_images_and_labels_to_folder
 if __name__ == '__main__':
 
     df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
