@@ -27,8 +27,9 @@ from external_test_set_creation.physican_labeling.resampling_and_cropping_extern
 from external_test_set_creation.physican_labeling.copy_images_labels_to_final_dataset import copy_images_and_labels_to_folder
 if __name__ == '__main__':
 
-    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
-    resampling_and_cropping(df)
+    copy_images_and_labels_to_folder()
+    #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
+    #resampling_and_cropping(df)
     #process_rt_strcuts_to_nifty()
     #rename_nifti_files()
     #plot_physican_contours()
