@@ -30,7 +30,7 @@ if __name__ == '__main__':
     resampling_and_cropping(df)
     #process_rt_strcuts_to_nifty()
     #rename_nifti_files()
-    plot_physican_contours()
+    #plot_physican_contours()
     #post_processing_eval()
     #copy_physican_labels_to_folder()
     #physician_post_processing_eval()

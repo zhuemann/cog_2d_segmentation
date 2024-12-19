@@ -196,6 +196,7 @@ def resampling_and_cropping(df):
             continue
 
         try:
+            print(f"label path: {label_path}")
             ct_image = nib.load(ct_image_path)
             suv_image = nib.load(suv_path)
             label_image = nib.load(label_path)
