@@ -23,8 +23,11 @@ from external_test_set_creation.physican_labeling.rename_nifti_files import rena
 from external_test_set_creation.physican_labeling.process_rt_structs_to_nifti import process_rt_strcuts_to_nifty
 from external_test_set_creation.physican_labeling.move_physican_labels_to_folder import copy_physican_labels_to_folder
 from external_test_set_creation.physican_labeling.physican_post_processing_eval import physician_post_processing_eval
+from external_test_set_creation.physican_labeling.resampling_and_cropping_external import resampling_and_cropping
 if __name__ == '__main__':
 
+    df = pd.read_excel("/Userdata/Zach_Analysis/final_testset_evaluation_vg/all_labels_jdw.xlsx")
+    resampling_and_cropping(df)
     #process_rt_strcuts_to_nifty()
     #rename_nifti_files()
     plot_physican_contours()
