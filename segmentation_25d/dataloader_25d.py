@@ -341,7 +341,7 @@ class TextImageDataset(Dataset):
         #segmentation_mask = torch.from_numpy(segmentation_mask).permute(2, 0, 1).long()
         segmentation_mask = torch.from_numpy(segmentation_mask).long()
 
-        #print(f"dataloader target: {segmentation_mask.size()}")
+        print(f"dataloader target: {segmentation_mask.size()}")
 
         sum_channel_0 = torch.sum(segmentation_mask[:, 0], dim=(1, 2))
         sum_channel_1 = torch.sum(segmentation_mask[:, 1], dim=(1, 2))
