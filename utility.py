@@ -84,9 +84,9 @@ def get_max_pixel_value_25d(images, targets, outputs):
     #mask_outputs = outputs.unsqueeze(1)
     #mask_targets = targets.unsqueeze(1)
 
-    print(f"images size inside max function: {images.size()}")
-    print(f"targets size inside max function: {targets.size()}")
-    print(f"outputs size inside max function: {outputs.size()}")
+    #print(f"images size inside max function: {images.size()}")
+    #print(f"targets size inside max function: {targets.size()}")
+    #print(f"outputs size inside max function: {outputs.size()}")
 
 
     mask_outputs = outputs
@@ -95,23 +95,23 @@ def get_max_pixel_value_25d(images, targets, outputs):
     segmented_pixels = images * mask_outputs  # apply mask to original image to get segmented pixels
     target_pixels = images * mask_targets  # apply target to original image
 
-    print(f"segmented_pixels size: {segmented_pixels.size()}")
-    print(f"target_pixels size: {target_pixels.size()}")
+    #print(f"segmented_pixels size: {segmented_pixels.size()}")
+    #print(f"target_pixels size: {target_pixels.size()}")
 
     max_target, _ = torch.max(target_pixels, dim=2)
-    print(f"max target 1: {max_target.size()}")
+    #print(f"max target 1: {max_target.size()}")
     max_target, _ = torch.max(max_target, dim=2)
-    print(f"max target 2: {max_target.size()}")
+    #print(f"max target 2: {max_target.size()}")
     #max_target, _ = torch.max(max_target, dim=2)
-    print(f"max target 3: {max_target.size()}")
+    #print(f"max target 3: {max_target.size()}")
 
 
     max_output, _ = torch.max(segmented_pixels, dim=2)
     max_output, _ = torch.max(max_output, dim=2)
     #max_output, _ = torch.max(max_output, dim=2)
 
-    print(f"max_target size: {max_target.size()}")
-    print(f"max_output size: {max_output.size()}")
+    #print(f"max_target size: {max_target.size()}")
+    #print(f"max_output size: {max_output.size()}")
 
     return max_target, max_output
 
