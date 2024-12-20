@@ -81,23 +81,24 @@ def plot_final_internal_dataset():
         print(f"index: {index}")
         i += 1
 
-        petlymph = extract_image_id(row["id"])
+        petlymph = extract_image_id(row["Petlymph"])
 
         dims = get_slice_thickness(petlymph)
         print(f"dims: {dims}")
         image_path_base = os.path.join(image_path_root, petlymph)
 
-        file_names = os.listdir(image_path_base)
-        index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
-        image_path = os.path.join(image_path_base, file_names[index_of_suv[0]])
+        #image_path =  os.path.join(image_path_base, petlymph + "")
+        #file_names = os.listdir(image_path_base)
+        #index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
+        #image_path = os.path.join(image_path_base, file_names[index_of_suv[0]])
 
-        index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
-        ct_image_path = os.path.join(image_path_base, file_names[index_of_ct[0]])
-        #image_path = os.path.join(image_path_base, petlymph, + "_suv_cropped.nii.gz")
-        #ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
+        #index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
+        #ct_image_path = os.path.join(image_path_base, file_names[index_of_ct[0]])
+        image_path = os.path.join(image_path_base, petlymph, + "_suv_cropped.nii.gz")
+        ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
         print(f"image name: {petlymph}")
         # gets location of label nifti
-        label_name = row["File_Name"]
+        label_name = str(row["Label_Name"]) + ".nii.gz"
         label_path = os.path.join(label_path_base, str(label_name)) #+ ".nii.gz")
 
         ct_image = nib.load(ct_image_path)
@@ -113,8 +114,8 @@ def plot_final_internal_dataset():
 
         ct_volume = rotated_volume
 
-        #slice_num = row["slice_num"]
-        slice_num = 0
+        slice_num = row["slice_num"]
+        #slice_num = 0
         # k_num = row["k"]
         original_row = original_df.loc[original_df['Label_Name'] == label_name]
         #crop_row = crop_df.loc[crop_df['id'] == petlymph]
@@ -341,7 +342,7 @@ def plot_final_internal_dataset():
         """
 
         #print(row)
-        sentence = row["Text Description"] #.iloc[0]
+        sentence = row["sentence"] #.iloc[0]
         #print(sentence)
         #print(type(sentence))
         #sentence = row["Text Description"].iloc[0]
