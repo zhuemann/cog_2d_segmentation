@@ -12,19 +12,26 @@ def load_nii(filepath):
     return data
 
 
-def save_image(projection, out_path):
-    # Normalize and save the projection as PNG for display
-    # Convert to uint8 if necessary
-    proj_min, proj_max = projection.min(), projection.max()
-    if proj_max > proj_min:
-        proj_norm = (projection - proj_min) / (proj_max - proj_min)
+def save_image_pet(projection, out_path):
+    # Normalize to the range [0, 15]
+    proj_max_fixed = 15.0  # Set the fixed maximum value
+    proj_min = 0
+
+    if proj_max_fixed > proj_min:
+        proj_norm = (projection - proj_min) / (proj_max_fixed - proj_min)
     else:
         # Handle flat images (all same intensity)
         proj_norm = projection - proj_min
 
+    # Clip values to [0, 1] after normalization
+    proj_norm = np.clip(proj_norm, 0, 1)
+
+    # Scale to [0, 255] for uint8 representation
     proj_uint8 = (proj_norm * 255).astype(np.uint8)
     imageio.imwrite(out_path, proj_uint8)
-
+def save_image_label(projection, out_path):
+    proj_uint8 = projection.astype(np.uint8)  # Ensure labels are in uint8
+    imageio.imwrite(out_path, proj_uint8)
 def mip_creation():
 
     image_dir = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
@@ -67,8 +74,8 @@ def mip_creation():
         # Save the image projections
         sagittal_img_path = os.path.join(output_sagital_images, fname.replace(".nii.gz", "_sag.png"))
         coronal_img_path = os.path.join(output_coronal_images, fname.replace(".nii.gz", "_cor.png"))
-        save_image(sagittal_proj, sagittal_img_path)
-        save_image(coronal_proj, coronal_img_path)
+        save_image_pet(sagittal_proj, sagittal_img_path)
+        save_image_pet(coronal_proj, coronal_img_path)
 
         # Attempt to find the corresponding label file
         # This depends on your naming scheme for labels.
@@ -105,7 +112,7 @@ def mip_creation():
         # Save label projections
         sagittal_label_path = os.path.join(output_sagital_labels, label_fname.replace(".nii.gz", "_sag.png"))
         coronal_label_path = os.path.join(output_coronal_labels, label_fname.replace(".nii.gz", "_cor.png"))
-        save_image(sagittal_label_proj, sagittal_label_path)
-        save_image(coronal_label_proj, coronal_label_path)
+        save_image_label(sagittal_label_proj, sagittal_label_path)
+        save_image_label(coronal_label_proj, coronal_label_path)
 
     print("Finished processing labels.")

@@ -14,18 +14,9 @@ from train_segmentation import train_image_text_segmentation
 #from get_max_pixel import get_max_pixel_step3
 #from create_sentence_mips_and_labels import create_mips
 # Press the green button in the gutter to run the script.
-from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
 from mip_creation import mip_creation
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 
-from external_test_set_creation.physican_labeling.plot_physican_contours import plot_physican_contours
-from external_test_set_creation.physican_labeling.rename_nifti_files import rename_nifti_files
-from external_test_set_creation.physican_labeling.process_rt_structs_to_nifti import process_rt_strcuts_to_nifty
-from external_test_set_creation.physican_labeling.move_physican_labels_to_folder import copy_physican_labels_to_folder
-from external_test_set_creation.physican_labeling.physican_post_processing_eval import physician_post_processing_eval
-from external_test_set_creation.physican_labeling.resampling_and_cropping_external import resampling_and_cropping
-from external_test_set_creation.physican_labeling.copy_images_labels_to_final_dataset import copy_images_and_labels_to_folder
-from external_test_set_creation.physican_labeling.plot_final_internal_dataset import plot_final_internal_dataset
 if __name__ == '__main__':
     #plot_final_internal_dataset()
     mip_creation()
