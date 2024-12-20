@@ -24,7 +24,7 @@ class TextImageDataset(Dataset):
                  ngram_synonom = [], norm = None):  # data_path = os.path.join(dir_base,'Lymphoma_UW_Retrospective/Data/mips/')
         self.tokenizer = tokenizer
         self.data = dataframe
-        self.text = dataframe.sentence
+        self.text = dataframe.report
         self.targets = self.data.Label_Name
         self.row_ids = self.data.index
         self.slice_num = dataframe.Slice
