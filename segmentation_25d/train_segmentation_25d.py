@@ -756,7 +756,10 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 # valid_dice.append((dice_sagital, dice_coronal))
                 valid_dice.append(dice_sagital)
                 valid_dice.append(dice_coronal)
+                print(f"targets size: {targets.size()}")
+                print(f"output size: {outputs.size()}")
 
+                print(f"input to max value targets: {targets[i][0].size()}")
                 max_target_sagittal, max_output_sagittal = get_max_pixel_value(images[i][0], targets[i][0], outputs[i][0])
                 max_target_coronal, max_output_coronal = get_max_pixel_value(images[i][1], targets[i][1], outputs[i][1])
 
