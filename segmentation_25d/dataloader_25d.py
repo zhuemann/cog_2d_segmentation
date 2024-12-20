@@ -298,7 +298,7 @@ class TextImageDataset(Dataset):
 
         # Stack sagittal and coronal along channel dimension (H, W, 2)
         image = np.stack((img_sag_raw, img_cor_raw), axis=-1)
-        print(f"dataloader image right after loading: {image.shape}")
+        #print(f"dataloader image right after loading: {image.shape}")
 
         # Load label (sagittal label)
         label_path = os.path.join(self.label_path_sagittal, str(self.targets[index]) + "_sag.png")
@@ -312,8 +312,7 @@ class TextImageDataset(Dataset):
 
         # Stack sagittal and coronal labels along channel dimension (H, W, 2)
         segmentation_mask = np.stack((label_sag, label_cor), axis=-1)
-        print(f"dataloader label right after loading: {segmentation_mask.shape}")
-
+        #print(f"dataloader label right after loading: {segmentation_mask.shape}")
 
         if self.transforms is not None:
             # Apply the same transforms to the stacked image and mask
