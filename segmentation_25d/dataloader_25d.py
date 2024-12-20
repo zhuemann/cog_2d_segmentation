@@ -298,7 +298,6 @@ class TextImageDataset(Dataset):
 
         # Stack sagittal and coronal along channel dimension (H, W, 2)
         image = np.stack((img_sag_raw, img_cor_raw), axis=-1)
-        print(type(image))
         print(f"dataloader image right after loading: {image.shape}")
 
         # Load label (sagittal label)
@@ -330,6 +329,8 @@ class TextImageDataset(Dataset):
         segmentation_mask = Image.fromarray(segmentation_mask_org)
         segmentation_mask = self.resize(segmentation_mask)
         segmentation_mask = np.array(segmentation_mask, dtype=np.uint8)  # (H, W, 2)
+        print(f"dataloader image numpy loading: {image.shape}")
+        print(f"dataloader label numpy loading: {segmentation_mask.shape}")
 
         # Convert to torch tensors
         # image: (H, W, 2) -> (2, H, W)
