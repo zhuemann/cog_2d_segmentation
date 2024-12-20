@@ -107,7 +107,7 @@ class TextImageDataset(Dataset):
         # if exists(os.path.join(self.data_path, 'Group_4_5_curated', img_name)):
         #    data_dir = "Group_4_5_curated"
         data_dir = "dataset/"
-        img_path = os.path.join(self.data_path, img_name) + ".png"
+        img_path = os.path.join(self.data_path_sagittal, img_name) + ".png"
         # print(img_path)
         with Image.open(img_path) as img:
             img_raw = np.array(img)
