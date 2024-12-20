@@ -27,7 +27,8 @@ from external_test_set_creation.physican_labeling.resampling_and_cropping_extern
 from external_test_set_creation.physican_labeling.copy_images_labels_to_final_dataset import copy_images_and_labels_to_folder
 from external_test_set_creation.physican_labeling.plot_final_internal_dataset import plot_final_internal_dataset
 if __name__ == '__main__':
-    plot_final_internal_dataset()
+    #plot_final_internal_dataset()
+    post_processing_eval()
     #copy_images_and_labels_to_folder()
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
     #resampling_and_cropping(df)
