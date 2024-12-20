@@ -722,9 +722,9 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             targets = torch.squeeze(targets)
             images = data['images'].to(device, dtype=torch.float)
             row_ids = data['row_ids']
-            sum_channel_0 = torch.sum(targets[:, 0], dim=(1, 2))
-            sum_channel_1 = torch.sum(targets[:, 1], dim=(1, 2))
-            print(f"channel 0 sum: {sum_channel_0} channel 1 sum: {sum_channel_1}")
+            #sum_channel_0 = torch.sum(targets[:, 0], dim=(1, 2))
+            #sum_channel_1 = torch.sum(targets[:, 1], dim=(1, 2))
+            #print(f"channel 0 sum: {sum_channel_0} channel 1 sum: {sum_channel_1}")
             #print(data)
             #print(data.keys())
             sentences = data['sentence']
