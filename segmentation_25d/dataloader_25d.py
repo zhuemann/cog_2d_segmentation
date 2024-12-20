@@ -346,7 +346,7 @@ class TextImageDataset(Dataset):
             'mask': torch.tensor(mask, dtype=torch.long),
             'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long),
             'targets': segmentation_mask,
-            'row_ids': self.row_ids[index],
+            'row_ids': img_name,
             'images': image,
             'sentence': text,
             'Label_Name': label_name
