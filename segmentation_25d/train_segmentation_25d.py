@@ -792,6 +792,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 #print(f"max target indexed: {max_target[i][0]}")
 
                 if (max_output[i][0] == max_target[i][0] and max_output[i][0] == max_target[i][1]): # andmax_output[i][0] != 0 and max_output[i][0] != 0):
+                    print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
                     correct_max_predictions += 1
             """
             for i in range(0, outputs.shape[0]):
