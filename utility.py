@@ -102,13 +102,13 @@ def get_max_pixel_value_25d(images, targets, outputs):
     print(f"max target 1: {max_target.size()}")
     max_target, _ = torch.max(max_target, dim=2)
     print(f"max target 2: {max_target.size()}")
-    max_target, _ = torch.max(max_target, dim=2)
+    #max_target, _ = torch.max(max_target, dim=2)
     print(f"max target 3: {max_target.size()}")
 
 
     max_output, _ = torch.max(segmented_pixels, dim=2)
     max_output, _ = torch.max(max_output, dim=2)
-    max_output, _ = torch.max(max_output, dim=2)
+    #max_output, _ = torch.max(max_output, dim=2)
 
     print(f"max_target size: {max_target.size()}")
     print(f"max_output size: {max_output.size()}")
