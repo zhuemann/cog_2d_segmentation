@@ -331,9 +331,11 @@ class TextImageDataset(Dataset):
         # Convert to torch tensors
         # image: (H, W, 2) -> (2, H, W)
         image = torch.from_numpy(image).permute(2, 0, 1).float()
+        print(f"dataloader image: {image.shape()}")
 
         # segmentation_mask: (H, W, 2) -> (2, H, W)
         segmentation_mask = torch.from_numpy(segmentation_mask).permute(2, 0, 1).long()
+        print(f"dataloader target: {segmentation_mask.shape()}")
 
         return {
             'ids': torch.tensor(ids, dtype=torch.long),
