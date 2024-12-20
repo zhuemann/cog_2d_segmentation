@@ -85,7 +85,7 @@ def plot_final_internal_dataset():
 
         dims = get_slice_thickness(petlymph)
         print(f"dims: {dims}")
-        image_path_base = os.path.join(image_path_root, petlymph)
+        image_path_base = os.path.join(image_path_root)
 
         #image_path =  os.path.join(image_path_base, petlymph + "")
         #file_names = os.listdir(image_path_base)
