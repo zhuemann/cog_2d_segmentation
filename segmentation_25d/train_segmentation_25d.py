@@ -744,13 +744,13 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
             #max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
 
-            print(f"targets size: {targets.size()}")
-            print(f"output size: {outputs.size()}")
+            #print(f"targets size: {targets.size()}")
+            #print(f"output size: {outputs.size()}")
 
-            print(f"input to max value images: {images.size()}")
-            print(f"input to max value targets: {targets.size()}")
-            print(f"input to max value outputs: {outputs.size()}")
-            print(f"type target: {type(targets)}")
+            #print(f"input to max value images: {images.size()}")
+            #print(f"input to max value targets: {targets.size()}")
+            #print(f"input to max value outputs: {outputs.size()}")
+            #print(f"type target: {type(targets)}")
 
             max_target, max_output = get_max_pixel_value_25d(images, targets, outputs)
             #max_target_coronal, max_output_coronal = get_max_pixel_value_25d(images, targets, outputs)
@@ -786,13 +786,12 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 #max_output_coronal = torch.argmax(output_coronal)
                 #max_target_sagital = torch.argmax(target_sagital)
                 #max_target_coronal = torch.argmax(target_coronal)
-                print(f"max target size: {max_target.size()}")
-                print(f"max output size: {max_output.size()}")
+                #print(f"max target size: {max_target.size()}")
+                #print(f"max output size: {max_output.size()}")
 
                 #print(f"max target indexed: {max_target[i][0]}")
 
-                if (max_output[i][0] == max_target[i][0] and max_output[i][0] == max_target[i][1] and
-                        max_output[i][0] != 0 and max_output[i][0] != 0):
+                if (max_output[i][0] == max_target[i][0] and max_output[i][0] == max_target[i][1]): # andmax_output[i][0] != 0 and max_output[i][0] != 0):
                     correct_max_predictions += 1
             """
             for i in range(0, outputs.shape[0]):
