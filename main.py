@@ -15,7 +15,7 @@ from train_segmentation import train_image_text_segmentation
 #from create_sentence_mips_and_labels import create_mips
 # Press the green button in the gutter to run the script.
 from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
-
+from mip_creation import mip_creation
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 
 from external_test_set_creation.physican_labeling.plot_physican_contours import plot_physican_contours
@@ -28,7 +28,8 @@ from external_test_set_creation.physican_labeling.copy_images_labels_to_final_da
 from external_test_set_creation.physican_labeling.plot_final_internal_dataset import plot_final_internal_dataset
 if __name__ == '__main__':
     #plot_final_internal_dataset()
-    post_processing_eval()
+    mip_creation()
+    #post_processing_eval()
     #copy_images_and_labels_to_folder()
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
     #resampling_and_cropping(df)
