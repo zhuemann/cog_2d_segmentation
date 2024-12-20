@@ -319,14 +319,14 @@ class TextImageDataset(Dataset):
             # Apply the same transforms to the stacked image and mask
             transformed = self.transforms(image=image, mask=segmentation_mask)
             image = transformed['image']
-            segmentation_mask_org = transformed['mask']
+            segmentation_mask = transformed['mask']
 
         # Resize image and mask
         image = Image.fromarray(image)  # Now image is PIL, preserving 2 channels if supported
         image = self.resize(image)
         image = np.array(image)  # Back to numpy (2, H, W)
 
-        segmentation_mask = Image.fromarray(segmentation_mask_org)
+        segmentation_mask = Image.fromarray(segmentation_mask)
         segmentation_mask = self.resize(segmentation_mask)
         segmentation_mask = np.array(segmentation_mask, dtype=np.uint8)  # (2, H, W)
         #print(f"dataloader image numpy loading: {image.shape}")
