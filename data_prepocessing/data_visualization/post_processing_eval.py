@@ -511,6 +511,7 @@ def post_processing_eval():
     FP_sum_max = 0
     FN_sum_max = 0
 
+    skipped_labels = set(["PETWB_017530_01_label_2", "PETWB_017530_01_label_3", "PETWB_011869_01_label_1", "PETWB_011768_01_label_4"])
     skipped = 0
     for label in prediction_list:
         index += 1
@@ -529,7 +530,8 @@ def post_processing_eval():
         #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
         #label_name = label.strip("_label_.nii")
-
+        if label_name in skipped_labels:
+            continue
         petlymph_name = image_name.strip(".nii.gz")
         # print(petlymph_name)
         # print(f"label name: {label_name}")
