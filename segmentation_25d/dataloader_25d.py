@@ -315,6 +315,7 @@ class TextImageDataset(Dataset):
         #print(f"dataloader label right after loading: {segmentation_mask.shape}")
         #print(f"sagital label sum: {np.sum(label_sag)}")
         #print(f"coronal label sum: {np.sum(label_cor)}")
+        print(f"Segmentation mask sum before transforms: {np.sum(segmentation_mask)}")
 
         #if self.transforms is not None:
         if self.mode == "train":
@@ -328,11 +329,13 @@ class TextImageDataset(Dataset):
         image = self.resize(image)
         image = np.array(image)  # Back to numpy (2, H, W)
 
+        print(f"Segmentation mask sum after transforms: {torch.sum(segmentation_mask)}")
         segmentation_mask = Image.fromarray(segmentation_mask)
         segmentation_mask = self.resize(segmentation_mask)
         segmentation_mask = np.array(segmentation_mask, dtype=np.uint8)  # (2, H, W)
         #print(f"dataloader image numpy loading: {image.shape}")
         #print(f"dataloader label numpy loading: {segmentation_mask.shape}")
+        print(f"Segmentation mask sum after resizing: {np.sum(segmentation_mask)}")
 
         # Convert to torch tensors
         #image = torch.from_numpy(image).permute(2, 0, 1).float()
