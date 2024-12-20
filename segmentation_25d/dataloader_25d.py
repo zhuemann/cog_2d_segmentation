@@ -101,6 +101,8 @@ class TextImageDataset(Dataset):
 
         label_name = self.data.label_name[index]
         print(f"label name: {label_name}")
+        img_name =  "_".join(label_name.split("_")[:3])
+        print(f"image name: {img_name}")
 
         # images data extraction
         img_name = self.row_ids[index]
