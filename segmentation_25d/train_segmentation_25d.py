@@ -564,12 +564,12 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             #outputs = test_obj(images, ids, mask)  # for lavt
             outputs = test_obj(images, ids, mask, token_type_ids)
             #outputs = test_obj(images)
-            print(f"output size: {outputs.size()}")
+            #print(f"output size: {outputs.size()}")
             #print(outputs.size())
             outputs = output_resize(torch.squeeze(outputs, dim=1))
-            print(f"output size: {outputs.size()}")
+            #print(f"output size: {outputs.size()}")
             #outputs = torch.squeeze(outputs)
-            print(f"target size: {targets.size()}")
+            #print(f"target size: {targets.size()}")
             #targets = output_resize(targets)
             optimizer.zero_grad()
 
