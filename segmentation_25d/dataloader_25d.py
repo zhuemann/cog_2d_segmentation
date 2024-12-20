@@ -104,16 +104,7 @@ class TextImageDataset(Dataset):
         img_name =  "_".join(label_name.split("_")[:3])
         print(f"image name: {img_name}")
 
-        # images data extraction
-        img_name = self.row_ids[index]
-        img_name = str(img_name)  # + "_mip.png"
-        # if exists(os.path.join(self.data_path, 'Group_1_2_3_curated', img_name)):
-        #    data_dir = "Group_1_2_3_curated"
-        # if exists(os.path.join(self.data_path, 'Group_4_5_curated', img_name)):
-        #    data_dir = "Group_4_5_curated"
-        data_dir = "dataset/"
         img_path = os.path.join(self.data_path_sagittal, img_name) + "_suv_cropped_sag.png"
-        # print(img_path)
         with Image.open(img_path) as img:
             img_raw = np.array(img)
         #DCM_Img = pdcm.read_file(img_path)
