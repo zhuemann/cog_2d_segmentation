@@ -744,6 +744,19 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
             max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
 
+            print(f"targets size: {targets.size()}")
+            print(f"output size: {outputs.size()}")
+
+            print(f"input to max value images: {images.size()}")
+            print(f"input to max value targets: {targets.size()}")
+            print(f"input to max value outputs: {outputs.size()}")
+            print(f"type target: {type(targets)}")
+
+            max_target_sagittal, max_output_sagittal = get_max_pixel_value(images, targets, outputs)
+            max_target_coronal, max_output_coronal = get_max_pixel_value(images, targets, outputs)
+
+            print(f"max target sagital size: {max_target_sagittal.size()}")
+
             for i in range(0, outputs.shape[0]):
                 # Separate sagittal and coronal outputs and targets
                 output_sagital, output_coronal = outputs[i][0], outputs[i][1]
@@ -756,6 +769,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 # valid_dice.append((dice_sagital, dice_coronal))
                 valid_dice.append(dice_sagital)
                 valid_dice.append(dice_coronal)
+                """
                 print(f"targets size: {targets.size()}")
                 print(f"output size: {outputs.size()}")
 
@@ -766,7 +780,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
                 max_target_sagittal, max_output_sagittal = get_max_pixel_value(images[i][0], targets[i][0], outputs[i][0])
                 max_target_coronal, max_output_coronal = get_max_pixel_value(images[i][1], targets[i][1], outputs[i][1])
-
+                """
                 # Check if predictions match targets for both views
                 #max_output_sagital = torch.argmax(output_sagital)
                 #max_output_coronal = torch.argmax(output_coronal)
