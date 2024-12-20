@@ -6,7 +6,7 @@ import os
 
 import pandas as pd
 
-from train_segmentation import train_image_text_segmentation
+#from train_segmentation import train_image_text_segmentation
 #from crop_images import crop_images_to_mips
 #from sub_region_sub_text_creation import make_clavicular_mips, make_connected_component_labels
 #from running_mixstral import run_mixstal
@@ -15,11 +15,13 @@ from train_segmentation import train_image_text_segmentation
 #from create_sentence_mips_and_labels import create_mips
 # Press the green button in the gutter to run the script.
 from segmentation_25d.mip_creation import mip_creation
+from segmentation_25d.train_segmentation_25d import train_image_text_segmentation
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 
 if __name__ == '__main__':
     #plot_final_internal_dataset()
-    mip_creation()
+    train_image_text_segmentation()
+    #mip_creation()
     #post_processing_eval()
     #copy_images_and_labels_to_folder()
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
@@ -32,7 +34,7 @@ if __name__ == '__main__':
     #physician_post_processing_eval()
     #copy_physican_labels_to_folder()
     #process_rt_strcuts_to_nifty()
-    print(fail)
+    #print(fail)
     #compound_interactive_report_v2()
     #testing_ploting_external_cog_data()
     #precomputed_language_embeddings()
@@ -48,7 +50,7 @@ if __name__ == '__main__':
     #get_orientation_from_dicom()
     #plot_physican_contours()
     #process_rt_strcuts_to_nifty()
-    print(fail)
+    #print(fail)
     #make_interactive_figure()
     #print(fail)
     #get_dicoms_for_reading()
@@ -116,8 +118,10 @@ if __name__ == '__main__':
               "IMG_SIZE": (192, 384), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/", #"IMG_SIZE": (128, 256)
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": ""}
 
+    train_image_text_segmentation()
+
     print("here")
-    train_3d_image_text_segmentation(config)
+    #train_3d_image_text_segmentation(config)
     print(fail)
     #seeds = [98]
     seeds = [98, 117, 295, 456, 915]
