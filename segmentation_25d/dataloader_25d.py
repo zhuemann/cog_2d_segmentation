@@ -16,7 +16,7 @@ import re
 from utility import rle_decode_modified, rle_decode
 
 
-class TextImageDataset(Dataset):
+class TextImageDataset_v1(Dataset):
     def __init__(self, dataframe, tokenizer, max_len, truncation=True,
                  dir_base='/home/zmh001/r-fcb-isilon/research/Bradshaw/', mode=None, transforms=None, resize=None,
                  img_size=256,
@@ -223,6 +223,128 @@ class TextImageDataset(Dataset):
             'Label_Name': label_name
         }
 
+    class TextImageDataset_v1(Dataset):
+        def __init__(self, dataframe, tokenizer, max_len, truncation=True,
+                     dir_base='/home/zmh001/r-fcb-isilon/research/Bradshaw/', mode=None, transforms=None, resize=None,
+                     img_size=256,
+                     wordDict=None,
+                     ngram_synonom=[],
+                     norm=None):  # data_path = os.path.join(dir_base,'Lymphoma_UW_Retrospective/Data/mips/')
+            self.tokenizer = tokenizer
+            self.data = dataframe
+            self.text = dataframe.report
+            self.targets = self.data.label_name
+            self.row_ids = self.data.index
+            self.slice_num = dataframe.slice_num
+            self.suv = dataframe.suv_num
+            self.max_len = max_len
+            self.img_size = img_size
+            self.wordDict = wordDict
+
+            self.df_data = dataframe.values
+            self.transforms = transforms
+            self.mode = mode
+            self.data_path_coronal = os.path.join(dir_base,
+                                                  "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_images/")
+            self.data_path_sagittal = os.path.join(dir_base,
+                                                   "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_sagittal_images/")
+            self.label_path_coronal = os.path.join(dir_base,
+                                                   "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_labels/")
+            self.label_path_sagittal = os.path.join(dir_base,
+                                                    "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_sagittal_labels/")
+
+
+            self.dir_base = dir_base
+            self.resize = resize
+            self.norm = norm
+
+        def __len__(self):
+            return len(self.text)
+
+        def __getitem__(self, index):
+            text = str(self.text[index])
+            slice_num = self.slice_num[index]
+            suv = self.suv[index]
+            text = text.replace(str(suv), "").replace(str(slice_num), "")
+            text = " ".join(text.split())
+            text = text.replace("[ALPHANUMERICID]", "").replace("[date]", "").replace("[DATE]", "").replace("[AGE]", "")
+            text = text.replace("[ADDRESS]", "").replace("[PERSONALNAME]", "").replace("\n", "")
+
+            inputs = self.tokenizer.encode_plus(
+                text,
+                None,
+                add_special_tokens=True,
+                max_length=self.max_len,
+                padding='max_length',
+                truncation='longest_first',
+                return_token_type_ids=True
+            )
+            ids = inputs['input_ids']
+            mask = inputs['attention_mask']
+            token_type_ids = inputs["token_type_ids"]
+
+            label_name = self.data.label_name[index]
+            img_name = "_".join(label_name.split("_")[:3])
+
+            # Load sagittal image
+            img_path_sag = os.path.join(self.data_path_sagittal, img_name) + "_suv_cropped_sag.png"
+            with Image.open(img_path_sag) as img_sag:
+                img_sag_raw = np.array(img_sag)
+
+            # Load coronal image
+            img_path_cor = os.path.join(self.data_path_coronal, img_name) + "_suv_cropped_cor.png"
+            with Image.open(img_path_cor) as img_cor:
+                img_cor_raw = np.array(img_cor)
+
+            # Stack sagittal and coronal along channel dimension (H, W, 2)
+            image = np.stack((img_sag_raw, img_cor_raw), axis=-1)
+
+            # Load label (sagittal label)
+            label_path = os.path.join(self.label_path_sagittal, str(self.targets[index]) + "_sag.png")
+            with Image.open(label_path) as label_load:
+                label_sag = np.array(label_load, dtype=np.uint8)
+
+            # Load coronal label
+            label_path_cor = os.path.join(self.label_path_coronal, str(self.targets[index]) + "_cor.png")
+            with Image.open(label_path_cor) as label_cor_load:
+                label_cor = np.array(label_cor_load, dtype=np.uint8)
+
+            # Stack sagittal and coronal labels along channel dimension (H, W, 2)
+            segmentation_mask = np.stack((label_sag, label_cor), axis=-1)
+
+
+            if self.transforms is not None:
+                # Apply the same transforms to the stacked image and mask
+                transformed = self.transforms(image=image, mask=segmentation_mask)
+                image = transformed['image']
+                segmentation_mask_org = transformed['mask']
+
+            # Resize image and mask
+            image = Image.fromarray(image)  # Now image is PIL, preserving 2 channels if supported
+            image = self.resize(image)
+            image = np.array(image)  # Back to numpy (H, W, 2)
+
+            segmentation_mask = Image.fromarray(segmentation_mask_org)
+            segmentation_mask = self.resize(segmentation_mask)
+            segmentation_mask = np.array(segmentation_mask, dtype=np.uint8)  # (H, W, 2)
+
+            # Convert to torch tensors
+            # image: (H, W, 2) -> (2, H, W)
+            image = torch.from_numpy(image).permute(2, 0, 1).float()
+
+            # segmentation_mask: (H, W, 2) -> (2, H, W)
+            segmentation_mask = torch.from_numpy(segmentation_mask).permute(2, 0, 1).long()
+
+            return {
+                'ids': torch.tensor(ids, dtype=torch.long),
+                'mask': torch.tensor(mask, dtype=torch.long),
+                'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long),
+                'targets': segmentation_mask,
+                'row_ids': self.row_ids[index],
+                'images': image,
+                'sentence': text,
+                'Label_Name': label_name
+            }
 
     def shuffledTextAugmentation(text):
 

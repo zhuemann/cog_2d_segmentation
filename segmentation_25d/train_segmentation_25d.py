@@ -472,7 +472,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     #test_obj.load_from(weights=weight)
     #print("Using pretrained self-supervied Swin UNETR backbone weights !")
     # was this one before coming back 3/20
-    test_obj = Attention_ConTEXTual_Lang_Seg_Model(lang_model=language_model, n_channels=3, n_classes=1, bilinear=False)
+    test_obj = Attention_ConTEXTual_Lang_Seg_Model(lang_model=language_model, n_channels=2, n_classes=2, bilinear=False)
 
     #test_obj = Attention_ConTEXTual_Vis_Seg_Model(n_channels=3, n_classes=1, bilinear=False)
     #test_obj = smp.Unet(encoder_name="resnet50", encoder_weights=None, in_channels=3, classes=1)
