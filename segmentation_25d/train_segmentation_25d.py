@@ -752,6 +752,10 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             #print(f"input to max value outputs: {outputs.size()}")
             #print(f"type target: {type(targets)}")
 
+            sum_channel_0 = torch.sum(targets[:, 0], dim=(1, 2))
+            sum_channel_1 = torch.sum(targets[:, 1], dim=(1, 2))
+            print(f"channel 0 sum: {sum_channel_0} channel 1 sum: {sum_channel_1}")
+
             max_target, max_output = get_max_pixel_value_25d(images, targets, outputs)
             #max_target_coronal, max_output_coronal = get_max_pixel_value_25d(images, targets, outputs)
 
