@@ -511,7 +511,7 @@ def post_processing_eval():
     FP_sum_max = 0
     FN_sum_max = 0
 
-    skipped_labels = set(["PETWB_002624_01_label_1", "PETWB_017530_01_label_3", "PETWB_011869_01_label_1", "PETWB_011768_01_label_4"])
+    skipped_labels = {"PETWB_002624_01_label_1", "PETWB_017530_01_label_3", "PETWB_011869_01_label_1", "PETWB_011768_01_label_4"}
     skipped = 0
     for label in prediction_list:
         index += 1
