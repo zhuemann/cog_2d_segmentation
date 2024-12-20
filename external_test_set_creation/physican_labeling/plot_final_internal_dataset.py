@@ -94,7 +94,7 @@ def plot_final_internal_dataset():
 
         #index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
         #ct_image_path = os.path.join(image_path_base, file_names[index_of_ct[0]])
-        image_path = os.path.join(image_path_base, petlymph, + "_suv_cropped.nii.gz")
+        image_path = os.path.join(image_path_base, petlymph + "_suv_cropped.nii.gz")
         ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
         print(f"image name: {petlymph}")
         # gets location of label nifti
