@@ -638,7 +638,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 outputs = torch.round(sigmoid)
                 prediction_sum += torch.sum(outputs)
 
-                max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
+                #max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
 
                 """
                 # calculates the dice coefficent for each image and adds it to the list
@@ -742,7 +742,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             prediction_sum += torch.sum(outputs)
             row_ids.extend(data['row_ids'])
 
-            max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
+            #max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
 
             print(f"targets size: {targets.size()}")
             print(f"output size: {outputs.size()}")
