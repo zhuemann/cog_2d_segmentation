@@ -530,6 +530,7 @@ def post_processing_eval():
         #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
         #label_name = label.strip("_label_.nii")
+        print(f"label name: {label_name}")
         if label_name in skipped_labels:
             continue
         petlymph_name = image_name.strip(".nii.gz")
