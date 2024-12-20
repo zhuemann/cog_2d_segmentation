@@ -84,6 +84,11 @@ def get_max_pixel_value_25d(images, targets, outputs):
     #mask_outputs = outputs.unsqueeze(1)
     #mask_targets = targets.unsqueeze(1)
 
+    print(f"images size inside max function: {images.size()}")
+    print(f"targets size inside max function: {targets.size()}")
+    print(f"outputs size inside max function: {outputs.size()}")
+
+
     mask_outputs = outputs
     mask_targets = targets
 
