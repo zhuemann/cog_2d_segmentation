@@ -343,8 +343,8 @@ class TextImageDataset(Dataset):
 
         print(f"dataloader target: {segmentation_mask.size()}")
 
-        sum_channel_0 = torch.sum(segmentation_mask[:, 0], dim=(1, 2))
-        sum_channel_1 = torch.sum(segmentation_mask[:, 1], dim=(1, 2))
+        sum_channel_0 = torch.sum(segmentation_mask[0], dim=(1, 2))
+        sum_channel_1 = torch.sum(segmentation_mask[1], dim=(1, 2))
         print(f"inside data loader channel 0 sum: {sum_channel_0} channel 1 sum: {sum_channel_1}")
 
 
