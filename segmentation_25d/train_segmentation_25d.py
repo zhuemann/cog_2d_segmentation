@@ -246,7 +246,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     valid_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/validation.xlsx")
     test_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/testing.xlsx")
 
-    #train_df = train_df.head(64)
+    train_df = train_df.head(64)
 
     #train_df.set_index("Petlymph", inplace=True)
     #valid_df.set_index("Petlymph", inplace=True)
@@ -688,23 +688,14 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 #print(f"save location: {config['save_location']}")
                 # save_path = os.path.join(dir_base, 'Zach_Analysis/models/vit/best_multimodal_modal_forked_candid')
                 save_path = os.path.join(config["save_location"], "best_segmentation_model_seed_test_25d" + str(seed))
-                #save_path = os.path.join(dir_base, 'Zach_Analysis/models/candid_finetuned_segmentation/forked_1/segmentation_forked_candid')
-                #save_path = os.path.join(dir_base, 'Zach_Analysis/models/candid_finetuned_segmentation/forked_2/segmentation_forked_candid2')
-                #save_path = os.path.join(dir_base,'Zach_Analysis/models/candid_finetuned_segmentation/forked_3/segmentation_forked_candid')
 
-                #save_path = os.path.join(dir_base,
-                #                         'Zach_Analysis/models/candid_finetuned_segmentation/weak_supervision_models/imagenet_labeling_functions/segmentation_candid' + str(
-                #                             seed))
-                # torch.save(model_obj.state_dict(), '/home/zmh001/r-fcb-isilon/research/Bradshaw/Zach_Analysis/models/vit/best_multimodal_modal')
-                torch.save(test_obj.state_dict(), save_path)
+                #torch.save(test_obj.state_dict(), save_path)
 
     #test_obj.eval()
     row_ids = []
     # saved_path = os.path.join(dir_base, 'Zach_Analysis/models/vit/best_multimodal_modal_forked_candid')
     saved_path = os.path.join(config["save_location"], "best_segmentation_model_seed_test_25d" + str(seed))
-    #saved_path = os.path.join(dir_base,'Zach_Analysis/models/candid_finetuned_segmentation/forked_1/segmentation_forked_candid')
-    #saved_path = os.path.join(dir_base,'Zach_Analysis/models/candid_finetuned_segmentation/forked_2/segmentation_forked_candid2')
-    #saved_path = os.path.join(dir_base,'Zach_Analysis/models/candid_finetuned_segmentation/forked_3/segmentation_forked_candid')
+
 
     #saved_path = os.path.join(dir_base,
     #                          'Zach_Analysis/models/candid_finetuned_segmentation/weak_supervision_models/imagenet_labeling_functions/segmentation_candid' + str(
@@ -766,14 +757,17 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 valid_dice.append(dice_sagital)
                 valid_dice.append(dice_coronal)
 
-                # Check if predictions match targets for both views
-                max_output_sagital = torch.argmax(output_sagital)
-                max_output_coronal = torch.argmax(output_coronal)
-                max_target_sagital = torch.argmax(target_sagital)
-                max_target_coronal = torch.argmax(target_coronal)
+                max_target_sagittal, max_output_sagittal = get_max_pixel_value(images[i][0], targets[i][0], outputs[i][0])
+                max_target_coronal, max_output_coronal = get_max_pixel_value(images[i][1], targets[i][1], outputs[i][1])
 
-                if (max_output_sagital == max_target_sagital and max_output_coronal == max_target_coronal and
-                        max_output_sagital != 0 and max_output_coronal != 0):
+                # Check if predictions match targets for both views
+                #max_output_sagital = torch.argmax(output_sagital)
+                #max_output_coronal = torch.argmax(output_coronal)
+                #max_target_sagital = torch.argmax(target_sagital)
+                #max_target_coronal = torch.argmax(target_coronal)
+
+                if (max_output_sagital == max_target_sagittal and max_output_coronal == max_target_coronal and
+                        max_output_sagittal != 0 and max_output_coronal != 0):
                     correct_max_predictions += 1
             """
             for i in range(0, outputs.shape[0]):
