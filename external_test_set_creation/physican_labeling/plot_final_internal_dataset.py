@@ -60,7 +60,7 @@ def plot_final_internal_dataset():
     #image_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
     #label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels5/"
 
-    image_path_root = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/imagse/"
+    image_path_root = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/images/"
     #label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
     #label_path_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/meg_nifti_v2/"
     #label_path_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/steve_nifti/"
