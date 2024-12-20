@@ -58,7 +58,7 @@ class TextImageDataset(Dataset):
         #print(f"indexing variable: {index}")
         # text extraction
         #global img, image
-
+        print(f"index: {index}")
         text = str(self.text[index])
         #print(f"text before: {text}")
         slice_num = self.slice_num[index]
@@ -99,6 +99,9 @@ class TextImageDataset(Dataset):
         mask = inputs['attention_mask']
         token_type_ids = inputs["token_type_ids"]
 
+        label_name = self.data.label_name[index]
+        print(f"label name: {label_name}")
+
         # images data extraction
         img_name = self.row_ids[index]
         img_name = str(img_name)  # + "_mip.png"
@@ -107,7 +110,7 @@ class TextImageDataset(Dataset):
         # if exists(os.path.join(self.data_path, 'Group_4_5_curated', img_name)):
         #    data_dir = "Group_4_5_curated"
         data_dir = "dataset/"
-        img_path = os.path.join(self.data_path_sagittal, img_name) + ".png"
+        img_path = os.path.join(self.data_path_sagittal, img_name) + "_suv_cropped_sag.png"
         # print(img_path)
         with Image.open(img_path) as img:
             img_raw = np.array(img)
