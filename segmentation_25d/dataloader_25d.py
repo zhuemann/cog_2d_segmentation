@@ -58,7 +58,7 @@ class TextImageDataset(Dataset):
         #print(f"indexing variable: {index}")
         # text extraction
         #global img, image
-        print(f"index: {index}")
+        #print(f"index: {index}")
         text = str(self.text[index])
         #print(f"text before: {text}")
         slice_num = self.slice_num[index]
@@ -100,9 +100,9 @@ class TextImageDataset(Dataset):
         token_type_ids = inputs["token_type_ids"]
 
         label_name = self.data.label_name[index]
-        print(f"label name: {label_name}")
+        #print(f"label name: {label_name}")
         img_name =  "_".join(label_name.split("_")[:3])
-        print(f"image name: {img_name}")
+        #print(f"image name: {img_name}")
 
         img_path = os.path.join(self.data_path_sagittal, img_name) + "_suv_cropped_sag.png"
         with Image.open(img_path) as img:
