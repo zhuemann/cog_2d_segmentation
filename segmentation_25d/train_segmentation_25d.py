@@ -15,7 +15,7 @@ from collections import OrderedDict
 import numpy as np
 import gc
 import albumentations as albu
-from utility import get_max_pixel_value
+from utility import get_max_pixel_value_25d
 import monai
 from timm.models.swin_transformer import SwinTransformer
 #from models.swin_model import SwinModel
@@ -752,8 +752,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             print(f"input to max value outputs: {outputs.size()}")
             print(f"type target: {type(targets)}")
 
-            max_target_sagittal, max_output_sagittal = get_max_pixel_value(images, targets, outputs)
-            max_target_coronal, max_output_coronal = get_max_pixel_value(images, targets, outputs)
+            max_target_sagittal, max_output_sagittal = get_max_pixel_value_25d(images, targets, outputs)
+            max_target_coronal, max_output_coronal = get_max_pixel_value_25d(images, targets, outputs)
 
             print(f"max target sagital size: {max_target_sagittal.size()}")
 
@@ -787,7 +787,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 #max_target_sagital = torch.argmax(target_sagital)
                 #max_target_coronal = torch.argmax(target_coronal)
 
-                if (max_output_sagital == max_target_sagittal and max_output_coronal == max_target_coronal and
+                if (max_output_sagital[i][0] == max_target_sagittal[i][0] and max_output_coronal[i][1] == max_target_coronal[i][1] and
                         max_output_sagittal != 0 and max_output_coronal != 0):
                     correct_max_predictions += 1
             """
