@@ -118,7 +118,7 @@ if __name__ == '__main__':
               "IMG_SIZE": (192, 384), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/", #"IMG_SIZE": (128, 256)
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": ""}
 
-    train_image_text_segmentation()
+    train_image_text_segmentation(config)
 
     print("here")
     #train_3d_image_text_segmentation(config)
