@@ -786,8 +786,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 #max_output_coronal = torch.argmax(output_coronal)
                 #max_target_sagital = torch.argmax(target_sagital)
                 #max_target_coronal = torch.argmax(target_coronal)
-                print(f"max sagittal indexed: {max_output_sagital.item()}")
-                print(f"max target indexed: {max_target_sagittal.item()}")
+                print(f"max sagittal indexed: {max_output_sagital}")
+                print(f"max target indexed: {max_target_sagittal}")
                 if (max_output_sagital[i][0] == max_target_sagittal[i][0] and max_output_coronal[i][1] == max_target_coronal[i][1] and
                         max_output_sagittal != 0 and max_output_coronal != 0):
                     correct_max_predictions += 1
