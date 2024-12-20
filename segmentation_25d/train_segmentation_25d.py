@@ -754,6 +754,29 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
 
             for i in range(0, outputs.shape[0]):
+                # Separate sagittal and coronal outputs and targets
+                output_sagital, output_coronal = outputs[i][0], outputs[i][1]
+                target_sagital, target_coronal = targets[i][0], targets[i][1]
+
+                # Compute Dice coefficients for sagittal and coronal views
+                dice_sagital = dice_coeff(output_sagital, target_sagital).item()
+                dice_coronal = dice_coeff(output_coronal, target_coronal).item()
+
+                # valid_dice.append((dice_sagital, dice_coronal))
+                valid_dice.append(dice_sagital)
+                valid_dice.append(dice_coronal)
+
+                # Check if predictions match targets for both views
+                max_output_sagital = torch.argmax(output_sagital)
+                max_output_coronal = torch.argmax(output_coronal)
+                max_target_sagital = torch.argmax(target_sagital)
+                max_target_coronal = torch.argmax(target_coronal)
+
+                if (max_output_sagital == max_target_sagital and max_output_coronal == max_target_coronal and
+                        max_output_sagital != 0 and max_output_coronal != 0):
+                    correct_max_predictions += 1
+            """
+            for i in range(0, outputs.shape[0]):
                 output_item = outputs[i].cpu().data.numpy()
                 target_item = targets[i].cpu().data.numpy()
                 pred_rle = mask2rle(output_item)
@@ -774,6 +797,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 label_path_list.append(label_names[i])
                 if max_outputs[i] == max_targets[i] and max_outputs[i] != 0:
                     correct_max_predictions += 1
+            """
 
         avg_test_dice = np.average(test_dice)
         print(f"Epoch {str(epoch)}, Average Test Dice Score = {avg_test_dice}")
