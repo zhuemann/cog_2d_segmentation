@@ -25,10 +25,10 @@ class TextImageDataset(Dataset):
         self.tokenizer = tokenizer
         self.data = dataframe
         self.text = dataframe.report
-        self.targets = self.data.Label_Name
+        self.targets = self.data.label_name
         self.row_ids = self.data.index
-        self.slice_num = dataframe.Slice
-        self.suv = dataframe.SUV
+        self.slice_num = dataframe.slice_num
+        self.suv = dataframe.suv_num
         self.max_len = max_len
         self.img_size = img_size
         self.wordDict = wordDict
