@@ -787,7 +787,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 #max_target_sagital = torch.argmax(target_sagital)
                 #max_target_coronal = torch.argmax(target_coronal)
                 print(f"max target size: {max_target.size()}")
-                print(f"max output size: {max_output}")
+                print(f"max output size: {max_output.size()}")
 
                 print(f"max target indexed: {max_target[i][0]}")
 
