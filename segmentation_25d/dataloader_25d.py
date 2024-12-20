@@ -329,21 +329,17 @@ class TextImageDataset(Dataset):
         segmentation_mask = Image.fromarray(segmentation_mask_org)
         segmentation_mask = self.resize(segmentation_mask)
         segmentation_mask = np.array(segmentation_mask, dtype=np.uint8)  # (2, H, W)
-        print(f"dataloader image numpy loading: {image.shape}")
-        print(f"dataloader label numpy loading: {segmentation_mask.shape}")
+        #print(f"dataloader image numpy loading: {image.shape}")
+        #print(f"dataloader label numpy loading: {segmentation_mask.shape}")
 
         # Convert to torch tensors
-        # image: (H, W, 2) -> (2, H, W)
         #image = torch.from_numpy(image).permute(2, 0, 1).float()
         image = torch.from_numpy(image).float()
-
-        print(f"dataloader image: {image.size()}")
-
-        # segmentation_mask: (H, W, 2) -> (2, H, W)
+        #print(f"dataloader image: {image.size()}")
         #segmentation_mask = torch.from_numpy(segmentation_mask).permute(2, 0, 1).long()
         segmentation_mask = torch.from_numpy(segmentation_mask).long()
 
-        print(f"dataloader target: {segmentation_mask.size()}")
+        #print(f"dataloader target: {segmentation_mask.size()}")
 
         return {
             'ids': torch.tensor(ids, dtype=torch.long),
