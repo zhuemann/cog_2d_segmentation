@@ -223,7 +223,7 @@ class TextImageDataset_v1(Dataset):
             'Label_Name': label_name
         }
 
-    class TextImageDataset_v1(Dataset):
+    class TextImageDataset(Dataset):
         def __init__(self, dataframe, tokenizer, max_len, truncation=True,
                      dir_base='/home/zmh001/r-fcb-isilon/research/Bradshaw/', mode=None, transforms=None, resize=None,
                      img_size=256,
