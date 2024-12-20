@@ -88,6 +88,7 @@ def get_max_pixel_value_25d(images, targets, outputs):
     #print(f"targets size inside max function: {targets.size()}")
     #print(f"outputs size inside max function: {outputs.size()}")
 
+    print(f"target sum: {torch.sum(targets[0, 0], dim=(0, 1))}")
 
     mask_outputs = outputs
     mask_targets = targets
