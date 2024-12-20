@@ -90,7 +90,7 @@ def get_max_pixel_value_25d(images, targets, outputs):
 
     sum_channel_0 = torch.sum(targets[:, 0], dim=(1, 2))
     sum_channel_1 = torch.sum(targets[:, 1], dim=(1, 2))
-    print(f"channel 0 sum: {sum_channel_0} channel 1 sum: {sum_channel_1}")
+    #print(f"channel 0 sum: {sum_channel_0} channel 1 sum: {sum_channel_1}")
 
     mask_outputs = outputs
     mask_targets = targets
