@@ -14,7 +14,7 @@ from train_segmentation import train_image_text_segmentation
 #from get_max_pixel import get_max_pixel_step3
 #from create_sentence_mips_and_labels import create_mips
 # Press the green button in the gutter to run the script.
-from mip_creation import mip_creation
+from segmentation_25d.mip_creation import mip_creation
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 
 if __name__ == '__main__':
