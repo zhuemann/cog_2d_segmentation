@@ -314,7 +314,8 @@ class TextImageDataset(Dataset):
         segmentation_mask = np.stack((label_sag, label_cor), axis=-1)
         #print(f"dataloader label right after loading: {segmentation_mask.shape}")
 
-        if self.transforms is not None:
+        #if self.transforms is not None:
+        if self.mode == "train":
             # Apply the same transforms to the stacked image and mask
             transformed = self.transforms(image=image, mask=segmentation_mask)
             image = transformed['image']
