@@ -753,7 +753,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             print(f"type target: {type(targets)}")
 
             max_target_sagittal, max_output_sagittal = get_max_pixel_value_25d(images, targets, outputs)
-            max_target_coronal, max_output_coronal = get_max_pixel_value_25d(images, targets, outputs)
+            #max_target_coronal, max_output_coronal = get_max_pixel_value_25d(images, targets, outputs)
 
             print(f"max target sagital size: {max_target_sagittal.size()}")
 
