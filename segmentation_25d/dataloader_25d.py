@@ -298,6 +298,7 @@ class TextImageDataset(Dataset):
 
         # Stack sagittal and coronal along channel dimension (H, W, 2)
         image = np.stack((img_sag_raw, img_cor_raw), axis=-1)
+        print(type(image))
         print(f"dataloader image right after loading: {image.shape()}")
 
         # Load label (sagittal label)
