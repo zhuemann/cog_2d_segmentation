@@ -246,7 +246,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     valid_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/validation.xlsx")
     test_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/testing.xlsx")
 
-    #train_df = train_df.head(64)
+    train_df = train_df.head(64)
+    valid_df = valid_df.head(64)
 
     #train_df.set_index("Petlymph", inplace=True)
     #valid_df.set_index("Petlymph", inplace=True)
@@ -689,11 +690,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             if avg_valid_dice > best_acc:
                 best_acc = avg_valid_dice
 
-                #print(f"save location: {config['save_location']}")
-                # save_path = os.path.join(dir_base, 'Zach_Analysis/models/vit/best_multimodal_modal_forked_candid')
-                save_path = os.path.join(config["save_location"], "best_segmentation_model_seed_test_25d" + str(seed))
-
-                torch.save(test_obj.state_dict(), save_path)
+                #save_path = os.path.join(config["save_location"], "best_segmentation_model_seed_test_25d" + str(seed))
+                #torch.save(test_obj.state_dict(), save_path)
 
     #test_obj.eval()
     row_ids = []
@@ -781,6 +779,27 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 if (max_output[i][0] == max_target[i][0] and max_output[i][0] == max_target[i][1]): # andmax_output[i][0] != 0 and max_output[i][0] != 0):
                     print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
                     correct_max_predictions += 1
+
+
+                output_item_sagittal = outputs[i][0].cpu().data.numpy()
+                target_item_sagittal = targets[i][0].cpu().data.numpy()
+                pred_rle = mask2rle(output_item_sagittal)
+                target_rle = mask2rle(target_item_sagittal)
+                ids_example = row_ids[i]
+
+                dice = dice_coeff(outputs[i][0], targets[i][0])
+                dice = dice.item()
+
+                #if torch.max(outputs[i]) == 0 and torch.max(targets[i]) == 0:
+                #    dice = 1
+                test_dice.append(dice)
+                pred_rle_list.append(pred_rle)
+                target_rle_list.append(target_rle)
+                ids_list.append(ids_example)
+                dice_list.append(dice)
+                text_list.append(sentences[i])
+
+
             """
             for i in range(0, outputs.shape[0]):
                 output_item = outputs[i].cpu().data.numpy()
