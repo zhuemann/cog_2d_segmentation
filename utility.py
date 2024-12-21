@@ -189,4 +189,74 @@ def get_max_pixel_value_3d(images, targets, outputs):
 
     return max_target, max_output
 
+import os
+import torch
+import numpy as np
+import matplotlib.pyplot as plt
+def plot_and_save_25d_predictions(
+    image: torch.Tensor,
+    target: torch.Tensor,
+    output: torch.Tensor,
+    sentence: str,
+    label_name: str,
+    save_folder: str = "/UserData/Zach_Analysis/test_folder/25d_predictions/"
+):
+    """
+    Plots sagittal and coronal images with corresponding targets and predictions,
+    then saves off a single .png file with the sentence as the figure title.
+
+    Args:
+        image (torch.Tensor): 25D input image of shape (2, H, W) [sagittal, coronal].
+        target (torch.Tensor): Ground truth segmentation mask of shape (2, H, W).
+        output (torch.Tensor): Model prediction of shape (2, H, W).
+        sentence (str): The sentence (metadata) for the title.
+        label_name (str): The name of the label, used for the saved .png filename.
+        save_folder (str): Folder where images will be saved.
+    """
+    # Make sure save folder exists
+    os.makedirs(save_folder, exist_ok=True)
+
+    # Convert torch tensors to numpy
+    sag_img = image[0].detach().cpu().numpy()
+    cor_img = image[1].detach().cpu().numpy()
+    sag_target = target[0].detach().cpu().numpy()
+    cor_target = target[1].detach().cpu().numpy()
+    sag_pred = output[0].detach().cpu().numpy()
+    cor_pred = output[1].detach().cpu().numpy()
+
+    # Create a figure with 2x2 subplots
+    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 8))
+
+    # Sagittal + Target
+    axes[0, 0].imshow(sag_img, cmap='gray')
+    axes[0, 0].imshow(sag_target, alpha=0.5, cmap='Reds')
+    axes[0, 0].set_title("Sagittal + Target")
+    axes[0, 0].axis("off")
+
+    # Sagittal + Prediction
+    axes[0, 1].imshow(sag_img, cmap='gray')
+    axes[0, 1].imshow(sag_pred, alpha=0.5, cmap='Blues')
+    axes[0, 1].set_title("Sagittal + Prediction")
+    axes[0, 1].axis("off")
+
+    # Coronal + Target
+    axes[1, 0].imshow(cor_img, cmap='gray')
+    axes[1, 0].imshow(cor_target, alpha=0.5, cmap='Reds')
+    axes[1, 0].set_title("Coronal + Target")
+    axes[1, 0].axis("off")
+
+    # Coronal + Prediction
+    axes[1, 1].imshow(cor_img, cmap='gray')
+    axes[1, 1].imshow(cor_pred, alpha=0.5, cmap='Blues')
+    axes[1, 1].set_title("Coronal + Prediction")
+    axes[1, 1].axis("off")
+
+    # Add the sentence as the overall figure title
+    plt.suptitle(sentence, fontsize=16)
+
+    # Save the figure
+    save_path = os.path.join(save_folder, f"{label_name}.png")
+    plt.savefig(save_path, bbox_inches="tight")
+    plt.close(fig)
+
 

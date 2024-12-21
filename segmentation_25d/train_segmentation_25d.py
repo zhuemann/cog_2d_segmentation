@@ -11,6 +11,7 @@ import pandas as pd
 from tqdm import tqdm
 from collections import OrderedDict
 
+from utility import plot_and_save_25d_predictions
 
 import numpy as np
 import gc
@@ -800,6 +801,19 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 dice_list.append(dice)
                 text_list.append(sentences[i])
                 label_path_list.append(label_names[i])
+
+
+                # --- OPTIONAL PLOTTING CALL ---
+                # If you want to plot and save the prediction for each sample, call:
+                plot_and_save_25d_predictions(
+                     image=images[i],
+                     target=targets[i],
+                     output=outputs[i],
+                     sentence=sentences[i],
+                     label_name=label_names[i],
+                     save_folder="/UserData/Zach_Analysis/test_folder/25d_predictions/"
+                )
+                # --------------------------------
 
             """
             for i in range(0, outputs.shape[0]):
