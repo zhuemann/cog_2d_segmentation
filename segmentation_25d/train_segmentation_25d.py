@@ -247,7 +247,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     valid_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/validation.xlsx")
     test_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/testing.xlsx")
 
-    #train_df = train_df.head(64)
+    train_df = train_df.head(64)
     #valid_df = valid_df.head(64)
 
     #train_df.set_index("Petlymph", inplace=True)
@@ -644,14 +644,14 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 prediction_sum += torch.sum(outputs)
 
                 max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
-
+                print(max_targets.size())
 
                 # calculates the dice coefficent for each image and adds it to the list
                 for i in range(0, outputs.shape[0]):
                     dice = dice_coeff(outputs[i], targets[i])
                     dice = dice.item()
-                    if torch.max(outputs[i]) == 0 and torch.max(targets[i]) == 0:
-                        dice = 1
+                    #if torch.max(outputs[i]) == 0 and torch.max(targets[i]) == 0:
+                    #    dice = 1
                     valid_dice.append(dice)
                     if max_outputs[i] == max_targets[i] and max_outputs[i] != 0:
                         correct_max_predictions += 1
