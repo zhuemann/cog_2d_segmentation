@@ -693,7 +693,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 # save_path = os.path.join(dir_base, 'Zach_Analysis/models/vit/best_multimodal_modal_forked_candid')
                 save_path = os.path.join(config["save_location"], "best_segmentation_model_seed_test_25d" + str(seed))
 
-                #torch.save(test_obj.state_dict(), save_path)
+                torch.save(test_obj.state_dict(), save_path)
 
     #test_obj.eval()
     row_ids = []
