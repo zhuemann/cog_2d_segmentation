@@ -399,8 +399,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     )
     from torchvision.transforms import InterpolationMode
 
-    #transforms_resize = transforms.Compose([transforms.Resize((IMG_SIZE, IMG_SIZE)), transforms.PILToTensor()])
-    transforms_resize = transforms.Compose([transforms.Resize(IMG_SIZE, interpolation=InterpolationMode.NEAREST), transforms.PILToTensor()])
+    transforms_resize = transforms.Compose([transforms.Resize((IMG_SIZE, IMG_SIZE)), transforms.PILToTensor()])
+    #transforms_resize = transforms.Compose([transforms.Resize(IMG_SIZE, interpolation=InterpolationMode.NEAREST), transforms.PILToTensor()])
     #transforms_resize = transforms.Compose([transforms.Resize(IMG_SIZE), transforms.PILToTensor()])
 
     output_resize = transforms.Compose([transforms.Resize(IMG_SIZE)]) #407 x 907
