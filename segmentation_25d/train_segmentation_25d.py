@@ -799,7 +799,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 ids_list.append(ids_example)
                 dice_list.append(dice)
                 text_list.append(sentences[i])
-
+                label_path_list.append(label_names[i])
 
             """
             for i in range(0, outputs.shape[0]):
