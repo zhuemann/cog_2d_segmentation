@@ -12,7 +12,7 @@ from tqdm import tqdm
 from collections import OrderedDict
 
 from utility import plot_and_save_25d_predictions
-
+from utility import get_max_pixel_value
 import numpy as np
 import gc
 import albumentations as albu
@@ -247,8 +247,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     valid_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/validation.xlsx")
     test_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/testing.xlsx")
 
-    train_df = train_df.head(64)
-    valid_df = valid_df.head(64)
+    #train_df = train_df.head(64)
+    #valid_df = valid_df.head(64)
 
     #train_df.set_index("Petlymph", inplace=True)
     #valid_df.set_index("Petlymph", inplace=True)
@@ -479,7 +479,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     #test_obj.load_from(weights=weight)
     #print("Using pretrained self-supervied Swin UNETR backbone weights !")
     # was this one before coming back 3/20
-    test_obj = Attention_ConTEXTual_Lang_Seg_Model(lang_model=language_model, n_channels=2, n_classes=2, bilinear=False)
+    test_obj = Attention_ConTEXTual_Lang_Seg_Model(lang_model=language_model, n_channels=1, n_classes=1, bilinear=False)
 
     #test_obj = Attention_ConTEXTual_Vis_Seg_Model(n_channels=3, n_classes=1, bilinear=False)
     #test_obj = smp.Unet(encoder_name="resnet50", encoder_weights=None, in_channels=3, classes=1)
@@ -643,9 +643,9 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 outputs = torch.round(sigmoid)
                 prediction_sum += torch.sum(outputs)
 
-                #max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
+                max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
 
-                """
+
                 # calculates the dice coefficent for each image and adds it to the list
                 for i in range(0, outputs.shape[0]):
                     dice = dice_coeff(outputs[i], targets[i])
@@ -655,9 +655,9 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                     valid_dice.append(dice)
                     if max_outputs[i] == max_targets[i] and max_outputs[i] != 0:
                         correct_max_predictions += 1
+
                 """
                 max_target, max_output = get_max_pixel_value_25d(images, targets, outputs)
-
                 for i in range(0, outputs.shape[0]):
                     # Separate sagittal and coronal outputs and targets
                     output_sagital, output_coronal = outputs[i][0], outputs[i][1]
@@ -679,7 +679,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                         #print(
                         #    f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
                         correct_max_predictions += 1
-
+                """
             #scheduler.step()
             avg_valid_dice = np.average(valid_dice)
             print(f"Epoch {str(epoch)}, Average Valid Dice Score = {avg_valid_dice}")
@@ -691,14 +691,14 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             if avg_valid_dice > best_acc:
                 best_acc = avg_valid_dice
 
-                #save_path = os.path.join(config["save_location"], "best_segmentation_model_seed_test_25d" + str(seed))
-                #torch.save(test_obj.state_dict(), save_path)
+                save_path = os.path.join(config["save_location"], "best_segmentation_model_seed_test_25d" + str(seed))
+                torch.save(test_obj.state_dict(), save_path)
 
     #test_obj.eval()
     row_ids = []
     # saved_path = os.path.join(dir_base, 'Zach_Analysis/models/vit/best_multimodal_modal_forked_candid')
     saved_path = os.path.join(config["save_location"], "best_segmentation_model_seed_test_25d" + str(seed))
-    saved_path = os.path.join(config["save_location"], "best_segmentation_model_seed_test_25d" + str(1))
+    #saved_path = os.path.join(config["save_location"], "best_segmentation_model_seed_test_25d" + str(1))
 
 
     #saved_path = os.path.join(dir_base,
@@ -759,7 +759,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             #print(f"input to max value outputs: {outputs.size()}")
             #print(f"type target: {type(targets)}")
 
-
+            """
             max_target, max_output = get_max_pixel_value_25d(images, targets, outputs)
 
             for i in range(0, outputs.shape[0]):
@@ -777,7 +777,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
 
                 #print(f"max target indexed: {max_target[i][0]}")
-                print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][1]}, the target was: {max_target[i][1]}")
+                #print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][1]}, the target was: {max_target[i][1]}")
                 #if (max_output[i][0] == max_target[i][0] and max_output[i][0] == max_target[i][1]): # andmax_output[i][0] != 0 and max_output[i][0] != 0):
                 #    print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
                 #    correct_max_predictions += 1
@@ -805,7 +805,6 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 text_list.append(sentences[i])
                 label_path_list.append(label_names[i])
 
-                """
                 # --- OPTIONAL PLOTTING CALL ---
                 # If you want to plot and save the prediction for each sample, call:
                 plot_and_save_25d_predictions(
@@ -819,7 +818,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 # --------------------------------
                 """
 
-            """
+
             for i in range(0, outputs.shape[0]):
                 output_item = outputs[i].cpu().data.numpy()
                 target_item = targets[i].cpu().data.numpy()
@@ -841,7 +840,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 label_path_list.append(label_names[i])
                 if max_outputs[i] == max_targets[i] and max_outputs[i] != 0:
                     correct_max_predictions += 1
-            """
+
 
         avg_test_dice = np.average(test_dice)
         print(f"Epoch {str(epoch)}, Average Test Dice Score = {avg_test_dice}")

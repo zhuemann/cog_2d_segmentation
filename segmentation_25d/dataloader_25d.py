@@ -299,7 +299,8 @@ class TextImageDataset(Dataset):
             img_cor_raw = np.array(img_cor)
 
         # Stack sagittal and coronal along channel dimension (H, W, 2)
-        image = np.stack((img_sag_raw, img_cor_raw), axis=-1)
+        #image = np.stack((img_sag_raw, img_cor_raw), axis=-1)
+        image = img_sag_raw
         #print(f"dataloader image right after loading: {image.shape}")
 
         # Load label (sagittal label)
@@ -313,7 +314,8 @@ class TextImageDataset(Dataset):
             label_cor = np.array(label_cor_load, dtype=np.uint8)
 
         # Stack sagittal and coronal labels along channel dimension (H, W, 2)
-        segmentation_mask = np.stack((label_sag, label_cor), axis=-1)
+        #segmentation_mask = np.stack((label_sag, label_cor), axis=-1)
+        segmentation_mask = label_sag
         #print(f"dataloader label right after loading: {segmentation_mask.shape}")
         #print(f"sagital label sum: {np.sum(label_sag)}")
         #print(f"coronal label sum: {np.sum(label_cor)}")
@@ -350,8 +352,8 @@ class TextImageDataset(Dataset):
 
         #print(f"dataloader target: {segmentation_mask.size()}")
 
-        sum_channel_0 = torch.sum(segmentation_mask[0])  # Sum all elements in the first channel
-        sum_channel_1 = torch.sum(segmentation_mask[1])  # Sum all elements in the second channel
+        #sum_channel_0 = torch.sum(segmentation_mask[0])  # Sum all elements in the first channel
+        #sum_channel_1 = torch.sum(segmentation_mask[1])  # Sum all elements in the second channel
         #print(f"inside data loader channel 0 sum: {sum_channel_0} channel 1 sum: {sum_channel_1}")
 
 
