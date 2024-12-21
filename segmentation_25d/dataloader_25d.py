@@ -329,15 +329,18 @@ class TextImageDataset(Dataset):
         image = Image.fromarray(image)  # Now image is PIL, preserving 2 channels if supported
         image = self.resize(image)
         image = np.array(image)  # Back to numpy (2, H, W)
-
-        print(f"Segmentation mask sum after transforms: {np.sum(segmentation_mask)}")
+        print(f"segmentation mask size after transforms: {segmentation_mask.shape}")
+        print(f"Segmentation mask 0 sum after transforms: {np.sum(segmentation_mask[:,:,0])}")
+        print(f"Segmentation mask 1 sum after transforms: {np.sum(segmentation_mask[:,:,1])}")
         segmentation_mask = Image.fromarray(segmentation_mask)
         #print(f"Segmentation mask sum after transforms: {np.sum(segmentation_mask)}")
         segmentation_mask = self.resize(segmentation_mask)
         segmentation_mask = np.array(segmentation_mask, dtype=np.uint8)  # (2, H, W)
         #print(f"dataloader image numpy loading: {image.shape}")
         #print(f"dataloader label numpy loading: {segmentation_mask.shape}")
-        print(f"Segmentation mask sum after resizing: {np.sum(segmentation_mask)}")
+        print(f"segmentation mask size after resizing: {segmentation_mask.shape}")
+        print(f"Segmentation mask 0 sum after resizing: {np.sum(segmentation_mask[:,:,0])}")
+        print(f"Segmentation mask 1 sum after resizing: {np.sum(segmentation_mask[:,:,1])}")
 
         # Convert to torch tensors
         #image = torch.from_numpy(image).permute(2, 0, 1).float()
