@@ -64,9 +64,6 @@ def dice_coeff(pred, target):
     return (2. * intersection + smooth) / (m1.sum() + m2.sum() + smooth)
 
 def get_max_pixel_value(images, targets, outputs):
-
-    print(f"out size: {outputs.size()}")
-    print(f"target size: {targets.size()}")
     mask_outputs = outputs.unsqueeze(1)
     mask_targets = targets.unsqueeze(1)
 
