@@ -772,8 +772,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 dice_coronal = dice_coeff(output_coronal, target_coronal).item()
 
                 # valid_dice.append((dice_sagital, dice_coronal))
-                valid_dice.append(dice_sagital)
-                #valid_dice.append(dice_coronal)
+                #valid_dice.append(dice_sagital)
+                valid_dice.append(dice_coronal)
 
 
                 #print(f"max target indexed: {max_target[i][0]}")
@@ -781,8 +781,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 #if (max_output[i][0] == max_target[i][0] and max_output[i][0] == max_target[i][1]): # andmax_output[i][0] != 0 and max_output[i][0] != 0):
                 #    print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
                 #    correct_max_predictions += 1
-                if (max_output[i][0] == max_target[i][0]): # andmax_output[i][0] != 0 and max_output[i][0] != 0):
-                    print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
+                if (max_output[i][1] == max_target[i][1]): # andmax_output[i][0] != 0 and max_output[i][0] != 0):
+                    #print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
                     correct_max_predictions += 1
 
 
