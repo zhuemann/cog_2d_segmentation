@@ -403,7 +403,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     transforms_resize_mask = transforms.Compose([transforms.Resize(IMG_SIZE, interpolation=InterpolationMode.NEAREST), transforms.PILToTensor()])
     #transforms_resize = transforms.Compose([transforms.Resize(IMG_SIZE), transforms.PILToTensor()])
 
-    output_resize = transforms.Compose([transforms.Resize(IMG_SIZE)]) #407 x 907
+    #output_resize = transforms.Compose([transforms.Resize(IMG_SIZE)]) #407 x 907
 
 
     #print("train_df")
@@ -573,7 +573,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             #outputs = test_obj(images)
             #print(f"output size: {outputs.size()}")
             #print(outputs.size())
-            outputs = output_resize(torch.squeeze(outputs, dim=1))
+            #outputs = output_resize(torch.squeeze(outputs, dim=1))
             #print(f"output size: {outputs.size()}")
             #outputs = torch.squeeze(outputs)
             #print(f"target size: {targets.size()}")
@@ -601,8 +601,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 dice = dice_coeff(outputs[i], targets[i])
                 dice = dice.item()
                 # gives a dice score of 1 if correctly predicts negative
-                if torch.max(outputs[i]) == 0 and torch.max(targets[i]) == 0:
-                    dice = 1
+                #if torch.max(outputs[i]) == 0 and torch.max(targets[i]) == 0:
+                #    dice = 1
 
                 training_dice.append(dice)
 
@@ -632,9 +632,9 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 outputs = test_obj(images, ids, mask, token_type_ids)
                 #outputs = test_obj(images)
 
-                outputs = output_resize(torch.squeeze(outputs, dim=1))
+                #outputs = output_resize(torch.squeeze(outputs, dim=1))
                 #outputs = torch.squeeze(outputs)
-                targets = output_resize(targets)
+                #targets = output_resize(targets)
 
                 # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
                 sigmoid = torch.sigmoid(outputs)
@@ -737,9 +737,9 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             outputs = test_obj(images, ids, mask, token_type_ids) #for contextual net
             #outputs = test_obj(images)
 
-            outputs = output_resize(torch.squeeze(outputs, dim=1))
+            #outputs = output_resize(torch.squeeze(outputs, dim=1))
             #outputs = outputs.squeeze(outputs)
-            targets = output_resize(targets)
+            #targets = output_resize(targets)
 
 
 
