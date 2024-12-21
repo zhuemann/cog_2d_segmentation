@@ -315,10 +315,10 @@ class TextImageDataset(Dataset):
         # Stack sagittal and coronal labels along channel dimension (H, W, 2)
         segmentation_mask = np.stack((label_sag, label_cor), axis=-1)
         #print(f"dataloader label right after loading: {segmentation_mask.shape}")
-        print(f"sagital label sum: {np.sum(label_sag)}")
-        print(f"coronal label sum: {np.sum(label_cor)}")
-        print(f"Segmentation mask 0 sum before transforms: {np.sum(segmentation_mask[:,:,0])}")
-        print(f"Segmentation mask 1 sum before transforms: {np.sum(segmentation_mask[:,:,1])}")
+        #print(f"sagital label sum: {np.sum(label_sag)}")
+        #print(f"coronal label sum: {np.sum(label_cor)}")
+        #print(f"Segmentation mask 0 sum before transforms: {np.sum(segmentation_mask[:,:,0])}")
+        #print(f"Segmentation mask 1 sum before transforms: {np.sum(segmentation_mask[:,:,1])}")
 
         #if self.transforms is not None:
         if self.mode == "train":
@@ -331,15 +331,15 @@ class TextImageDataset(Dataset):
         image = Image.fromarray(image)  # Now image is PIL, preserving 2 channels if supported
         image = self.resize(image)
         image = np.array(image)  # Back to numpy (2, H, W)
-        print(f"segmentation mask size after transforms: {segmentation_mask.shape}")
-        print(f"Segmentation mask 0 sum after transforms: {np.sum(segmentation_mask[:,:,0])}")
-        print(f"Segmentation mask 1 sum after transforms: {np.sum(segmentation_mask[:,:,1])}")
+        #print(f"segmentation mask size after transforms: {segmentation_mask.shape}")
+        #print(f"Segmentation mask 0 sum after transforms: {np.sum(segmentation_mask[:,:,0])}")
+        #print(f"Segmentation mask 1 sum after transforms: {np.sum(segmentation_mask[:,:,1])}")
         segmentation_mask = Image.fromarray(segmentation_mask)
         segmentation_mask = self.resize_mask(segmentation_mask)
         segmentation_mask = np.array(segmentation_mask, dtype=np.uint8)  # (2, H, W)
-        print(f"segmentation mask size after resizing: {segmentation_mask.shape}")
-        print(f"Segmentation mask 0 sum after resizing: {np.sum(segmentation_mask[0,:,:])}")
-        print(f"Segmentation mask 1 sum after resizing: {np.sum(segmentation_mask[1,:,:])}")
+        #print(f"segmentation mask size after resizing: {segmentation_mask.shape}")
+        #print(f"Segmentation mask 0 sum after resizing: {np.sum(segmentation_mask[0,:,:])}")
+        #print(f"Segmentation mask 1 sum after resizing: {np.sum(segmentation_mask[1,:,:])}")
 
         # Convert to torch tensors
         #image = torch.from_numpy(image).permute(2, 0, 1).float()
@@ -348,11 +348,11 @@ class TextImageDataset(Dataset):
         #segmentation_mask = torch.from_numpy(segmentation_mask).permute(2, 0, 1).long()
         segmentation_mask = torch.from_numpy(segmentation_mask).long()
 
-        print(f"dataloader target: {segmentation_mask.size()}")
+        #print(f"dataloader target: {segmentation_mask.size()}")
 
         sum_channel_0 = torch.sum(segmentation_mask[0])  # Sum all elements in the first channel
         sum_channel_1 = torch.sum(segmentation_mask[1])  # Sum all elements in the second channel
-        print(f"inside data loader channel 0 sum: {sum_channel_0} channel 1 sum: {sum_channel_1}")
+        #print(f"inside data loader channel 0 sum: {sum_channel_0} channel 1 sum: {sum_channel_1}")
 
 
         return {
