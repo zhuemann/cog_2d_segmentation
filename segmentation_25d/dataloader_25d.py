@@ -333,12 +333,27 @@ class TextImageDataset(Dataset):
         print(f"segmentation mask size after transforms: {segmentation_mask.shape}")
         print(f"Segmentation mask 0 sum after transforms: {np.sum(segmentation_mask[:,:,0])}")
         print(f"Segmentation mask 1 sum after transforms: {np.sum(segmentation_mask[:,:,1])}")
-        segmentation_mask = Image.fromarray(segmentation_mask)
-        #print(f"Segmentation mask sum after transforms: {np.sum(segmentation_mask)}")
-        segmentation_mask = self.resize(segmentation_mask, interpolation=InterpolationMode.NEAREST)
-        segmentation_mask = np.array(segmentation_mask, dtype=np.uint8)  # (2, H, W)
-        #print(f"dataloader image numpy loading: {image.shape}")
-        #print(f"dataloader label numpy loading: {segmentation_mask.shape}")
+        #segmentation_mask = Image.fromarray(segmentation_mask)
+        #segmentation_mask = self.resize(segmentation_mask, interpolation=InterpolationMode.NEAREST)
+        #segmentation_mask = np.array(segmentation_mask, dtype=np.uint8)  # (2, H, W)
+        # Split segmentation_mask into channels
+        segmentation_mask_0 = Image.fromarray(segmentation_mask[0])
+        segmentation_mask_1 = Image.fromarray(segmentation_mask[1])
+
+        # Resize each channel separately
+        segmentation_mask_0 = self.resize(segmentation_mask_0, interpolation=InterpolationMode.NEAREST)
+        segmentation_mask_1 = self.resize(segmentation_mask_1, interpolation=InterpolationMode.NEAREST)
+
+        # Convert back to NumPy arrays
+        segmentation_mask_0 = np.array(segmentation_mask_0, dtype=np.uint8)
+        segmentation_mask_1 = np.array(segmentation_mask_1, dtype=np.uint8)
+
+        # Stack the resized channels back together
+        segmentation_mask = np.stack([segmentation_mask_0, segmentation_mask_1], axis=0)
+
+
+
+
         print(f"segmentation mask size after resizing: {segmentation_mask.shape}")
         print(f"Segmentation mask 0 sum after resizing: {np.sum(segmentation_mask[0,:,:])}")
         print(f"Segmentation mask 1 sum after resizing: {np.sum(segmentation_mask[1,:,:])}")
