@@ -400,7 +400,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     from torchvision.transforms import InterpolationMode
 
     transforms_resize = transforms.Compose([transforms.Resize((IMG_SIZE, IMG_SIZE)), transforms.PILToTensor()])
-    #transforms_resize = transforms.Compose([transforms.Resize(IMG_SIZE, interpolation=InterpolationMode.NEAREST), transforms.PILToTensor()])
+    transforms_resize_mask = transforms.Compose([transforms.Resize(IMG_SIZE, interpolation=InterpolationMode.NEAREST), transforms.PILToTensor()])
     #transforms_resize = transforms.Compose([transforms.Resize(IMG_SIZE), transforms.PILToTensor()])
 
     output_resize = transforms.Compose([transforms.Resize(IMG_SIZE)]) #407 x 907
@@ -410,9 +410,9 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     #print(train_df)
     #print("valid df")
     #print(valid_df)
-    training_set = TextImageDataset(train_df, tokenizer, 512, mode="train", transforms = albu_augs, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = None)
-    valid_set =    TextImageDataset(valid_df, tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
-    test_set =     TextImageDataset(test_df,  tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
+    training_set = TextImageDataset(train_df, tokenizer, 512, mode="train", transforms = albu_augs, resize=transforms_resize, resize_mask=transforms_resize_mask, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = None)
+    valid_set =    TextImageDataset(valid_df, tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, resize_mask=transforms_resize_mask, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
+    test_set =     TextImageDataset(test_df,  tokenizer, 512,               transforms = transforms_valid, resize=transforms_resize, resize_mask=transforms_resize_mask, dir_base = dir_base, img_size=IMG_SIZE, wordDict = None, norm = normalize)
 
     train_params = {'batch_size': BATCH_SIZE,
                 'shuffle': True,
