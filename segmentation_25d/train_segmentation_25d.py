@@ -777,8 +777,11 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
 
                 #print(f"max target indexed: {max_target[i][0]}")
-                print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
-                if (max_output[i][0] == max_target[i][0] and max_output[i][0] == max_target[i][1]): # andmax_output[i][0] != 0 and max_output[i][0] != 0):
+                #print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
+                #if (max_output[i][0] == max_target[i][0] and max_output[i][0] == max_target[i][1]): # andmax_output[i][0] != 0 and max_output[i][0] != 0):
+                #    print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
+                #    correct_max_predictions += 1
+                if (max_output[i][0] == max_target[i][0]): # andmax_output[i][0] != 0 and max_output[i][0] != 0):
                     print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
                     correct_max_predictions += 1
 
@@ -802,7 +805,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 text_list.append(sentences[i])
                 label_path_list.append(label_names[i])
 
-
+                """
                 # --- OPTIONAL PLOTTING CALL ---
                 # If you want to plot and save the prediction for each sample, call:
                 plot_and_save_25d_predictions(
@@ -814,6 +817,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                      save_folder="/UserData/Zach_Analysis/test_folder/25d_predictions/"
                 )
                 # --------------------------------
+                """
 
             """
             for i in range(0, outputs.shape[0]):
