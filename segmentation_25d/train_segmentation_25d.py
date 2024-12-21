@@ -575,7 +575,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
             #outputs = test_obj(images)
             #print(f"output size: {outputs.size()}")
             #print(outputs.size())
-            #outputs = output_resize(torch.squeeze(outputs, dim=1))
+            outputs = torch.squeeze(outputs, dim=1)
             #print(f"output size: {outputs.size()}")
             #outputs = torch.squeeze(outputs)
             #print(f"target size: {targets.size()}")
@@ -634,7 +634,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 outputs = test_obj(images, ids, mask, token_type_ids)
                 #outputs = test_obj(images)
 
-                #outputs = output_resize(torch.squeeze(outputs, dim=1))
+                outputs = torch.squeeze(outputs, dim=1)
                 #outputs = torch.squeeze(outputs)
                 #targets = output_resize(targets)
 
@@ -642,6 +642,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 sigmoid = torch.sigmoid(outputs)
                 outputs = torch.round(sigmoid)
                 prediction_sum += torch.sum(outputs)
+
+
 
                 max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
                 print(max_targets.size())
