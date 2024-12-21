@@ -645,6 +645,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
                 max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
                 print(max_targets.size())
+                print(max_outputs.size())
 
                 # calculates the dice coefficent for each image and adds it to the list
                 for i in range(0, outputs.shape[0]):
