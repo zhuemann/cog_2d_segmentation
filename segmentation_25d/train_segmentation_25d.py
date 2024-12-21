@@ -773,7 +773,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
                 # valid_dice.append((dice_sagital, dice_coronal))
                 valid_dice.append(dice_sagital)
-                valid_dice.append(dice_coronal)
+                #valid_dice.append(dice_coronal)
 
 
                 #print(f"max target indexed: {max_target[i][0]}")
