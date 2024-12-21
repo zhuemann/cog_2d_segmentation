@@ -247,7 +247,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     valid_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/validation.xlsx")
     test_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/testing.xlsx")
 
-    train_df = train_df.head(64)
+    #train_df = train_df.head(64)
     #valid_df = valid_df.head(64)
 
     #train_df.set_index("Petlymph", inplace=True)
