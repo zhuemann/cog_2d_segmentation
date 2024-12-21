@@ -315,7 +315,7 @@ class TextImageDataset(Dataset):
         #print(f"dataloader label right after loading: {segmentation_mask.shape}")
         #print(f"sagital label sum: {np.sum(label_sag)}")
         #print(f"coronal label sum: {np.sum(label_cor)}")
-        print(f"Segmentation mask sum before transforms: {np.sum(segmentation_mask)}")
+        print(f"Segmentation mask sum before transforms: {np.sum(segmentation_mask[0,:,:])}")
 
         #if self.transforms is not None:
         if self.mode == "train":
