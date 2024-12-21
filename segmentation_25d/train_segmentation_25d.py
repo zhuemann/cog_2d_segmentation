@@ -697,6 +697,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     row_ids = []
     # saved_path = os.path.join(dir_base, 'Zach_Analysis/models/vit/best_multimodal_modal_forked_candid')
     saved_path = os.path.join(config["save_location"], "best_segmentation_model_seed_test_25d" + str(seed))
+    saved_path = os.path.join(config["save_location"], "best_segmentation_model_seed_test_25d" + str(1))
 
 
     #saved_path = os.path.join(dir_base,

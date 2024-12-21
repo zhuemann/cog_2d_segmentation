@@ -113,7 +113,7 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 1, "n_classes": 2, "LR": 1e-3,
+    config = {"seed": 2, "batch_size": 16, "dir_base": directory_base, "epochs": 1, "n_classes": 2, "LR": 1e-3,
               "IMG_SIZE": (192, 352), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/", #"IMG_SIZE": (128, 256)
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": "/UserData/Zach_Analysis/result_logs/visual_grounding/25D_experiments/first_try_training/seed1/"}
 
@@ -123,7 +123,7 @@ if __name__ == '__main__':
     df["test_accuracy"] = acc
     df["test_correct_max_predictions"] = max_predictions
 
-    filepath = os.path.join(config["save_location"], "valid_1000ep_seed" + str(1) + '.xlsx')
+    filepath = os.path.join(config["save_location"], "valid_1000ep_seed" + str(2) + '.xlsx')
     df.to_excel(filepath, index=False)
     print("here")
     #train_3d_image_text_segmentation(config)
