@@ -339,8 +339,8 @@ class TextImageDataset(Dataset):
         #print(f"dataloader image numpy loading: {image.shape}")
         #print(f"dataloader label numpy loading: {segmentation_mask.shape}")
         print(f"segmentation mask size after resizing: {segmentation_mask.shape}")
-        print(f"Segmentation mask 0 sum after resizing: {np.sum(segmentation_mask[:,:,0])}")
-        print(f"Segmentation mask 1 sum after resizing: {np.sum(segmentation_mask[:,:,1])}")
+        print(f"Segmentation mask 0 sum after resizing: {np.sum(segmentation_mask[0,:,:])}")
+        print(f"Segmentation mask 1 sum after resizing: {np.sum(segmentation_mask[1,:,:])}")
 
         # Convert to torch tensors
         #image = torch.from_numpy(image).permute(2, 0, 1).float()
