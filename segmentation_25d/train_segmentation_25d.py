@@ -246,7 +246,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     valid_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/validation.xlsx")
     test_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/testing.xlsx")
 
-    train_df = train_df.head(64)
+    #train_df = train_df.head(64)
 
     #train_df.set_index("Petlymph", inplace=True)
     #valid_df.set_index("Petlymph", inplace=True)
@@ -654,6 +654,8 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                     if max_outputs[i] == max_targets[i] and max_outputs[i] != 0:
                         correct_max_predictions += 1
                 """
+                max_target, max_output = get_max_pixel_value_25d(images, targets, outputs)
+
                 for i in range(0, outputs.shape[0]):
                     # Separate sagittal and coronal outputs and targets
                     output_sagital, output_coronal = outputs[i][0], outputs[i][1]
@@ -663,18 +665,17 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                     dice_sagital = dice_coeff(output_sagital, target_sagital).item()
                     dice_coronal = dice_coeff(output_coronal, target_coronal).item()
 
-                    #valid_dice.append((dice_sagital, dice_coronal))
+                    # valid_dice.append((dice_sagital, dice_coronal))
                     valid_dice.append(dice_sagital)
                     valid_dice.append(dice_coronal)
 
-                    # Check if predictions match targets for both views
-                    max_output_sagital = torch.argmax(output_sagital)
-                    max_output_coronal = torch.argmax(output_coronal)
-                    max_target_sagital = torch.argmax(target_sagital)
-                    max_target_coronal = torch.argmax(target_coronal)
-
-                    if (max_output_sagital == max_target_sagital and max_output_coronal == max_target_coronal and
-                            max_output_sagital != 0 and max_output_coronal != 0):
+                    # print(f"max target indexed: {max_target[i][0]}")
+                    #print(
+                    #    f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
+                    if (max_output[i][0] == max_target[i][0] and max_output[i][0] == max_target[i][
+                        1]):  # andmax_output[i][0] != 0 and max_output[i][0] != 0):
+                        #print(
+                        #    f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
                         correct_max_predictions += 1
 
             #scheduler.step()
@@ -760,9 +761,6 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
 
             max_target, max_output = get_max_pixel_value_25d(images, targets, outputs)
-            #max_target_coronal, max_output_coronal = get_max_pixel_value_25d(images, targets, outputs)
-
-            #print(f"max target sagital size: {max_target_sagittal.size()}")
 
             for i in range(0, outputs.shape[0]):
                 # Separate sagittal and coronal outputs and targets
@@ -776,25 +774,7 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
                 # valid_dice.append((dice_sagital, dice_coronal))
                 valid_dice.append(dice_sagital)
                 valid_dice.append(dice_coronal)
-                """
-                print(f"targets size: {targets.size()}")
-                print(f"output size: {outputs.size()}")
 
-                print(f"input to max value images: {images[i][0].size()}")
-                print(f"input to max value targets: {targets[i][0].size()}")
-                print(f"input to max value outputs: {outputs[i][0].size()}")
-                print(f"type target: {type(targets[i][0])}")
-
-                max_target_sagittal, max_output_sagittal = get_max_pixel_value(images[i][0], targets[i][0], outputs[i][0])
-                max_target_coronal, max_output_coronal = get_max_pixel_value(images[i][1], targets[i][1], outputs[i][1])
-                """
-                # Check if predictions match targets for both views
-                #max_output_sagital = torch.argmax(output_sagital)
-                #max_output_coronal = torch.argmax(output_coronal)
-                #max_target_sagital = torch.argmax(target_sagital)
-                #max_target_coronal = torch.argmax(target_coronal)
-                #print(f"max target size: {max_target.size()}")
-                #print(f"max output size: {max_output.size()}")
 
                 #print(f"max target indexed: {max_target[i][0]}")
                 print(f"max output: {max_output[i][0]}, the target was: {max_target[i][0]} max output 1:: {max_output[i][0]}, the target was: {max_target[i][1]}")
