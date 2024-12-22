@@ -584,8 +584,8 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
             #targets = output_resize(targets)
             optimizer.zero_grad()
 
-            print(f"output size: {outputs.size()}")
-            print(f"target size: {targets.size()}")
+            #print(f"output size: {outputs.size()}")
+            #print(f"target size: {targets.size()}")
             loss = criterion(outputs, targets)
 
             if _ % 400 == 0:
@@ -648,6 +648,9 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
                 outputs = torch.round(sigmoid)
                 prediction_sum += torch.sum(outputs)
 
+                print(f"output size: {outputs.size()}")
+                print(f"target size: {targets.size()}")
+                print(f"images size: {images.size()}")
 
 
                 #max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
