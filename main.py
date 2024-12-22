@@ -33,7 +33,7 @@ if __name__ == '__main__':
     #physician_post_processing_eval()
     #copy_physican_labels_to_folder()
     #process_rt_strcuts_to_nifty()
-    #print(fail)
+    print(fail)
     #compound_interactive_report_v2()
     #testing_ploting_external_cog_data()
     #precomputed_language_embeddings()

@@ -511,6 +511,14 @@ def post_processing_eval():
     FP_sum_max = 0
     FN_sum_max = 0
 
+    # Initialize lists to store per-sample metrics for bootstrap resampling
+    bootstrap_data = {
+        "dice_scores": [],  # Dice scores per sample
+        "TP_FP_FN": [],  # Combined TP, FP, FN per sample
+        "TP_FP_FN_thresh": [],  # TP, FP, FN per sample for threshold F1
+        "TP_FP_FN_max": [],  # TP, FP, FN per sample for max F1
+    }
+
     skipped_labels = {"PETWB_002624_01_label_1", "PETWB_017530_01_label_2", "PETWB_011869_01_label_1", "PETWB_011768_01_label_4"}
     skipped = 0
     for label in prediction_list:
@@ -622,6 +630,18 @@ def post_processing_eval():
             psma_fp_sum += FP
             psma_fn_sum += FN
 
+        # Add the computed metrics for this sample to the bootstrap data
+        bootstrap_data["dice_scores"].extend(dice_score)  # Append dice scores (list or single value)
+
+        # Append TP, FP, FN as a tuple for combined F1 score
+        bootstrap_data["TP_FP_FN"].append((TP, FP, FN))
+
+        # Append TP, FP, FN for threshold F1
+        bootstrap_data["TP_FP_FN_thresh"].append((TP_thresh, FP_thresh, FN_thresh))
+
+        # Append TP, FP, FN for max F1
+        bootstrap_data["TP_FP_FN_max"].append((TP_max, FP_max, FN_max))
+
     print(f"Combined f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)}")
     print(f"Combined True positive: {TP_sum} False Positive: {FP_sum} False Negative sum: {FN_sum}")
 
@@ -638,3 +658,7 @@ def post_processing_eval():
 
     print(f"max TP: {TP_sum_max} FP: {FP_sum_max} FN: {FN_sum_max}")
     print(f"combined max f1 score:{calculate_f1_score(TP_sum_max, FP_sum_max, FN_sum_max)}")
+
+    # Save bootstrap_data for later resampling
+    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/bootstrap_data_contextual_net_final.npy", bootstrap_data)
+    print("Bootstrap data saved for resampling.")

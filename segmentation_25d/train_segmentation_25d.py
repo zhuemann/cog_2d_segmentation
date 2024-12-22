@@ -503,11 +503,14 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
 
     # Print the total number of parameters
     total_params = sum(p.numel() for p in test_obj.parameters())
-    print(f"Total Parameters: {total_params}")
+    print(f"Total Parameters before freezing: {total_params}")
 
     #print("need to unfreeze lang params")
     for param in language_model.parameters():
         param.requires_grad = False
+    # Print the total number of parameters
+    total_params = sum(p.numel() for p in test_obj.parameters())
+    print(f"Total Parameters after freezing: {total_params}")
 
     num_unfrozen_layers = 1  # Replace N with the number of layers you want to unfreeze
     #for param in language_model.encoder.layer[-num_unfrozen_layers:].parameters():
