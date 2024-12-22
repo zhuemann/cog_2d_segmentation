@@ -74,7 +74,7 @@ class DiceBCELoss(nn.Module):
 
 
 
-def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/home/zmh001/r-fcb-isilon/research/Bradshaw/", n_classes = 2):
+def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = "/home/zmh001/r-fcb-isilon/research/Bradshaw/", n_classes = 2):
     nltk.download('punkt')
     # model specific global variables
     IMG_SIZE = config["IMG_SIZE"] #256 #1024 #512 #384
