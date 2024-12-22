@@ -829,6 +829,8 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
                 """
 
             max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
+            print(f"max_targets: {max_targets.size()}")
+            print(f"max outputs: {max_outputs.size()}")
             for i in range(0, outputs.shape[0]):
                 output_item = outputs[i].cpu().data.numpy()
                 target_item = targets[i].cpu().data.numpy()
