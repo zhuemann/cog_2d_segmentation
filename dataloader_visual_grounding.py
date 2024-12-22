@@ -31,8 +31,10 @@ class TextImageDataset(Dataset):
         self.targets = self.data.label_name
 
         self.row_ids = self.data.index
-        self.slice_num = dataframe.Slice
-        self.suv = dataframe.SUV
+        #self.slice_num = dataframe.Slice
+        #self.suv = dataframe.SUV
+        self.slice_num = dataframe.slice_num
+        self.suv = dataframe.suv_num
         self.max_len = max_len
         self.img_size = img_size
         self.wordDict = wordDict
@@ -65,6 +67,8 @@ class TextImageDataset(Dataset):
         #print(f"text before: {text}")
         slice_num = self.slice_num[index]
         suv = self.suv[index]
+
+
         #print(f"slice: {slice_num} suv: {suv}")
         text = text.replace(str(suv), "").replace(str(slice_num), "")
         #print(f"Text after: {text}")
