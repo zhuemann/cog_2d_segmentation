@@ -96,7 +96,7 @@ def get_max_pixel_value_25d(images, targets, outputs):
     mask_targets = targets
     images = images[:,0,:,:]
     images = images.squeeze(1)
-    print(images.size())
+    #print(images.size())
 
     segmented_pixels = images * mask_outputs  # apply mask to original image to get segmented pixels
     target_pixels = images * mask_targets  # apply target to original image

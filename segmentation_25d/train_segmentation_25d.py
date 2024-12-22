@@ -648,9 +648,9 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
                 outputs = torch.round(sigmoid)
                 prediction_sum += torch.sum(outputs)
 
-                print(f"output size: {outputs.size()}")
-                print(f"target size: {targets.size()}")
-                print(f"images size: {images.size()}")
+                #print(f"output size: {outputs.size()}")
+                #print(f"target size: {targets.size()}")
+                #print(f"images size: {images.size()}")
 
 
                 #max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
@@ -769,7 +769,7 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
             #print(f"input to max value outputs: {outputs.size()}")
             #print(f"type target: {type(targets)}")
 
-
+            """
             max_target, max_output = get_max_pixel_value_25d(images, targets, outputs)
 
             for i in range(0, outputs.shape[0]):
@@ -814,7 +814,7 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
                 dice_list.append(dice)
                 text_list.append(sentences[i])
                 label_path_list.append(label_names[i])
-                """
+                
                 # --- OPTIONAL PLOTTING CALL ---
                 # If you want to plot and save the prediction for each sample, call:
                 plot_and_save_25d_predictions(
@@ -827,7 +827,7 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
                 )
                 # --------------------------------
                 """
-            """
+
             max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
             for i in range(0, outputs.shape[0]):
                 output_item = outputs[i].cpu().data.numpy()
@@ -850,7 +850,7 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
                 label_path_list.append(label_names[i])
                 if max_outputs[i] == max_targets[i] and max_outputs[i] != 0:
                     correct_max_predictions += 1
-            """
+
 
 
         avg_test_dice = np.average(test_dice)
