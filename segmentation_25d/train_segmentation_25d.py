@@ -752,7 +752,7 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
             #outputs = output_resize(torch.squeeze(outputs, dim=1))
             #outputs = outputs.squeeze(outputs)
             #targets = output_resize(targets)
-
+            outputs = torch.squeeze(outputs, dim=1)
 
 
             sigmoid = torch.sigmoid(outputs)
