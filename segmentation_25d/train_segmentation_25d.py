@@ -79,7 +79,7 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
     # model specific global variables
     IMG_SIZE = config["IMG_SIZE"] #256 #1024 #512 #384
     #BATCH_SIZE = batch_size
-    LR = 7e-5 #5e-5 #30e-5  #1e-4 #5e-5 #5e-5 was lr for contextualnet runs #8e-5  # 1e-4 was for efficient #1e-06 #2e-6 1e-6 for transformer 1e-4 for efficientnet
+    LR = 3e-5 #5e-5 #30e-5  #1e-4 #5e-5 #5e-5 was lr for contextualnet runs #8e-5  # 1e-4 was for efficient #1e-06 #2e-6 1e-6 for transformer 1e-4 for efficientnet
     #LR = 5e-4
     N_EPOCHS = epoch
     N_CLASS = n_classes
@@ -247,8 +247,8 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
     valid_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/validation.xlsx")
     test_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/testing.xlsx")
 
-    train_df = train_df.head(66)
-    valid_df = valid_df.head(66)
+    #train_df = train_df.head(66)
+    #valid_df = valid_df.head(66)
 
     #train_df.set_index("Petlymph", inplace=True)
     #valid_df.set_index("Petlymph", inplace=True)
