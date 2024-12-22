@@ -21,7 +21,7 @@ from data_prepocessing.data_visualization.post_processing_eval import post_proce
 if __name__ == '__main__':
     #plot_final_internal_dataset()
     #mip_creation()
-    post_processing_eval()
+    #post_processing_eval()
     #copy_images_and_labels_to_folder()
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
     #resampling_and_cropping(df)
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     #physician_post_processing_eval()
     #copy_physican_labels_to_folder()
     #process_rt_strcuts_to_nifty()
-    print(fail)
+    #print(fail)
     #compound_interactive_report_v2()
     #testing_ploting_external_cog_data()
     #precomputed_language_embeddings()
@@ -117,6 +117,7 @@ if __name__ == '__main__':
               "IMG_SIZE": (192, 352), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/", #"IMG_SIZE": (128, 256)
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": "/UserData/Zach_Analysis/result_logs/visual_grounding/25D_experiments/single_channel/seed1/"}
 
+    """
     acc, valid_log, correct_suv_log, max_predictions = train_image_text_segmentation(config)
     df = pd.DataFrame(valid_log)
     df["valid_correct_max"] = correct_suv_log
@@ -126,6 +127,7 @@ if __name__ == '__main__':
     filepath = os.path.join(config["save_location"], "valid_1000ep_seed" + str(2) + '.xlsx')
     df.to_excel(filepath, index=False)
     print("here")
+    """
     #train_3d_image_text_segmentation(config)
     print(fail)
     #seeds = [98]
@@ -143,8 +145,10 @@ if __name__ == '__main__':
 
         #folder_name = "cropped_mips/baseline_nnunet_v17/seed" + str(seed) + "/"
         #save_string = "/UserData/Zach_Analysis/result_logs/cog_mip_segmentation/initial_testing/" + folder_name
-        folder_name = "/contextual_net_1000ep_uw_dataset_report_attention_v9/seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing" + folder_name
+        #folder_name = "/contextual_net_1000ep_uw_dataset_report_attention_v9/seed" + str(seed) + "/"
+        #save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/using_mips/initial_testing" + folder_name
+        folder_name = "/seed" + str(seed) + "/"
+        save_string = "/UserData/Zach_Analysis/result_logs/visual_grounding/25D_experiments/sagital_channel_original" + folder_name
         save_location = os.path.join(directory_base, save_string)
         # save_location = ""
 

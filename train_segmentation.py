@@ -242,6 +242,10 @@ def train_image_text_segmentation(config, batch_size=8, epoch=1, dir_base = "/ho
     valid_df.set_index("Petlymph", inplace=True)
     test_df.set_index("Petlymph", inplace=True)
 
+    train_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/training.xlsx")
+    valid_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/validation.xlsx")
+    test_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/testing.xlsx")
+
     """
     print(f"before dropped length: {len(train_df)}")
     labels_to_skip = ["PETWB_006370_04_label_2", "PETWB_011355_01_label_5", "PETWB_002466_01_label_1", "PETWB_012579_01_label_2", "PETWB_003190_01_label_3",
