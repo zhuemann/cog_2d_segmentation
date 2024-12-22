@@ -6,7 +6,7 @@ import os
 
 import pandas as pd
 
-#from train_segmentation import train_image_text_segmentation
+from train_segmentation import train_image_text_segmentation
 #from crop_images import crop_images_to_mips
 #from sub_region_sub_text_creation import make_clavicular_mips, make_connected_component_labels
 #from running_mixstral import run_mixstal
@@ -15,7 +15,7 @@ import pandas as pd
 #from create_sentence_mips_and_labels import create_mips
 # Press the green button in the gutter to run the script.
 from segmentation_25d.mip_creation import mip_creation
-from segmentation_25d.train_segmentation_25d import train_image_text_segmentation
+#from segmentation_25d.train_segmentation_25d import train_image_text_segmentation
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
 if __name__ == '__main__':
