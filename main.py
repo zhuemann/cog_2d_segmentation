@@ -115,7 +115,7 @@ if __name__ == '__main__':
 
     config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 250, "n_classes": 2, "LR": 1e-3,
               "IMG_SIZE": (192, 352), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/", #"IMG_SIZE": (128, 256)
-              "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": "/UserData/Zach_Analysis/result_logs/visual_grounding/25D_experiments/two_channel_input_sagittal/seed1/"}
+              "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": "/UserData/Zach_Analysis/result_logs/visual_grounding/25D_experiments/two_channel_input_coronal/seed1/"}
 
 
     acc, valid_log, correct_suv_log, max_predictions = train_image_text_segmentation_25d(config)
