@@ -24,8 +24,12 @@ class TextImageDataset(Dataset):
                  ngram_synonom = [], norm = None):  # data_path = os.path.join(dir_base,'Lymphoma_UW_Retrospective/Data/mips/')
         self.tokenizer = tokenizer
         self.data = dataframe
-        self.text = dataframe.sentence
-        self.targets = self.data.Label_Name
+        #self.text = dataframe.sentence
+        self.text = dataframe.report
+
+        #self.targets = self.data.Label_Name
+        self.targets = self.data.label_name
+
         self.row_ids = self.data.index
         self.slice_num = dataframe.Slice
         self.suv = dataframe.SUV
@@ -98,8 +102,12 @@ class TextImageDataset(Dataset):
         token_type_ids = inputs["token_type_ids"]
 
         # images data extraction
-        img_name = self.row_ids[index]
-        img_name = str(img_name)  # + "_mip.png"
+        #img_name = self.row_ids[index]
+        #img_name = str(img_name)  # + "_mip.png"
+
+        label_name = self.data.label_name[index]
+        img_name = "_".join(label_name.split("_")[:3])
+
         # if exists(os.path.join(self.data_path, 'Group_1_2_3_curated', img_name)):
         #    data_dir = "Group_1_2_3_curated"
         # if exists(os.path.join(self.data_path, 'Group_4_5_curated', img_name)):
