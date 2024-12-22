@@ -247,7 +247,7 @@ class TextImageDataset(Dataset):
         self.mode = mode
         self.data_path_coronal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_images/")
         self.data_path_sagittal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_sagittal_images/")
-        self.data_path_coronal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_images/")
+        self.label_path_coronal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_labels/")
         self.label_path_sagittal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_sagittal_labels/")
 
 
