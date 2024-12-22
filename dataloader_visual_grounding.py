@@ -45,7 +45,7 @@ class TextImageDataset(Dataset):
         #self.data_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/images_coronal_mip_uw_v2/")
         #self.label_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/labels_coronal_mip_uw_v2/")
         self.data_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_images/")
-        self.label_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_images/")
+        self.label_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_labels/")
 
 
         #self.data_path = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/images_coronal_mip_v13/")
