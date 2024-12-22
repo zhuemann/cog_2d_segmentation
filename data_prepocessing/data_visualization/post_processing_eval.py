@@ -468,10 +468,10 @@ def post_processing_eval():
         data = json.load(file)
 
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.5_data_predictions/"
-    #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/f1_.76_dice_.55_best_prediction/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/f1_.76_dice_.55_best_prediction/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions_v4/"
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_embeddings_predictions/"
+    #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_embeddings_predictions/"
 
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
@@ -513,6 +513,10 @@ def post_processing_eval():
 
     # Initialize lists to store per-sample metrics for bootstrap resampling
     bootstrap_data = {
+        "label_name": [], # name of sample
+        "pixel_size": [], # number of positive pixels in label
+        "tracer": [], # tracer type
+        "machine": [], # name of imaging machine
         "dice_scores": [],  # Dice scores per sample
         "TP_FP_FN": [],  # Combined TP, FP, FN per sample
         "TP_FP_FN_thresh": [],  # TP, FP, FN per sample for threshold F1
@@ -537,6 +541,7 @@ def post_processing_eval():
         # print(image_name)
         #print(f"image name: {image_name}")
         label_name = label.strip(".nii.gz")
+        bootstrap_data["label_name"].append(label_name)
         #label_name = label.strip("_label_.nii")
         print(f"label name: {label_name}")
         if label_name in skipped_labels:
@@ -549,9 +554,9 @@ def post_processing_eval():
 
 
         # Check if labeled_row is empty or it is a bad label
-        if labeled_row.empty:
-            print("skipped in empty row")
-            continue
+        #if labeled_row.empty:
+        #    print("skipped in empty row")
+        #    continue
 
         #if labeled_row["Label_is_Correct"].iloc[0] == 0:
         #    skipped += 1
@@ -562,6 +567,11 @@ def post_processing_eval():
 
         # Get the value from the 'Tracer' column or set tracer to None if not found
         tracer = tracer_row["Tracer"].values[0] if not tracer_row.empty else None
+        # get the value of the machine type
+        machine = tracer_row["Scanner Type"].values[0] if not tracer_row.empty else None
+        bootstrap_data["tracer"].append(tracer)
+        bootstrap_data["machine"].append(machine)
+
         #print(f"tracer : {tracer}")
         #continue
 
@@ -598,6 +608,10 @@ def post_processing_eval():
         # load in label data
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
+
+        # Sum up all the 1's in the label data
+        sum_of_ones = np.sum(label_data == 1)
+        bootstrap_data["pixel_size"].append(sum_of_ones)
 
         #prediction_data = pad_and_crop(prediction_data, label_data)
         TP, FP, FN = TPFPFNHelper(prediction_data, label_data)
@@ -660,5 +674,5 @@ def post_processing_eval():
     print(f"combined max f1 score:{calculate_f1_score(TP_sum_max, FP_sum_max, FN_sum_max)}")
 
     # Save bootstrap_data for later resampling
-    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/bootstrap_data_embeddings.npy", bootstrap_data)
+    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/bootstrap_data_contextual_net_full_test_data.npy", bootstrap_data)
     print("Bootstrap data saved for resampling.")
