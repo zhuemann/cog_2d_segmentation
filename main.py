@@ -17,7 +17,7 @@ import pandas as pd
 from segmentation_25d.mip_creation import mip_creation
 from segmentation_25d.train_segmentation_25d import train_image_text_segmentation
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
-
+from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
 if __name__ == '__main__':
     #plot_final_internal_dataset()
     #mip_creation()
