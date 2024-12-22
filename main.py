@@ -15,7 +15,7 @@ from train_segmentation import train_image_text_segmentation
 #from create_sentence_mips_and_labels import create_mips
 # Press the green button in the gutter to run the script.
 from segmentation_25d.mip_creation import mip_creation
-#from segmentation_25d.train_segmentation_25d import train_image_text_segmentation
+from segmentation_25d.train_segmentation_25d import train_image_text_segmentation_25d
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
 if __name__ == '__main__':
@@ -118,7 +118,7 @@ if __name__ == '__main__':
               "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": "/UserData/Zach_Analysis/result_logs/visual_grounding/25D_experiments/two_channel_input_sagittal/seed1/"}
 
 
-    acc, valid_log, correct_suv_log, max_predictions = train_image_text_segmentation(config)
+    acc, valid_log, correct_suv_log, max_predictions = train_image_text_segmentation_25d(config)
     df = pd.DataFrame(valid_log)
     df["valid_correct_max"] = correct_suv_log
     df["test_accuracy"] = acc
