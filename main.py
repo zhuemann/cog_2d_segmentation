@@ -129,7 +129,7 @@ if __name__ == '__main__':
     print("here")
     """
     #train_3d_image_text_segmentation(config)
-    print(fail)
+    #print(fail)
     #seeds = [98]
     seeds = [98, 117, 295, 456, 915]
     # seeds = [915]
