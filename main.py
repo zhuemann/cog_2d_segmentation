@@ -127,6 +127,7 @@ if __name__ == '__main__':
     filepath = os.path.join(config["save_location"], "valid_250ep_seed" + str(config["seed"]) + '.xlsx')
     df.to_excel(filepath, index=False)
     print("here")
+
     print(fail)
     #train_3d_image_text_segmentation(config)
     #print(fail)
