@@ -21,7 +21,7 @@ from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 if __name__ == '__main__':
     #plot_final_internal_dataset()
     #mip_creation()
-    #post_processing_eval()
+    post_processing_eval()
     #copy_images_and_labels_to_folder()
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
     #resampling_and_cropping(df)
