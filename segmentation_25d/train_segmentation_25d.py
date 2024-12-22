@@ -247,8 +247,8 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
     valid_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/validation.xlsx")
     test_df = pd.read_excel("/UserData/Zach_Analysis/uw_lymphoma_pet_3d/dataframes/testing.xlsx")
 
-    #train_df = train_df.head(64)
-    #valid_df = valid_df.head(64)
+    train_df = train_df.head(66)
+    valid_df = valid_df.head(66)
 
     #train_df.set_index("Petlymph", inplace=True)
     #valid_df.set_index("Petlymph", inplace=True)
@@ -479,7 +479,7 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
     #test_obj.load_from(weights=weight)
     #print("Using pretrained self-supervied Swin UNETR backbone weights !")
     # was this one before coming back 3/20
-    test_obj = Attention_ConTEXTual_Lang_Seg_Model(lang_model=language_model, n_channels=1, n_classes=1, bilinear=False)
+    test_obj = Attention_ConTEXTual_Lang_Seg_Model(lang_model=language_model, n_channels=2, n_classes=1, bilinear=False)
 
     #test_obj = Attention_ConTEXTual_Vis_Seg_Model(n_channels=3, n_classes=1, bilinear=False)
     #test_obj = smp.Unet(encoder_name="resnet50", encoder_weights=None, in_channels=3, classes=1)
@@ -576,7 +576,6 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
             #outputs = test_obj(images, ids, mask)  # for lavt
             outputs = test_obj(images, ids, mask, token_type_ids)
             #outputs = test_obj(images)
-            #print(f"output size: {outputs.size()}")
             #print(outputs.size())
             outputs = torch.squeeze(outputs, dim=1)
             #print(f"output size: {outputs.size()}")
@@ -585,6 +584,8 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
             #targets = output_resize(targets)
             optimizer.zero_grad()
 
+            print(f"output size: {outputs.size()}")
+            print(f"target size: {targets.size()}")
             loss = criterion(outputs, targets)
 
             if _ % 400 == 0:
@@ -638,6 +639,7 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
                 #outputs = test_obj(images)
 
                 outputs = torch.squeeze(outputs, dim=1)
+
                 #outputs = torch.squeeze(outputs)
                 #targets = output_resize(targets)
 
@@ -648,7 +650,9 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
 
 
 
-                max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
+                #max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
+                max_targets, max_outputs = get_max_pixel_value_25d(images, targets, outputs)
+
 
                 # calculates the dice coefficent for each image and adds it to the list
                 for i in range(0, outputs.shape[0]):
@@ -753,7 +757,6 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
             prediction_sum += torch.sum(outputs)
             row_ids.extend(data['row_ids'])
 
-            #max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
 
             #print(f"targets size: {targets.size()}")
             #print(f"output size: {outputs.size()}")
@@ -763,7 +766,7 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
             #print(f"input to max value outputs: {outputs.size()}")
             #print(f"type target: {type(targets)}")
 
-            """
+
             max_target, max_output = get_max_pixel_value_25d(images, targets, outputs)
 
             for i in range(0, outputs.shape[0]):
@@ -808,7 +811,7 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
                 dice_list.append(dice)
                 text_list.append(sentences[i])
                 label_path_list.append(label_names[i])
-
+                """
                 # --- OPTIONAL PLOTTING CALL ---
                 # If you want to plot and save the prediction for each sample, call:
                 plot_and_save_25d_predictions(
@@ -821,8 +824,8 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
                 )
                 # --------------------------------
                 """
-
-
+            """
+            max_targets, max_outputs = get_max_pixel_value(images, targets, outputs)
             for i in range(0, outputs.shape[0]):
                 output_item = outputs[i].cpu().data.numpy()
                 target_item = targets[i].cpu().data.numpy()
@@ -844,6 +847,7 @@ def train_image_text_segmentation_25d(config, batch_size=8, epoch=1, dir_base = 
                 label_path_list.append(label_names[i])
                 if max_outputs[i] == max_targets[i] and max_outputs[i] != 0:
                     correct_max_predictions += 1
+            """
 
 
         avg_test_dice = np.average(test_dice)

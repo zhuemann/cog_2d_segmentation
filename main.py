@@ -113,11 +113,11 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 2, "batch_size": 16, "dir_base": directory_base, "epochs": 250, "n_classes": 2, "LR": 1e-3,
+    config = {"seed": 2, "batch_size": 16, "dir_base": directory_base, "epochs": 1, "n_classes": 2, "LR": 1e-3,
               "IMG_SIZE": (192, 352), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/", #"IMG_SIZE": (128, 256)
-              "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": "/UserData/Zach_Analysis/result_logs/visual_grounding/25D_experiments/single_channel/seed1/"}
+              "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": "/UserData/Zach_Analysis/result_logs/visual_grounding/25D_experiments/two_channel_input_sagittal/seed1/"}
 
-    """
+
     acc, valid_log, correct_suv_log, max_predictions = train_image_text_segmentation(config)
     df = pd.DataFrame(valid_log)
     df["valid_correct_max"] = correct_suv_log
@@ -127,7 +127,7 @@ if __name__ == '__main__':
     filepath = os.path.join(config["save_location"], "valid_1000ep_seed" + str(2) + '.xlsx')
     df.to_excel(filepath, index=False)
     print("here")
-    """
+    print(fail)
     #train_3d_image_text_segmentation(config)
     #print(fail)
     #seeds = [98]
