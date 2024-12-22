@@ -117,7 +117,7 @@ class TextImageDataset(Dataset):
         # if exists(os.path.join(self.data_path, 'Group_4_5_curated', img_name)):
         #    data_dir = "Group_4_5_curated"
         data_dir = "dataset/"
-        img_path = os.path.join(self.data_path, img_name) + ".png"
+        img_path = os.path.join(self.data_path, img_name) + "_suv_cropped_cor.png"
         # print(img_path)
         with Image.open(img_path) as img:
             img_raw = np.array(img)
@@ -140,7 +140,7 @@ class TextImageDataset(Dataset):
 
         #print(self.targets[index])
         #print(f"target: {self.targets[index]}")
-        label_name = str(self.targets[index]) + ".png"
+        label_name = str(self.targets[index]) + "_cor.png"
         label_path = os.path.join(self.label_path, label_name)
         #print(label_path)
         with Image.open(label_path) as label_load:
