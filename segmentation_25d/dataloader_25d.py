@@ -325,10 +325,12 @@ class TextImageDataset(Dataset):
             image = transformed['image']
             segmentation_mask = transformed['mask']
 
+        print(f"image size before: {image.shape}")
         # Resize image and mask
         image = Image.fromarray(image)  # Now image is PIL, preserving 2 channels if supported
-        image = self.resize(image)
+        #image = self.resize(image)
         image = np.array(image)  # Back to numpy (2, H, W)
+        print(f"image size after without resize: {image.shape}")
         #print(f"segmentation mask size after transforms: {segmentation_mask.shape}")
         #print(f"Segmentation mask 0 sum after transforms: {np.sum(segmentation_mask[:,:,0])}")
         #print(f"Segmentation mask 1 sum after transforms: {np.sum(segmentation_mask[:,:,1])}")
