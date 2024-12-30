@@ -605,7 +605,12 @@ def post_processing_eval():
         # load in the prediciton data
         nii_prediction = nib.load(full_pred_path)
         prediction_data = nii_prediction.get_fdata()
-        prediction_data = np.squeeze(prediction_data, axis=(0, 1))
+
+        print(f"prediction_data shape: {prediction_data.shape}")
+        #prediction_data = np.squeeze(prediction_data, axis=(0, 1))
+
+
+
         #print(f"pred data size: {prediction_data.shape}")
         #prediction_data = analyze_and_filter_volume(prediction_data)
         prediction_data = filter_prediction_by_average(prediction_data)
