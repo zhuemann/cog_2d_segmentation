@@ -641,7 +641,9 @@ def post_processing_eval():
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
 
-        prediction_data = resize_3d_prediction(prediction_data, label_data.shape)
+        #prediction_data = resize_3d_prediction(prediction_data, label_data.shape)
+        prediction_data = resize_3d_prediction(label_data, prediction_data.shape)
+
         #print(f"prediction_data shape: {prediction_data.shape}")
         #print(f"prediction sum: {np.sum(prediction_data)}")
         #print(f"label sum: {np.sum(label_data)}")
@@ -713,5 +715,5 @@ def post_processing_eval():
     print(f"combined max f1 score:{calculate_f1_score(TP_sum_max, FP_sum_max, FN_sum_max)}")
 
     # Save bootstrap_data for later resampling
-    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/25d_data.npy", bootstrap_data)
+    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/25d_data_try_2.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
     print("Bootstrap data saved for resampling.")
