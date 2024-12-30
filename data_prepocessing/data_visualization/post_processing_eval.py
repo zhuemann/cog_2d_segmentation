@@ -11,6 +11,76 @@ import pandas as pd
 from scipy.ndimage import label
 import scipy.ndimage as ndimage
 
+from monai.transforms import (
+    LoadImage,    # for loading .nii or .nii.gz
+    SaveImage,    # for saving .nii or .nii.gz
+    Rotate90,
+    SpatialCrop,
+    SpatialPad,
+)
+
+def invert_prediction_transform(
+        pred_nifti_path,
+        output_nifti_path,
+        final_shape=(192, 192, 352),
+        original_shape=(200, 200, 350),
+        rotate90_axes=(0, 1),
+        rotate90_k=1,
+):
+    """
+    Inverts the shape/orientation transforms that took a volume
+    from original_shape -> final_shape (with a 90-degree rotation),
+    returning it to original_shape orientation.
+
+    Args:
+        pred_nifti_path : str
+            Path to the predicted .nii.gz file (already in shape final_shape).
+        output_nifti_path : str
+            Where to save the inverted .nii.gz file.
+        final_shape : tuple
+            The shape of the input to this inversion code. (What you ended with.)
+        original_shape : tuple
+            The shape you want to return to (200,200,350).
+        rotate90_axes : tuple of ints
+            Axes that were used in the original Rotate90d.
+        rotate90_k : int
+            The number of 90-degree rotations that were originally applied
+            (typically 1 if you used `transforms.Rotate90d(keys=["image"], k=1)`).
+    """
+
+    # 1) Load your prediction (no metadata tracking by default)
+    loader = LoadImage(image_only=True)
+    pred_data = loader(pred_nifti_path)  # shape = (192,192,352) for example
+
+    # 2) Undo the center crop in X/Y if you had cropped from (200,200) -> (192,192).
+    #    We can pad back from (192,192,352) -> (200,200,352).
+    #    By default, SpatialPad will pad on both sides (method="symmetric").
+    #    Make sure this matches how you performed your center crop.
+    #    If you know you only cropped from the center in X/Y, you can do symmetrical padding:
+    x_original, y_original, z_original = original_shape
+    pad_transform = SpatialPad(spatial_size=(x_original, y_original, final_shape[2]),
+                               method="symmetric")
+    pred_data = pad_transform(pred_data)
+
+    # 3) Undo the Rotate90d.
+    #    If you originally did `Rotate90d(k=1)`, then to invert, you can do `k=3`
+    #    (3 more 90-degree rotations in the same axis = 270 degrees = inverse).
+    #    Alternatively, you can specify `k=(-rotate90_k) % 4`.
+    invert_k = (-rotate90_k) % 4  # e.g. if rotate90_k=1, invert_k=3
+    rotate_transform = Rotate90(spatial_axes=rotate90_axes, k=invert_k)
+    pred_data = rotate_transform(pred_data)
+
+    # 4) Undo any extra padding in Z if you went from 350 to 352 slices.
+    #    If you originally padded +2 slices at the end, then you can crop from
+    #    z=0..349 (which is 350 slices).
+    #    This is an assumption that the padding was at the end or is symmetrical.
+    #    Adjust roi_start and roi_end to match your actual pad logic.
+    if z_original < final_shape[2]:  # i.e. 350 < 352
+        crop_transform = SpatialCrop(roi_start=(0, 0, 0),
+                                     roi_end=(x_original, y_original, z_original))
+        pred_data = crop_transform(pred_data)
+
+    return pred_data
 
 def resize_3d_prediction(prediction, target_shape):
     """
@@ -494,7 +564,8 @@ def post_processing_eval():
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions_v4/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_embeddings_predictions/"
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v2/"
+    #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v2/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/llmseg_full_data_predictions/"
 
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
@@ -580,9 +651,9 @@ def post_processing_eval():
 
 
         # Check if labeled_row is empty or it is a bad label
-        #if labeled_row.empty:
-        #    print("skipped in empty row")
-        #    continue
+        if labeled_row.empty:
+            print("skipped in empty row")
+            continue
 
         #if labeled_row["Label_is_Correct"].iloc[0] == 0:
         #    skipped += 1
@@ -637,13 +708,23 @@ def post_processing_eval():
         #print(f"pred data size: {prediction_data.shape}")
         #prediction_data = analyze_and_filter_volume(prediction_data)
         #prediction_data = filter_prediction_by_average(prediction_data)
+
+        label_data = invert_prediction_transform(
+                label_full_path,
+                output_nifti_path = None,
+                final_shape=(192, 192, 352),
+                original_shape=(200, 200, 350),
+                rotate90_axes=(0, 1),
+                rotate90_k=1,
+        )
+        print(f"label data size: {label_data.shape}")
         # load in label data
-        nii_label = nib.load(label_full_path)
-        label_data = nii_label.get_fdata()
+        #nii_label = nib.load(label_full_path)
+        #label_data = nii_label.get_fdata()
 
         #prediction_data = resize_3d_prediction(prediction_data, label_data.shape)
-        label_data = resize_3d_prediction(label_data, prediction_data.shape)
-        pet_image = resize_3d_prediction(pet_image, prediction_data.shape)
+        #label_data = resize_3d_prediction(label_data, prediction_data.shape)
+        #pet_image = resize_3d_prediction(pet_image, prediction_data.shape)
         print(f"label size: {label_data.shape}")
         print(f"prediction_data shape: {prediction_data.shape}")
         #print(f"prediction sum: {np.sum(prediction_data)}")
@@ -716,5 +797,5 @@ def post_processing_eval():
     print(f"combined max f1 score:{calculate_f1_score(TP_sum_max, FP_sum_max, FN_sum_max)}")
 
     # Save bootstrap_data for later resampling
-    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/25d_data_try_2.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
+    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/llmseg.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
     print("Bootstrap data saved for resampling.")

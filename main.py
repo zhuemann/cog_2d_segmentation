@@ -21,7 +21,7 @@ from data_prepocessing.data_visualization.post_processing_eval import post_proce
 if __name__ == '__main__':
     #plot_final_internal_dataset()
     #mip_creation()
-    #post_processing_eval()
+    post_processing_eval()
     #copy_images_and_labels_to_folder()
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
     #resampling_and_cropping(df)
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     #physician_post_processing_eval()
     #copy_physican_labels_to_folder()
     #process_rt_strcuts_to_nifty()
-    #print(fail)
+    print(fail)
     #compound_interactive_report_v2()
     #testing_ploting_external_cog_data()
     #precomputed_language_embeddings()
