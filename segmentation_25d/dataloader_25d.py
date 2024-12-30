@@ -384,6 +384,8 @@ class TextImageDataset(Dataset):
 
         print(f"final image size: {image.size()}")
         print(f"final label size: {segmentation_mask.size()}")
+        assert image.shape == (2, 200, 350), f"Unexpected image shape: {image.shape}"
+        assert label.shape == (200, 350), f"Unexpected label shape: {segmentation_mask.shape}"
 
         return {
             'ids': torch.tensor(ids, dtype=torch.long),
