@@ -20,7 +20,7 @@ from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
 if __name__ == '__main__':
     #plot_final_internal_dataset()
-    mip_creation()
+    #mip_creation()
     #post_processing_eval()
     #copy_images_and_labels_to_folder()
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     #physician_post_processing_eval()
     #copy_physican_labels_to_folder()
     #process_rt_strcuts_to_nifty()
-    print(fail)
+    #print(fail)
     #compound_interactive_report_v2()
     #testing_ploting_external_cog_data()
     #precomputed_language_embeddings()
@@ -114,8 +114,8 @@ if __name__ == '__main__':
         directory_base = "/UserData/"
 
     config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 250, "n_classes": 2, "LR": 1e-3,
-              "IMG_SIZE": (192, 352), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/", #"IMG_SIZE": (128, 256)
-              "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": "/UserData/Zach_Analysis/result_logs/visual_grounding/25D_experiments/two_channel_input_coronal/seed1/"}
+              "IMG_SIZE": (200, 350), "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/", #"IMG_SIZE": (128, 256)
+              "report_gen": False, "mlm_pretraining": False, "contrastive_training": False, "save_location": "/UserData/Zach_Analysis/result_logs/visual_grounding/25D_experiments/two_channel_input_coronal_v2/seed1/"}
 
 
     acc, valid_log, correct_suv_log, max_predictions = train_image_text_segmentation_25d(config)
