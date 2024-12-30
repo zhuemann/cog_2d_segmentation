@@ -642,7 +642,8 @@ def post_processing_eval():
 
         prediction_data = resize_3d_prediction(prediction_data, label_data.shape)
         print(f"prediction_data shape: {prediction_data.shape}")
-
+        print(f"prediction sum: {np.sum(prediction_data)}")
+        print(f"label sum: {np.sum(label_data)}")
         prediction_data = filter_prediction_by_average(prediction_data)
 
         # Sum up all the 1's in the label data
