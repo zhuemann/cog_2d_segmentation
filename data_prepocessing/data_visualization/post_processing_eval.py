@@ -709,6 +709,7 @@ def post_processing_eval():
         #prediction_data = analyze_and_filter_volume(prediction_data)
         #prediction_data = filter_prediction_by_average(prediction_data)
 
+
         prediction_data = invert_prediction_transform(
                 full_pred_path,
                 output_nifti_path = None,
