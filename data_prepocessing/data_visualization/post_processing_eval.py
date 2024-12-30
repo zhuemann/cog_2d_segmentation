@@ -644,6 +644,7 @@ def post_processing_eval():
         #print(f"prediction sum: {np.sum(prediction_data)}")
         #print(f"label sum: {np.sum(label_data)}")
         prediction_data = filter_prediction_by_average(prediction_data)
+        print(f"prediction sum: {np.sum(prediction_data)}")
 
         # Sum up all the 1's in the label data
         sum_of_ones = np.sum(label_data == 1)
