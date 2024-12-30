@@ -245,10 +245,10 @@ class TextImageDataset(Dataset):
         self.df_data = dataframe.values
         self.transforms = transforms
         self.mode = mode
-        self.data_path_coronal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_images/")
-        self.data_path_sagittal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_sagittal_images/")
-        self.label_path_coronal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_labels/")
-        self.label_path_sagittal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_sagittal_labels/")
+        self.data_path_coronal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_images_v2/")
+        self.data_path_sagittal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_sagittal_images_v2/")
+        self.label_path_coronal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_labels_v2/")
+        self.label_path_sagittal = os.path.join(dir_base, "Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_sagittal_labels_v2/")
 
 
         self.dir_base = dir_base
