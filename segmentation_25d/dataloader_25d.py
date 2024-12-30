@@ -298,9 +298,9 @@ class TextImageDataset(Dataset):
         # Stack sagittal and coronal along channel dimension (H, W, 2)
         image = np.stack((img_sag_raw, img_cor_raw), axis=-1)
         #print(f"dataloader image right after loading: {image.shape}")
-        print(f"max value in image: {np.max(image)}")
+        #print(f"max value in image: {np.max(image)}")
         image = image.astype(np.float32) / 65535.0
-        print(f"max value in image: {np.max(image)}")
+        #print(f"max value in image: {np.max(image)}")
 
         # Load label (sagittal label)
         label_path = os.path.join(self.label_path_sagittal, str(self.targets[index]) + "_sag.png")
@@ -330,16 +330,16 @@ class TextImageDataset(Dataset):
             image = transformed['image']
             segmentation_mask = transformed['mask']
 
-        print(f"image size before: {image.shape}")
+        #print(f"image size before: {image.shape}")
         # Resize image and mask
         #image = Image.fromarray(image)  # Now image is PIL, preserving 2 channels if supported
         #image = self.resize(image)
         image = np.array(image)  # Back to numpy (2, H, W)
-        print(f"image size after without resize: {image.shape}")
+        #print(f"image size after without resize: {image.shape}")
         #print(f"segmentation mask size after transforms: {segmentation_mask.shape}")
         #print(f"Segmentation mask 0 sum after transforms: {np.sum(segmentation_mask[:,:,0])}")
         #print(f"Segmentation mask 1 sum after transforms: {np.sum(segmentation_mask[:,:,1])}")
-        print(f" segmentation mask size before: {segmentation_mask.shape}")
+        #print(f" segmentation mask size before: {segmentation_mask.shape}")
         #segmentation_mask = Image.fromarray(segmentation_mask)
         #segmentation_mask = self.resize_mask(segmentation_mask)
         segmentation_mask = np.array(segmentation_mask, dtype=np.uint8)  # (2, H, W)
@@ -401,8 +401,8 @@ class TextImageDataset(Dataset):
         # Rearrange dimensions of the image to (2, 200, 350)
         image = image.permute(2, 0, 1)  # Move channels to the first dimension
 
-        print(f"final image size: {image.size()}")
-        print(f"final label size: {segmentation_mask.size()}")
+        #rint(f"final image size: {image.size()}")
+        #print(f"final label size: {segmentation_mask.size()}")
         assert image.shape == (2, 200, 350), f"Unexpected image shape: {image.shape}"
         assert segmentation_mask.shape == (200, 350), f"Unexpected label shape: {segmentation_mask.shape}"
 
