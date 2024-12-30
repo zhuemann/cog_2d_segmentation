@@ -29,6 +29,27 @@ def save_image_pet(projection, out_path):
     # Scale to [0, 255] for uint8 representation
     proj_uint8 = (proj_norm * 255).astype(np.uint8)
     imageio.imwrite(out_path, proj_uint8)
+
+def save_image_pet_16bit(projection, out_path):
+    # 1) Set the fixed clipping range to [0, 10]
+    proj_max_fixed = 10.0
+    proj_min = 0.0
+
+    if proj_max_fixed > proj_min:
+        # Normalize to [0, 1]
+        proj_norm = (projection - proj_min) / (proj_max_fixed - proj_min)
+    else:
+        # Handle flat images (all same intensity)
+        proj_norm = projection - proj_min
+
+    # Clip values to [0, 1] after normalization
+    proj_norm = np.clip(proj_norm, 0, 1)
+
+    # 2) Scale to 16-bit range [0, 65535]
+    proj_uint16 = (proj_norm * (2**16 - 1)).astype(np.uint16)
+
+    # Save as 16-bit PNG
+    imageio.imwrite(out_path, proj_uint16, format='PNG')
 def save_image_label(projection, out_path):
     proj_uint8 = projection.astype(np.uint8)  # Ensure labels are in uint8
     imageio.imwrite(out_path, proj_uint8)
@@ -37,10 +58,10 @@ def mip_creation():
     image_dir = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
     label_dir = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
 
-    output_sagital_images = "/UserData/Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_sagittal_images/"
-    output_coronal_images = "/UserData/Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_images/"
-    output_sagital_labels = "/UserData/Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_sagittal_labels/"
-    output_coronal_labels = "/UserData/Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_labels/"
+    output_sagital_images = "/UserData/Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_sagittal_images_v2/"
+    output_coronal_images = "/UserData/Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_images_v2/"
+    output_sagital_labels = "/UserData/Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_sagittal_labels_v2/"
+    output_coronal_labels = "/UserData/Zach_Analysis/petlymph_image_data/final_2.5d_images_and_labels/output_coronal_labels_v2/"
 
     # Create output directories if they don't exist
     os.makedirs(output_sagital_images, exist_ok=True)
@@ -74,9 +95,10 @@ def mip_creation():
         # Save the image projections
         sagittal_img_path = os.path.join(output_sagital_images, fname.replace(".nii.gz", "_sag.png"))
         coronal_img_path = os.path.join(output_coronal_images, fname.replace(".nii.gz", "_cor.png"))
-        save_image_pet(sagittal_proj, sagittal_img_path)
-        save_image_pet(coronal_proj, coronal_img_path)
-
+        #save_image_pet(sagittal_proj, sagittal_img_path)
+        #save_image_pet(coronal_proj, coronal_img_path)
+        save_image_pet_16bit(sagittal_proj, sagittal_img_path)
+        save_image_pet_16bit(coronal_proj, coronal_img_path)
         # Attempt to find the corresponding label file
         # This depends on your naming scheme for labels.
         # For simplicity, let's assume labels have the same filename in label_dir
