@@ -9,8 +9,30 @@ import json
 
 import pandas as pd
 from scipy.ndimage import label
+import scipy.ndimage as ndimage
 
 
+def resize_3d_prediction(prediction, target_shape):
+    """
+    Resizes a 3D prediction to match the size of a given label using nearest-neighbor interpolation.
+
+    Args:
+        prediction (numpy array): 3D binary prediction (e.g., shape like (192, 192, 352)).
+        target_shape (tuple): Target shape (e.g., shape of the label, like (200, 200, 320)).
+
+    Returns:
+        numpy array: Resized binary prediction with shape `target_shape`.
+    """
+    # Calculate zoom factors for each dimension
+    zoom_factors = (
+        target_shape[0] / prediction.shape[0],
+        target_shape[1] / prediction.shape[1],
+        target_shape[2] / prediction.shape[2]
+    )
+
+    # Resize using nearest-neighbor interpolation (order=0)
+    resized_prediction = ndimage.zoom(prediction, zoom_factors, order=0)
+    return resized_prediction
 
 def pad_and_crop(prediction, label):
     # Get the shapes of the prediction and label arrays
@@ -607,7 +629,7 @@ def post_processing_eval():
         prediction_data = nii_prediction.get_fdata()
 
         print(f"prediction_data shape: {prediction_data.shape}")
-        #prediction_data = np.squeeze(prediction_data, axis=(0, 1))
+        #prediction_data = np.squeeze(prediction_data, axis=(0, 1))         # add this back in later
 
 
 
@@ -617,6 +639,11 @@ def post_processing_eval():
         # load in label data
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
+
+        prediction_data = resize_3d_prediction(prediction_data, label_data.shape)
+        print(f"prediction_data shape: {prediction_data.shape}")
+
+        prediction_data = filter_prediction_by_average(prediction_data)
 
         # Sum up all the 1's in the label data
         sum_of_ones = np.sum(label_data == 1)
