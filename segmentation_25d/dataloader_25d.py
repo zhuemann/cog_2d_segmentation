@@ -371,9 +371,13 @@ class TextImageDataset(Dataset):
 
         if pad_width > 0:
             # Pad the image (last dimension is not padded as it's the channel dimension)
-            image = F.pad(image, (0, 0, 0, pad_width), mode='constant', value=0)
+            #image = F.pad(image, (0, 0, 0, pad_width), mode='constant', value=0)
+
             # Pad the label
-            segmentation_mask = F.pad(segmentation_mask, (0, pad_width), mode='constant', value=0)
+            #segmentation_mask = F.pad(segmentation_mask, (0, pad_width), mode='constant', value=0)
+            image = F.pad(image, (0, 0, pad_width, 0), mode='constant', value=0)
+            # Pad the label (front padding for width)
+            segmentation_mask = F.pad(segmentation_mask, (pad_width, 0), mode='constant', value=0)
 
         # Rearrange dimensions of the image to (2, 200, 350)
         image = image.permute(2, 0, 1)  # Move channels to the first dimension
