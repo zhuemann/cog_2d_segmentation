@@ -627,9 +627,7 @@ def post_processing_eval():
         # load in the prediciton data
         nii_prediction = nib.load(full_pred_path)
         prediction_data = nii_prediction.get_fdata()
-        print(f"prediction initial sum: {np.sum(prediction_data)}")
 
-        print(f"prediction_data shape: {prediction_data.shape}")
         #prediction_data = np.squeeze(prediction_data, axis=(0, 1))         # add this back in later
 
 
@@ -642,9 +640,9 @@ def post_processing_eval():
         label_data = nii_label.get_fdata()
 
         prediction_data = resize_3d_prediction(prediction_data, label_data.shape)
-        print(f"prediction_data shape: {prediction_data.shape}")
-        print(f"prediction sum: {np.sum(prediction_data)}")
-        print(f"label sum: {np.sum(label_data)}")
+        #print(f"prediction_data shape: {prediction_data.shape}")
+        #print(f"prediction sum: {np.sum(prediction_data)}")
+        #print(f"label sum: {np.sum(label_data)}")
         prediction_data = filter_prediction_by_average(prediction_data)
 
         # Sum up all the 1's in the label data
