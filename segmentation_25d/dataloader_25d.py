@@ -315,6 +315,7 @@ class TextImageDataset(Dataset):
         #segmentation_mask = np.stack((label_sag, label_cor), axis=-1)
         segmentation_mask = label_cor
 
+
         #print(f"dataloader label right after loading: {segmentation_mask.shape}")
         #print(f"sagital label sum: {np.sum(label_sag)}")
         #print(f"coronal label sum: {np.sum(label_cor)}")
@@ -330,15 +331,16 @@ class TextImageDataset(Dataset):
 
         print(f"image size before: {image.shape}")
         # Resize image and mask
-        image = Image.fromarray(image)  # Now image is PIL, preserving 2 channels if supported
+        #image = Image.fromarray(image)  # Now image is PIL, preserving 2 channels if supported
         #image = self.resize(image)
         image = np.array(image)  # Back to numpy (2, H, W)
         print(f"image size after without resize: {image.shape}")
         #print(f"segmentation mask size after transforms: {segmentation_mask.shape}")
         #print(f"Segmentation mask 0 sum after transforms: {np.sum(segmentation_mask[:,:,0])}")
         #print(f"Segmentation mask 1 sum after transforms: {np.sum(segmentation_mask[:,:,1])}")
-        segmentation_mask = Image.fromarray(segmentation_mask)
-        segmentation_mask = self.resize_mask(segmentation_mask)
+        print(f" segmentation mask size before: {segmentation_mask.shape}")
+        #segmentation_mask = Image.fromarray(segmentation_mask)
+        #segmentation_mask = self.resize_mask(segmentation_mask)
         segmentation_mask = np.array(segmentation_mask, dtype=np.uint8)  # (2, H, W)
         #print(f"segmentation mask size after resizing: {segmentation_mask.shape}")
         #print(f"Segmentation mask 0 sum after resizing: {np.sum(segmentation_mask[0,:,:])}")
@@ -357,6 +359,8 @@ class TextImageDataset(Dataset):
         #sum_channel_1 = torch.sum(segmentation_mask[1])  # Sum all elements in the second channel
         #print(f"inside data loader channel 0 sum: {sum_channel_0} channel 1 sum: {sum_channel_1}")
 
+        print(f"final image size: {image.size()}")
+        print(f"final label size: {segmentation_mask.size()}")
 
         return {
             'ids': torch.tensor(ids, dtype=torch.long),
