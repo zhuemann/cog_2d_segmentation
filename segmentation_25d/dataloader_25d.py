@@ -364,6 +364,7 @@ class TextImageDataset(Dataset):
 
         # do padding a bit differntly
         # Get current width of the image and label
+        """
         current_width = image.shape[1]
 
         # Calculate padding for the width
@@ -378,6 +379,24 @@ class TextImageDataset(Dataset):
             image = F.pad(image, (0, 0, pad_width, 0), mode='constant', value=0)
             # Pad the label (front padding for width)
             segmentation_mask = F.pad(segmentation_mask, (pad_width, 0), mode='constant', value=0)
+        """
+        # Get current width and height of the image and label
+        current_width = image.shape[1]
+        current_height = image.shape[0]
+
+        # Calculate padding for the width
+        pad_width = 350 - current_width
+
+        # Calculate padding for the height
+        pad_top = (200 - current_height) // 2
+        pad_bottom = 200 - current_height - pad_top
+
+        if pad_width > 0 or current_height < 200:
+            # Pad the image (center padding for height, front padding for width)
+            # Last dimension (channels) is not padded
+            image = F.pad(image, (0, 0, pad_width, 0, pad_top, pad_bottom), mode='constant', value=0)
+            # Pad the label (center padding for height, front padding for width)
+            segmentation_mask = F.pad(segmentation_mask, (pad_width, 0, pad_top, pad_bottom), mode='constant', value=0)
 
         # Rearrange dimensions of the image to (2, 200, 350)
         image = image.permute(2, 0, 1)  # Move channels to the first dimension
