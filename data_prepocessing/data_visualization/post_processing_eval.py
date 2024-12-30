@@ -627,6 +627,7 @@ def post_processing_eval():
         # load in the prediciton data
         nii_prediction = nib.load(full_pred_path)
         prediction_data = nii_prediction.get_fdata()
+        print(f"prediction initial sum: {np.sum(prediction_data)}")
 
         print(f"prediction_data shape: {prediction_data.shape}")
         #prediction_data = np.squeeze(prediction_data, axis=(0, 1))         # add this back in later
