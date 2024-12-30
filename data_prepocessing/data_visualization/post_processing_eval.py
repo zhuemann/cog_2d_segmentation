@@ -696,8 +696,8 @@ def post_processing_eval():
         #nii_ct = nib.load(ct_path_final)
         #ct_data = nii_ct.get_fdata()
         # load in the prediciton data
-        nii_prediction = nib.load(full_pred_path)
-        prediction_data = nii_prediction.get_fdata()
+        #nii_prediction = nib.load(full_pred_path)
+        #prediction_data = nii_prediction.get_fdata()
 
         print(f"initial prediction sum: {np.sum(prediction_data)}")
 
@@ -709,18 +709,18 @@ def post_processing_eval():
         #prediction_data = analyze_and_filter_volume(prediction_data)
         #prediction_data = filter_prediction_by_average(prediction_data)
 
-        label_data = invert_prediction_transform(
-                label_full_path,
+        prediction_data = invert_prediction_transform(
+                full_pred_path,
                 output_nifti_path = None,
                 final_shape=(192, 192, 352),
                 original_shape=(200, 200, 350),
                 rotate90_axes=(0, 1),
                 rotate90_k=1,
         )
-        print(f"label data size: {label_data.shape}")
+        #print(f"label data size: {label_data.shape}")
         # load in label data
-        #nii_label = nib.load(label_full_path)
-        #label_data = nii_label.get_fdata()
+        nii_label = nib.load(label_full_path)
+        label_data = nii_label.get_fdata()
 
         #prediction_data = resize_3d_prediction(prediction_data, label_data.shape)
         #label_data = resize_3d_prediction(label_data, prediction_data.shape)
