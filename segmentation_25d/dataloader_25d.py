@@ -298,6 +298,9 @@ class TextImageDataset(Dataset):
         image = np.stack((img_sag_raw, img_cor_raw), axis=-1)
         #print(f"dataloader image right after loading: {image.shape}")
         print(f"max value in image: {np.max(image)}")
+        image = image.astype(np.float32) / 65535.0
+        print(f"max value in image: {np.max(image)}")
+
         # Load label (sagittal label)
         label_path = os.path.join(self.label_path_sagittal, str(self.targets[index]) + "_sag.png")
         with Image.open(label_path) as label_load:
