@@ -13,6 +13,7 @@ import re
 from torchvision.transforms import InterpolationMode
 
 #import matplotlib as plt
+import torch.nn.functional as F
 
 from utility import rle_decode_modified, rle_decode
 
@@ -358,6 +359,24 @@ class TextImageDataset(Dataset):
         #sum_channel_0 = torch.sum(segmentation_mask[0])  # Sum all elements in the first channel
         #sum_channel_1 = torch.sum(segmentation_mask[1])  # Sum all elements in the second channel
         #print(f"inside data loader channel 0 sum: {sum_channel_0} channel 1 sum: {sum_channel_1}")
+
+
+
+        # do padding a bit differntly
+        # Get current width of the image and label
+        current_width = image.shape[1]
+
+        # Calculate padding for the width
+        pad_width = 350 - current_width
+
+        if pad_width > 0:
+            # Pad the image (last dimension is not padded as it's the channel dimension)
+            image = F.pad(image, (0, 0, 0, pad_width), mode='constant', value=0)
+            # Pad the label
+            segmentation_mask = F.pad(segmentation_mask, (0, pad_width), mode='constant', value=0)
+
+        # Rearrange dimensions of the image to (2, 200, 350)
+        image = image.permute(2, 0, 1)  # Move channels to the first dimension
 
         print(f"final image size: {image.size()}")
         print(f"final label size: {segmentation_mask.size()}")
