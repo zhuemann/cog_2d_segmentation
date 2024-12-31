@@ -625,7 +625,7 @@ def post_processing_eval_llmseg():
     for label in prediction_list:
 
         if label[0] == "l" or label[0] == "d":
-            print("skipping cuz it is label or data")
+            #print("skipping cuz it is label or data")
             continue
 
         index += 1
@@ -714,8 +714,8 @@ def post_processing_eval_llmseg():
 
 
         #print(f"pred data size: {prediction_data.shape}")
-        #prediction_data = analyze_and_filter_volume(prediction_data)
-        prediction_data = filter_prediction_by_average(prediction_data)
+        prediction_data = analyze_and_filter_volume(prediction_data)
+        #prediction_data = filter_prediction_by_average(prediction_data)
 
         """
         prediction_data = invert_prediction_transform(
@@ -807,5 +807,5 @@ def post_processing_eval_llmseg():
     print(f"combined max f1 score:{calculate_f1_score(TP_sum_max, FP_sum_max, FN_sum_max)}")
 
     # Save bootstrap_data for later resampling
-    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/llmseg.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
+    #np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/llmseg_empty_string.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
     print("Bootstrap data saved for resampling.")

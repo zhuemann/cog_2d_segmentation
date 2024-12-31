@@ -799,5 +799,5 @@ def post_processing_eval():
     print(f"combined max f1 score:{calculate_f1_score(TP_sum_max, FP_sum_max, FN_sum_max)}")
 
     # Save bootstrap_data for later resampling
-    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/llmseg.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
+    #np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/llmseg.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
     print("Bootstrap data saved for resampling.")
