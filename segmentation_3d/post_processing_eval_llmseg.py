@@ -569,7 +569,7 @@ def post_processing_eval_llmseg():
     prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/llmseg_full_data_predictions_v2/"
     prediction_location = "/UserData/Zach_Analysis/git_multimodal/ro_llm/inference_MM-LLM-RO/ckpt/multimodal_basic_dice.23_ep25/raw_x/"
     prediction_location = "/UserData/Zach_Analysis/git_multimodal/ro_llm/inference_MM-LLM-RO/ckpt/multimodal_empty_string_dice.17_ep15/raw_x/"
-
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/ro_llm/MM-LLM-RO_forked4_chnaged_attention/ckpt/llm_seg_with_contextuL_attention_best_.47dice/raw_x/"
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
     label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
@@ -809,5 +809,5 @@ def post_processing_eval_llmseg():
     print(f"combined max f1 score:{calculate_f1_score(TP_sum_max, FP_sum_max, FN_sum_max)}")
 
     # Save bootstrap_data for later resampling
-    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/llmseg_empty_string.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
+    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/llmseg_contextual_net_attention.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
     print("Bootstrap data saved for resampling.")
