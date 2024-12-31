@@ -655,7 +655,7 @@ def post_processing_eval_llmseg():
         bootstrap_data["label_name"].append(label_name)
         petlymph_name = image_name.strip(".nii.gz")
         # print(petlymph_name)
-        # print(f"label name: {label_name}")
+        print(f"label name: {label_name}")
         labeled_row = labeled_subset[labeled_subset["Label_Name"] == label_name]
 
 
