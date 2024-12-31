@@ -18,7 +18,31 @@ from monai.transforms import (
     SpatialCrop,
     SpatialPad,
 )
+def adjust_volume_shape(prediction_data, label_data):
+    """
+    Adjust the shape of prediction_data to match the shape of label_data.
 
+    Parameters:
+    prediction_data (numpy.ndarray): The 3D volume to be adjusted, shape (x, x, y).
+    label_data (numpy.ndarray): The reference 3D volume, shape (a, a, b).
+
+    Returns:
+    numpy.ndarray: Adjusted prediction_data with the same shape as label_data.
+    """
+    pred_x, _, pred_y = prediction_data.shape
+    label_x, _, label_y = label_data.shape
+
+    # Adjust the x dimension symmetrically
+    if pred_x > label_x:
+        excess_x = pred_x - label_x
+        cut_x = excess_x // 2
+        prediction_data = prediction_data[cut_x:pred_x - cut_x, cut_x:pred_x - cut_x, :]
+
+    # Adjust the y dimension by cutting from the left
+    if pred_y > label_y:
+        prediction_data = prediction_data[:, :, :label_y]
+
+    return prediction_data
 def invert_prediction_transform(
         pred_nifti_path,
         output_nifti_path,
@@ -725,6 +749,7 @@ def post_processing_eval():
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
 
+        prediction_data = adjust_volume_shape(prediction_data, label_data)
         #prediction_data = resize_3d_prediction(prediction_data, label_data.shape)
         #label_data = resize_3d_prediction(label_data, prediction_data.shape)
         #pet_image = resize_3d_prediction(pet_image, prediction_data.shape)
