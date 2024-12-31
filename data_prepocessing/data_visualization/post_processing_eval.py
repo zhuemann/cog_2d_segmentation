@@ -566,7 +566,8 @@ def post_processing_eval():
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions_v4/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_embeddings_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v2/"
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/llmseg_full_data_predictions/"
+    #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/llmseg_full_data_predictions/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v3/"
 
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
@@ -697,8 +698,8 @@ def post_processing_eval():
         #nii_ct = nib.load(ct_path_final)
         #ct_data = nii_ct.get_fdata()
         # load in the prediciton data
-        #nii_prediction = nib.load(full_pred_path)
-        #prediction_data = nii_prediction.get_fdata()
+        nii_prediction = nib.load(full_pred_path)
+        prediction_data = nii_prediction.get_fdata()
 
         #print(f"initial prediction sum: {np.sum(prediction_data)}")
 
@@ -707,18 +708,18 @@ def post_processing_eval():
 
 
         #print(f"pred data size: {prediction_data.shape}")
-        #prediction_data = analyze_and_filter_volume(prediction_data)
+        prediction_data = analyze_and_filter_volume(prediction_data)
         #prediction_data = filter_prediction_by_average(prediction_data)
 
 
-        prediction_data = invert_prediction_transform(
-                full_pred_path,
-                output_nifti_path = None,
-                final_shape=(192, 192, 352),
-                original_shape=(200, 200, 350),
-                rotate90_axes=(0, 1),
-                rotate90_k=1,
-        )
+        #prediction_data = invert_prediction_transform(
+        #        full_pred_path,
+        #        output_nifti_path = None,
+        #        final_shape=(192, 192, 352),
+        #        original_shape=(200, 200, 350),
+        #        rotate90_axes=(0, 1),
+        #        rotate90_k=1,
+        #)
         #print(f"label data size: {label_data.shape}")
         # load in label data
         nii_label = nib.load(label_full_path)
