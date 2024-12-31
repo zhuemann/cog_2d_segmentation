@@ -688,7 +688,7 @@ def post_processing_eval_llmseg():
         #    if label_name in entry.get('label'):
         #        sent = entry.get('report')  # Return the report if label name matches
         #print(sent)
-        suv_path_final = os.path.join(image_base, "data_" + image_name + ".nii.gz")
+        suv_path_final = os.path.join(image_base, "data_" + label)
         #print(suv_path_final)
         ct_path_final = os.path.join(image_base,  image_name + "_ct_cropped.nii.gz")
         full_pred_path = os.path.join(prediction_location, label)
