@@ -314,7 +314,7 @@ class TextImageDataset(Dataset):
 
         # Stack sagittal and coronal labels along channel dimension (H, W, 2)
         #segmentation_mask = np.stack((label_sag, label_cor), axis=-1)
-        segmentation_mask = label_cor
+        segmentation_mask = label_sag
 
 
         #print(f"dataloader label right after loading: {segmentation_mask.shape}")
