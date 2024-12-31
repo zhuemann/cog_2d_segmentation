@@ -657,7 +657,7 @@ def post_processing_eval_llmseg():
         # print(petlymph_name)
         print(f"label name: {label_name}")
         print(labeled_subset)
-        labeled_row = labeled_subset[labeled_subset["Label_Name"] == str(label_name)]
+        labeled_row = labeled_subset[str(labeled_subset["Label_Name"]) == str(label_name)]
 
 
 
