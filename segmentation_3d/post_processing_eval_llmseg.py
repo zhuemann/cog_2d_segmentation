@@ -555,7 +555,7 @@ def remove_leading_number(string):
     modified_string = string[index:]
     return modified_string
 
-def post_processing_eval():
+def post_processing_eval_llmseg():
     json_file_path = "/UserData/Zach_Analysis/uw_lymphoma_pet_3d/final_training_testing_v6.json"
     with open(json_file_path, 'r') as file:
         data = json.load(file)
@@ -566,11 +566,13 @@ def post_processing_eval():
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions_v4/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_embeddings_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v2/"
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/llmseg_full_data_predictions/"
-
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/llmseg_full_data_predictions_v2/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/ro_llm/inference_MM-LLM-RO/ckpt/multimodal_basic_dice.23_ep25/raw_x/"
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
     label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
+    image_base = prediction_location
+    label_base = prediction_location
     #image_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/images/"
     #label_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/labels/"
 
@@ -621,6 +623,11 @@ def post_processing_eval():
     skipped_labels = {"PETWB_002624_01_label_1", "PETWB_017530_01_label_2", "PETWB_011869_01_label_1", "PETWB_011768_01_label_4"}
     skipped = 0
     for label in prediction_list:
+
+        if label[0] == "l" or label[0] == "d":
+            print("skipping cuz it is label or data")
+            continue
+
         index += 1
         #if number_correct > 1:
         #    print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct / index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
@@ -681,13 +688,13 @@ def post_processing_eval():
         #    if label_name in entry.get('label'):
         #        sent = entry.get('report')  # Return the report if label name matches
         #print(sent)
-        suv_path_final = os.path.join(image_base, image_name + "_suv_cropped.nii.gz")
+        suv_path_final = os.path.join(image_base, "data_" + image_name + ".nii.gz")
         #print(suv_path_final)
-        ct_path_final = os.path.join(image_base, image_name + "_ct_cropped.nii.gz")
+        ct_path_final = os.path.join(image_base,  image_name + "_ct_cropped.nii.gz")
         full_pred_path = os.path.join(prediction_location, label)
         if ".gz" not in label:
             label += ".gz"
-        label_full_path = os.path.join(label_base, label)
+        label_full_path = os.path.join(label_base, "label_" + label)
         #print(label)
         # load in the suv data
         nii_suv = nib.load(suv_path_final)
@@ -697,8 +704,8 @@ def post_processing_eval():
         #nii_ct = nib.load(ct_path_final)
         #ct_data = nii_ct.get_fdata()
         # load in the prediciton data
-        #nii_prediction = nib.load(full_pred_path)
-        #prediction_data = nii_prediction.get_fdata()
+        nii_prediction = nib.load(full_pred_path)
+        prediction_data = nii_prediction.get_fdata()
 
         #print(f"initial prediction sum: {np.sum(prediction_data)}")
 
@@ -708,9 +715,9 @@ def post_processing_eval():
 
         #print(f"pred data size: {prediction_data.shape}")
         #prediction_data = analyze_and_filter_volume(prediction_data)
-        #prediction_data = filter_prediction_by_average(prediction_data)
+        prediction_data = filter_prediction_by_average(prediction_data)
 
-
+        """
         prediction_data = invert_prediction_transform(
                 full_pred_path,
                 output_nifti_path = None,
@@ -719,6 +726,7 @@ def post_processing_eval():
                 rotate90_axes=(0, 1),
                 rotate90_k=1,
         )
+        """
         #print(f"label data size: {label_data.shape}")
         # load in label data
         nii_label = nib.load(label_full_path)

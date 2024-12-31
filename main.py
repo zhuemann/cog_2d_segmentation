@@ -18,10 +18,14 @@ from segmentation_25d.mip_creation import mip_creation
 from segmentation_25d.train_segmentation_25d import train_image_text_segmentation_25d
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
+from segmentation_3d.post_processing_eval_llmseg import post_processing_eval_llmseg
+
 if __name__ == '__main__':
     #plot_final_internal_dataset()
     #mip_creation()
-    post_processing_eval()
+
+    #post_processing_eval()
+    post_processing_eval_llmseg()
     #copy_images_and_labels_to_folder()
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
     #resampling_and_cropping(df)
