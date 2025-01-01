@@ -591,13 +591,14 @@ def post_processing_eval():
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_embeddings_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v2/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/llmseg_full_data_predictions/"
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v3/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v4/"
 
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
     label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
     #image_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/images/"
     #label_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/labels/"
+    label_base = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v4/"
 
     tracer_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/meta_data_files/combined_tracer_and_scanner.xlsx")
 
@@ -712,7 +713,9 @@ def post_processing_eval():
         full_pred_path = os.path.join(prediction_location, label)
         if ".gz" not in label:
             label += ".gz"
-        label_full_path = os.path.join(label_base, label)
+        #label_full_path = os.path.join(label_base, label) # oringinal
+        label_full_path = os.path.join(label_base, "label_" + label) # changed for 2.5 d
+
         #print(label)
         # load in the suv data
         nii_suv = nib.load(suv_path_final)
@@ -749,7 +752,7 @@ def post_processing_eval():
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
 
-        prediction_data = adjust_volume_shape(prediction_data, label_data)
+        #prediction_data = adjust_volume_shape(prediction_data, label_data)
         #prediction_data = resize_3d_prediction(prediction_data, label_data.shape)
         #label_data = resize_3d_prediction(label_data, prediction_data.shape)
         #pet_image = resize_3d_prediction(pet_image, prediction_data.shape)
