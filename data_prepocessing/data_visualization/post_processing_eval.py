@@ -18,6 +18,46 @@ from monai.transforms import (
     SpatialCrop,
     SpatialPad,
 )
+
+import torch.nn.functional as F
+import torch
+
+def pad_image_to_shape(image):
+    """
+    Pads a 3D image tensor to the shape (200, 200, 350).
+
+    Parameters:
+    - image: A 3D torch tensor of shape (a, a, b).
+
+    Returns:
+    - Padded image with shape (200, 200, 350).
+    """
+    current_depth, current_height, current_width = image.shape
+
+    # Calculate padding for depth (symmetric padding to 200)
+    pad_depth_top = max((200 - current_depth) // 2, 0)
+    pad_depth_bottom = max(200 - current_depth - pad_depth_top, 0)
+
+    # Calculate padding for height (symmetric padding to 200)
+    pad_height_top = max((200 - current_height) // 2, 0)
+    pad_height_bottom = max(200 - current_height - pad_height_top, 0)
+
+    # Calculate padding for width (pad from the beginning to 350)
+    pad_width_left = max(350 - current_width, 0)
+    pad_width_right = 0
+
+    # Apply padding
+    if current_depth < 200 or current_height < 200 or current_width < 350:
+        image = F.pad(
+            image,
+            (pad_width_left, pad_width_right, pad_height_top, pad_height_bottom, pad_depth_top, pad_depth_bottom),
+            mode='constant',
+            value=0,
+        )
+
+    return image
+
+
 def adjust_volume_shape(prediction_data, label_data):
     """
     Adjust the shape of prediction_data to match the shape of label_data.
@@ -751,7 +791,7 @@ def post_processing_eval():
         # load in label data
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
-
+        pet_image = pad_image_to_shape(pet_image)
         #prediction_data = adjust_volume_shape(prediction_data, label_data)
         #prediction_data = resize_3d_prediction(prediction_data, label_data.shape)
         #label_data = resize_3d_prediction(label_data, prediction_data.shape)
