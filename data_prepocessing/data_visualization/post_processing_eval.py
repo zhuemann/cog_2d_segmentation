@@ -32,6 +32,7 @@ def pad_image_to_shape(image):
     Returns:
     - Padded image with shape (200, 200, 350).
     """
+    image = torch.from_numpy(image)
     current_depth, current_height, current_width = image.shape
 
     # Calculate padding for depth (symmetric padding to 200)
@@ -55,7 +56,7 @@ def pad_image_to_shape(image):
             value=0,
         )
 
-    return image
+    return image.numpy()
 
 
 def adjust_volume_shape(prediction_data, label_data):
