@@ -770,7 +770,7 @@ def post_processing_eval():
 
         #print(f"initial prediction sum: {np.sum(prediction_data)}")
 
-        #prediction_data = np.squeeze(prediction_data, axis=(0, 1))         # add this back in later
+        prediction_data = np.squeeze(prediction_data, axis=(0, 1))         # add this back in later
 
         #print(f"pred data size: {prediction_data.shape}")
         #prediction_data = analyze_and_filter_volume(prediction_data)
