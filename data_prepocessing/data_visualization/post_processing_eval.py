@@ -626,7 +626,7 @@ def post_processing_eval():
         data = json.load(file)
 
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.5_data_predictions/"
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/f1_.76_dice_.55_best_prediction/"
+    #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/f1_.76_dice_.55_best_prediction/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions_v4/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_embeddings_predictions/"
@@ -634,7 +634,7 @@ def post_processing_eval():
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/llmseg_full_data_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v4/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_precomputed_predictions/"
-    #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_empty_string_predictions/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_empty_string_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_bert_predictions_v2/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_data_predictions/"
 
@@ -775,10 +775,10 @@ def post_processing_eval():
 
         prediction_data = np.squeeze(prediction_data, axis=(0, 1))         # add this back in later
 
-        prediction_data = np.where(prediction_data >= 0.5, 1, 0)
+        #prediction_data = np.where(prediction_data >= 0.5, 1, 0)
         #print(f"pred data size: {prediction_data.shape}")
         #prediction_data = analyze_and_filter_volume(prediction_data)
-        #prediction_data = filter_prediction_by_average(prediction_data)
+        prediction_data = filter_prediction_by_average(prediction_data)
 
         # load in label data
         nii_label = nib.load(label_full_path)
@@ -861,7 +861,7 @@ def post_processing_eval():
 
 
     # Save bootstrap_data for later resampling
-    #np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_empty_string.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
+    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_empty_string.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
 
-    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_net_no_processing.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
+    #np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_net_no_processing.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
     print("Bootstrap data saved for resampling.")
