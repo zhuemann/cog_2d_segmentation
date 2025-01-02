@@ -633,7 +633,8 @@ def post_processing_eval():
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v2/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/llmseg_full_data_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v4/"
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_precomputed_predictions/"
+    #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_precomputed_predictions/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_empty_string_predictions/"
 
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
@@ -784,12 +785,12 @@ def post_processing_eval():
         #prediction_data = resize_3d_prediction(prediction_data, label_data.shape)
         #label_data = resize_3d_prediction(label_data, prediction_data.shape)
         #pet_image = resize_3d_prediction(pet_image, prediction_data.shape)
-        print(f"label size: {label_data.shape}")
-        print(f"prediction_data shape: {prediction_data.shape}")
+        #print(f"label size: {label_data.shape}")
+        #print(f"prediction_data shape: {prediction_data.shape}")
         #print(f"prediction sum: {np.sum(prediction_data)}")
         #print(f"label sum: {np.sum(label_data)}")
         #prediction_data = filter_prediction_by_average(prediction_data)
-        print(f"prediction sum: {np.sum(prediction_data)}")
+        #print(f"prediction sum: {np.sum(prediction_data)}")
 
         # Sum up all the 1's in the label data
         sum_of_ones = np.sum(label_data == 1)
@@ -856,5 +857,5 @@ def post_processing_eval():
     print(f"combined max f1 score:{calculate_f1_score(TP_sum_max, FP_sum_max, FN_sum_max)}")
 
     # Save bootstrap_data for later resampling
-    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_precompute_llama3.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
+    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_empty_string.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
     print("Bootstrap data saved for resampling.")
