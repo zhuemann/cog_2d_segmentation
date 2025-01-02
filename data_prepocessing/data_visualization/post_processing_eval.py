@@ -632,14 +632,14 @@ def post_processing_eval():
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_embeddings_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v2/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/llmseg_full_data_predictions/"
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v4/"
+    #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v4/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_precomputed_predictions/"
 
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
     label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
     #image_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/images/"
     #label_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/labels/"
-    label_base = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/25d_predictions_v4/"
 
     tracer_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/meta_data_files/combined_tracer_and_scanner.xlsx")
 
@@ -688,6 +688,7 @@ def post_processing_eval():
     skipped_labels = {"PETWB_002624_01_label_1", "PETWB_017530_01_label_2", "PETWB_011869_01_label_1", "PETWB_011768_01_label_4"}
     skipped = 0
     for label in prediction_list:
+
         index += 1
         #if number_correct > 1:
         #    print(f"index: {index} number that are correct: {number_correct} accuracy: {number_correct / index} TP: {TP_sum} FP: {FP_sum} FN: {FN_sum}")
@@ -715,8 +716,6 @@ def post_processing_eval():
         # print(petlymph_name)
         # print(f"label name: {label_name}")
         labeled_row = labeled_subset[labeled_subset["Label_Name"] == label_name]
-
-
 
         # Check if labeled_row is empty or it is a bad label
         if labeled_row.empty:
@@ -754,8 +753,8 @@ def post_processing_eval():
         full_pred_path = os.path.join(prediction_location, label)
         if ".gz" not in label:
             label += ".gz"
-        #label_full_path = os.path.join(label_base, label) # oringinal
-        label_full_path = os.path.join(label_base, "label_" + label) # changed for 2.5 d
+        label_full_path = os.path.join(label_base, label) # oringinal
+        #label_full_path = os.path.join(label_base, "label_" + label) # changed for 2.5 d
 
         #print(label)
         # load in the suv data
@@ -773,26 +772,14 @@ def post_processing_eval():
 
         #prediction_data = np.squeeze(prediction_data, axis=(0, 1))         # add this back in later
 
-
-
         #print(f"pred data size: {prediction_data.shape}")
-        prediction_data = analyze_and_filter_volume(prediction_data)
-        #prediction_data = filter_prediction_by_average(prediction_data)
+        #prediction_data = analyze_and_filter_volume(prediction_data)
+        prediction_data = filter_prediction_by_average(prediction_data)
 
-
-        #prediction_data = invert_prediction_transform(
-        #        full_pred_path,
-        #        output_nifti_path = None,
-        #        final_shape=(192, 192, 352),
-        #        original_shape=(200, 200, 350),
-        #        rotate90_axes=(0, 1),
-        #        rotate90_k=1,
-        #)
-        #print(f"label data size: {label_data.shape}")
         # load in label data
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
-        pet_image = pad_image_to_shape(pet_image)
+        #pet_image = pad_image_to_shape(pet_image)
         #prediction_data = adjust_volume_shape(prediction_data, label_data)
         #prediction_data = resize_3d_prediction(prediction_data, label_data.shape)
         #label_data = resize_3d_prediction(label_data, prediction_data.shape)
@@ -869,5 +856,5 @@ def post_processing_eval():
     print(f"combined max f1 score:{calculate_f1_score(TP_sum_max, FP_sum_max, FN_sum_max)}")
 
     # Save bootstrap_data for later resampling
-    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_net_25d.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
+    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_precompute_llama3.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
     print("Bootstrap data saved for resampling.")
