@@ -775,8 +775,9 @@ def post_processing_eval():
 
         prediction_data = np.squeeze(prediction_data, axis=(0, 1))         # add this back in later
 
+        prediction_data = np.where(prediction_data >= 0.5, 1, 0)
         #print(f"pred data size: {prediction_data.shape}")
-        prediction_data = analyze_and_filter_volume(prediction_data)
+        #prediction_data = analyze_and_filter_volume(prediction_data)
         #prediction_data = filter_prediction_by_average(prediction_data)
 
         # load in label data
@@ -862,5 +863,5 @@ def post_processing_eval():
     # Save bootstrap_data for later resampling
     #np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_empty_string.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
 
-    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_net_highest_pixel.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
+    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_net_no_processing.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
     print("Bootstrap data saved for resampling.")
