@@ -472,8 +472,8 @@ def physician_post_processing_eval():
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions_v4/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_embeddings_predictions/"
-    #prediction_location = "/mnt/Bradshaw/UW_PET_Data/physican_labels/steve_labels/"
-    prediction_location = "/mnt/Bradshaw/UW_PET_Data/physican_labels/meghan_labels/"
+    prediction_location = "/mnt/Bradshaw/UW_PET_Data/physican_labels/steve_labels/"
+    #prediction_location = "/mnt/Bradshaw/UW_PET_Data/physican_labels/meghan_labels/"
 
     #image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
     #label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
@@ -509,6 +509,18 @@ def physician_post_processing_eval():
     TP_sum_max = 0
     FP_sum_max = 0
     FN_sum_max = 0
+
+    # Initialize lists to store per-sample metrics for bootstrap resampling
+    bootstrap_data = {
+        "label_name": [], # name of sample
+        "pixel_size": [], # number of positive pixels in label
+        "tracer": [], # tracer type
+        "machine": [], # name of imaging machine
+        "dice_scores": [],  # Dice scores per sample
+        "TP_FP_FN": [],  # Combined TP, FP, FN per sample
+        "TP_FP_FN_thresh": [],  # TP, FP, FN per sample for threshold F1
+        "TP_FP_FN_max": [],  # TP, FP, FN per sample for max F1
+    }
 
     skipped = 0
     for label in prediction_list:
@@ -546,6 +558,7 @@ def physician_post_processing_eval():
         if labeled_row["Label_is_Correct"].iloc[0] == 0:
             skipped += 1
             continue
+        bootstrap_data["label_name"].append(label_name)
 
         # Get the row where 'ID' matches petlymph_name
         tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
@@ -554,6 +567,9 @@ def physician_post_processing_eval():
         tracer = tracer_row["Tracer"].values[0] if not tracer_row.empty else None
         #print(f"tracer : {tracer}")
         #continue
+        machine = tracer_row["Scanner Type"].values[0] if not tracer_row.empty else None
+        bootstrap_data["tracer"].append(tracer)
+        bootstrap_data["machine"].append(machine)
 
         # print(label_name)
         # row = df[df["Label_Name"] == label_name].iloc[0]
@@ -599,6 +615,10 @@ def physician_post_processing_eval():
         nii_label = nib.load(label_full_path)
         label_data = nii_label.get_fdata()
 
+        # Sum up all the 1's in the label data
+        sum_of_ones = np.sum(label_data == 1)
+        bootstrap_data["pixel_size"].append(sum_of_ones)
+
         #prediction_data = pad_and_crop(prediction_data, label_data)
         TP, FP, FN = TPFPFNHelper(prediction_data, label_data)
         TP_sum += TP
@@ -630,6 +650,18 @@ def physician_post_processing_eval():
             psma_fp_sum += FP
             psma_fn_sum += FN
 
+        # Add the computed metrics for this sample to the bootstrap data
+        bootstrap_data["dice_scores"].extend(dice_score)  # Append dice scores (list or single value)
+
+        # Append TP, FP, FN as a tuple for combined F1 score
+        bootstrap_data["TP_FP_FN"].append((TP, FP, FN))
+
+        # Append TP, FP, FN for threshold F1
+        bootstrap_data["TP_FP_FN_thresh"].append((TP_thresh, FP_thresh, FN_thresh))
+
+        # Append TP, FP, FN for max F1
+        bootstrap_data["TP_FP_FN_max"].append((TP_max, FP_max, FN_max))
+
     print(f"Combined f1 score: {calculate_f1_score(TP_sum, FP_sum, FN_sum)}")
     print(f"Combined True positive: {TP_sum} False Positive: {FP_sum} False Negative sum: {FN_sum}")
 
@@ -646,3 +678,5 @@ def physician_post_processing_eval():
 
     print(f"max TP: {TP_sum_max} FP: {FP_sum_max} FN: {FN_sum_max}")
     print(f"combined max f1 score:{calculate_f1_score(TP_sum_max, FP_sum_max, FN_sum_max)}")
+
+    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/steve_eval.npy", bootstrap_data)

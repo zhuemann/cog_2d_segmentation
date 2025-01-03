@@ -19,12 +19,13 @@ from segmentation_25d.train_segmentation_25d import train_image_text_segmentatio
 from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
 from segmentation_3d.post_processing_eval_llmseg import post_processing_eval_llmseg
+from external_test_set_creation.physican_labeling.physican_post_processing_eval import physician_post_processing_eval
 
 if __name__ == '__main__':
     #plot_final_internal_dataset()
     #mip_creation()
 
-    post_processing_eval()
+    #post_processing_eval()
     #post_processing_eval_llmseg()
     #copy_images_and_labels_to_folder()
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
@@ -34,7 +35,7 @@ if __name__ == '__main__':
     #plot_physican_contours()
     #post_processing_eval()
     #copy_physican_labels_to_folder()
-    #physician_post_processing_eval()
+    physician_post_processing_eval()
     #copy_physican_labels_to_folder()
     #process_rt_strcuts_to_nifty()
     print(fail)
