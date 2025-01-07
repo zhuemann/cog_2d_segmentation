@@ -84,7 +84,7 @@ def plot_physican_contours_external():
 
     original_df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
     df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/Josh_worksheet_matched.xlsx")
-    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/mim_manual_labeling.xlsx")
+    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/mim_manual_labeling.xlsx")
     i = 0
 
     for index, row in df.iterrows():
