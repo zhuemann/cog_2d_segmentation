@@ -98,10 +98,11 @@ def plot_physican_contours_external():
         image_path_base = os.path.join(image_path_root, petlymph)
 
         file_names = os.listdir(image_path_base)
-        index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
         if len(index_of_suv) == 0:
             print("missing pet")
             continue
+        index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
+
         image_path = os.path.join(image_path_base, file_names[index_of_suv[0]])
 
         index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
