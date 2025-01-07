@@ -11,6 +11,8 @@ from scipy.ndimage import binary_erosion
 
 def get_slice_thickness(folder_name):
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+    image_path_base = "/UserData/Zach_Analysis/swedish_hospital_external_dataset/external_testset_v2/"
+
     image_path = os.path.join(image_path_base, folder_name)
     file_names = os.listdir(image_path)
     index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
@@ -105,7 +107,7 @@ def plot_physican_contours_external():
         #ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
         print(f"image name: {petlymph}")
         # gets location of label nifti
-        label_name = row["File_Name"]
+        label_name = str(row["Label_Name"]) + "_-_Contour.nii.gz"
         label_path = os.path.join(label_path_base, str(label_name)) #+ ".nii.gz")
 
         ct_image = nib.load(ct_image_path)
@@ -349,7 +351,7 @@ def plot_physican_contours_external():
         """
 
         #print(row)
-        sentence = row["Text Description"] #.iloc[0]
+        sentence = row["Sentence"] #.iloc[0]
         #print(sentence)
         #print(type(sentence))
         #sentence = row["Text Description"].iloc[0]
