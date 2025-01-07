@@ -92,7 +92,7 @@ def plot_physican_contours_external():
         i += 1
 
         petlymph = extract_image_id(row["ID"])
-
+        print(petlymph)
         dims = get_slice_thickness(petlymph)
         print(f"dims: {dims}")
         image_path_base = os.path.join(image_path_root, petlymph)
