@@ -103,6 +103,9 @@ def plot_physican_contours_external():
 
         index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
         print(f"index_of_ct: {index_of_ct}")
+        if len(index_of_ct) == 0:
+            print("missing ct")
+            continue
         ct_image_path = os.path.join(image_path_base, file_names[index_of_ct[0]])
         #image_path = os.path.join(image_path_base, petlymph, + "_suv_cropped.nii.gz")
         #ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
