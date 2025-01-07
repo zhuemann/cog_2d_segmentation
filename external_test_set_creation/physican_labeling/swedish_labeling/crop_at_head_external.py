@@ -99,6 +99,8 @@ def crop_at_head_calculation_external():
         #    break
         folder = row["ID"]
         #print(f"folder: {folder}")
+        if type(folder) == type(1.0):
+            continue
         current_path = os.path.join(base_folder, folder)
 
         #suv_dicom = dicom_locations[dicom_locations['Patient_Coding'] == folder]["PT_Path"].iloc[0]
