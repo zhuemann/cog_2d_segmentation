@@ -148,7 +148,7 @@ def crop_at_head_calculation_external():
             crop_offset = ct_data.shape[2] - z_plane
             modality_used = "ct"
 
-        id.append(row["Petlymph"])
+        id.append(row["ID"])
         crop_list.append(crop_offset)
         crop_type.append(modality_used)
         pet_path_list.append(suv_path_final)
