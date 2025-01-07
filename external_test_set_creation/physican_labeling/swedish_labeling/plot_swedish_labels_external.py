@@ -91,7 +91,7 @@ def plot_physican_contours_external():
         print(f"index: {index}")
         i += 1
 
-        petlymph = extract_image_id(row["id"])
+        petlymph = extract_image_id(row["ID"])
 
         dims = get_slice_thickness(petlymph)
         print(f"dims: {dims}")
