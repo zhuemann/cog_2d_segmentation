@@ -208,11 +208,11 @@ def plot_physican_contours_external():
         sum_coronal = np.sum(label, axis=(0, 2))
         # Find the index of the slice with the maximum sum
         coronal_slice = int(np.argmax(sum_coronal)*voxel_dims[1]/ct_dims[1])
-        print(f"other1 index: {coronal_slice}")
+        #print(f"other1 index: {coronal_slice}")
         sums_sagital = np.sum(label, axis=(1, 2))
         # Find the index of the slice with the maximum sum
         sagital_slice = int(np.argmax(sums_sagital)*voxel_dims[0]/ct_dims[0])
-        print(f"other2 index: {sagital_slice}")
+        #print(f"other2 index: {sagital_slice}")
 
         ct_label = label
         # ct_label = ct_label.get_fdata()
