@@ -20,11 +20,12 @@ from segmentation_3d.train_3d_model import train_3d_image_text_segmentation
 from data_prepocessing.data_visualization.post_processing_eval import post_processing_eval
 from segmentation_3d.post_processing_eval_llmseg import post_processing_eval_llmseg
 from external_test_set_creation.physican_labeling.physican_post_processing_eval import physician_post_processing_eval
+from external_test_set_creation.physican_labeling.swedish_labeling.process_rt_structs_to_nifti_external import process_rt_strcuts_to_nifty_external
 
 if __name__ == '__main__':
     #plot_final_internal_dataset()
     #mip_creation()
-
+    process_rt_strcuts_to_nifty_external()
     #post_processing_eval()
     #post_processing_eval_llmseg()
     #copy_images_and_labels_to_folder()
@@ -35,7 +36,7 @@ if __name__ == '__main__':
     #plot_physican_contours()
     #post_processing_eval()
     #copy_physican_labels_to_folder()
-    physician_post_processing_eval()
+    #physician_post_processing_eval()
     #copy_physican_labels_to_folder()
     #process_rt_strcuts_to_nifty()
     print(fail)
