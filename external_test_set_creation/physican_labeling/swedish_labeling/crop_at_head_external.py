@@ -115,6 +115,10 @@ def crop_at_head_calculation_external():
         ct_path_final = None
         suv_path_final = None
 
+        if not os.path.exists(current_path):
+            print(f"folder doesn't exist skip: {row['ID']}")
+            continue
+
         for file_name in os.listdir(current_path):
             if "CT" in file_name:
                 ct_path_final = os.path.join(current_path, file_name)
