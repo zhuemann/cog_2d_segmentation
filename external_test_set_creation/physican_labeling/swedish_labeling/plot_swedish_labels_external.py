@@ -107,7 +107,8 @@ def plot_physican_contours_external():
             continue
         image_path = os.path.join(image_path_base, file_names[index_of_suv[0]])
 
-        index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
+        #index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
+        index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower() and "pt" not in element.lower()]
         if len(index_of_ct) == 0:
             print("missing ct")
             continue
