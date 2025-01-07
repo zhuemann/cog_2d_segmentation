@@ -97,6 +97,9 @@ def plot_physican_contours_external():
         #print(f"dims: {dims}")
         image_path_base = os.path.join(image_path_root, petlymph)
 
+        if not os.path.exists(image_path_base):
+            continue
+
         file_names = os.listdir(image_path_base)
         index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
         if len(index_of_suv) == 0:
