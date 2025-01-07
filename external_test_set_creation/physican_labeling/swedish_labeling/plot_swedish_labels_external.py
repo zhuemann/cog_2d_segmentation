@@ -203,7 +203,8 @@ def plot_physican_contours_external():
         sums_axial = np.sum(label, axis=(0, 1))
         # Find the index of the slice with the maximum sum
         k_num = np.argmax(sums_axial)
-
+        if k_num >= ct_volume.shape[2]:
+            k_num = 0
         sum_coronal = np.sum(label, axis=(0, 2))
         # Find the index of the slice with the maximum sum
         coronal_slice = int(np.argmax(sum_coronal)*voxel_dims[1]/ct_dims[1])
