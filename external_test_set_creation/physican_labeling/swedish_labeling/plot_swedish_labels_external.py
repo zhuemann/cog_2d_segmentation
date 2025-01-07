@@ -93,12 +93,15 @@ def plot_physican_contours_external():
 
         petlymph = extract_image_id(row["ID"])
         print(petlymph)
-        dims = get_slice_thickness(petlymph)
-        print(f"dims: {dims}")
+        #dims = get_slice_thickness(petlymph)
+        #print(f"dims: {dims}")
         image_path_base = os.path.join(image_path_root, petlymph)
 
         file_names = os.listdir(image_path_base)
         index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
+        if len(index_of_suv) == 0:
+            print("missing pet")
+            continue
         image_path = os.path.join(image_path_base, file_names[index_of_suv[0]])
 
         index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
@@ -109,14 +112,14 @@ def plot_physican_contours_external():
         ct_image_path = os.path.join(image_path_base, file_names[index_of_ct[0]])
         #image_path = os.path.join(image_path_base, petlymph, + "_suv_cropped.nii.gz")
         #ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
-        print(f"image name: {petlymph}")
+        #rint(f"image name: {petlymph}")
         # gets location of label nifti
         label_name = str(row["Label_Name"]) + "_-_Contour.nii.gz"
         label_path = os.path.join(label_path_base, str(label_name)) #+ ".nii.gz")
 
         ct_image = nib.load(ct_image_path)
         ct_volume = ct_image.get_fdata()
-        print(f"ct dimensions: {ct_volume.shape}")
+        #print(f"ct dimensions: {ct_volume.shape}")
 
         rotated_volume = np.transpose(ct_volume, (1, 0, 2))
 
@@ -148,9 +151,9 @@ def plot_physican_contours_external():
         # print(f"pet image dimensions: {img.shape}")
         # Extract voxel dimensions (in mm)
         voxel_dims = nii_image.header.get_zooms()
-        print(f'pet voxel dims: {voxel_dims}')
+        #print(f'pet voxel dims: {voxel_dims}')
         ct_dims = ct_image.header.get_zooms()
-        print(f"ct voxel dims: {ct_dims}")
+        #print(f"ct voxel dims: {ct_dims}")
         """
         # loads in the label as a numpy array
         nii_label = nib.load(label_path)
