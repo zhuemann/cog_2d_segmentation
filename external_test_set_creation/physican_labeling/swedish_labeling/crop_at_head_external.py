@@ -97,7 +97,7 @@ def crop_at_head_calculation_external():
 
         #if images_created == 500:
         #    break
-        folder = row["Petlymph"]
+        folder = row["ID"]
         #print(f"folder: {folder}")
         current_path = os.path.join(base_folder, folder)
 
