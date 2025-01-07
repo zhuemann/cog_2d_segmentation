@@ -21,11 +21,13 @@ from data_prepocessing.data_visualization.post_processing_eval import post_proce
 from segmentation_3d.post_processing_eval_llmseg import post_processing_eval_llmseg
 from external_test_set_creation.physican_labeling.physican_post_processing_eval import physician_post_processing_eval
 from external_test_set_creation.physican_labeling.swedish_labeling.process_rt_structs_to_nifti_external import process_rt_strcuts_to_nifty_external
+from external_test_set_creation.physican_labeling.swedish_labeling.plot_swedish_labels_external import plot_physican_contours_external
 
 if __name__ == '__main__':
     #plot_final_internal_dataset()
     #mip_creation()
-    process_rt_strcuts_to_nifty_external()
+    #process_rt_strcuts_to_nifty_external()
+    plot_physican_contours_external()
     #post_processing_eval()
     #post_processing_eval_llmseg()
     #copy_images_and_labels_to_folder()
