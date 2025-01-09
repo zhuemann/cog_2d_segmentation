@@ -126,7 +126,7 @@ def plot_final_testset_for_josh_v3_external():
         print(f"image name: {petlymph}")
         # gets location of label nifti
         print(f"label name: {row['Label_Name']}")
-        if type(row["Label_Name"] == type(1.0)):
+        if pd.isna(row["Label_Name"]):
             print("missing label")
             continue
         label_name = row["Label_Name"] + "_-_Contour"
