@@ -117,7 +117,6 @@ def plot_final_testset_for_josh_v3_external():
         #    continue
 
         ct_image_path = os.path.join(image_path_root, petlymph + "_ct_cropped.nii.gz")
-        print(ct_image_path)
         if not os.path.exists(ct_image_path):
             print("missing ct")
             continue
@@ -126,6 +125,7 @@ def plot_final_testset_for_josh_v3_external():
         #ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
         print(f"image name: {petlymph}")
         # gets location of label nifti
+        print(f"label name: {row['Label_Name']}")
         if type(row["Label_Name"] == type(1.0)):
             print("missing label")
             continue
