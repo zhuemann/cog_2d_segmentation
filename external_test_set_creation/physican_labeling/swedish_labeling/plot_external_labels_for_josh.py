@@ -125,9 +125,9 @@ def plot_final_testset_for_josh_v3_external():
         #ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
         print(f"image name: {petlymph}")
         # gets location of label nifti
-        print(f"label name: {row['Label_Name']}")
+        #print(f"label name: {row['Label_Name']}")
         if pd.isna(row["Label_Name"]):
-            print("missing label")
+            print(f"missing label: {row['Label_Name']}")
             continue
         label_name = row["Label_Name"] + "_-_Contour"
         label_path = os.path.join(label_path_base, label_name + ".nii.gz")
