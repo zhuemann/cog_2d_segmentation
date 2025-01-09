@@ -145,6 +145,10 @@ def resampling_and_cropping_external():
 
         image_path = os.path.join(image_path_base, petlymph)
 
+        if type(row["Label_Name"]) == type(1.0):
+            print("skipping no label name")
+            continue
+
         #label_path = os.path.join(label_path_base, row["Label_Name"])
         label_path = os.path.join(label_path_base, row["Label_Name"])
         label_path = label_path + "_-_Contour.nii.gz"
