@@ -148,6 +148,9 @@ def resampling_and_cropping_external():
         #label_path = os.path.join(label_path_base, row["Label_Name"])
         label_path = os.path.join(label_path_base, row["Label_Name"])
         label_path = label_path + "_-_Contour.nii.gz"
+
+        print(f"label path: {label_path}")
+        print(f"image path: {image_path}")
         if not os.path.exists(image_path):
             print("no image")
             continue
