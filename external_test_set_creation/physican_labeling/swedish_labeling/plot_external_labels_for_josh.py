@@ -95,7 +95,7 @@ def plot_final_testset_for_josh_v3_external():
         if not os.path.exists(image_path_base):
             print("missing pet")
             continue
-        dims = get_slice_thickness(image_path_base)
+        #dims = get_slice_thickness(image_path_base)
 
 
 
