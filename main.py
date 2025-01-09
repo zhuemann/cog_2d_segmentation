@@ -24,6 +24,7 @@ from external_test_set_creation.physican_labeling.swedish_labeling.process_rt_st
 from external_test_set_creation.physican_labeling.swedish_labeling.plot_swedish_labels_external import plot_physican_contours_external
 from external_test_set_creation.physican_labeling.swedish_labeling.crop_at_head_external import crop_at_head_calculation_external
 from external_test_set_creation.physican_labeling.swedish_labeling.resampling_and_cropping_external import resampling_and_cropping_external
+from external_test_set_creation.physican_labeling.swedish_labeling.plot_external_labels_for_josh import plot_final_testset_for_josh_v3_external
 
 if __name__ == '__main__':
     #plot_final_internal_dataset()
@@ -31,7 +32,8 @@ if __name__ == '__main__':
     #process_rt_strcuts_to_nifty_external()
     #plot_physican_contours_external()
     #crop_at_head_calculation_external()
-    resampling_and_cropping_external()
+    plot_final_testset_for_josh_v3_external()
+    #resampling_and_cropping_external()
     #post_processing_eval()
     #post_processing_eval_llmseg()
     #copy_images_and_labels_to_folder()
