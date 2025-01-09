@@ -90,11 +90,11 @@ def plot_final_testset_for_josh_v3_external():
 
         #dims = get_slice_thickness(petlymph)
         #print(f"dims: {dims}")
-        image_path_base = os.path.join(image_path_root, petlymph + "_suv_cropped.nii.gz")
+        pet_image_path = os.path.join(image_path_root, petlymph + "_suv_cropped.nii.gz")
 
-        if not os.path.exists(image_path_base):
+        if not os.path.exists(pet_image_path):
 
-            print(f"missing pet path used: {image_path_base}")
+            print(f"missing pet path used: {pet_image_path}")
             continue
         #dims = get_slice_thickness(image_path_base)
 
@@ -116,7 +116,7 @@ def plot_final_testset_for_josh_v3_external():
         #    print("missing ct")
         #    continue
 
-        ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
+        ct_image_path = os.path.join(image_path_root, petlymph + "_ct_cropped.nii.gz")
         print(ct_image_path)
         if not os.path.exists(ct_image_path):
             print("missing ct")
@@ -160,7 +160,7 @@ def plot_final_testset_for_josh_v3_external():
         # transaxial_slice = ct_volume[:, :, slice_num]
 
         # loads in the image as a numpy array
-        nii_image = nib.load(image_path)
+        nii_image = nib.load(pet_image_path)
         img = nii_image.get_fdata()
         # print(f"pet image dimensions: {img.shape}")
         # Extract voxel dimensions (in mm)
