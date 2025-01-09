@@ -118,7 +118,7 @@ def resampling_and_cropping_external():
     processed_images = generate_processed_images_dict(save_path + images_folder)
 
     #crop_lookup = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/crop_offset_lookup.xlsx")
-    crop_lookup = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/crop_offset_loopup_external.xlsx")
+    crop_lookup = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/crop_offset_lookup_external.xlsx")
     #print(processed_images)
     number_of_missing_ct = 0
     label_cropped_out = 0
