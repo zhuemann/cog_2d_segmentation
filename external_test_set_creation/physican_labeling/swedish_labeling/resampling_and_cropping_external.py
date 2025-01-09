@@ -97,13 +97,15 @@ def crop_z_axis(img, crop_offset):
     else:
         return img.slicer[:,:,:-crop_offset]
 
-def resampling_and_cropping(df):
+def resampling_and_cropping_external():
 
     image_path_base = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
+    image_path_base = "/UserData/Zach_Analysis/swedish_hospital_external_dataset/external_testset_v2/"
+
     #label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
     #label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
     label_path_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/josh_nifti/"
-    print("hi")
+    label_path_base = "/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/swedish_nifti/"
 
     #images_folder = "images6"
     #label_folder = "labels6"
@@ -111,11 +113,12 @@ def resampling_and_cropping(df):
     label_folder = "labels"
 
     #save_path = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/"
-    save_path = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/"
+    save_path = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/"
 
     processed_images = generate_processed_images_dict(save_path + images_folder)
 
-    crop_lookup = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/crop_offset_lookup.xlsx")
+    #crop_lookup = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/crop_offset_lookup.xlsx")
+    crop_lookup = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/crop_offset_loopup_external.xlsx")
     #print(processed_images)
     number_of_missing_ct = 0
     label_cropped_out = 0
@@ -128,11 +131,13 @@ def resampling_and_cropping(df):
     label_used = []
     id = []
 
+    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/mim_manual_labeling.xlsx")
+
     for index, row in df.iterrows():
 
-        if row["Zach_drop"] == "1":
-            continue
-        petlymph = row["id"]
+        #if row["Zach_drop"] == "1":
+        #    continue
+        petlymph = row["ID"]
 
         print(f"i: {i} Petlymph: {petlymph} labels cropped out: {label_cropped_out} missing ct: {number_of_missing_ct} resampling saved: {resampling_saved} already processed: { already_processed}")
         i += 1
@@ -140,7 +145,15 @@ def resampling_and_cropping(df):
         image_path = os.path.join(image_path_base, petlymph)
 
         #label_path = os.path.join(label_path_base, row["Label_Name"])
-        label_path = os.path.join(label_path_base, row["File_Name"])
+        label_path = os.path.join(label_path_base, row["Label_Name"])
+
+        if not os.path.exists(image_path):
+            print("no image")
+            continue
+
+        if not os.path.label_path(label_path):
+            print("no label")
+            continue
 
         #label_path = str(label_path) + ".nii.gz"
 
@@ -158,7 +171,7 @@ def resampling_and_cropping(df):
         # Check if this PET/CT pair has already been processed
         if petlymph in processed_images:
             print(f"{petlymph} PET/CT images already processed. Checking label...")
-            if os.path.exists(os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/", str(label_folder), f'{row["Label_Name"]}.nii.gz')):
+            if os.path.exists(os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/", str(label_folder), f'{row["Label_Name"]}.nii.gz')):
                 already_processed += 1
                 continue
             else:
@@ -172,7 +185,7 @@ def resampling_and_cropping(df):
                 label_cropped = crop_center_with_offset(label_resampled, z_offset=0)
                 if np.any(label_cropped.get_fdata() != 0):
                     nib.save(label_cropped,
-                             os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/", str(label_folder),
+                             os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/", str(label_folder),
                                           f'{row["Label_Name"]}.nii.gz'))
                     resampling_saved += 1
                 else:
@@ -184,7 +197,7 @@ def resampling_and_cropping(df):
         index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
         suv_path = os.path.join(image_path, file_names[index_of_suv[0]])
 
-        index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower() and "irctac" not in element.lower()]
+        index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower() and "irctac" not in element.lower() and "PT" not in element]
         #index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()]
         # Check if any file was found that contains "CT"
         if index_of_ct:
@@ -233,9 +246,9 @@ def resampling_and_cropping(df):
         # Check if any label is still in the image
         if np.any(label_cropped.get_fdata() != 0):
             # Save the cropped images
-            nib.save(ct_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/", str(images_folder), f'{petlymph}_ct_cropped.nii.gz'))
-            nib.save(suv_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/", str(images_folder), f'{petlymph}_suv_cropped.nii.gz'))
-            nib.save(label_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/", str(label_folder), f'{row["Label_Name"]}.nii.gz'))
+            nib.save(ct_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/", str(images_folder), f'{petlymph}_ct_cropped.nii.gz'))
+            nib.save(suv_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/", str(images_folder), f'{petlymph}_suv_cropped.nii.gz'))
+            nib.save(label_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/", str(label_folder), f'{row["Label_Name"]}.nii.gz'))
             processed_images[petlymph] = 1
         else:
             label_cropped_out += 1
@@ -248,5 +261,6 @@ def resampling_and_cropping(df):
         'CT_Used': ct_used,
         'Label_Used': label_used,
     })
+    df.to_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/df_images_used.xlsx")
     return df_images_used
 
