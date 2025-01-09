@@ -18,6 +18,9 @@ def get_slice_thickness(folder_name):
     file_names = os.listdir(image_path)
     index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
     image_path = os.path.join(image_path, file_names[index_of_suv[0]])
+
+    image_path_base = os.path.join(image_path_base, petlymph + "_suv_cropped.nii.gz")
+
     nii_image = nib.load(image_path)
     header = nii_image.header
     voxel_dims = header.get_zooms()
@@ -85,13 +88,14 @@ def plot_final_testset_for_josh_v3_external():
         petlymph = extract_image_id(row["ID"])
         print(petlymph)
 
-        dims = get_slice_thickness(petlymph)
-        print(f"dims: {dims}")
+        #dims = get_slice_thickness(petlymph)
+        #print(f"dims: {dims}")
         image_path_base = os.path.join(image_path_root, petlymph + "_suv_cropped.nii.gz")
 
         if not os.path.exists(image_path_base):
             print("missing pet")
             continue
+        dims = get_slice_thickness(image_path_base)
 
 
 
