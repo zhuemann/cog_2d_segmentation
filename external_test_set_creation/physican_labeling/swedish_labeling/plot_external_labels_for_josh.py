@@ -84,7 +84,10 @@ def plot_final_testset_for_josh_v3_external():
     for index, row in df.iterrows():
         print(f"index: {index}")
         i += 1
-        if i < 190:
+        if i < 195:
+            continue
+        if pd.isna(row["ID"]):
+            print("nan continue")
             continue
         petlymph = extract_image_id(row["ID"])
         print(petlymph)
