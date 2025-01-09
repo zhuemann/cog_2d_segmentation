@@ -129,7 +129,7 @@ def plot_final_testset_for_josh_v3_external():
         if pd.isna(row["Label_Name"]):
             print(f"missing label: {row['Label_Name']}")
             continue
-        label_name = row["Label_Name"] + "_-_Contour"
+        label_name = row["Label_Name"]
         label_path = os.path.join(label_path_base, label_name + ".nii.gz")
 
         ct_image = nib.load(ct_image_path)
