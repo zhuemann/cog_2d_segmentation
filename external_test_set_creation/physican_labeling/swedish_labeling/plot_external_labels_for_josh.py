@@ -93,7 +93,8 @@ def plot_final_testset_for_josh_v3_external():
         image_path_base = os.path.join(image_path_root, petlymph + "_suv_cropped.nii.gz")
 
         if not os.path.exists(image_path_base):
-            print("missing pet")
+
+            print(f"missing pet path used: {image_path_base}")
             continue
         #dims = get_slice_thickness(image_path_base)
 
@@ -116,6 +117,7 @@ def plot_final_testset_for_josh_v3_external():
         #    continue
 
         ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
+        print(ct_image_path)
         if not os.path.exists(ct_image_path):
             print("missing ct")
             continue
