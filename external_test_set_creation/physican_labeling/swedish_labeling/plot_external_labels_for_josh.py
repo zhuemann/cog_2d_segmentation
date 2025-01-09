@@ -147,7 +147,7 @@ def plot_final_testset_for_josh_v3_external():
 
         slice_num = row["Image"]
         # k_num = row["k"]
-        original_row = original_df.loc[original_df['Label_Name'] == label_name]
+        #original_row = original_df.loc[original_df['Label_Name'] == label_name]
         #crop_row = crop_df.loc[crop_df['id'] == petlymph]
         #crop_offset = crop_row['crop_offset'].iloc[0]
         # print(f"crop offset: {crop_offset}")
