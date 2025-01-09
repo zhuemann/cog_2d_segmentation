@@ -87,27 +87,42 @@ def plot_final_testset_for_josh_v3_external():
 
         dims = get_slice_thickness(petlymph)
         print(f"dims: {dims}")
-        image_path_base = os.path.join(image_path_root, petlymph)
+        image_path_base = os.path.join(image_path_root, petlymph + "_suv_cropped.nii.gz")
 
-        file_names = os.listdir(image_path_base)
-        index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
-        if len(index_of_suv) == 0:
+        if not os.path.exists(image_path_base):
             print("missing pet")
             continue
-        image_path = os.path.join(image_path_base, file_names[index_of_suv[0]])
 
-        if not os.path.exists(image_path):
-            continue
 
-        index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()  and "pt" not in element.lower()]
-        if len(index_of_ct) == 0:
+
+        #file_names = os.listdir(image_path_base)
+        #index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
+        #if len(index_of_suv) == 0:
+        #    print("missing pet")
+        #    continue
+
+        #image_path = os.path.join(image_path_base, file_names[index_of_suv[0]])
+
+        #if not os.path.exists(image_path):
+        #    continue
+
+        #index_of_ct = [index for index, element in enumerate(file_names) if "ct" in element.lower()  and "pt" not in element.lower()]
+        #if len(index_of_ct) == 0:
+        #    print("missing ct")
+        #    continue
+
+        ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
+        if not os.path.exists(ct_image_path):
             print("missing ct")
             continue
-        ct_image_path = os.path.join(image_path_base, file_names[index_of_ct[0]])
+
         #image_path = os.path.join(image_path_base, petlymph, + "_suv_cropped.nii.gz")
         #ct_image_path = os.path.join(image_path_base, petlymph + "_ct_cropped.nii.gz")
         print(f"image name: {petlymph}")
         # gets location of label nifti
+        if type(row["label_Name"] == type(1.0)):
+            print("missing label")
+            continue
         label_name = row["Label_Name"] + "_-_Contour"
         label_path = os.path.join(label_path_base, label_name + ".nii.gz")
 
