@@ -186,6 +186,7 @@ def plot_final_testset_for_josh_v3_external():
             nii_label = nib.load(label_path)
             label = nii_label.get_fdata()  # the label data
         else:
+            print(f"label path does not exist: {label_path}")
             continue
 
         # flip data
