@@ -152,7 +152,7 @@ def resampling_and_cropping_external():
             print("no image")
             continue
 
-        if not os.path.label_path(label_path):
+        if not os.path.exists(label_path):
             print("no label")
             continue
 
