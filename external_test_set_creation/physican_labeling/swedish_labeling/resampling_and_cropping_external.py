@@ -133,7 +133,7 @@ def resampling_and_cropping_external():
     id = []
 
     #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/mim_manual_labeling.xlsx")
-    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/anonymized_key.xlsx.xlsx")
+    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/anonymized_key.xlsx")
 
     for index, row in df.iterrows():
 
