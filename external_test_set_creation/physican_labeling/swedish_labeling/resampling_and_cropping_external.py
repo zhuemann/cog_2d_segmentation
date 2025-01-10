@@ -178,6 +178,7 @@ def resampling_and_cropping_external():
             print("no offset, it was missing")
 
         # Check if this PET/CT pair has already been processed
+        """
         if petlymph in processed_images:
             print(f"{petlymph} PET/CT images already processed. Checking label...")
             if os.path.exists(os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/", str(label_folder), f'{row["New_Label_Name"]}.nii.gz')):
@@ -201,6 +202,7 @@ def resampling_and_cropping_external():
                     label_cropped_out += 1
                     continue
             continue
+        """
 
         file_names = os.listdir(image_path)
         index_of_suv = [index for index, element in enumerate(file_names) if "suv" in element.lower()]
