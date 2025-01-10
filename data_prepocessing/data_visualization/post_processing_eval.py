@@ -708,7 +708,9 @@ def post_processing_eval():
         # print(label)
         #label = remove_leading_number(label)
         # print(label)
-        image_name = label[:15]
+        #image_name = label[:15] # for internal datset
+        image_name = label[:11] # for swedish dataset
+
         # print(image_name)
         #print(f"image name: {image_name}")
         #label_name = label.strip(".nii.gz")
