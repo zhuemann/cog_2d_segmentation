@@ -132,7 +132,8 @@ def resampling_and_cropping_external():
     label_used = []
     id = []
 
-    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/mim_manual_labeling.xlsx")
+    #df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/mim_manual_labeling.xlsx")
+    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/anonymized_key.xlsx.xlsx")
 
     for index, row in df.iterrows():
 
@@ -179,7 +180,7 @@ def resampling_and_cropping_external():
         # Check if this PET/CT pair has already been processed
         if petlymph in processed_images:
             print(f"{petlymph} PET/CT images already processed. Checking label...")
-            if os.path.exists(os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/", str(label_folder), f'{row["Label_Name"]}.nii.gz')):
+            if os.path.exists(os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/", str(label_folder), f'{row["New_Label_Name"]}.nii.gz')):
                 already_processed += 1
                 continue
             else:
@@ -193,8 +194,8 @@ def resampling_and_cropping_external():
                 label_cropped = crop_center_with_offset(label_resampled, z_offset=0)
                 if np.any(label_cropped.get_fdata() != 0):
                     nib.save(label_cropped,
-                             os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/", str(label_folder),
-                                          f'{row["Label_Name"]}.nii.gz'))
+                             os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/", str(label_folder),
+                                          f'{row["New_Label_Name"]}.nii.gz'))
                     resampling_saved += 1
                 else:
                     label_cropped_out += 1
@@ -254,9 +255,9 @@ def resampling_and_cropping_external():
         # Check if any label is still in the image
         if np.any(label_cropped.get_fdata() != 0):
             # Save the cropped images
-            nib.save(ct_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/", str(images_folder), f'{petlymph}_ct_cropped.nii.gz'))
-            nib.save(suv_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/", str(images_folder), f'{petlymph}_suv_cropped.nii.gz'))
-            nib.save(label_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/", str(label_folder), f'{row["Label_Name"]}.nii.gz'))
+            nib.save(ct_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/", str(images_folder), f'{row["New_ID"]}_ct_cropped.nii.gz'))
+            nib.save(suv_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/", str(images_folder), f'{row["New_ID"]}_suv_cropped.nii.gz'))
+            nib.save(label_cropped, os.path.join("/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/", str(label_folder), f'{row["New_Label_Name"]}.nii.gz'))
             processed_images[petlymph] = 1
         else:
             label_cropped_out += 1
