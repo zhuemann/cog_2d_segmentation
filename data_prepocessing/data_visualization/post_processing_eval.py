@@ -646,8 +646,8 @@ def post_processing_eval():
     #image_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/images/"
     #label_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/labels/"
 
-    image_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/images/"
-    label_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/labels/"
+    image_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/images/"
+    label_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/labels/"
 
     tracer_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/meta_data_files/combined_tracer_and_scanner.xlsx")
 
