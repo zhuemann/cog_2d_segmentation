@@ -54,7 +54,7 @@ def plot_3d_predictions_single_image(PET_file, label_file, prediction_file, save
     # for saving off plain image
     plt.axis('off')
     save_file_name = save_file.split("/")[-1]
-    plt.savefig(f"/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions_v6/plain_{str(save_file_name)}", bbox_inches="tight", pad_inches=0)
+    plt.savefig(f"/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions_with_paper_model_for_figure_v7/plain_{str(save_file_name)}", bbox_inches="tight", pad_inches=0)
 
     # Function to plot contours with specific colors
     def plot_contours(mask, color):
@@ -107,14 +107,15 @@ import os
 import regex as re
 def plot_all_images():
 
-    prediction_folder = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/predictions_v5_f1_.65_v2/"
+    #prediction_folder = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/predictions_v5_f1_.65_v2/"
+    prediction_folder = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/f1_.76_dice_.55_best_prediction/"
     all_predictions = os.listdir(prediction_folder)
 
-    labels = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels5/"
+    labels = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
 
-    pet_images = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images5/"
+    pet_images = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
 
-    save_location = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions_v6/"
+    save_location = "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/single_plot_predictions_with_paper_model_for_figure_v7/"
 
     df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/removed_wrong_suv_max_and_slices_13.xlsx")
     index = -1
