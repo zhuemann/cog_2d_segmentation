@@ -387,7 +387,7 @@ def plot_final_testset_for_josh_v3_external():
         plt.suptitle(sentence, fontsize=12, color='black')
 
         plt.savefig(
-            "/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/external_plots_for_josh_v2/" + label_name + ".png",
+            "/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/external_plots_for_josh_v3/" + label_name + ".png",
             dpi=300)
 
         plt.close()
