@@ -269,10 +269,9 @@ def plot_final_testset_for_josh_v3_external():
         ct_mip_sagittal = np.rot90(ct_mip_sagittal)
 
 
-        mip_coronal = np.fliplr(mip_coronal)
-        label_coronal = np.fliplr(label_coronal)
-
-        ct_mip_coronal = np.fliplr(ct_mip_coronal)
+        #mip_coronal = np.fliplr(mip_coronal)
+        #label_coronal = np.fliplr(label_coronal)
+        #ct_mip_coronal = np.fliplr(ct_mip_coronal)
 
         plt.figure(figsize=(24, 24))
         plt.subplot(2, 4, 1)  # 1 row, 2 columns, first subplot
