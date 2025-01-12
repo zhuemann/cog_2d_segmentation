@@ -86,9 +86,9 @@ def plot_final_testset_for_josh_v3_external():
         i += 1
         #if i < 195:
         #    continue
-        if pd.isna(row["ID"]):
-            print("nan continue")
-            continue
+        #if pd.isna(row["ID"]):
+        #    print("nan continue")
+        #    continue
 
         image_name = row["image"].split("/")[-1]
         petlymph = extract_image_id(image_name)
