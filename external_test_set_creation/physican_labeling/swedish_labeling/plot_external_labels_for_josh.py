@@ -269,6 +269,11 @@ def plot_final_testset_for_josh_v3_external():
         ct_mip_sagittal = np.rot90(ct_mip_sagittal)
 
 
+        mip_axial = np.flipud(mip_axial)
+        label_axial = np.flipud(label_axial)
+        pet_transaxial_slice = np.flipud(pet_transaxial_slice)
+
+
         #mip_coronal = np.fliplr(mip_coronal)
         #label_coronal = np.fliplr(label_coronal)
         #ct_mip_coronal = np.fliplr(ct_mip_coronal)
