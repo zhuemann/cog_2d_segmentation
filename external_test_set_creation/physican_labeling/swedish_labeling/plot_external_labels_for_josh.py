@@ -68,9 +68,9 @@ def plot_final_testset_for_josh_v3_external():
     #label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels5/"
 
     image_path_root = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
-    image_path_root = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/images/"
+    image_path_root = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/images_v2/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
-    label_path_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/labels/"
+    label_path_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/labels_v2/"
 
 
     original_df = pd.read_excel(
@@ -79,7 +79,7 @@ def plot_final_testset_for_josh_v3_external():
         "/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/crop_offset_lookup.xlsx")
     i = 0
     df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/mim_manual_labeling.xlsx")
-
+    df = pd.read_excel("/UserData/Zach_Analysis/physican_labeling_UWPET/swedish_labeled_dataset/swedish_external_testset.xlsx")
 
     for index, row in df.iterrows():
         print(f"index: {index}")
@@ -89,7 +89,9 @@ def plot_final_testset_for_josh_v3_external():
         if pd.isna(row["ID"]):
             print("nan continue")
             continue
-        petlymph = extract_image_id(row["ID"])
+
+        image_name = row["image"].split("/")[-1]
+        petlymph = extract_image_id(image_name)
         print(petlymph)
 
         #dims = get_slice_thickness(petlymph)
@@ -130,10 +132,10 @@ def plot_final_testset_for_josh_v3_external():
         print(f"image name: {petlymph}")
         # gets location of label nifti
         #print(f"label name: {row['Label_Name']}")
-        if pd.isna(row["Label_Name"]):
+        if pd.isna(row["label_name"]):
             print(f"missing label: {row['Label_Name']}")
             continue
-        label_name = row["Label_Name"]
+        label_name = row["label_name"]
         label_path = os.path.join(label_path_base, label_name + ".nii.gz")
 
         ct_image = nib.load(ct_image_path)
@@ -149,7 +151,7 @@ def plot_final_testset_for_josh_v3_external():
 
         ct_volume = rotated_volume
 
-        slice_num = row["Image"]
+        slice_num = row["slice_num"]
         # k_num = row["k"]
         #original_row = original_df.loc[original_df['Label_Name'] == label_name]
         #crop_row = crop_df.loc[crop_df['id'] == petlymph]
@@ -379,7 +381,7 @@ def plot_final_testset_for_josh_v3_external():
 
         # print(original_row)
         #sentence = original_row["sentence"].iloc[0]
-        sentence = row["Sentence"]
+        sentence = row["report"]
         # print(sentence)
         # print(type(sentence))
         sentence = insert_newlines(sentence, word_limit=25)
