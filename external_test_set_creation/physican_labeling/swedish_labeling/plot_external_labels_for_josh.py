@@ -68,9 +68,9 @@ def plot_final_testset_for_josh_v3_external():
     #label_path_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels5/"
 
     image_path_root = "/mnt/Bradshaw/UW_PET_Data/SUV_images/"
-    image_path_root = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/images_v2/"
+    image_path_root = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/images/"
     label_path_base = "/mnt/Bradshaw/UW_PET_Data/raw_nifti_uw_pet/uw_labels_v4_nifti/"
-    label_path_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset/labels_v2/"
+    label_path_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/labels/"
 
 
     original_df = pd.read_excel(
