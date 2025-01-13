@@ -273,6 +273,9 @@ def plot_final_testset_for_josh_v3_external():
         label_axial = np.flipud(label_axial)
         pet_transaxial_slice = np.flipud(pet_transaxial_slice)
 
+        mip_axial = np.fliplr(mip_axial)
+        label_axial = np.fliplr(label_axial)
+        pet_transaxial_slice = np.fliplr(pet_transaxial_slice)
 
         #mip_coronal = np.fliplr(mip_coronal)
         #label_coronal = np.fliplr(label_coronal)
