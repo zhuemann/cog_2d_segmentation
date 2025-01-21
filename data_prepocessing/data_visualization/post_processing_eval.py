@@ -627,7 +627,7 @@ def post_processing_eval():
 
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.5_data_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.1_data_predictions/"
-    #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/f1_.76_dice_.55_best_prediction/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/f1_.76_dice_.55_best_prediction/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions_v4/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_embeddings_predictions/"
@@ -638,7 +638,7 @@ def post_processing_eval():
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_empty_string_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_bert_predictions_v2/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_data_predictions/"
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/swedish_predictions_contextual_net/"
+    #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/swedish_predictions_contextual_net/"
 
 
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
@@ -646,8 +646,8 @@ def post_processing_eval():
     #image_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/images/"
     #label_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/labels/"
 
-    image_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/images/"
-    label_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/labels/"
+    #image_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/images/"
+    #label_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/labels/"
 
     tracer_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/meta_data_files/combined_tracer_and_scanner.xlsx")
 
@@ -740,14 +740,14 @@ def post_processing_eval():
         #    continue
 
         # Get the row where 'ID' matches petlymph_name
-        #tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
+        tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
         # Get the value from the 'Tracer' column or set tracer to None if not found
-        #tracer = tracer_row["Tracer"].values[0] if not tracer_row.empty else None
+        tracer = tracer_row["Tracer"].values[0] if not tracer_row.empty else None
         # get the value of the machine type
-        #machine = tracer_row["Scanner Type"].values[0] if not tracer_row.empty else None
+        machine = tracer_row["Scanner Type"].values[0] if not tracer_row.empty else None
 
-        tracer = "none"
-        machine = "none"
+        #tracer = "none"
+        #machine = "none"
         bootstrap_data["tracer"].append(tracer)
         bootstrap_data["machine"].append(machine)
 
@@ -873,7 +873,7 @@ def post_processing_eval():
 
 
     # Save bootstrap_data for later resampling
-    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/swedish_external_contextual_net.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
+    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_net_full_with_scanner.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
 
     #np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_net_.1_data.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
     print("Bootstrap data saved for resampling.")
