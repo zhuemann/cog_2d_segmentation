@@ -708,8 +708,8 @@ def post_processing_eval():
         # print(label)
         #label = remove_leading_number(label)
         # print(label)
-        #image_name = label[:15] # for internal datset
-        image_name = label[:12] # for swedish dataset
+        image_name = label[:15] # for internal datset
+        #image_name = label[:12] # for swedish dataset
 
         # print(image_name)
         #print(f"image name: {image_name}")
