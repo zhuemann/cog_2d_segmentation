@@ -208,11 +208,11 @@ def false_pos_pix(gt_array, pred_array, pred_array_baseline=None):
         #print(f"idx in false pos pix: {idx} max: {pred_conn_comp.max()}")
         comp_mask = np.isin(pred_conn_comp, idx)
         #if comp_mask.sum() <= 8:  # ignore small connected components (0.64 ml)
-        #    print("less than 8")
+            #print("less than 8")
         #    continue
-        #if comp_mask.sum() <= 3:  # ignore small connected components (0.81 ml)
+        if comp_mask.sum() <= 3:  # ignore small connected components (0.81 ml)
             #print("less than 3")
-        #    continue
+            continue
         if (comp_mask * gt_array).sum() == 0:
             false_pos = false_pos + comp_mask.sum()
             false_pos_num = false_pos_num + 1
@@ -627,7 +627,7 @@ def post_processing_eval():
 
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.5_data_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.1_data_predictions/"
-    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/f1_.76_dice_.55_best_prediction/"
+    #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/f1_.76_dice_.55_best_prediction/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_roberta_large_predictions_v4/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_embeddings_predictions/"
@@ -638,16 +638,15 @@ def post_processing_eval():
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_empty_string_predictions/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_bert_predictions_v2/"
     #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/.25_data_predictions/"
-    #prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/swedish_predictions_contextual_net/"
+    prediction_location = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/swedish_predictions_contextual_net/"
 
 
-    image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
-    label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
-    #image_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/images/"
-    #label_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_internal_dataset/labels/"
+    #image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
+    #label_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/labels6/"
 
-    #image_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/images/"
-    #label_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/labels/"
+
+    image_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/images/"
+    label_base = "/mnt/Bradshaw/UW_PET_Data/physican_labels/final_external_dataset_v2/labels/"
 
     tracer_df = pd.read_excel("/UserData/Zach_Analysis/suv_slice_text/uw_all_pet_preprocess_chain_v4/meta_data_files/combined_tracer_and_scanner.xlsx")
 
@@ -694,6 +693,12 @@ def post_processing_eval():
     }
 
     skipped_labels = {"PETWB_002624_01_label_1", "PETWB_017530_01_label_2", "PETWB_011869_01_label_1", "PETWB_011768_01_label_4"}
+    skipped_labels = {"swedish_0015_label_1", "swedish_0015_label_2", "swedish_0023_label_1", "swedish_0025_label_1", "swedish_0025_label_2", "swedish_0025_label_3"
+                      "swedish_0027_label_1", "swedish_0028_label_4", "swedish_0032_label_2", "swedish_0035_label_1", "swedish_0036_label_1"
+                      "swedish_0039_label_2", "swedish_0040_label_1", "swedish_0042_label_1", "swedish_0043_label_4", "swedish_0046_label_2",
+                      "swedish_0055_label_1", "swedish_0065_label_1", "swedish_0069_label_1"
+
+                      }
     skipped = 0
     for label in prediction_list:
 
@@ -708,8 +713,8 @@ def post_processing_eval():
         # print(label)
         #label = remove_leading_number(label)
         # print(label)
-        image_name = label[:15] # for internal datset
-        #image_name = label[:12] # for swedish dataset
+        #image_name = label[:15] # for internal datset
+        image_name = label[:12] # for swedish dataset
 
         # print(image_name)
         #print(f"image name: {image_name}")
@@ -740,16 +745,16 @@ def post_processing_eval():
         #    continue
 
         # Get the row where 'ID' matches petlymph_name
-        tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
+        #tracer_row = tracer_df[tracer_df["ID"] == petlymph_name]
         # Get the value from the 'Tracer' column or set tracer to None if not found
-        tracer = tracer_row["Tracer"].values[0] if not tracer_row.empty else None
+        #tracer = tracer_row["Tracer"].values[0] if not tracer_row.empty else None
         # get the value of the machine type
-        machine = tracer_row["Scanner Type"].values[0] if not tracer_row.empty else None
+        #machine = tracer_row["Scanner Type"].values[0] if not tracer_row.empty else None
 
-        #tracer = "none"
-        #machine = "none"
-        bootstrap_data["tracer"].append(tracer)
-        bootstrap_data["machine"].append(machine)
+        tracer = "none"
+        machine = "none"
+        #bootstrap_data["tracer"].append(tracer)
+        #bootstrap_data["machine"].append(machine)
 
         #print(f"tracer : {tracer}")
         #continue
@@ -873,7 +878,7 @@ def post_processing_eval():
 
 
     # Save bootstrap_data for later resampling
-    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_net_full_with_scanner.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
+    np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_net_external_dataset_josh_list.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
 
     #np.save("/UserData/Zach_Analysis/final_3d_models_used_in_paper/data_predictions/contextual_net_.1_data.npy", bootstrap_data) # rerun bootstrap_data_contextual_net_full_test_data
     print("Bootstrap data saved for resampling.")
