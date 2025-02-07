@@ -98,7 +98,7 @@ def make_interactive_figure():
         figure_data = json.load(file)
     figure_data = figure_data["testing"]
     good_index = [12,16, 28, 32, 33, 41, 42, 43, 44] # maybe 25
-    for index in range(0, 45):
+    for index in range(0, 70):
         print(f"index: {index}")
         base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure_v2/"
         # print(sent)
