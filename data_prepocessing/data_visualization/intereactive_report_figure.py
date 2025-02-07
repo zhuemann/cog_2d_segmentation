@@ -251,5 +251,5 @@ def compound_interactive_report_v2():
     #plt.title('SUV MIP with Prediction Contours')
     plt.show()
     plt.savefig(
-        "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure_v2/" + "interactive_figure_v2" + ".png")
+        "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure_v3/" + "interactive_figure_v3" + ".png")
     plt.close()
