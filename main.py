@@ -26,6 +26,7 @@ from external_test_set_creation.physican_labeling.swedish_labeling.crop_at_head_
 from external_test_set_creation.physican_labeling.swedish_labeling.resampling_and_cropping_external import resampling_and_cropping_external
 from external_test_set_creation.physican_labeling.swedish_labeling.plot_external_labels_for_josh import plot_final_testset_for_josh_v3_external
 from data_prepocessing.data_visualization.plot_3d_predictions_single_image import plot_all_images
+from data_prepocessing.data_visualization.intereactive_report_figure import make_interactive_figure
 
 if __name__ == '__main__':
     #plot_final_internal_dataset()
@@ -35,7 +36,7 @@ if __name__ == '__main__':
     #crop_at_head_calculation_external()
     #plot_final_testset_for_josh_v3_external()
     #resampling_and_cropping_external()
-    post_processing_eval()
+    #post_processing_eval()
     #plot_all_images()
     #post_processing_eval_llmseg()
     #copy_images_and_labels_to_folder()
@@ -49,6 +50,8 @@ if __name__ == '__main__':
     #physician_post_processing_eval()
     #copy_physican_labels_to_folder()
     #process_rt_strcuts_to_nifty()
+
+    make_interactive_figure()
     print(fail)
     #compound_interactive_report_v2()
     #testing_ploting_external_cog_data()
