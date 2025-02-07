@@ -262,7 +262,7 @@ def compound_interactive_report_v2():
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
 
     # Load the SUV data (Assuming SUV data is common for all indices)
-    suv_path_final = os.path.join(image_base, "PETWB_001516_02_suv_cropped.nii.gz")
+    suv_path_final = os.path.join(image_base, "PETWB_012541_01_suv_cropped.nii.gz")
     #suv_path_final = os.path.join(image_base, "PETWB_001516_02_ct_cropped.nii.gz")
 
     nii_suv = nib.load(suv_path_final)
@@ -300,12 +300,12 @@ def compound_interactive_report_v2():
         #print(f"Levels: {prediction_mip.min()}, {prediction_mip.max()}")
 
         alpha_value = 0.5  # Use a valid alpha value
-        #ax.contour(prediction_mip, levels=[0.5], colors=[cm.jet(i / len(good_index))], alpha=alpha_value, linewidths=5)
-        ax.contour(prediction_mip, levels=[0.5], colors= '#00FF00', alpha=alpha_value, linewidths=3)
+        ax.contour(prediction_mip, levels=[0.5], colors=[cm.jet(i / len(good_index))], alpha=alpha_value, linewidths=5)
+        #ax.contour(prediction_mip, levels=[0.5], colors= '#00FF00', alpha=alpha_value, linewidths=3)
     ax.axis('off')
     # Display the plot
     #plt.title('SUV MIP with Prediction Contours')
     plt.show()
     plt.savefig(
-        "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure/" + "interactive_figure_v2" + ".png")
+        "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure_v2/" + "interactive_figure_v2" + ".png")
     plt.close()
