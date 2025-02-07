@@ -204,7 +204,7 @@ def compound_interactive_report_v2():
     good_index = [3, 4, 6, 8, 9, 10, 11, 14, 16, 25]
 
     # Base file paths
-    base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure_v2/"
+    base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure_v3/"
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
 
     # Load the SUV data (Assuming SUV data is common for all indices)
