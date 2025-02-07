@@ -94,13 +94,13 @@ def insert_newlines(text, word_limit=15):
 def make_interactive_figure():
 
     # Load JSON file
-    with open('/UserData/Zach_Analysis/uw_lymphoma_pet_3d/data_for_making_interactive_figure_v2.json', 'r') as file:
+    with open('/UserData/Zach_Analysis/uw_lymphoma_pet_3d/data_for_making_interactive_figure_v3.json', 'r') as file:
         figure_data = json.load(file)
     figure_data = figure_data["testing"]
     good_index = [12,16, 28, 32, 33, 41, 42, 43, 44] # maybe 25
     for index in range(0, 70):
         print(f"index: {index}")
-        base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure_v2/"
+        base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure_v3/"
         # print(sent)
 
         image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
@@ -192,64 +192,8 @@ def make_interactive_figure():
         sent = insert_newlines(sent, word_limit=25)
         fig.suptitle(sent, fontsize=14)
 
-        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure_v2/" + str(index) + ".png")
+        plt.savefig("/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure_v3/" + str(index) + ".png")
         plt.close()
-
-def compound_interactive_report():
-    # Load JSON file
-    with open('/UserData/Zach_Analysis/uw_lymphoma_pet_3d/data_for_making_interactive_figure.json', 'r') as file:
-        figure_data = json.load(file)
-    figure_data = figure_data["testing"]
-    good_index = [12, 16, 28, 32, 33, 41, 42, 43, 44]  # maybe 25
-    for index in good_index:
-        print(f"index: {index}")
-        base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure_v2/"
-        # print(sent)
-
-        image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
-        # image_base = "/mnt/PURENFS/Bradshaw/UW_PET_Data/SUV_images/PETWB_001516_02/"
-        ct_path_final = os.path.join(image_base, "PETWB_012541_01_ct_cropped.nii.gz")
-        # print(suv_path_final)
-        suv_path_final = os.path.join(image_base, "PETWB_012541_01_suv_cropped.nii.gz")
-        # full_pred_path = os.path.join(prediction_location, label)
-        # label_full_path = os.path.join(label_base, label)
-
-        # load in the suv data
-        nii_suv = nib.load(suv_path_final)
-        suv_data = nii_suv.get_fdata()
-        # load in the ct data
-        nii_ct = nib.load(ct_path_final)
-        # ct_data = nii_ct.get_fdata()
-        # load in the prediciton data
-        #label_final_path = os.path.join(base_file_path, str(index) + "PETWB_001516_02_label_.nii")
-        label_final_path = os.path.join(base_file_path, "sentence_" + str(index) + ".nii")
-
-        nii_prediction = nib.load(label_final_path)
-        prediction_data = nii_prediction.get_fdata()
-
-        prediction_data = np.squeeze(prediction_data, axis=(0, 1))
-        # print(f"pred data size: {prediction_data.shape}")
-        prediction_data = filter_prediction_by_average(prediction_data)
-        suv_data = resample_img_size(suv_data, prediction_data)
-        # load in label data
-        # nii_label = nib.load(label_full_path + ".gz")
-        # label_data = nii_label.get_fdata()
-
-        # Compute maximum intensity projection along axis 1
-        suv_mip = np.max(suv_data, axis=1)
-        prediction_data = np.where(prediction_data < 0.5, 0, 1)
-        prediction_mip = np.max(prediction_data, axis=1)
-
-        norm = Normalize(vmin=0.01, clip=True)  # vmin set slightly above zero to make zeros transparent
-
-        # Setup the plot with 3 subplots
-        fig, axes = plt.subplots(1, 1, figsize=(6, 6))
-
-        # Rotate the images 90 degrees counterclockwise
-        suv_mip = np.rot90(suv_mip, k=3)
-        # label_mip = np.rot90(label_mip, k=3)
-        prediction_mip = np.rot90(prediction_mip, k=3)
-
 
 def compound_interactive_report_v2():
     # Assuming you have the functions filter_prediction_by_average and resample_img_size defined
