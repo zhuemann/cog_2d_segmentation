@@ -256,7 +256,7 @@ def compound_interactive_report_v2():
 
     # Define the list of good indices
     #good_index = [12, 16, 28, 32, 33, 41, 43, 44]  # maybe 25
-    good_index = [19, 22, 25, 26, 27, 28, 29, 30, 31, 32, 36, 59]
+    good_index = [19, 22, 25, 26, 27, 29, 30, 31, 32, 36, 59]
     # Base file paths
     base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure_v2/"
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
