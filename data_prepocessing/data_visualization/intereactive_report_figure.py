@@ -118,7 +118,7 @@ def make_interactive_figure():
         nii_ct = nib.load(ct_path_final)
         # ct_data = nii_ct.get_fdata()
         # load in the prediciton data
-        label_final_path = os.path.join(base_file_path, str(index) + "PETWB_012541_01_label_.nii")
+        label_final_path = os.path.join(base_file_path, str(index) + "PETWB_012541_01_label_1.nii")
         nii_prediction = nib.load(label_final_path)
         prediction_data = nii_prediction.get_fdata()
 
