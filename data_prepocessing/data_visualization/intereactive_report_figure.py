@@ -203,14 +203,14 @@ def compound_interactive_report():
     good_index = [12, 16, 28, 32, 33, 41, 42, 43, 44]  # maybe 25
     for index in good_index:
         print(f"index: {index}")
-        base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure/"
+        base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure_v2/"
         # print(sent)
 
         image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
         # image_base = "/mnt/PURENFS/Bradshaw/UW_PET_Data/SUV_images/PETWB_001516_02/"
-        ct_path_final = os.path.join(image_base, "PETWB_001516_02_ct_cropped.nii.gz")
+        ct_path_final = os.path.join(image_base, "PETWB_012541_01_ct_cropped.nii.gz")
         # print(suv_path_final)
-        suv_path_final = os.path.join(image_base, "PETWB_001516_02_suv_cropped.nii.gz")
+        suv_path_final = os.path.join(image_base, "PETWB_012541_01_suv_cropped.nii.gz")
         # full_pred_path = os.path.join(prediction_location, label)
         # label_full_path = os.path.join(label_base, label)
 
@@ -221,7 +221,9 @@ def compound_interactive_report():
         nii_ct = nib.load(ct_path_final)
         # ct_data = nii_ct.get_fdata()
         # load in the prediciton data
-        label_final_path = os.path.join(base_file_path, str(index) + "PETWB_001516_02_label_.nii")
+        #label_final_path = os.path.join(base_file_path, str(index) + "PETWB_001516_02_label_.nii")
+        label_final_path = os.path.join(base_file_path, "sentence_" + str(index) + ".nii")
+
         nii_prediction = nib.load(label_final_path)
         prediction_data = nii_prediction.get_fdata()
 
@@ -253,10 +255,10 @@ def compound_interactive_report_v2():
     # Assuming you have the functions filter_prediction_by_average and resample_img_size defined
 
     # Define the list of good indices
-    good_index = [12, 16, 28, 32, 33, 41, 43, 44]  # maybe 25
-    good_index = [44]
+    #good_index = [12, 16, 28, 32, 33, 41, 43, 44]  # maybe 25
+    good_index = [19, 22, 25, 26, 27, 28, 29, 30, 31, 32, 36, 59]
     # Base file paths
-    base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure/"
+    base_file_path = "/UserData/Zach_Analysis/git_multimodal/3DVision_Language_Segmentation_inference/COG_dynunet_baseline/COG_dynunet_0_baseline/dynunet_0_0/paper_predictions/interactive_report_figure_v2/"
     image_base = "/mnt/Bradshaw/UW_PET_Data/resampled_cropped_images_and_labels/images6/"
 
     # Load the SUV data (Assuming SUV data is common for all indices)
@@ -281,7 +283,9 @@ def compound_interactive_report_v2():
         print(f"Processing index: {index}")
 
         # Load the prediction data
-        label_final_path = os.path.join(base_file_path, f"{index}PETWB_001516_02_label_.nii")
+        #label_final_path = os.path.join(base_file_path, f"{index}PETWB_001516_02_label_.nii")
+        label_final_path = os.path.join(base_file_path, "sentence_" + str(index) + ".nii")
+
         nii_prediction = nib.load(label_final_path)
         prediction_data = nii_prediction.get_fdata()
 
@@ -303,5 +307,5 @@ def compound_interactive_report_v2():
     #plt.title('SUV MIP with Prediction Contours')
     plt.show()
     plt.savefig(
-        "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure/" + "single_contour_44" + ".png")
+        "/UserData/Zach_Analysis/petlymph_image_data/prediction_mips_for_presentations/interactive_report_figure/" + "interactive_figure_v2" + ".png")
     plt.close()
